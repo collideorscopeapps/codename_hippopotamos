@@ -12,7 +12,6 @@ import java.io.File;
 import it.collideorscopeapps.codename_hippopotamos.database.AsyncResponse;
 import it.collideorscopeapps.codename_hippopotamos.database.CopyFileTask;
 import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
-import it.collideorscopeapps.codename_hippopotamos.database.Utils;
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         setContentView(R.layout.activity_main);
 
         dbManager = new DBManager(this);
-        copyFileTask =  new CopyFileTask(this);
+        copyFileTask =  new CopyFileTask(this, this.getAssets());
 
         // todo, after db copy, try to open db and query it
 
@@ -39,12 +38,13 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         if(wasCopySuccessful) {
 
             Toast.makeText(this, "Copy database success", Toast.LENGTH_SHORT).show();
+            Log.v("Main activity", "Copy database success, opening quote activity..");
             this.openQuoteActivity();
         }
         else
         {
             Toast.makeText(this, "Copy database ERROR", Toast.LENGTH_SHORT).show();
-            return;
+            Log.v("Main activity", "Copy database ERROR");
         }
     }
 
@@ -54,24 +54,28 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
         //TODO also check if DB is older version, in that case copy it again
         if(false == database.exists()) {
-            Log.v("Main activity", "DB doed not exits, trying to copy..");
+            Log.v("Main activity", "DB does not exits, trying to copy..");
             dbManager.getReadableDatabase();
 
             String[] copyDBParams = { "/android_assets/" + DBManager.DB_NAME,
                     DBManager.DB_LOCATION + DBManager.DB_NAME};
 
-            copyFileTask.execute(copyDBParams);
+            copyFileTask.execute();
 
         }
         else {
-            Log.v("Main activity", "DB already exits");
+            Log.v("Main activity", "DB already exits: " + database.getAbsolutePath());
+
+            Boolean wasCopySuccessful = true;
+            processFinish(wasCopySuccessful);
         }
     }
 
     void openQuoteActivity() {
 
-        Intent intent = new Intent(MainActivity.this, QuoteActivity.class);
+        dbManager.getQuotes();
 
+        Intent intent = new Intent(MainActivity.this, QuoteActivity.class);
         startActivity(intent);
     }
 }

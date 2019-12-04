@@ -1,12 +1,14 @@
 package it.collideorscopeapps.codename_hippopotamos.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
@@ -16,7 +18,9 @@ public class DBManager extends SQLiteOpenHelper {
 
     // TODO copy db from assets folder to data/data
 
-    public static final String DB_NAME = "greekquotes.sqlite";
+    public static final String DB_NAME = "greekquotes";
+
+    // TODO avoid hardocoded path name
     public static final String DB_LOCATION = "/data/data" +
             "/it.collideorscopeapps.codename_hippopotamos" +
             "/databases/";
@@ -60,8 +64,9 @@ public class DBManager extends SQLiteOpenHelper {
 
     public List<Quote> getQuotes() {
 
-        return null;
+            return null;
     }
+
 
     @Deprecated
      private void tryReadDB() throws IOException {
@@ -83,18 +88,6 @@ public class DBManager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        String createTableGreekQuores = "CREATE TABLE greek_quotes (id PRIMARY KEY AUTOINCREMENT, " +
-                "quoteText TEXT, " +
-                "EEcomment TEXT, " + //Easter Egg comment
-                "grAudioResFileName TEXT)";
-
-        String createTableTranslationLanguages = "CREATE TABLE translation_languages (id PRIMARY KEY AUTOINCREMENT, " +
-                "quoteText TEXT, " +
-                "EEcomment TEXT, " + //Easter Egg comment
-                "grAudioResFileName TEXT)";
-
-        sqLiteDatabase.execSQL(createTableGreekQuores);
-        sqLiteDatabase.execSQL(createTableTranslationLanguages);
     }
 
     @Override

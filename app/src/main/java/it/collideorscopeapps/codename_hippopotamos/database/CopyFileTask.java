@@ -1,63 +1,60 @@
 package it.collideorscopeapps.codename_hippopotamos.database;
 
+import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
 
 
-// AsyncTask<Params, Progress, Result>.
-public class CopyFileTask extends AsyncTask<String, Integer, Boolean> {
-
+public class CopyFileTask extends AsyncTask<Void, Integer, Boolean> {
 
     public AsyncResponse delegate;
+    AssetManager assetManager;
 
 
-    public CopyFileTask(AsyncResponse delegate) {
+    public CopyFileTask(AsyncResponse delegate, AssetManager assetManager) {
         this.delegate = delegate;
+
+        this.assetManager = assetManager;
     }
 
-    protected Boolean doInBackground(String... params) {
+    protected Boolean doInBackground(Void... params) {
 
-        String inputFileName = params[0];
-        String outputFileName = params[1];
-
-        // total size DB in bytes
-        // from input stream, get total size before read
-        // alternative: context.getAssets().openFd(DBManager.DB_NAME).getLength()
-        double dbInputFileSize = new File(inputFileName).length();//path: "/android_assets/" + DBManager.DB_NAME
+        String outputFileName = DBManager.DB_LOCATION + DBManager.DB_NAME;
 
         boolean wasCopySuccessful = false;
 
         // TODO check if there is enough space in the SD card to copy the db
 
-        try(InputStream dbAssetFileInputStream = new FileInputStream((inputFileName));//context.getAssets().open(DBManager.DB_NAME);
+        try(InputStream dbAssetFileInputStream = assetManager.open(DBManager.DB_NAME);
             OutputStream outputStream = new FileOutputStream(outputFileName)) {
 
 
             byte[] buffer = new byte[1024];
-            int bytesReadCount;
+            int lastBytesReadCount = 0;
             final int END_OF_FILE_CODE = -1;
 
-            do {
-                bytesReadCount = dbAssetFileInputStream.read(buffer);
-                outputStream.write(buffer, 0, bytesReadCount);
+            while (lastBytesReadCount != END_OF_FILE_CODE) {
+                lastBytesReadCount = dbAssetFileInputStream.read(buffer);
+
+                if(lastBytesReadCount != END_OF_FILE_CODE) {
+                    outputStream.write(buffer, 0, lastBytesReadCount);
+                }
+                else {
+                    break;
+                }
 
                 // we could update progress here (percent of copied file)
             }
-            while (bytesReadCount != END_OF_FILE_CODE);
 
             outputStream.flush();
             wasCopySuccessful = true;
-            Log.v("DB Utils", "DB Copied");
+            Log.v("CopyFileTask", "DB Copied");
         }
         catch (Exception e) {
-
+            Log.v("CopyFileTask", "Error: " + e.toString());
         }
 
         return wasCopySuccessful;
