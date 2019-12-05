@@ -30,27 +30,34 @@ CREATE TABLE IF NOT EXISTS "quotes_translations" (
 	FOREIGN KEY("translation_language_id") REFERENCES "translation_languages"("_id")
 );
 
+INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (2,'ἀγαθός');
 
-INSERT INTO "greek_quotes" ("quoteText") VALUES ('τόπος ');
-INSERT INTO "greek_quotes" ("quoteText") VALUES ('φίλος');
-INSERT INTO "greek_quotes" ("quoteText") VALUES ('λόγος');
+INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (3,'τόπος ');
+INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (4,'φίλος');
+INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (5,'λόγος');
 
-INSERT INTO "greek_quotes" ("quoteText") VALUES ('ἄντρωπος');
-INSERT INTO "greek_quotes" ("quoteText") VALUES ('ἄγγελος');
-
+INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (6,'ἄνθρωπος');
+INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (7,'ἄγγελος');
 
 
 INSERT INTO "android_metadata" ("locale") VALUES ('en_US');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (1,'English');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (2,'Italian');
-INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","translation") VALUES (2,2,'Buono');
-INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","translation") VALUES (2,1,'Good');
 
+INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","translation") VALUES (2,2,'Buono, nobile');
+INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","translation") VALUES (2,1,'Good, noble');
+INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","translation") VALUES (3,2,'Luogo');
+
+INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","translation") VALUES (4,2,'Caro, amico');
+INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","translation") VALUES (5,2,'Parola');
+INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","translation") VALUES (6,2,'Uomo');
+INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","translation") VALUES (7,2,'Messaggero');
 
 CREATE VIEW v_quotes_and_translations
 AS
 SELECT gq._id , tl.LanguageName AS translation_language, qt.translation AS translation, gq.quoteText AS quote, gq.EEcomment as EEcomment
 FROM greek_quotes gq, quotes_translations qt, translation_languages tl
-WHERE gq._id = qt.greek_quote_id AND translation_language_id = tl._id;
+WHERE gq._id = qt.greek_quote_id AND translation_language_id = tl._id
+ORDER BY translation_language;
 
 COMMIT;
