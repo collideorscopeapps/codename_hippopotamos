@@ -1,5 +1,10 @@
 BEGIN TRANSACTION;
+DROP VIEW IF EXISTS v_quotes_and_translations;
+DROP TABLE IF EXISTS "quotes_translations";
+DROP TABLE IF EXISTS "translation_languages";
+DROP TABLE IF EXISTS "android_metadata";
 DROP TABLE IF EXISTS "greek_quotes";
+
 CREATE TABLE IF NOT EXISTS "greek_quotes" (
 	"_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	"quoteText"	TEXT,
@@ -7,18 +12,15 @@ CREATE TABLE IF NOT EXISTS "greek_quotes" (
 	"grAudioResFileName"	TEXT
 );
 
-DROP TABLE IF EXISTS "android_metadata";
 CREATE TABLE IF NOT EXISTS "android_metadata" (
 	"locale"	TEXT DEFAULT 'en_US'
 );
 
-DROP TABLE IF EXISTS "translation_languages";
 CREATE TABLE IF NOT EXISTS "translation_languages" (
 	"_id"	INTEGER PRIMARY KEY AUTOINCREMENT,
 	"LanguageName"	TEXT UNIQUE
 );
 
-DROP TABLE IF EXISTS "quotes_translations";
 CREATE TABLE IF NOT EXISTS "quotes_translations" (
 	"greek_quote_id"	INTEGER NOT NULL,
 	"translation_language_id"	INTEGER NOT NULL,
@@ -36,7 +38,6 @@ INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","t
 INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","translation") VALUES (2,1,'Good');
 
 
-DROP VIEW IF EXISTS v_quotes_and_translations;
 CREATE VIEW v_quotes_and_translations
 AS
 SELECT gq._id , tl.LanguageName AS translation_language, qt.translation AS translation, gq.quoteText AS quote, gq.EEcomment as EEcomment
