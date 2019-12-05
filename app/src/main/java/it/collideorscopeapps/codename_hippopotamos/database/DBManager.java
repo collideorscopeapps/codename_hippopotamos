@@ -21,6 +21,10 @@ public class DBManager extends SQLiteOpenHelper {
     public static final String DB_NAME = "greekquotes";
 
     // TODO avoid hardocoded path name
+    // TODO check also why this path is used /data/user/0/it.collideorscopeapps.codename_hippopotamos/databases/greekquotes.sqlite
+    // TODO check if /data/data might not be on the SD card, taking space on the phone drive
+    // TODO possibility of downloading the db at app first run, to avoiding dubling the space by keeping a copy in assets folder
+    // TODO locale in android_metadata table: check if something is needed because of ancient greek text
     public static final String DB_LOCATION = "/data/data" +
             "/it.collideorscopeapps.codename_hippopotamos" +
             "/databases/";
@@ -64,9 +68,9 @@ public class DBManager extends SQLiteOpenHelper {
 
     public List<Quote> getQuotes() {
 
+
             return null;
     }
-
 
     @Deprecated
      private void tryReadDB() throws IOException {
