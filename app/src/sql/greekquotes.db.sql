@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS "quotes_translations" (
 	"translation_language_id"	INTEGER NOT NULL,
 	"translation"	TEXT,
 	PRIMARY KEY("greek_quote_id","translation_language_id"),
-	FOREIGN KEY("greek_quote_id") REFERENCES "greek_quotes"("_id")
+	FOREIGN KEY("greek_quote_id") REFERENCES "greek_quotes"("_id"),
 	FOREIGN KEY("translation_language_id") REFERENCES "translation_languages"("_id")
 );
 
