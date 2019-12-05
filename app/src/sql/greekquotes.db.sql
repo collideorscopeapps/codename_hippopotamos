@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS "quotes_translations" (
 	FOREIGN KEY("translation_language_id") REFERENCES "translation_languages"("_id")
 );
 
-INSERT INTO "greek_quotes" ("_id","quoteText","EEcomment","grAudioResFileName") VALUES (2,'ἀγαθός','just trying some words','');
+INSERT INTO "greek_quotes" ("_id","quoteText","EEcomment","grAudioResFileName") VALUES (2,'ἀγαθός','just trying some words','');
 INSERT INTO "android_metadata" ("locale") VALUES ('en_US');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (1,'English');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (2,'Italian');
