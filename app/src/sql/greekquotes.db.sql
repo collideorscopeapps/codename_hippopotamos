@@ -55,7 +55,7 @@ INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","t
 
 CREATE VIEW v_quotes_and_translations
 AS
-SELECT gq._id , tl.LanguageName AS translation_language, qt.translation AS translation, gq.quoteText AS quote, gq.EEcomment as EEcomment
+SELECT gq._id , tl.LanguageName AS translation_language, gq.quoteText AS quote, qt.translation AS translation, gq.EEcomment as EEcomment
 FROM greek_quotes gq, quotes_translations qt, translation_languages tl
 WHERE gq._id = qt.greek_quote_id AND translation_language_id = tl._id
 ORDER BY translation_language;
