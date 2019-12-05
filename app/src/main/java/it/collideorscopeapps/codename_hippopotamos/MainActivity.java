@@ -15,8 +15,6 @@ import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
-    private CopyFileTask copyFileTask;
-
     private DBManager dbManager;
 
     @Override
@@ -25,11 +23,11 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         setContentView(R.layout.activity_main);
 
         dbManager = new DBManager(this);
-        copyFileTask =  new CopyFileTask(this, this.getAssets());
 
         // todo, after db copy, try to open db and query it
 
-        this.createDB();
+        //this.createDB();
+        dbManager.getQuotes();
 
     }
 
@@ -50,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
     private void createDB() {
 
+        CopyFileTask copyFileTask =  new CopyFileTask(this, this.getAssets());
         File database = getApplicationContext().getDatabasePath(DBManager.DB_NAME);
 
         //TODO also check if DB is older version, in that case copy it again

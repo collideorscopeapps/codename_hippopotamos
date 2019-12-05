@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class DBManager extends SQLiteOpenHelper {
     // TODO check if /data/data might not be on the SD card, taking space on the phone drive
     // TODO possibility of downloading the db at app first run, to avoiding dubling the space by keeping a copy in assets folder
     // TODO locale in android_metadata table: check if something is needed because of ancient greek text
+    // what if db is stored elsewhere depending on phone version?
+    // make unit/integration tests for this?
     public static final String DB_LOCATION = "/data/data" +
             "/it.collideorscopeapps.codename_hippopotamos" +
             "/databases/";
@@ -66,8 +69,39 @@ public class DBManager extends SQLiteOpenHelper {
         }
     }
 
+    private void createDBFromSqlFile() {
+
+        String dbPath = myContext.getDatabasePath(DB_NAME).getPath();
+
+        if(myDatabase != null && myDatabase.isOpen()) {
+            Log.v("DBManager", "DB aready open, not creating it.");
+            return;
+        }
+
+        Log.v("DBManager", "Creating DB from Sql file..");
+
+        myDatabase = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+
+        String queries = Utils.getQueriesFromSqlFile(myContext);
+        for (String query : queries.split(";")) {
+            myDatabase.execSQL(query);
+        }
+    }
+
     public List<Quote> getQuotes() {
 
+        ArrayList<Quote> quotes = new ArrayList<>();
+        createDBFromSqlFile();
+        openDatabase();
+
+        String queryGreekQuotes = "SELECT * FROM greek_quotes";
+
+        String querySchermata = "SELECT * FROM v_schermate";
+        //Cursor cursor = myDatabase.rawQuery(queryGreekQuotes, null);
+        Cursor cursor = myDatabase.rawQuery(querySchermata, null);
+
+        cursor.moveToFirst();
+        String[] colNames = cursor.getColumnNames();
 
             return null;
     }
@@ -91,7 +125,7 @@ public class DBManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+        createDBFromSqlFile();
     }
 
     @Override

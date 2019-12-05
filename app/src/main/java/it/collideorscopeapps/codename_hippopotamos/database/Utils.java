@@ -3,13 +3,44 @@ package it.collideorscopeapps.codename_hippopotamos.database;
 import android.content.Context;
 import android.util.Log;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+
+import it.collideorscopeapps.codename_hippopotamos.R;
 
 
 public class Utils {
+
+    public static String getQueriesFromSqlFile(Context context) {
+
+        InputStream inputStream = context.getResources().openRawResource(R.raw.greekquotes);
+
+        String queries = "";
+
+        //creating an InputStreamReader object
+        InputStreamReader isReader = new InputStreamReader(inputStream);
+        //Creating a BufferedReader object
+        BufferedReader reader = new BufferedReader(isReader);
+        StringBuffer sb = new StringBuffer();
+
+        try {
+            String str;
+            while((str = reader.readLine())!= null){
+                sb.append(str);
+            }
+
+        } catch (IOException e) {
+            Log.v("DB Utils", e.toString());
+        }
+
+        queries = sb.toString();
+
+        return queries;
+    }
 
     @Deprecated
     public static boolean copyDatabase(Context context) {
