@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS "greek_quotes";
 CREATE TABLE IF NOT EXISTS "greek_quotes" (
 	"_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	"quoteText"	TEXT,
-	"grAudioResFileName"	TEXT
+	"audioFileName"	TEXT
 );
 
 CREATE TABLE IF NOT EXISTS "android_metadata" (
@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS "schermate" (
 CREATE TABLE IF NOT EXISTS "quotes_in_schermate" (
 	"greek_quote_id"	INTEGER NOT NULL,
 	"schermata_id"	INTEGER NOT NULL,
+	"position"  INTEGER NOT NULL,
 
 	PRIMARY KEY("greek_quote_id","schermata_id"),
 	FOREIGN KEY("greek_quote_id") REFERENCES "greek_quotes"("_id"),
@@ -56,7 +57,13 @@ CREATE VIEW v_quotes_and_translations AS
     ORDER BY translation_language;
 
 CREATE VIEW v_schermate AS
-    SELECT s._id AS s_id, gq.quoteText AS quote, s.description AS description, s.author_ref AS cit, s.EEcomment as EEcomment
+    SELECT s._id AS s_id,
+    gq.quoteText AS quote,
+    qs.position AS position,
+    s.description AS description,
+    s.author_ref AS cit,
+    s.EEcomment as EEcomment,
+    gq.audioFileName as audioFileName
     FROM greek_quotes gq, quotes_in_schermate qs, schermate s
     WHERE  qs.greek_quote_id = gq._id AND qs.schermata_id = s._id
     ORDER BY s._id;

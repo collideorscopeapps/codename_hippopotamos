@@ -25,8 +25,8 @@ INSERT INTO "quotes_translations" ("greek_quote_id","translation_language_id","t
 INSERT INTO "schermate" ("_id", "description") VALUES (1,'parossìtone due sillabe');
 INSERT INTO "schermate" ("_id", "description") VALUES (2,'proparossìtone tre sillabe');
 
-INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id") VALUES (1,3);
-INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id") VALUES (1,4);
-INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id") VALUES (1,5);
-INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id") VALUES (2,6);
-INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id") VALUES (2,7);
+INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id", "position") VALUES (1,3, 1);
+INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id", "position") VALUES (1,4, 2);
+INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id", "position") VALUES (1,5, 3);
+INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id", "position") VALUES (2,6, 1);
+INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id", "position") VALUES (2,7, 2);

@@ -8,14 +8,17 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import it.collideorscopeapps.codename_hippopotamos.database.AsyncResponse;
 import it.collideorscopeapps.codename_hippopotamos.database.CopyFileTask;
 import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
+import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
     private DBManager dbManager;
+    ArrayList<Schermata> schermate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         // todo, after db copy, try to open db and query it
 
         //this.createDB();
-        dbManager.getQuotes();
+
+        schermate = dbManager.getSchermate();
 
     }
 
@@ -47,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     }
 
     void openQuoteActivity() {
-
-        dbManager.getQuotes();
 
         Intent intent = new Intent(MainActivity.this, QuoteActivity.class);
         startActivity(intent);

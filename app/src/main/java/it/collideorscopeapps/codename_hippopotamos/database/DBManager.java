@@ -3,17 +3,28 @@ package it.collideorscopeapps.codename_hippopotamos.database;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
+import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 public class DBManager extends SQLiteOpenHelper {
 
@@ -42,7 +53,7 @@ public class DBManager extends SQLiteOpenHelper {
         this.myContext = context;
     }
 
-    public void openDatabase() {
+    public void openDatabaseReadonly() {
 
         String dbPath = myContext.getDatabasePath(DB_NAME).getPath();
 
@@ -107,36 +118,57 @@ public class DBManager extends SQLiteOpenHelper {
 
     }
 
-    public List<Quote> getQuotes() {
+    public ArrayList<Schermata> getSchermate() {
 
-        ArrayList<Quote> quotes = new ArrayList<>();
         myCreateDBFromSqlFile();
-        openDatabase();
+        openDatabaseReadonly();
 
-        String queryGreekQuotes = "SELECT * FROM greek_quotes";
+        int schermateCount = (int)DatabaseUtils.queryNumEntries(myDatabase,
+                "schermate");
+        ArrayList<Schermata> schermate = new ArrayList<Schermata>();
 
-        String querySchermata = "SELECT * FROM v_schermate";
-        //Cursor cursor = myDatabase.rawQuery(queryGreekQuotes, null);
-        Cursor cursor = myDatabase.rawQuery(querySchermata, null);
+        String quotesAndSchermateQuery = "SELECT * FROM v_schermate";
+        Cursor cursor = myDatabase.rawQuery(quotesAndSchermateQuery, null);
+
+        final int idColIdx = cursor.getColumnIndex("s_id");
+        final int quoteColIdx = cursor.getColumnIndex("quote");
+        final int positionColIdx = cursor.getColumnIndex("position");
+        final int descriptionColIdx = cursor.getColumnIndex("description");
+        final int citColIdx = cursor.getColumnIndex("cit");
+        final int eeCommentColIdx = cursor.getColumnIndex("EEcomment");
+        final int audioFileNameColIdx = cursor.getColumnIndex("audioFileName");
 
         cursor.moveToFirst();
-        String[] colNames = cursor.getColumnNames();
-
-        // WIP..
-        ArrayList<String> tableNames = new ArrayList<>();
-        int colCount = cursor.getColumnCount();
         while(!cursor.isAfterLast()) {
+            int idSchermata = cursor.getInt(idColIdx);
+            String greekQuote = cursor.getString(quoteColIdx);
+            int quotePosition = cursor.getInt(positionColIdx);
+            String description = cursor.getString(descriptionColIdx);
+            String cit = cursor.getString(citColIdx);
+            String easterEggComment = cursor.getString(eeCommentColIdx);
+            String audioFileName = cursor.getString(audioFileNameColIdx);
 
-            // ..
-            cursor.getString(0);
+            Quote currentQuote = new Quote(quotePosition, greekQuote, audioFileName);
+            Schermata currentSchermata = new Schermata(idSchermata,
+                        description,
+                        cit,
+                        easterEggComment);
 
-            tableNames.add(cursor.getString(0));
+            int schermataIndexInArray = schermate.indexOf(currentSchermata);
+            final int ELEMENT_NOT_FOUND = -1;
+            if(schermataIndexInArray == ELEMENT_NOT_FOUND){
 
-            Quote greekQuote = new Quote(0,
-                    null, null, null);
+                schermate.add(currentSchermata);
+                currentSchermata.addQuote(currentQuote);
+            }
+            else {
+                schermate.get(schermataIndexInArray).addQuote(currentQuote);
+            }
+
             cursor.moveToNext();
         }
-            return null;
+
+        return schermate;
     }
 
  /*   public ArrayList<ContentValues> getMovies() {
