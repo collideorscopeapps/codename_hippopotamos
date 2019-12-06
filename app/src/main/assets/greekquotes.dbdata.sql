@@ -1,4 +1,7 @@
 
+INSERT INTO "credits" ("credit") VALUES ('Wikipedia, List of Greek phrases, https://en.wikipedia.org/wiki/List_of_Greek_phrases');
+INSERT INTO "credits" ("credit") VALUES ('Francese, Christopher. Greek Core Vocabulary. Dickinson College Commentaries (2014). http://dcc.dickinson.edu/greek-core-list');
+
 INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (2,'ἀγαθός');
 
 INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (3,'τόπος ');
