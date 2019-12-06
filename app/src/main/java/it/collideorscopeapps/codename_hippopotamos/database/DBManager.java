@@ -130,7 +130,8 @@ public class DBManager extends SQLiteOpenHelper {
         String quotesAndSchermateQuery = "SELECT * FROM v_schermate";
         Cursor cursor = myDatabase.rawQuery(quotesAndSchermateQuery, null);
 
-        final int idColIdx = cursor.getColumnIndex("s_id");
+        final int schermataIdColIdx = cursor.getColumnIndex("s_id");
+        final int greekQuoteIddColIdx = cursor.getColumnIndex("gq_id");
         final int quoteColIdx = cursor.getColumnIndex("quote");
         final int phoneticColIdx = cursor.getColumnIndex("phoneticTranscription");
         final int positionColIdx = cursor.getColumnIndex("position");
@@ -141,7 +142,8 @@ public class DBManager extends SQLiteOpenHelper {
 
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
-            int idSchermata = cursor.getInt(idColIdx);
+            int idSchermata = cursor.getInt(schermataIdColIdx);
+            int idQuote = cursor.getInt(greekQuoteIddColIdx);
             String greekQuote = cursor.getString(quoteColIdx);
             String phoneticTranscription = cursor.getString(phoneticColIdx);
             int quotePosition = cursor.getInt(positionColIdx);
@@ -150,7 +152,7 @@ public class DBManager extends SQLiteOpenHelper {
             String easterEggComment = cursor.getString(eeCommentColIdx);
             String audioFileName = cursor.getString(audioFileNameColIdx);
 
-            Quote currentQuote = new Quote(quotePosition, greekQuote, phoneticTranscription, audioFileName);
+            Quote currentQuote = new Quote(idQuote, quotePosition, greekQuote, phoneticTranscription, audioFileName);
             Schermata currentSchermata = new Schermata(idSchermata,
                         description,
                         cit,

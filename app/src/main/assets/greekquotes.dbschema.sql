@@ -59,6 +59,7 @@ CREATE VIEW v_quotes_and_translations AS
 
 CREATE VIEW v_schermate AS
     SELECT s._id AS s_id,
+    gq._id AS gq_id,
     gq.quoteText AS quote,
     gq.phoneticTranscription AS phoneticTranscription,
     qs.position AS position,
