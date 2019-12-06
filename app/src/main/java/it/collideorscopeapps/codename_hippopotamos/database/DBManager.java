@@ -132,6 +132,7 @@ public class DBManager extends SQLiteOpenHelper {
 
         final int idColIdx = cursor.getColumnIndex("s_id");
         final int quoteColIdx = cursor.getColumnIndex("quote");
+        final int phoneticColIdx = cursor.getColumnIndex("phoneticTranscription");
         final int positionColIdx = cursor.getColumnIndex("position");
         final int descriptionColIdx = cursor.getColumnIndex("description");
         final int citColIdx = cursor.getColumnIndex("cit");
@@ -142,13 +143,14 @@ public class DBManager extends SQLiteOpenHelper {
         while(!cursor.isAfterLast()) {
             int idSchermata = cursor.getInt(idColIdx);
             String greekQuote = cursor.getString(quoteColIdx);
+            String phoneticTranscription = cursor.getString(phoneticColIdx);
             int quotePosition = cursor.getInt(positionColIdx);
             String description = cursor.getString(descriptionColIdx);
             String cit = cursor.getString(citColIdx);
             String easterEggComment = cursor.getString(eeCommentColIdx);
             String audioFileName = cursor.getString(audioFileNameColIdx);
 
-            Quote currentQuote = new Quote(quotePosition, greekQuote, audioFileName);
+            Quote currentQuote = new Quote(quotePosition, greekQuote, phoneticTranscription, audioFileName);
             Schermata currentSchermata = new Schermata(idSchermata,
                         description,
                         cit,

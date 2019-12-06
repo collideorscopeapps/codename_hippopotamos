@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS "greek_quotes";
 CREATE TABLE IF NOT EXISTS "greek_quotes" (
 	"_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	"quoteText"	TEXT,
+	"phoneticTranscription" TEXT,
 	"audioFileName"	TEXT
 );
 
@@ -59,6 +60,7 @@ CREATE VIEW v_quotes_and_translations AS
 CREATE VIEW v_schermate AS
     SELECT s._id AS s_id,
     gq.quoteText AS quote,
+    gq.phoneticTranscription AS phoneticTranscription,
     qs.position AS position,
     s.description AS description,
     s.author_ref AS cit,
