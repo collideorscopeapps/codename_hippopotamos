@@ -1,6 +1,7 @@
 package it.collideorscopeapps.codename_hippopotamos.database;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -82,10 +83,25 @@ public class DBManager extends SQLiteOpenHelper {
 
         myDatabase = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY);
 
-        String queries = Utils.getQueriesFromSqlFile(myContext);
-        for (String query : queries.split(";")) {
-            myDatabase.execSQL(query);
+        AssetManager assetManager = this.myContext.getAssets();
+        String schemaQueries = Utils.getShemaCreationQueriesFromSqlFile(assetManager);
+        String dataInsertQueries = Utils.getDataInsertionQueriesFromSqlFile(assetManager);
+        myDatabase.beginTransaction();
+        try {
+            for (String query : schemaQueries.split(";")) {
+                myDatabase.execSQL(query);
+            }
+            for (String query : dataInsertQueries.split(";")) {
+                myDatabase.execSQL(query);
+            }
+            myDatabase.setTransactionSuccessful();
+            Log.v("DBManager", "Successfully created DB schema and inserted data.");
+
+        } finally {
+
+            myDatabase.endTransaction();
         }
+
     }
 
     public List<Quote> getQuotes() {
@@ -102,6 +118,7 @@ public class DBManager extends SQLiteOpenHelper {
 
         cursor.moveToFirst();
         String[] colNames = cursor.getColumnNames();
+
 
             return null;
     }
