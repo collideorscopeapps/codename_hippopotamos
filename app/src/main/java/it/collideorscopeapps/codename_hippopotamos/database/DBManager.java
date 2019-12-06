@@ -18,20 +18,12 @@ import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 public class DBManager extends SQLiteOpenHelper {
 
 
-    // TODO copy db from assets folder to data/data
-
     public static final String DB_NAME = "greekquotes";
 
-    // TODO avoid hardocoded path name
-    // TODO check also why this path is used /data/user/0/it.collideorscopeapps.codename_hippopotamos/databases/greekquotes.sqlite
-    // TODO check if /data/data might not be on the SD card, taking space on the phone drive
-    // TODO possibility of downloading the db at app first run, to avoiding dubling the space by keeping a copy in assets folder
-    // TODO locale in android_metadata table: check if something is needed because of ancient greek text
-    // what if db is stored elsewhere depending on phone version?
-    // make unit/integration tests for this?
-    public static final String DB_LOCATION = "/data/data" +
-            "/it.collideorscopeapps.codename_hippopotamos" +
-            "/databases/";
+    // TODO for the audio files, not stored into the db, check how to have them in the sd card only
+    // i.e. by downloading them
+    // TODO check if there is a default "app data" dir in the sd card, or path conventions
+    // TODO make unit/integration tests
 
     public static final int DATABASE_VERSION = 1;
     private final Context myContext; //TODO check if final is necessary
@@ -70,20 +62,23 @@ public class DBManager extends SQLiteOpenHelper {
         }
     }
 
-    private void createDBFromSqlFile() {
+    public static Boolean createDBFromSqlFile(Context myContext, SQLiteDatabase myDatabase) {
+        //TODO use DB version, check it to avoid creating db every time app starts
+
+        Boolean creationPerformed = false;
 
         String dbPath = myContext.getDatabasePath(DB_NAME).getPath();
 
         if(myDatabase != null && myDatabase.isOpen()) {
             Log.v("DBManager", "DB aready open, not creating it.");
-            return;
+            return creationPerformed;
         }
 
         Log.v("DBManager", "Creating DB from Sql file..");
 
         myDatabase = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY);
 
-        AssetManager assetManager = this.myContext.getAssets();
+        AssetManager assetManager = myContext.getAssets();
         String schemaQueries = Utils.getShemaCreationQueriesFromSqlFile(assetManager);
         String dataInsertQueries = Utils.getDataInsertionQueriesFromSqlFile(assetManager);
         myDatabase.beginTransaction();
@@ -95,6 +90,7 @@ public class DBManager extends SQLiteOpenHelper {
                 myDatabase.execSQL(query);
             }
             myDatabase.setTransactionSuccessful();
+            creationPerformed = true;
             Log.v("DBManager", "Successfully created DB schema and inserted data.");
 
         } finally {
@@ -102,12 +98,19 @@ public class DBManager extends SQLiteOpenHelper {
             myDatabase.endTransaction();
         }
 
+        return creationPerformed;
+    }
+
+    private void myCreateDBFromSqlFile() {
+
+        createDBFromSqlFile(myContext, myDatabase);
+
     }
 
     public List<Quote> getQuotes() {
 
         ArrayList<Quote> quotes = new ArrayList<>();
-        createDBFromSqlFile();
+        myCreateDBFromSqlFile();
         openDatabase();
 
         String queryGreekQuotes = "SELECT * FROM greek_quotes";
@@ -119,9 +122,55 @@ public class DBManager extends SQLiteOpenHelper {
         cursor.moveToFirst();
         String[] colNames = cursor.getColumnNames();
 
+        // WIP..
+        ArrayList<String> tableNames = new ArrayList<>();
+        int colCount = cursor.getColumnCount();
+        while(!cursor.isAfterLast()) {
 
+            // ..
+            cursor.getString(0);
+
+            tableNames.add(cursor.getString(0));
+
+            Quote greekQuote = new Quote(0,
+                    null, null, null);
+            cursor.moveToNext();
+        }
             return null;
     }
+
+ /*   public ArrayList<ContentValues> getMovies() {
+
+        ArrayList<ContentValues> movies = new ArrayList<>();
+
+        try(SQLiteDatabase db = getReadableDatabase()) {
+
+            String query = "SELECT * FROM films";
+
+            Cursor cursor = db.rawQuery(query, null);
+
+            cursor.moveToFirst();
+
+            while(!cursor.isAfterLast()) {
+
+                ContentValues movie = new ContentValues();
+
+                movie.put("id", cursor.getInt(cursor.getColumnIndex("id")));
+                movie.put("nome", cursor.getString(cursor.getColumnIndex("nome")));
+                movie.put("genere", cursor.getString(cursor.getColumnIndex("genere")));
+                movie.put("anno_prod", cursor.getString(cursor.getColumnIndex("anno_prod")));
+                movie.put("tipo_supp", cursor.getString(cursor.getColumnIndex("tipo_supp")));
+                movie.put("locandina", cursor.getString(cursor.getColumnIndex("locandina")));
+
+                movies.add(movie);
+
+                cursor.moveToNext();
+            }
+        }
+
+        return movies;
+
+    }*/
 
     @Deprecated
      private void tryReadDB() throws IOException {
@@ -142,7 +191,7 @@ public class DBManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        createDBFromSqlFile();
+        myCreateDBFromSqlFile();
     }
 
     @Override

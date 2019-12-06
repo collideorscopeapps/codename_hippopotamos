@@ -46,30 +46,6 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         }
     }
 
-    private void createDB() {
-
-        CopyFileTask copyFileTask =  new CopyFileTask(this, this.getAssets());
-        File database = getApplicationContext().getDatabasePath(DBManager.DB_NAME);
-
-        //TODO also check if DB is older version, in that case copy it again
-        if(false == database.exists()) {
-            Log.v("Main activity", "DB does not exits, trying to copy..");
-            dbManager.getReadableDatabase();
-
-            String[] copyDBParams = { "/android_assets/" + DBManager.DB_NAME,
-                    DBManager.DB_LOCATION + DBManager.DB_NAME};
-
-            copyFileTask.execute();
-
-        }
-        else {
-            Log.v("Main activity", "DB already exits: " + database.getAbsolutePath());
-
-            Boolean wasCopySuccessful = true;
-            processFinish(wasCopySuccessful);
-        }
-    }
-
     void openQuoteActivity() {
 
         dbManager.getQuotes();
