@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         //this.createDB();
 
         schermate = dbManager.getSchermate();
-
+        openQuoteActivity();
     }
 
     public void processFinish(Boolean wasCopySuccessful){
