@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS "schermate" (
 CREATE TABLE IF NOT EXISTS "quotes_in_schermate" (
 	"greek_quote_id"	INTEGER NOT NULL,
 	"schermata_id"	INTEGER NOT NULL,
-	"position"  INTEGER NOT NULL,
+	"position"  INTEGER NOT NULL DEFAULT 1,
 
 	PRIMARY KEY("greek_quote_id","schermata_id"),
 	FOREIGN KEY("greek_quote_id") REFERENCES "greek_quotes"("_id"),
