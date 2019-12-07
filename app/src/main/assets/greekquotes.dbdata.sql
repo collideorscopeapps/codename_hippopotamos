@@ -13,6 +13,10 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (7,'ἄγγελος');
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (8,'αἴκα');
 
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (9,'χώρα');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (10,'μοῖρα');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (11,'ἡμέρα');
+
 INSERT INTO "android_metadata" ("locale") VALUES ('en_US');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (1,'English');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (2,'Italian');
@@ -28,9 +32,14 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (8,2,'se (ipotetico) (solo in dialetto dorico)');
 
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (9,2,'regione');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (10,2,'destino');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (11,2,'giorno');
+
 INSERT INTO "schermate" ("_id","description") VALUES (1,'parossìtone due sillabe');
 INSERT INTO "schermate" ("_id","description") VALUES (2,'proparossìtone tre sillabe');
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (3,'Fun Fact','Plutarch, De garrulitate, 17');
+INSERT INTO "schermate" ("_id","description") VALUES (4,'I declinazione in α puro');
 
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (3,1,'αἴκα / αἴκε / αἴ κα / αἴ κε dor. / om. eἴκε for εἰ+ἄν > ἐάν');
 
