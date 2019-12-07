@@ -2,6 +2,8 @@
 DROP VIEW IF EXISTS v_quotes_and_translations;
 DROP VIEW IF EXISTS v_schermate;
 
+DROP TABLE IF EXISTS "schermate_playlists";
+DROP TABLE IF EXISTS "playlists";
 DROP TABLE IF EXISTS "easter_egg_comments";
 DROP TABLE IF EXISTS "linguistic_notes";
 DROP TABLE IF EXISTS "quotes_in_schermate";
@@ -75,6 +77,19 @@ CREATE TABLE IF NOT EXISTS "easter_egg_comments" (
 	PRIMARY KEY("schermata_id","language_id"),
 	FOREIGN KEY("schermata_id") REFERENCES "schermate"("_id"),
 	FOREIGN KEY("language_id") REFERENCES "translation_languages"("_id")
+);
+
+CREATE TABLE IF NOT EXISTS "playlists" (
+	"_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"description"   TEXT UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS "schermate_playlists" (
+	"schermata_id"	INTEGER NOT NULL,
+	"playlist_id"	INTEGER NOT NULL,
+	PRIMARY KEY("schermata_id","playlist_id"),
+	FOREIGN KEY("schermata_id") REFERENCES "schermate"("_id"),
+	FOREIGN KEY("playlist_id") REFERENCES "playlists"("_id")
 );
 
 CREATE VIEW v_quotes_and_translations AS
