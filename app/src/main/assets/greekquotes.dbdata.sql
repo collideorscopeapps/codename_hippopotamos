@@ -17,6 +17,9 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (9,'χώρα');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (10,'μοῖρα');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (11,'ἡμέρα');
 
+INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (12,'τὶς ἀθανάτων','tìs atʰanátɔɔn');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (12,2,'uno degli immortali');
+
 INSERT INTO "android_metadata" ("locale") VALUES ('en_US');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (1,'English');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (2,'Italian');
