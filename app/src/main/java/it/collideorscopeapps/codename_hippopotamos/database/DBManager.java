@@ -191,6 +191,8 @@ public class DBManager extends SQLiteOpenHelper {
 
     public  TreeMap<Integer, String> getEasterEggComments(Languages language) {
 
+        // TODO use eeComment in the default language when it's the only one
+
         TreeMap<Integer, String> eeComments = new TreeMap<Integer, String>();
 
         try(SQLiteDatabase db = getReadableDatabase()) {
