@@ -42,7 +42,6 @@ INSERT INTO "schermate" ("_id","description","author_ref") VALUES (3,'Fun Fact',
 INSERT INTO "schermate" ("_id","description") VALUES (4,'I declinazione in α puro');
 
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (3,1,'αἴκα / αἴκε / αἴ κα / αἴ κε dor. / om. eἴκε for εἰ+ἄν > ἐάν');
-
 INSERT INTO "easter_egg_comments" ("schermata_id","language_id","eeComment") VALUES (3,1,'Plutarch reports that Phillip II of Macedon sent word to the Spartans, saying that "if I should invade Laconia, I shall drive you out." The Spartans laconically responded with "if."');
 
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (1,3,1);
@@ -50,7 +49,12 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") V
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (1,5,3);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (2,6,1);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (2,7,2);
-
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (3,8);
 
+INSERT INTO "playlists" ("_id","description") VALUES (1,'Parole, vocabolario, declinazioni');
+INSERT INTO "playlists" ("_id","description") VALUES (2,'Frasi celebri');
 
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,1);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,2);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,4);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (2,3);

@@ -2,7 +2,7 @@
 DROP VIEW IF EXISTS v_quotes_and_translations;
 DROP VIEW IF EXISTS v_schermate;
 
-DROP TABLE IF EXISTS "schermate_playlists";
+DROP TABLE IF EXISTS "playlists_schermate";
 DROP TABLE IF EXISTS "playlists";
 DROP TABLE IF EXISTS "easter_egg_comments";
 DROP TABLE IF EXISTS "linguistic_notes";
@@ -84,9 +84,9 @@ CREATE TABLE IF NOT EXISTS "playlists" (
 	"description"   TEXT UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS "schermate_playlists" (
-	"schermata_id"	INTEGER NOT NULL,
+CREATE TABLE IF NOT EXISTS "playlists_schermate" (
 	"playlist_id"	INTEGER NOT NULL,
+	"schermata_id"	INTEGER NOT NULL,
 	PRIMARY KEY("schermata_id","playlist_id"),
 	FOREIGN KEY("schermata_id") REFERENCES "schermate"("_id"),
 	FOREIGN KEY("playlist_id") REFERENCES "playlists"("_id")
