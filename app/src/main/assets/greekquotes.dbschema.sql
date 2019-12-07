@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS "credits" (
 
 CREATE TABLE IF NOT EXISTS "greek_quotes" (
 	"_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	"quoteText"	TEXT,
+	"quoteText"	TEXT UNIQUE,
 	"phoneticTranscription" TEXT,
 	"audioFileName"	TEXT
 );
