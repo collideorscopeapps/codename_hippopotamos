@@ -3,19 +3,29 @@ INSERT INTO "credits" ("credit") VALUES ('Wikipedia, List of Greek phrases, http
 INSERT INTO "credits" ("credit") VALUES ('Francese, Christopher. Greek Core Vocabulary. Dickinson College Commentaries (2014). http://dcc.dickinson.edu/greek-core-list');
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
-
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (3,'τόπος ');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (4,'φίλος');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (5,'λόγος');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,1,'Good, noble');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (3,2,'Luogo');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (4,2,'Caro, amico');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (5,2,'parola, linguaggio, discorso. pensiero, ragione, conto');
 
 INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (6,'ἄνθρωπος','ántʰrɔɔpós');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (6,2,'Uomo');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (7,'ἄγγελος');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (7,2,'Messaggero');
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (8,'αἴκα');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (8,2,'se (ipotetico) (solo in dialetto dorico)');
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (9,'χώρα');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (10,'μοῖρα');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (11,'ἡμέρα');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (9,2,'regione');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (10,2,'destino');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (11,2,'giorno');
 
 INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (12,'τὶς ἀθανάτων','tìs atʰanátɔɔn');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (12,2,'uno degli immortali');
@@ -24,20 +34,6 @@ INSERT INTO "android_metadata" ("locale") VALUES ('en_US');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (1,'English');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (2,'Italian');
 
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,1,'Good, noble');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (3,2,'Luogo');
-
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (4,2,'Caro, amico');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (5,2,'parola, linguaggio, discorso. pensiero, ragione, conto');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (6,2,'Uomo');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (7,2,'Messaggero');
-
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (8,2,'se (ipotetico) (solo in dialetto dorico)');
-
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (9,2,'regione');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (10,2,'destino');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (11,2,'giorno');
 
 INSERT INTO "schermate" ("_id","description") VALUES (1,'parossìtone due sillabe');
 INSERT INTO "schermate" ("_id","description") VALUES (2,'proparossìtone tre sillabe');
