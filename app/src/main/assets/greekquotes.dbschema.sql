@@ -42,8 +42,10 @@ CREATE TABLE IF NOT EXISTS "quotes_translations" (
 
 CREATE TABLE IF NOT EXISTS "schermate" (
 	"_id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"title"	TEXT,
 	"description"	TEXT,
 	"author_ref" TEXT,
+	"linguisticNotes"	TEXT,
 	"EEcomment"	TEXT
 );
 
@@ -69,7 +71,9 @@ CREATE VIEW v_schermate AS
     gq.quoteText AS quote,
     gq.phoneticTranscription AS phoneticTranscription,
     qs.position AS position,
+    s.title AS title,
     s.description AS description,
+    s.linguisticNotes AS linguisticNotes,
     s.author_ref AS cit,
     s.EEcomment as EEcomment,
     gq.audioFileName as audioFileName

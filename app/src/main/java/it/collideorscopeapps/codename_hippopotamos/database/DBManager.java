@@ -135,7 +135,9 @@ public class DBManager extends SQLiteOpenHelper {
         final int quoteColIdx = cursor.getColumnIndex("quote");
         final int phoneticColIdx = cursor.getColumnIndex("phoneticTranscription");
         final int positionColIdx = cursor.getColumnIndex("position");
+        final int titleColIdx = cursor.getColumnIndex("title");
         final int descriptionColIdx = cursor.getColumnIndex("description");
+        final int linguisticNotesColIdx = cursor.getColumnIndex("linguisticNotes");
         final int citColIdx = cursor.getColumnIndex("cit");
         final int eeCommentColIdx = cursor.getColumnIndex("EEcomment");
         final int audioFileNameColIdx = cursor.getColumnIndex("audioFileName");
@@ -147,16 +149,20 @@ public class DBManager extends SQLiteOpenHelper {
             String greekQuote = cursor.getString(quoteColIdx);
             String phoneticTranscription = cursor.getString(phoneticColIdx);
             int quotePosition = cursor.getInt(positionColIdx);
+            String title = cursor.getString(titleColIdx);
             String description = cursor.getString(descriptionColIdx);
+            String linguisticNotes = cursor.getString(linguisticNotesColIdx);
             String cit = cursor.getString(citColIdx);
             String easterEggComment = cursor.getString(eeCommentColIdx);
             String audioFileName = cursor.getString(audioFileNameColIdx);
 
             Quote currentQuote = new Quote(idQuote, quotePosition, greekQuote, phoneticTranscription, audioFileName);
             Schermata currentSchermata = new Schermata(idSchermata,
-                        description,
-                        cit,
-                        easterEggComment);
+                    title,
+                    description,
+                    linguisticNotes,
+                    cit,
+                    easterEggComment);
 
             int schermataIndexInArray = schermate.indexOf(currentSchermata);
             final int ELEMENT_NOT_FOUND = -1;

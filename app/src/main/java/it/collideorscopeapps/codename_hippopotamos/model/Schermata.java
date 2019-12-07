@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class Schermata {
 
     private int id;
+    private String title;
     private String description;
+    private String linguisticNotes;
     private String citation;
     private String easterEggComment;
 
@@ -21,11 +23,15 @@ public class Schermata {
     private ArrayList<Quote> quotes;
 
     public Schermata(int id,
+                     String title,
                      String description,
+                     String linguisticNotes,
                      String citation,
                      String easterEggComment) {
         this.id = id;
+        this.title = title;
         this.description = description;
+        this.linguisticNotes = linguisticNotes;
         this.citation = citation;
         this.easterEggComment = easterEggComment;
 
