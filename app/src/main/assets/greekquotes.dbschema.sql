@@ -2,6 +2,8 @@
 DROP VIEW IF EXISTS v_quotes_and_translations;
 DROP VIEW IF EXISTS v_schermate;
 
+DROP TABLE IF EXISTS "easter_egg_comments";
+DROP TABLE IF EXISTS "linguistic_notes";
 DROP TABLE IF EXISTS "quotes_in_schermate";
 DROP TABLE IF EXISTS "schermate";
 DROP TABLE IF EXISTS "quotes_translations";
@@ -33,20 +35,18 @@ CREATE TABLE IF NOT EXISTS "translation_languages" (
 
 CREATE TABLE IF NOT EXISTS "quotes_translations" (
 	"greek_quote_id"	INTEGER NOT NULL,
-	"translation_language_id"	INTEGER NOT NULL,
+	"language_id"	INTEGER NOT NULL,
 	"translation"	TEXT,
-	PRIMARY KEY("greek_quote_id","translation_language_id"),
+	PRIMARY KEY("greek_quote_id","language_id"),
 	FOREIGN KEY("greek_quote_id") REFERENCES "greek_quotes"("_id"),
-	FOREIGN KEY("translation_language_id") REFERENCES "translation_languages"("_id")
+	FOREIGN KEY("language_id") REFERENCES "translation_languages"("_id")
 );
 
 CREATE TABLE IF NOT EXISTS "schermate" (
 	"_id"	INTEGER PRIMARY KEY AUTOINCREMENT,
 	"title"	TEXT,
 	"description"	TEXT,
-	"author_ref" TEXT,
-	"linguisticNotes"	TEXT,
-	"EEcomment"	TEXT
+	"author_ref" TEXT
 );
 
 CREATE TABLE IF NOT EXISTS "quotes_in_schermate" (
@@ -59,10 +59,28 @@ CREATE TABLE IF NOT EXISTS "quotes_in_schermate" (
 	FOREIGN KEY("schermata_id") REFERENCES "schermate"("_id")
 );
 
+CREATE TABLE IF NOT EXISTS "linguistic_notes" (
+	"schermata_id"	INTEGER NOT NULL,
+	"language_id"	INTEGER NOT NULL,
+	"linguisticNote"	TEXT,
+	PRIMARY KEY("schermata_id","language_id"),
+	FOREIGN KEY("schermata_id") REFERENCES "schermate"("_id"),
+	FOREIGN KEY("language_id") REFERENCES "translation_languages"("_id")
+);
+
+CREATE TABLE IF NOT EXISTS "easter_egg_comments" (
+	"schermata_id"	INTEGER NOT NULL,
+	"language_id"	INTEGER NOT NULL,
+	"eeComment"	TEXT,
+	PRIMARY KEY("schermata_id","language_id"),
+	FOREIGN KEY("schermata_id") REFERENCES "schermate"("_id"),
+	FOREIGN KEY("language_id") REFERENCES "translation_languages"("_id")
+);
+
 CREATE VIEW v_quotes_and_translations AS
     SELECT gq._id AS quote_id, tl.LanguageName AS translation_language, gq.quoteText AS quote, qt.translation AS translation
     FROM greek_quotes gq, quotes_translations qt, translation_languages tl
-    WHERE gq._id = qt.greek_quote_id AND translation_language_id = tl._id
+    WHERE gq._id = qt.greek_quote_id AND qt.language_id = tl._id
     ORDER BY translation_language;
 
 CREATE VIEW v_schermate AS
@@ -73,9 +91,7 @@ CREATE VIEW v_schermate AS
     qs.position AS position,
     s.title AS title,
     s.description AS description,
-    s.linguisticNotes AS linguisticNotes,
     s.author_ref AS cit,
-    s.EEcomment as EEcomment,
     gq.audioFileName as audioFileName
     FROM greek_quotes gq, quotes_in_schermate qs, schermate s
     WHERE  qs.greek_quote_id = gq._id AND qs.schermata_id = s._id

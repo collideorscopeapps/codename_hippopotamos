@@ -1,5 +1,6 @@
 package it.collideorscopeapps.codename_hippopotamos.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -8,26 +9,26 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.EnumMap;
+import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 public class DBManager extends SQLiteOpenHelper {
 
+    public final Languages DEFAULT_LANGUAGE = Languages.EN;
+    public enum Languages {
+        //TODO check if numeric values cna be explicity assigned
+        //TODO to ensure they matche the db
+        NO_LANGUAGE, // = 0
+        EN, // = 1
+        IT // = 2
+    }
 
     public static final String DB_NAME = "greekquotes";
 
@@ -118,101 +119,125 @@ public class DBManager extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<Schermata> getSchermate() {
+
+    public TreeMap<Integer, Schermata> getSchermate(DBManager.Languages language) {
+
+        // todo, translations languages
+        // TODO some fields use a default language if the preferred one is absent
 
         myCreateDBFromSqlFile();
         openDatabaseReadonly();
 
         int schermateCount = (int)DatabaseUtils.queryNumEntries(myDatabase,
                 "schermate");
-        ArrayList<Schermata> schermate = new ArrayList<Schermata>();
+        TreeMap<Integer, Schermata> schermate = new TreeMap<Integer, Schermata>();
+
+        TreeMap<Integer, String> linguisticNotes = getLinguisticNotes(language);
+        TreeMap<Integer, String> getEasterEggComments = getEasterEggComments(language);
 
         String quotesAndSchermateQuery = "SELECT * FROM v_schermate";
-        Cursor cursor = myDatabase.rawQuery(quotesAndSchermateQuery, null);
+        try(Cursor cursor = myDatabase.rawQuery(quotesAndSchermateQuery, null)) {
 
-        final int schermataIdColIdx = cursor.getColumnIndex("s_id");
-        final int greekQuoteIddColIdx = cursor.getColumnIndex("gq_id");
-        final int quoteColIdx = cursor.getColumnIndex("quote");
-        final int phoneticColIdx = cursor.getColumnIndex("phoneticTranscription");
-        final int positionColIdx = cursor.getColumnIndex("position");
-        final int titleColIdx = cursor.getColumnIndex("title");
-        final int descriptionColIdx = cursor.getColumnIndex("description");
-        final int linguisticNotesColIdx = cursor.getColumnIndex("linguisticNotes");
-        final int citColIdx = cursor.getColumnIndex("cit");
-        final int eeCommentColIdx = cursor.getColumnIndex("EEcomment");
-        final int audioFileNameColIdx = cursor.getColumnIndex("audioFileName");
+            final int schermataIdColIdx = cursor.getColumnIndex("s_id");
+            final int greekQuoteIddColIdx = cursor.getColumnIndex("gq_id");
+            final int quoteColIdx = cursor.getColumnIndex("quote");
+            final int phoneticColIdx = cursor.getColumnIndex("phoneticTranscription");
+            final int positionColIdx = cursor.getColumnIndex("position");
+            final int titleColIdx = cursor.getColumnIndex("title");
+            final int descriptionColIdx = cursor.getColumnIndex("description");
+            final int citColIdx = cursor.getColumnIndex("cit");
+            final int audioFileNameColIdx = cursor.getColumnIndex("audioFileName");
 
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast()) {
-            int idSchermata = cursor.getInt(schermataIdColIdx);
-            int idQuote = cursor.getInt(greekQuoteIddColIdx);
-            String greekQuote = cursor.getString(quoteColIdx);
-            String phoneticTranscription = cursor.getString(phoneticColIdx);
-            int quotePosition = cursor.getInt(positionColIdx);
-            String title = cursor.getString(titleColIdx);
-            String description = cursor.getString(descriptionColIdx);
-            String linguisticNotes = cursor.getString(linguisticNotesColIdx);
-            String cit = cursor.getString(citColIdx);
-            String easterEggComment = cursor.getString(eeCommentColIdx);
-            String audioFileName = cursor.getString(audioFileNameColIdx);
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                int idSchermata = cursor.getInt(schermataIdColIdx);
+                int idQuote = cursor.getInt(greekQuoteIddColIdx);
+                String greekQuote = cursor.getString(quoteColIdx);
+                String phoneticTranscription = cursor.getString(phoneticColIdx);
+                int quotePosition = cursor.getInt(positionColIdx);
+                String title = cursor.getString(titleColIdx);
+                String description = cursor.getString(descriptionColIdx);
+                String cit = cursor.getString(citColIdx);
+                String audioFileName = cursor.getString(audioFileNameColIdx);
 
-            Quote currentQuote = new Quote(idQuote, quotePosition, greekQuote, phoneticTranscription, audioFileName);
-            Schermata currentSchermata = new Schermata(idSchermata,
-                    title,
-                    description,
-                    linguisticNotes,
-                    cit,
-                    easterEggComment);
+                String linguisticNote = linguisticNotes.get(idSchermata);
+                String eeComment = getEasterEggComments.get(idSchermata);
 
-            int schermataIndexInArray = schermate.indexOf(currentSchermata);
-            final int ELEMENT_NOT_FOUND = -1;
-            if(schermataIndexInArray == ELEMENT_NOT_FOUND){
+                Quote currentQuote = new Quote(idQuote, quotePosition, greekQuote,
+                        phoneticTranscription, audioFileName);
 
-                schermate.add(currentSchermata);
+                Schermata currentSchermata = schermate.get(idSchermata);
+                if(null == currentSchermata) {
+                    currentSchermata= new Schermata(
+                            idSchermata,
+                            title,
+                            description,
+                            linguisticNote,
+                            cit,
+                            eeComment);
+                    schermate.put(idSchermata, currentSchermata);
+                }
                 currentSchermata.addQuote(currentQuote);
-            }
-            else {
-                schermate.get(schermataIndexInArray).addQuote(currentQuote);
-            }
 
-            cursor.moveToNext();
+                cursor.moveToNext();
+            }
+        }
+        catch (Exception e) {
+            Log.e("DBManager", e.toString());
         }
 
         return schermate;
     }
 
- /*   public ArrayList<ContentValues> getMovies() {
+    public  TreeMap<Integer, String> getEasterEggComments(Languages language) {
 
-        ArrayList<ContentValues> movies = new ArrayList<>();
+        TreeMap<Integer, String> eeComments = new TreeMap<Integer, String>();
 
         try(SQLiteDatabase db = getReadableDatabase()) {
 
-            String query = "SELECT * FROM films";
-
-            Cursor cursor = db.rawQuery(query, null);
+            String eeCommentsQuery = "SELECT * FROM easter_egg_comments WHERE language_id = "
+                    + language.ordinal();
+            Cursor cursor = db.rawQuery(eeCommentsQuery, null);
 
             cursor.moveToFirst();
 
             while(!cursor.isAfterLast()) {
 
-                ContentValues movie = new ContentValues();
-
-                movie.put("id", cursor.getInt(cursor.getColumnIndex("id")));
-                movie.put("nome", cursor.getString(cursor.getColumnIndex("nome")));
-                movie.put("genere", cursor.getString(cursor.getColumnIndex("genere")));
-                movie.put("anno_prod", cursor.getString(cursor.getColumnIndex("anno_prod")));
-                movie.put("tipo_supp", cursor.getString(cursor.getColumnIndex("tipo_supp")));
-                movie.put("locandina", cursor.getString(cursor.getColumnIndex("locandina")));
-
-                movies.add(movie);
+                Integer schermataId = cursor.getInt(cursor.getColumnIndex("schermata_id"));
+                String eeComment = cursor.getString(cursor.getColumnIndex("eeComment"));
+                eeComments.put(schermataId, eeComment);
 
                 cursor.moveToNext();
             }
         }
 
-        return movies;
+        return eeComments;
+    }
 
-    }*/
+    public  TreeMap<Integer, String> getLinguisticNotes(Languages language) {
+
+        TreeMap<Integer, String> linguisticNotes = new TreeMap<Integer, String>();
+
+        try(SQLiteDatabase db = getReadableDatabase()) {
+
+            String linguisticNotesQuery = "SELECT * FROM linguistic_notes WHERE language_id = "
+                    + language.ordinal();
+            Cursor cursor = db.rawQuery(linguisticNotesQuery, null);
+
+            cursor.moveToFirst();
+
+            while(!cursor.isAfterLast()) {
+
+                Integer schermataId = cursor.getInt(cursor.getColumnIndex("schermata_id"));
+                String linguisticNote = cursor.getString(cursor.getColumnIndex("linguisticNote"));
+
+                linguisticNotes.put(schermataId, linguisticNote);
+
+                cursor.moveToNext();
+            }
+        }
+        return linguisticNotes;
+    }
 
     @Deprecated
      private void tryReadDB() throws IOException {
