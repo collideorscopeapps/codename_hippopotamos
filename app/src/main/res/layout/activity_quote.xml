@@ -67,7 +67,6 @@
         android:layout_gravity="center"
         android:padding="10dp"
         android:layout_marginHorizontal="10dp"
-        android:justificationMode="inter_word"
         android:textSize="24sp"
         android:text="[phonetic transcription not available]"
         />
