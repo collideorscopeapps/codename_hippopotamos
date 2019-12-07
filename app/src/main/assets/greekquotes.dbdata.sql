@@ -2,16 +2,16 @@
 INSERT INTO "credits" ("credit") VALUES ('Wikipedia, List of Greek phrases, https://en.wikipedia.org/wiki/List_of_Greek_phrases');
 INSERT INTO "credits" ("credit") VALUES ('Francese, Christopher. Greek Core Vocabulary. Dickinson College Commentaries (2014). http://dcc.dickinson.edu/greek-core-list');
 
-INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (2,'ἀγαθός');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 
-INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (3,'τόπος ');
-INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (4,'φίλος');
-INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (5,'λόγος');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (3,'τόπος ');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (4,'φίλος');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (5,'λόγος');
 
-INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (6,'ἄνθρωπος');
-INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (7,'ἄγγελος');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (6,'ἄνθρωπος');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (7,'ἄγγελος');
 
-INSERT INTO "greek_quotes" ("_id", "quoteText") VALUES (8,'αἴκα');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (8,'αἴκα');
 
 INSERT INTO "android_metadata" ("locale") VALUES ('en_US');
 INSERT INTO "translation_languages" ("_id","LanguageName") VALUES (1,'English');
@@ -28,18 +28,20 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (8,2,'se (ipotetico) (solo in dialetto dorico)');
 
-INSERT INTO "schermate" ("_id", "description") VALUES (1,'parossìtone due sillabe');
-INSERT INTO "schermate" ("_id", "description") VALUES (2,'proparossìtone tre sillabe');
+INSERT INTO "schermate" ("_id","description") VALUES (1,'parossìtone due sillabe');
+INSERT INTO "schermate" ("_id","description") VALUES (2,'proparossìtone tre sillabe');
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (3,'Fun Fact','Plutarch, De garrulitate, 17');
 
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (3,1,'');
 
 INSERT INTO "easter_egg_comments" ("schermata_id","language_id","eeComment") VALUES (3,1,'Plutarch reports that Phillip II of Macedon sent word to the Spartans, saying that "if I should invade Laconia, I shall drive you out." The Spartans laconically responded with "if."');
 
-INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id", "position") VALUES (1,3, 1);
-INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id", "position") VALUES (1,4, 2);
-INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id", "position") VALUES (1,5, 3);
-INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id", "position") VALUES (2,6, 1);
-INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id", "position") VALUES (2,7, 2);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (1,3,1);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (1,4,2);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (1,5,3);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (2,6,1);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (2,7,2);
 
-INSERT INTO "quotes_in_schermate" ("schermata_id", "greek_quote_id") VALUES (3,8);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (3,8);
+
+
