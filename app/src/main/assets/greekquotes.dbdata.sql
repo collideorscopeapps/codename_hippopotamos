@@ -8,7 +8,7 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (3,'τόπος ');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (4,'φίλος');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (5,'λόγος');
 
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (6,'ἄνθρωπος');
+INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (6,'ἄνθρωπος','ántʰrɔɔpós');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (7,'ἄγγελος');
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (8,'αἴκα');
