@@ -62,8 +62,20 @@ public class DBManager extends SQLiteOpenHelper {
             return;
         }
 
-        myDatabase = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READONLY);
+        myDatabase = openDBWithFKConstraints(dbPath, null, SQLiteDatabase.OPEN_READONLY);
 
+
+    }
+
+    private static SQLiteDatabase openDBWithFKConstraints(String path,
+                                                   SQLiteDatabase.CursorFactory cf,
+                                                   int flags) {
+
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(path, cf, flags);
+
+        db.setForeignKeyConstraintsEnabled(true);
+
+        return db;
 
     }
 
@@ -88,7 +100,7 @@ public class DBManager extends SQLiteOpenHelper {
 
         Log.v("DBManager", "Creating DB from Sql file..");
 
-        myDatabase = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        myDatabase = openDBWithFKConstraints(dbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY);
 
         AssetManager assetManager = myContext.getAssets();
         String schemaQueries = Utils.getShemaCreationQueriesFromSqlFile(assetManager);
@@ -165,6 +177,9 @@ public class DBManager extends SQLiteOpenHelper {
 
                 Quote currentQuote = new Quote(idQuote, quotePosition, greekQuote,
                         phoneticTranscription, audioFileName);
+
+                // TODO schermate can have translations to be used in place of those of each quote
+                // TODO schermatePlaylists
 
                 Schermata currentSchermata = schermate.get(idSchermata);
                 if(null == currentSchermata) {

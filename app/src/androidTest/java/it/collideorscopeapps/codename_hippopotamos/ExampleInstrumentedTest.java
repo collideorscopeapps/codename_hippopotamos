@@ -1,12 +1,20 @@
 package it.collideorscopeapps.codename_hippopotamos;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.FileUtils;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.util.TreeMap;
+
+import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
+import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 import static org.junit.Assert.*;
 
@@ -23,5 +31,26 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         assertEquals("it.collideorscopeapps.codename_hippopotamos", appContext.getPackageName());
+    }
+
+    // public static Boolean createDBFromSqlFile(Context myContext, SQLiteDatabase myDatabase) {
+    @Test
+    public void generateDBFromSql() {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+
+        // TODO delete database file
+        String dbPath = appContext.getDatabasePath(DBManager.DB_NAME).getPath();
+        SQLiteDatabase.deleteDatabase(new File(dbPath));
+
+        String databasesFolder = "/data/data/" + appContext.getPackageName() + "/databases/";
+        String dbPath2 = databasesFolder + DBManager.DB_NAME;
+        SQLiteDatabase.deleteDatabase(new File(dbPath2));
+
+        DBManager.createDBFromSqlFile(appContext,null);
+
+        DBManager dbManager;
+        dbManager = new DBManager(appContext);
+        TreeMap<Integer, Schermata> schermate = dbManager.getSchermate(DBManager.Languages.EN);
     }
 }
