@@ -7,6 +7,8 @@ INSERT INTO "credits" ("credit") VALUES ('Wikipedia, List of Greek phrases, http
 INSERT INTO "credits" ("credit") VALUES ('Francese, Christopher. Greek Core Vocabulary. Dickinson College Commentaries (2014). http://dcc.dickinson.edu/greek-core-list');
 INSERT INTO "credits" ("credit") VALUES ('Revithiadou, A. (2018) Ancient Greek pitch accent');
 
+INSERT INTO "app_notes" ("title","note") VALUES ('about','Hippopotamuses are located in central and southern Africa, south of the Sahara desert and near the Nile River.</br></br><b>Diet</b></br>They are vegetarians and mostly eat grass. They may travel long distances during the night from their water source to reach the areas where they graze. They also sometimes eat fruit that has fallen off of trees or crops grown by local people.');
+
 INSERT INTO "schermate" ("_id","description") VALUES (1,'parossìtone due sillabe');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (3,'τόπος');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (4,'φίλος');
