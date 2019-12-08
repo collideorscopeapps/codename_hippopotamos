@@ -62,6 +62,7 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (7,15
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (8,'Todos','Apollodoro, I.2.1 Zeus, Plutone, Poseidone');
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (9,'Todos','Apollodoro, I.3.1 Irene, Dike e le Moire');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (10,'The North Wind and the Sun','..');
 
 INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (12,'τὶς ἀθανάτων','tìs atʰanátɔɔn');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (12,2,'uno degli immortali');
