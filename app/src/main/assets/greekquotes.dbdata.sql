@@ -64,6 +64,9 @@ INSERT INTO "schermate" ("_id","description","author_ref") VALUES (8,'Todos','Ap
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (9,'Todos','Apollodoro, I.3.1 Irene, Dike e le Moire');
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (10,'The North Wind and the Sun','..');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (11,'Eureka','..');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (11,2,'perfetto..');
+
 INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (12,'τὶς ἀθανάτων','tìs atʰanátɔɔn');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (12,2,'uno degli immortali');
 
