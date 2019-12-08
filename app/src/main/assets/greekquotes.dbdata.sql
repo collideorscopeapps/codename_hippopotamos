@@ -61,11 +61,17 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (7,15);
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (8,'Todos','Apollodoro, I.2.1 Zeus, Plutone, Poseidone');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (16,'..Zeus, Plutone, Poseidone');
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (9,'Todos','Apollodoro, I.3.1 Irene, Dike e le Moire');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (17,'..Irene, Dike e le Moire');
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (10,'The North Wind and the Sun','..');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (18,'..The North Wind and the Sun');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (11,'Eureka','..');
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (11,2,'perfetto..');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (11,'Eureka','ARCHIMEDES (PLUTARCH 73.1094c)');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (19,'εὕρηκα');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (19,2,'ho trovato.');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (11,19);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (11,2,'perfetto.. da εὑρίσκω, pf. ');
 
 INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (12,'τὶς ἀθανάτων','tìs atʰanátɔɔn');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (12,2,'uno degli immortali');
