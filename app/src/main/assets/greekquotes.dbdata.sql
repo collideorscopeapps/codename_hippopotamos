@@ -39,6 +39,27 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (11,'ἡμέρα');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (9,2,'regione');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (10,2,'destino');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (11,2,'giorno');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (4,11,1);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (4,9,1);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (4,10,1);
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (5,'Incipits','Apollodoro, I.1');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (13,'Οὐρανὸς πρῶτος τοῦ παντὸς ἐδυνάστευσε κόσμου.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (13,2,'Urano ..per primo cosmo ..');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (5,13);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (5,1,'τοῦ κόσμου GEN sg (m?)');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (6,'εἰς Τάρταρον','Apollodoro, I.2');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (14,'τόπος δὲ οὖτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐραωοῦ γῆ.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (14,2,'A dark place in the Ade, as far from Earth as Earth is from heaven');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (6,14);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (6,1,'εἰς Τάρταρον, εἰς + Acc');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (7,'The start of Time','Apollodoro, I.3');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (15,'..Κρόνον');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (15,2,'..Cronos..');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (7,15);
+
 
 INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (12,'τὶς ἀθανάτων','tìs atʰanátɔɔn');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (12,2,'uno degli immortali');
