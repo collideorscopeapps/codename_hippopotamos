@@ -9,6 +9,8 @@ INSERT INTO "credits" ("credit") VALUES ('Revithiadou, A. (2018) Ancient Greek p
 
 INSERT INTO "app_notes" ("title","note") VALUES ('about','Hippopotamuses are located in central and southern Africa, south of the Sahara desert and near the Nile River.</br></br><b>Diet</b></br>They are vegetarians and mostly eat grass. They may travel long distances during the night from their water source to reach the areas where they graze. They also sometimes eat fruit that has fallen off of trees or crops grown by local people.');
 
+INSERT INTO "news" ("title","link") VALUES ('Pablo Escobar''s hippos keep multiplying and Colombia doesn''t know how to stop it','https://www.cbsnews.com/news/pablo-escobars-hippos-keep-multiplying-and-colombia-doesnt-know-how-to-stop-it/');
+
 INSERT INTO "schermate" ("_id","description") VALUES (1,'parossìtone due sillabe');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (3,'τόπος');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (4,'φίλος');

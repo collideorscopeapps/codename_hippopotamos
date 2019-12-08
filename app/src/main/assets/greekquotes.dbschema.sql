@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS "quotes_translations";
 DROP TABLE IF EXISTS "translation_languages";
 DROP TABLE IF EXISTS "android_metadata";
 DROP TABLE IF EXISTS "greek_quotes";
+DROP TABLE IF EXISTS "news";
 DROP TABLE IF EXISTS "credits";
 DROP TABLE IF EXISTS "app_notes";
 
@@ -24,6 +25,12 @@ CREATE TABLE IF NOT EXISTS "app_notes" (
 CREATE TABLE IF NOT EXISTS "credits" (
 	"_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	"credit"	TEXT
+);
+
+CREATE TABLE IF NOT EXISTS "news" (
+	"_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"title"	TEXT UNIQUE,
+	"link" TEXT UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS "greek_quotes" (
