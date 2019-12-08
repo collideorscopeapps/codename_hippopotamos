@@ -37,7 +37,9 @@ public class DBManager extends SQLiteOpenHelper {
     // TODO check if there is a default "app data" dir in the sd card, or path conventions
     // TODO make unit/integration tests
 
-    public static final int DATABASE_VERSION = 1;
+    // TODO check how to handle/synch/check db version here and in the db created from sql file
+    // TODO
+    public static final int DATABASE_VERSION = 2;
     private final Context myContext; //TODO check if final is necessary
     private SQLiteDatabase myDatabase;
 
