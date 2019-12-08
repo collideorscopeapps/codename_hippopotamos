@@ -47,7 +47,7 @@ INSERT INTO "schermate" ("_id","description","author_ref") VALUES (5,'Incipits',
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (13,'Οὐρανὸς πρῶτος τοῦ παντὸς ἐδυνάστευσε κόσμου.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (13,2,'Urano ..per primo cosmo ..');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (5,13);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (5,1,'τοῦ κόσμου GEN sg (m?)');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (5,1,'τοῦ κόσμου GEN sg (m? decl?)');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (6,'εἰς Τάρταρον','Apollodoro, I.1.2');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (14,'τόπος δὲ οὖτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐραωοῦ γῆ.');
@@ -71,14 +71,20 @@ INSERT INTO "schermate" ("_id","description","author_ref") VALUES (11,'Eureka','
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (19,'εὕρηκα');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (19,2,'ho trovato.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (11,19);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (11,2,'perfetto.. da εὑρίσκω, pf. ');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (11,2,'perfetto.. da εὑρίσκω, pf.');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (12,'GEN pl','Om. Iliad 6.128');
 INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (12,'τὶς ἀθανάτων','tìs atʰanátɔɔn');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (12,2,'uno degli immortali');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (12,12);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (12,2,'τὶς ἀθανάτων: GEN pl');
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,1,'Good, noble');
+
+INSERT INTO "playlists" ("_id","description") VALUES (0,'Test playlist');
+
 
 INSERT INTO "playlists" ("_id","description") VALUES (1,'Parole, vocabolario, declinazioni');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,1);
