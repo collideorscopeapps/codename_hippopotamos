@@ -120,7 +120,6 @@ public class DBManager extends SQLiteOpenHelper {
                 String statement = dataInsertStatements.get(i);
                 try {
                     myDatabase.execSQL(statement);
-                    Log.e("DB Manager", statement);
                 } catch (Exception e) {
                     Log.e("DB Manager", statement);
                     Log.e("DBManager", e.toString());
