@@ -81,13 +81,13 @@ INSERT INTO "schermate" ("_id","description","author_ref") VALUES (11,'Eureka','
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (19,'εὕρηκα');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (19,2,'ho trovato.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (11,19);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (11,2,'perfetto.. da εὑρίσκω, pf.');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (11,1,'perfetto.. da εὑρίσκω, pf.');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (12,'GEN pl','Om. Iliad 6.128');
 INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (12,'τὶς ἀθανάτων','tìs atʰanátɔɔn');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (12,2,'uno degli immortali');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (12,12);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (12,2,'τὶς ἀθανάτων: GEN pl');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (12,1,'τὶς ἀθανάτων: GEN pl');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (13,'Thyrants','Talete 35');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (20,'τί καινὸν εἴη τεθεαμένος; Γέροντα τύραννον.');
