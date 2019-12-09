@@ -41,8 +41,6 @@ public class DBManager extends SQLiteOpenHelper {
     // TODO
     public static final int DATABASE_VERSION = 2;
     private final Context myContext; //TODO check if final is necessary
-    private SQLiteDatabase myDatabase;
-
 
     private TreeMap<Integer,Schermata> schermate;
 
@@ -58,16 +56,18 @@ public class DBManager extends SQLiteOpenHelper {
         this.myContext = context;
     }
 
+    @Deprecated
     public void openDatabaseReadonly() {
 
-        String dbPath = myContext.getDatabasePath(DB_NAME).getPath();
+
+        /*String dbPath = myContext.getDatabasePath(DB_NAME).getPath();
 
         if(myDatabase != null && myDatabase.isOpen()) {
             return;
         }
 
         myDatabase = openDBWithFKConstraints(dbPath, null, SQLiteDatabase.OPEN_READONLY);
-
+        */
 
     }
 
@@ -83,11 +83,12 @@ public class DBManager extends SQLiteOpenHelper {
 
     }
 
+    @Deprecated
     public void closeDatabase () {
 
-        if(myDatabase != null) {
+       /* if(myDatabase != null) {
             myDatabase.close();
-        }
+        }*/
     }
 
     public static Boolean createDBFromSqlFile(Context myContext, SQLiteDatabase myDatabase) {
@@ -142,9 +143,10 @@ public class DBManager extends SQLiteOpenHelper {
         return creationPerformed;
     }
 
+    @Deprecated
     private void myCreateDBFromSqlFile() {
 
-        createDBFromSqlFile(myContext, myDatabase);
+        //createDBFromSqlFile(myContext, myDatabase);
 
     }
 
@@ -158,8 +160,8 @@ public class DBManager extends SQLiteOpenHelper {
             return this.schermate;
         }
 
-        myCreateDBFromSqlFile();
-        openDatabaseReadonly();
+        //myCreateDBFromSqlFile();
+        //openDatabaseReadonly();
 
         TreeMap<Integer, Schermata> newSchermate = new TreeMap<Integer, Schermata>();
 
@@ -167,7 +169,8 @@ public class DBManager extends SQLiteOpenHelper {
         TreeMap<Integer, String> easterEggComments = getEasterEggComments(language);
 
         String quotesAndSchermateQuery = "SELECT * FROM v_schermate";
-        try(Cursor cursor = myDatabase.rawQuery(quotesAndSchermateQuery, null)) {
+        try(SQLiteDatabase db = getWritableDatabase();
+            Cursor cursor = db.rawQuery(quotesAndSchermateQuery, null)) { // todo merge try
 
             cursor.moveToFirst();
             while(!cursor.isAfterLast()) {
@@ -178,6 +181,8 @@ public class DBManager extends SQLiteOpenHelper {
         catch (Exception e) {
             Log.e("DBManager", e.toString());
         }
+
+
 
         this.schermate = newSchermate;
         return this.schermate;
@@ -302,7 +307,8 @@ public class DBManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        myCreateDBFromSqlFile();
+
+        createDBFromSqlFile(myContext, sqLiteDatabase);
     }
 
     @Override
