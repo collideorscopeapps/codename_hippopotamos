@@ -51,23 +51,35 @@ public class QuoteActivity extends AppCompatActivity {
 
         AssetManager assetManager = this.getAssets();
         MediaPlayer mediaPlayer = new MediaPlayer();
-        
-        // TODO play audio
+
+        playAudioFile(mediaPlayer, assetManager, audioFilePath);
+
+    }
+
+    private static void insertFileIntoMediaplayer(MediaPlayer mediaPlayer,
+                                                  AssetFileDescriptor assetFileDescriptor)
+            throws IOException {
+        if(android.os.Build.VERSION.SDK_INT >= 24) {
+            mediaPlayer.setDataSource(assetFileDescriptor);
+        }
+        else {
+            FileDescriptor fileDescriptor = assetFileDescriptor.getFileDescriptor();
+            long offset = assetFileDescriptor.getStartOffset();
+            long length = assetFileDescriptor.getLength();
+            mediaPlayer.setDataSource(
+                    fileDescriptor,
+                    offset,
+                    length);
+        }
+    }
+
+    private static void playAudioFile(MediaPlayer mediaPlayer,
+                                      AssetManager assetManager,
+                                      String audioFilePath) {
+
         try(AssetFileDescriptor assetFileDescriptor = assetManager.openFd(audioFilePath)) {
-            if(android.os.Build.VERSION.SDK_INT >= 24) {
-                {
-                    mediaPlayer.setDataSource(assetFileDescriptor);
-                }
-            }
-            else {
-                FileDescriptor fileDescriptor = assetFileDescriptor.getFileDescriptor();
-                long offset = assetFileDescriptor.getStartOffset();
-                long length = assetFileDescriptor.getLength();
-                mediaPlayer.setDataSource(
-                        fileDescriptor,
-                        offset,
-                        length);
-            }
+
+            insertFileIntoMediaplayer(mediaPlayer, assetFileDescriptor);
 
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
@@ -80,13 +92,11 @@ public class QuoteActivity extends AppCompatActivity {
                 }
             });
 
-            mediaPlayer.prepare();
+            mediaPlayer.prepareAsync();
         }
         catch (IOException e) {
             Log.e("QuoteActivity-audioplay", e.toString());
         }
-
-
     }
 
 }
