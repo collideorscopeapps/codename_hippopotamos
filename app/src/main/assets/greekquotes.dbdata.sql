@@ -84,12 +84,16 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (12,12);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (12,2,'τὶς ἀθανάτων: GEN pl');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (13,'Talete 35');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'τί καινὸν εἴη τεθεαμένος; Γέροντα τύραννον.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'What is the strangest thing to see? "An aged tyrant.');
+
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,1,'Good, noble');
 
-INSERT INTO "playlists" ("_id","description") VALUES (0,'Test playlist');
 
+INSERT INTO "playlists" ("_id","description") VALUES (0,'Test playlist');
 
 INSERT INTO "playlists" ("_id","description") VALUES (1,'Parole, vocabolario, declinazioni');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,1);
