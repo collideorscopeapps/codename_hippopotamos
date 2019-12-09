@@ -63,6 +63,11 @@ public class DBManagerTest {
         DBManager dbManager;
         dbManager = new DBManager(appContext);
         TreeMap<Integer, Schermata> schermate = dbManager.getSchermate(DBManager.Languages.EN);
+
+        int min_num_schermate = 14;
+        boolean min_schermate = schermate.size() >= min_num_schermate;
+
+        assertTrue(min_schermate);
     }
 
     @Test

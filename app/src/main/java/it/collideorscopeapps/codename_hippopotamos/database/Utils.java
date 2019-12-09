@@ -7,20 +7,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 
 public class Utils {
 
+    final static String DATA_INSERT_SQL_FILE = "greekquotes.dbdata.sql";
+    final static String SCHEMA_SQL_FILE = "greekquotes.dbschema.sql";
+
     public static String getShemaCreationQueriesFromSqlFile(AssetManager assetManager) {
 
-        final String SCHEMA_SQL_FILE = "greekquotes.dbschema.sql";
         return getQueriesFromSqlFile(assetManager, SCHEMA_SQL_FILE);
-    }
-
-    public static String getDataInsertionQueriesFromSqlFile(AssetManager assetManager) {
-
-        final String DATA_INSERT_SQL_FILE = "greekquotes.dbdata.sql";
-        return getQueriesFromSqlFile(assetManager, DATA_INSERT_SQL_FILE);
     }
 
     private static String getQueriesFromSqlFile(AssetManager assetManager, String assetFileName) {
@@ -34,6 +32,37 @@ public class Utils {
         }
 
         return null;
+    }
+
+    public static TreeMap<Integer,String> getSingleLineSqlStatementsFromInputStream(AssetManager assetManager) {
+        TreeMap<Integer,String> statements = new TreeMap<>();
+
+        try(InputStream shemaCreationSqlFileInputStream = assetManager.open(DATA_INSERT_SQL_FILE)) {
+            //creating an InputStreamReader object
+            InputStreamReader isReader = new InputStreamReader(shemaCreationSqlFileInputStream);
+            //Creating a BufferedReader object
+            BufferedReader reader = new BufferedReader(isReader);
+
+            String statement;
+            int statementsCount = 0;
+            while((statement = reader.readLine())!= null){
+
+                // check if it's comment line
+                boolean isCommentOrEmptyLine = statement.startsWith("--") || statement.isEmpty();
+                if(!isCommentOrEmptyLine) {
+                    statements.put(statementsCount,statement);
+                    statementsCount++;
+                }
+
+            }
+
+        } catch (IOException e) {
+            Log.e("DB Utils", e.toString());
+        }
+
+
+
+        return statements;
     }
 
     private static String getQueriesFromInputStream(InputStream is) {

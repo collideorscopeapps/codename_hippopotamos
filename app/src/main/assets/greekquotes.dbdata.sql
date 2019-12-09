@@ -13,17 +13,17 @@ INSERT INTO "news" ("title","link") VALUES ('Pablo Escobar''s hippos keep multip
 
 INSERT INTO "schermate" ("_id","description") VALUES (1,'parossìtone due sillabe');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (3,'τόπος');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (4,'φίλος');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (5,'λόγος');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (4,'φίλος','filosf.ogg');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (5,'λόγος','logosf.ogg');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (3,2,'Luogo');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (4,2,'Caro, amico');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (5,2,'parola, linguaggio, discorso. pensiero, ragione, conto');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (5,2,'parola, linguaggio, discorso; pensiero, ragione, conto');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (1,3,1);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (1,4,2);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (1,5,3);
 
 INSERT INTO "schermate" ("_id","description") VALUES (2,'proparossìtone tre sillabe');
-INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (6,'ἄνθρωπος','ántʰrɔɔpós');
+INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription","audioFileName") VALUES (6,'ἄνθρωπος','ántʰrɔɔpós','anthrwpf.ogg');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (7,'ἄγγελος');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (6,2,'Uomo');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (7,2,'Messaggero');
@@ -38,9 +38,9 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 INSERT INTO "easter_egg_comments" ("schermata_id","language_id","eeComment") VALUES (3,1,'Plutarch reports that Phillip II of Macedon sent word to the Spartans, saying that "if I should invade Laconia, I shall drive you out." The Spartans laconically responded with "if."');
 
 INSERT INTO "schermate" ("_id","description") VALUES (4,'I declinazione in α puro');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (9,'χώρα');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (9,'χώρα','xwraf.ogg');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (10,'μοῖρα');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (11,'ἡμέρα');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (11,'ἡμέρα','hhmeraf.ogg');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (9,2,'regione');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (10,2,'destino');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (11,2,'giorno');
@@ -67,10 +67,15 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (7,15
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (8,'Todos','Apollodoro, I.2.1 Zeus, Plutone, Poseidone');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (16,'..Zeus, Plutone, Poseidone');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (8,16);
+
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (9,'Todos','Apollodoro, I.3.1 Irene, Dike e le Moire');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (17,'..Irene, Dike e le Moire');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (9,17);
+
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (10,'The North Wind and the Sun','..');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (18,'..The North Wind and the Sun');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (10,18)
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (11,'Eureka','ARCHIMEDES (PLUTARCH 73.1094c)');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (19,'εὕρηκα');
@@ -84,16 +89,23 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (12,12);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (12,2,'τὶς ἀθανάτων: GEN pl');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (13,'Talete 35');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (13,'Thyrants','Talete 35');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (20,'τί καινὸν εἴη τεθεαμένος; Γέροντα τύραννον.');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'What is the strangest thing to see? "An aged tyrant.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (20,2,'What is the strangest thing to see? An aged tyrant.');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (13,20);
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,1,'Good, noble');
 
-
 INSERT INTO "playlists" ("_id","description") VALUES (0,'Test playlist');
+INSERT INTO "schermate" ("_id","description") VALUES (14,'audio test');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,4);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,5);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,6);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,9);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,11);
+
 
 INSERT INTO "playlists" ("_id","description") VALUES (1,'Parole, vocabolario, declinazioni');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,1);

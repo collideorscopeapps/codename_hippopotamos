@@ -106,15 +106,29 @@ public class DBManager extends SQLiteOpenHelper {
 
         AssetManager assetManager = myContext.getAssets();
         String schemaQueries = Utils.getShemaCreationQueriesFromSqlFile(assetManager);
-        String dataInsertQueries = Utils.getDataInsertionQueriesFromSqlFile(assetManager);
+        TreeMap<Integer,String> dataInsertStatements = Utils.getSingleLineSqlStatementsFromInputStream(assetManager);
+
         myDatabase.beginTransaction();
         try {
+            // we need to split by semicolons only in schema creation statements, which can be multiline
             for (String query : schemaQueries.split(";")) {
                 myDatabase.execSQL(query);
             }
-            for (String query : dataInsertQueries.split(";")) {
-                myDatabase.execSQL(query);
+
+            // here we can execute one line at a time (statements are single-line
+            for(int i=0;i<dataInsertStatements.size();i++) {
+                String statement = dataInsertStatements.get(i);
+                try {
+                    myDatabase.execSQL(statement);
+                    Log.e("DB Manager", statement);
+                } catch (Exception e) {
+                    Log.e("DB Manager", statement);
+                    Log.e("DBManager", e.toString());
+                    throw e;
+                }
+
             }
+
             myDatabase.setTransactionSuccessful();
             creationPerformed = true;
             Log.v("DBManager", "Successfully created DB schema and inserted data.");
