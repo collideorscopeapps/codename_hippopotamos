@@ -44,6 +44,8 @@ public class DBManager extends SQLiteOpenHelper {
     private SQLiteDatabase myDatabase;
 
 
+    private TreeMap<Integer, Schermata> schermate;
+
     public DBManager(Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
 
@@ -152,6 +154,10 @@ public class DBManager extends SQLiteOpenHelper {
         // todo, translations languages
         // TODO some fields use a default language if the preferred one is absent
 
+        if(this.schermate != null) {
+            return this.schermate;
+        }
+
         myCreateDBFromSqlFile();
         openDatabaseReadonly();
 
@@ -216,6 +222,7 @@ public class DBManager extends SQLiteOpenHelper {
             Log.e("DBManager", e.toString());
         }
 
+        this.schermate = schermate;
         return schermate;
     }
 
