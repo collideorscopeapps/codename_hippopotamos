@@ -1,10 +1,8 @@
 package it.collideorscopeapps.codename_hippopotamos.database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -13,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
@@ -42,12 +39,14 @@ public class DBManager extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 3;
     private final Context myContext; //TODO check if final is necessary
 
-    private TreeMap<Integer,Schermata> schermate;
+    private TreeMap<Integer, Schermata> schermate;
 
     public DBManager(Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
 
         this.myContext = context;
+
+        createDBFromSqlFile(myContext, null);
     }
 
     public DBManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -72,8 +71,8 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     private static SQLiteDatabase openDBWithFKConstraints(String path,
-                                                   SQLiteDatabase.CursorFactory cf,
-                                                   int flags) {
+                                                          SQLiteDatabase.CursorFactory cf,
+                                                          int flags) {
 
         SQLiteDatabase db = SQLiteDatabase.openDatabase(path, cf, flags);
 
@@ -83,12 +82,51 @@ public class DBManager extends SQLiteOpenHelper {
 
     }
 
-    @Deprecated
-    public void closeDatabase () {
+    public static Boolean dropTables(Context myContext) {
+        String dbPath = myContext.getDatabasePath(DB_NAME).getPath();
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
+        db.setForeignKeyConstraintsEnabled(true);
 
-       /* if(myDatabase != null) {
+        return DBManager.dropTablesHelper(myContext, db);
+    }
+
+    public static Boolean dropTablesHelper(Context myContext, SQLiteDatabase myDatabase) {
+
+        Boolean dropPerformed = false;
+
+        AssetManager assetManager = myContext.getAssets();
+        TreeMap<Integer,String> dropSchemaStatements = Utils.getSingleLineSqlStatementsFromInputStream(
+                assetManager,
+                Utils.DROP_SCHEMA_SQL_FILE);
+
+        Log.w("DBManager","Dropping DB tables..");
+        myDatabase.beginTransaction();
+        try {
+            for(int i=0;i<dropSchemaStatements.size();i++) {
+                String statement = dropSchemaStatements.get(i);
+                try {
+                    myDatabase.execSQL(statement);
+                } catch (Exception e) {
+                    Log.e("DB Manager", statement);
+                    Log.e("DBManager", e.toString());
+                    throw e;
+                }
+            }
+
+            myDatabase.setTransactionSuccessful();
+            dropPerformed = true;
+            Log.d("DBManager", "Dropped DB schema and data.");
+
+        } finally {
+            Log.v("DBManager", "Ending DB transaction..");
+            myDatabase.endTransaction();
+            Log.v("DBManager", "DB transaction ended. Closing db..");
             myDatabase.close();
-        }*/
+            Log.v("DBManager", "DB transaction ended. DB closed.");
+            //TODO check if close causes errors if reopening
+        }
+
+        return dropPerformed;
     }
 
     public static Boolean createDBFromSqlFile(Context myContext, SQLiteDatabase myDatabase) {
@@ -98,24 +136,40 @@ public class DBManager extends SQLiteOpenHelper {
 
         String dbPath = myContext.getDatabasePath(DB_NAME).getPath();
 
-        if(myDatabase != null && myDatabase.isOpen()) {
-
-            if(myDatabase.getVersion() == DATABASE_VERSION) {
-                Log.v("DBManager", "DB aready open, not creating it.");
-                return creationPerformed;
-            }
-            else {
-                deleteExistingDatabase(myContext);
-            }
+        Log.v("DBManager", "Opening DB..");
+        if(myDatabase == null || !myDatabase.isOpen()) {
+            myDatabase = openDBWithFKConstraints(
+                    dbPath,
+                    null,
+                    SQLiteDatabase.CREATE_IF_NECESSARY);
         }
 
-        Log.v("DBManager", "Creating DB from Sql file..");
+        int myDBVersion = myDatabase.getVersion();
+        if(myDBVersion== DATABASE_VERSION) {
+            Log.v("DBManager", "DB version up to date: " + myDBVersion);
+        }
+        else {
+            Log.v("DBManager", "Should drop older DB, myDBVersion: " + myDBVersion
+                    + ", new version: " + DATABASE_VERSION);
+            dropTablesHelper(myContext, myDatabase);
+            //deleteExistingDatabase(myContext);
+        }
 
-        myDatabase = openDBWithFKConstraints(dbPath, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        // check if tables are there
+        Boolean dbIsEmpty = isDBEmpty(myContext, myDatabase);
+        if(!dbIsEmpty) {
+            Log.v("DBManager", "DB is already populated");
+            creationPerformed = true;
+            return creationPerformed;
+        }
+
+
+        Log.v("DBManager", "DB is empty, remaking schema and data from Sql file..");
 
         AssetManager assetManager = myContext.getAssets();
         String schemaQueries = Utils.getShemaCreationQueriesFromSqlFile(assetManager);
-        TreeMap<Integer,String> dataInsertStatements = Utils.getSingleLineSqlStatementsFromInputStream(assetManager);
+        TreeMap<Integer,String> dataInsertStatements = Utils.getSingleLineSqlStatementsFromInputStream(
+                assetManager, Utils.DATA_INSERT_SQL_FILE);
 
         myDatabase.beginTransaction();
         try {
@@ -134,7 +188,6 @@ public class DBManager extends SQLiteOpenHelper {
                     Log.e("DBManager", e.toString());
                     throw e;
                 }
-
             }
 
             myDatabase.setTransactionSuccessful();
@@ -142,32 +195,41 @@ public class DBManager extends SQLiteOpenHelper {
             Log.v("DBManager", "Successfully created DB schema and inserted data.");
 
         } finally {
-
+            Log.v("DBManager", "Ending DB transaction..");
             myDatabase.endTransaction();
+            Log.v("DBManager", "DB transaction ended. Closing db..");
+            myDatabase.close();
+            Log.v("DBManager", "DB transaction ended. DB closed.");
+
+            //Boolean isDbLockedByCurrentThread = myDatabase.isDbLockedByCurrentThread();
+            //Boolean isStillOpen = myDatabase.isOpen();
+            //List<Pair<String, String>> attachedDbs = myDatabase.getAttachedDbs();
         }
 
         return creationPerformed;
     }
 
-    public static void deleteExistingDatabase(Context context) {
+    public static boolean isDBEmpty(Context myContext, SQLiteDatabase db) {
 
-        String dbPath = context.getDatabasePath(DBManager.DB_NAME).getPath();
-        SQLiteDatabase.deleteDatabase(new File(dbPath));
+        Boolean isDBEmpty = true;
 
-        String databasesFolder = "/data/data/" + context.getPackageName() + "/databases/";
-        String dbPath2 = databasesFolder + DBManager.DB_NAME;
-        SQLiteDatabase.deleteDatabase(new File(dbPath2));
+        String allTableNamesQuery = "SELECT name FROM sqlite_master WHERE type='table'";
+        ArrayList<String> tableNames = new ArrayList<>();
+        Cursor c = db.rawQuery(allTableNamesQuery, null);
+        if (c.moveToFirst()) {
+            while ( !c.isAfterLast() ) {
+                int firstColumnIdx = 0;
+                tableNames.add(c.getString(firstColumnIdx));
+                c.moveToNext();
+            }
+        }
+        int min_tables = 2;
+        if(tableNames.size()>2) {
+            isDBEmpty = false;
+        }
 
-        Log.v("DBManager","Deleted databases " + dbPath + " and " + dbPath2);
+        return isDBEmpty;
     }
-
-    @Deprecated
-    private void myCreateDBFromSqlFile() {
-
-        //createDBFromSqlFile(myContext, myDatabase);
-
-    }
-
 
     public TreeMap<Integer, Schermata> getSchermate(DBManager.Languages language) {
 

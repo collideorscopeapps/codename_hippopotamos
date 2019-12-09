@@ -21,19 +21,19 @@ public class DBManagerTest {
     @Before
     public void setUp() throws Exception {
 
-        deleteExistingDatabase();
-
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+
+        DBManager.dropTables(appContext);
         DBManager.createDBFromSqlFile(appContext,null);
     }
+
 
     @After
     public void tearDown() throws Exception {
 
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        DBManager dbManager;
-        dbManager = new DBManager(appContext);
-        dbManager.deleteExistingDatabase(appContext);
+
+        DBManager.dropTables(appContext);
     }
 
     @Test
@@ -49,15 +49,12 @@ public class DBManagerTest {
     }
 
     @Test
-    public void closeDatabase() {
-    }
-
-    @Test
     public void createDBFromSqlFile() {
     }
 
     @Test
     public void getSchermate() {
+
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         DBManager dbManager;
         dbManager = new DBManager(appContext);
@@ -79,6 +76,9 @@ public class DBManagerTest {
 
     @Test
     public void onCreate() {
+
+        // TODO test, this was not being called after DBManager instance creation
+        // so in the DBManager construction had to call db creation from sql file
     }
 
     @Test

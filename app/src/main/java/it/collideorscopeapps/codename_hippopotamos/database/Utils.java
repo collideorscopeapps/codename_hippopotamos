@@ -14,6 +14,7 @@ import java.util.TreeSet;
 public class Utils {
 
     final static String DATA_INSERT_SQL_FILE = "greekquotes.dbdata.sql";
+    final static String DROP_SCHEMA_SQL_FILE = "greekquotes.dropschema.sql";
     final static String SCHEMA_SQL_FILE = "greekquotes.dbschema.sql";
 
     public static String getShemaCreationQueriesFromSqlFile(AssetManager assetManager) {
@@ -34,10 +35,12 @@ public class Utils {
         return null;
     }
 
-    public static TreeMap<Integer,String> getSingleLineSqlStatementsFromInputStream(AssetManager assetManager) {
+    public static TreeMap<Integer,String> getSingleLineSqlStatementsFromInputStream(
+            AssetManager assetManager,
+            String fileName) {
         TreeMap<Integer,String> statements = new TreeMap<>();
 
-        try(InputStream shemaCreationSqlFileInputStream = assetManager.open(DATA_INSERT_SQL_FILE)) {
+        try(InputStream shemaCreationSqlFileInputStream = assetManager.open(fileName)) {
             //creating an InputStreamReader object
             InputStreamReader isReader = new InputStreamReader(shemaCreationSqlFileInputStream);
             //Creating a BufferedReader object
@@ -53,14 +56,11 @@ public class Utils {
                     statements.put(statementsCount,statement);
                     statementsCount++;
                 }
-
             }
 
         } catch (IOException e) {
             Log.e("DB Utils", e.toString());
         }
-
-
 
         return statements;
     }

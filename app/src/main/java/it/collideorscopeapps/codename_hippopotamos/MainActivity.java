@@ -29,11 +29,10 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         setContentView(R.layout.activity_main);
 
         dbManager = new DBManager(this);
-
-        // todo, after db copy, try to open db and query it
+        // this should call on create
 
         //this.createDB();
-        // TODO get choosen language from shared preferences
+        // TODO get chosen language from shared preferences
         schermate = dbManager.getSchermate(DBManager.Languages.EN);
         openQuoteActivity();
     }
