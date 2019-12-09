@@ -26,6 +26,17 @@ public class QuoteActivity extends AppCompatActivity {
 
     HashMap schermate;
 
+    static MediaPlayer.OnPreparedListener onPreparedListener = new MediaPlayer.OnPreparedListener() {
+        @Override
+        public void onPrepared(MediaPlayer player) {
+            Log.v("QuoteActivity","Starting media player..");
+            player.start();
+            //TODO should we ensure playback is completed before relase? is .start asynch?
+            //player.release();
+            //player = null;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,16 +92,7 @@ public class QuoteActivity extends AppCompatActivity {
 
             insertFileIntoMediaplayer(mediaPlayer, assetFileDescriptor);
 
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer player) {
-                    Log.v("QuoteActivity","Starting media player..");
-                    player.start();
-                    //TODO should we ensure playback is completed before relase? is .start asynch?
-                    //player.release();
-                    //player = null;
-                }
-            });
+            mediaPlayer.setOnPreparedListener(onPreparedListener);
 
             mediaPlayer.prepareAsync();
         }
