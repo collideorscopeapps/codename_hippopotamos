@@ -44,7 +44,7 @@ public class DBManager extends SQLiteOpenHelper {
     private SQLiteDatabase myDatabase;
 
 
-    private TreeMap<Integer, Schermata> schermate;
+    private TreeMap<Integer,Schermata> schermate;
 
     public DBManager(Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
@@ -161,60 +161,17 @@ public class DBManager extends SQLiteOpenHelper {
         myCreateDBFromSqlFile();
         openDatabaseReadonly();
 
-        int schermateCount = (int)DatabaseUtils.queryNumEntries(myDatabase,
-                "schermate");
-        TreeMap<Integer, Schermata> schermate = new TreeMap<Integer, Schermata>();
+        TreeMap<Integer, Schermata> newSchermate = new TreeMap<Integer, Schermata>();
 
         TreeMap<Integer, String> linguisticNotes = getLinguisticNotes(language);
-        TreeMap<Integer, String> getEasterEggComments = getEasterEggComments(language);
+        TreeMap<Integer, String> easterEggComments = getEasterEggComments(language);
 
         String quotesAndSchermateQuery = "SELECT * FROM v_schermate";
         try(Cursor cursor = myDatabase.rawQuery(quotesAndSchermateQuery, null)) {
 
-            final int schermataIdColIdx = cursor.getColumnIndex("s_id");
-            final int greekQuoteIddColIdx = cursor.getColumnIndex("gq_id");
-            final int quoteColIdx = cursor.getColumnIndex("quote");
-            final int phoneticColIdx = cursor.getColumnIndex("phoneticTranscription");
-            final int positionColIdx = cursor.getColumnIndex("position");
-            final int titleColIdx = cursor.getColumnIndex("title");
-            final int descriptionColIdx = cursor.getColumnIndex("description");
-            final int citColIdx = cursor.getColumnIndex("cit");
-            final int audioFileNameColIdx = cursor.getColumnIndex("audioFileName");
-
             cursor.moveToFirst();
             while(!cursor.isAfterLast()) {
-                int idSchermata = cursor.getInt(schermataIdColIdx);
-                int idQuote = cursor.getInt(greekQuoteIddColIdx);
-                String greekQuote = cursor.getString(quoteColIdx);
-                String phoneticTranscription = cursor.getString(phoneticColIdx);
-                int quotePosition = cursor.getInt(positionColIdx);
-                String title = cursor.getString(titleColIdx);
-                String description = cursor.getString(descriptionColIdx);
-                String cit = cursor.getString(citColIdx);
-                String audioFileName = cursor.getString(audioFileNameColIdx);
-
-                String linguisticNote = linguisticNotes.get(idSchermata);
-                String eeComment = getEasterEggComments.get(idSchermata);
-
-                Quote currentQuote = new Quote(idQuote, quotePosition, greekQuote,
-                        phoneticTranscription, audioFileName);
-
-                // TODO schermate can have translations to be used in place of those of each quote
-                // TODO schermatePlaylists
-
-                Schermata currentSchermata = schermate.get(idSchermata);
-                if(null == currentSchermata) {
-                    currentSchermata= new Schermata(
-                            idSchermata,
-                            title,
-                            description,
-                            linguisticNote,
-                            cit,
-                            eeComment);
-                    schermate.put(idSchermata, currentSchermata);
-                }
-                currentSchermata.addQuote(currentQuote);
-
+                addQuoteAndSchermata(cursor, newSchermate, linguisticNotes, easterEggComments);
                 cursor.moveToNext();
             }
         }
@@ -222,8 +179,56 @@ public class DBManager extends SQLiteOpenHelper {
             Log.e("DBManager", e.toString());
         }
 
-        this.schermate = schermate;
-        return schermate;
+        this.schermate = newSchermate;
+        return this.schermate;
+    }
+
+    private static void addQuoteAndSchermata(Cursor cursor,
+                                             TreeMap<Integer,Schermata> schermate,
+                                             TreeMap<Integer,String> linguisticNotes,
+                                             TreeMap<Integer,String> easterEggComments) {
+
+        final int schermataIdColIdx = cursor.getColumnIndex("s_id");
+        final int greekQuoteIddColIdx = cursor.getColumnIndex("gq_id");
+        final int quoteColIdx = cursor.getColumnIndex("quote");
+        final int phoneticColIdx = cursor.getColumnIndex("phoneticTranscription");
+        final int positionColIdx = cursor.getColumnIndex("position");
+        final int titleColIdx = cursor.getColumnIndex("title");
+        final int descriptionColIdx = cursor.getColumnIndex("description");
+        final int citColIdx = cursor.getColumnIndex("cit");
+        final int audioFileNameColIdx = cursor.getColumnIndex("audioFileName");
+
+        int idSchermata = cursor.getInt(schermataIdColIdx);
+        int idQuote = cursor.getInt(greekQuoteIddColIdx);
+        String greekQuote = cursor.getString(quoteColIdx);
+        String phoneticTranscription = cursor.getString(phoneticColIdx);
+        int quotePosition = cursor.getInt(positionColIdx);
+        String title = cursor.getString(titleColIdx);
+        String description = cursor.getString(descriptionColIdx);
+        String cit = cursor.getString(citColIdx);
+        String audioFileName = cursor.getString(audioFileNameColIdx);
+
+        String linguisticNote = linguisticNotes.get(idSchermata);
+        String eeComment = easterEggComments.get(idSchermata);
+
+        Quote currentQuote = new Quote(idQuote, quotePosition, greekQuote,
+                phoneticTranscription, audioFileName);
+
+        // TODO schermate can have translations to be used in place of those of each quote
+        // TODO schermatePlaylists
+
+        Schermata currentSchermata = schermate.get(idSchermata);
+        if(null == currentSchermata) {
+            currentSchermata= new Schermata(
+                    idSchermata,
+                    title,
+                    description,
+                    linguisticNote,
+                    cit,
+                    eeComment);
+            schermate.put(idSchermata, currentSchermata);
+        }
+        currentSchermata.addQuote(currentQuote);
     }
 
     public  TreeMap<Integer, String> getEasterEggComments(Languages language) {
@@ -253,7 +258,7 @@ public class DBManager extends SQLiteOpenHelper {
         return eeComments;
     }
 
-    public  TreeMap<Integer, String> getLinguisticNotes(Languages language) {
+    public TreeMap<Integer, String> getLinguisticNotes(Languages language) {
 
         TreeMap<Integer, String> linguisticNotes = new TreeMap<Integer, String>();
 
