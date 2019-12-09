@@ -2,19 +2,12 @@ package it.collideorscopeapps.codename_hippopotamos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
-
-import java.io.FileDescriptor;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
+import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayUtils;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
@@ -26,16 +19,6 @@ public class QuoteActivity extends AppCompatActivity {
 
     HashMap schermate;
 
-    static MediaPlayer.OnPreparedListener onPreparedListener = new MediaPlayer.OnPreparedListener() {
-        @Override
-        public void onPrepared(MediaPlayer player) {
-            Log.v("QuoteActivity","Starting media player..");
-            player.start();
-            //TODO should we ensure playback is completed before relase? is .start asynch?
-            //player.release();
-            //player = null;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,42 +46,7 @@ public class QuoteActivity extends AppCompatActivity {
         AssetManager assetManager = this.getAssets();
         MediaPlayer mediaPlayer = new MediaPlayer();
 
-        playAudioFile(mediaPlayer, assetManager, audioFilePath);
+        AudioPlayUtils.playAudioFile(mediaPlayer, assetManager, audioFilePath);
 
     }
-
-    private static void insertFileIntoMediaplayer(MediaPlayer mediaPlayer,
-                                                  AssetFileDescriptor assetFileDescriptor)
-            throws IOException {
-        if(android.os.Build.VERSION.SDK_INT >= 24) {
-            mediaPlayer.setDataSource(assetFileDescriptor);
-        }
-        else {
-            FileDescriptor fileDescriptor = assetFileDescriptor.getFileDescriptor();
-            long offset = assetFileDescriptor.getStartOffset();
-            long length = assetFileDescriptor.getLength();
-            mediaPlayer.setDataSource(
-                    fileDescriptor,
-                    offset,
-                    length);
-        }
-    }
-
-    private static void playAudioFile(MediaPlayer mediaPlayer,
-                                      AssetManager assetManager,
-                                      String audioFilePath) {
-
-        try(AssetFileDescriptor assetFileDescriptor = assetManager.openFd(audioFilePath)) {
-
-            insertFileIntoMediaplayer(mediaPlayer, assetFileDescriptor);
-
-            mediaPlayer.setOnPreparedListener(onPreparedListener);
-
-            mediaPlayer.prepareAsync();
-        }
-        catch (IOException e) {
-            Log.e("QuoteActivity-audioplay", e.toString());
-        }
-    }
-
 }
