@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     private DBManager dbManager;
     TreeMap<Integer, Schermata> schermate;
 
+    public static final int QUOTE_ACTIVITY = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     void openQuoteActivity() {
 
         Intent intent = new Intent(MainActivity.this, QuoteActivity.class);
+
+        intent.putExtra("schermate", schermate);
+        startActivityForResult(intent, QUOTE_ACTIVITY);
+
         startActivity(intent);
     }
 }

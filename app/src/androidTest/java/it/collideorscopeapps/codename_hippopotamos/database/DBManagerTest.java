@@ -27,22 +27,21 @@ public class DBManagerTest {
         DBManager.createDBFromSqlFile(appContext,null);
     }
 
-    private void deleteExistingDatabase() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-
-        // TODO delete database file
-        String dbPath = appContext.getDatabasePath(DBManager.DB_NAME).getPath();
-        SQLiteDatabase.deleteDatabase(new File(dbPath));
-
-        String databasesFolder = "/data/data/" + appContext.getPackageName() + "/databases/";
-        String dbPath2 = databasesFolder + DBManager.DB_NAME;
-        SQLiteDatabase.deleteDatabase(new File(dbPath2));
-    }
-
     @After
     public void tearDown() throws Exception {
-        deleteExistingDatabase();
+
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        DBManager dbManager;
+        dbManager = new DBManager(appContext);
+        dbManager.deleteExistingDatabase(appContext);
+    }
+
+    @Test
+    public void deleteExistingDatabase() {
+
+        //TODO add test in case db is alredy open but old version
+        // was giving error when try to open in read mode, was locked
+
     }
 
     @Test

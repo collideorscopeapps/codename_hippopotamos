@@ -1,8 +1,9 @@
 package it.collideorscopeapps.codename_hippopotamos.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Schermata {
+public class Schermata implements Serializable {
 
     private int id;
     private String title;

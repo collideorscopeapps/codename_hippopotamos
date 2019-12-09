@@ -1,9 +1,28 @@
 package it.collideorscopeapps.codename_hippopotamos.model;
 
-public class Quote {
+import java.io.Serializable;
+
+public class Quote implements Serializable {
 
     private int id;
     private int positionInSchermata;
+
+    public int getPositionInSchermata() {
+        return positionInSchermata;
+    }
+
+    public String getQuoteText() {
+        return quoteText;
+    }
+
+    public String getPhoneticTranscription() {
+        return phoneticTranscription;
+    }
+
+    public String getAudioFileName() {
+        return audioFileName;
+    }
+
     private String quoteText;
     private String phoneticTranscription;
     private String audioFileName;

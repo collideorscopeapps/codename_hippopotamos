@@ -39,7 +39,7 @@ public class DBManager extends SQLiteOpenHelper {
 
     // TODO check how to handle/synch/check db version here and in the db created from sql file
     // TODO
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     private final Context myContext; //TODO check if final is necessary
 
     private TreeMap<Integer,Schermata> schermate;
@@ -99,8 +99,14 @@ public class DBManager extends SQLiteOpenHelper {
         String dbPath = myContext.getDatabasePath(DB_NAME).getPath();
 
         if(myDatabase != null && myDatabase.isOpen()) {
-            Log.v("DBManager", "DB aready open, not creating it.");
-            return creationPerformed;
+
+            if(myDatabase.getVersion() == DATABASE_VERSION) {
+                Log.v("DBManager", "DB aready open, not creating it.");
+                return creationPerformed;
+            }
+            else {
+                deleteExistingDatabase(myContext);
+            }
         }
 
         Log.v("DBManager", "Creating DB from Sql file..");
@@ -141,6 +147,18 @@ public class DBManager extends SQLiteOpenHelper {
         }
 
         return creationPerformed;
+    }
+
+    public static void deleteExistingDatabase(Context context) {
+
+        String dbPath = context.getDatabasePath(DBManager.DB_NAME).getPath();
+        SQLiteDatabase.deleteDatabase(new File(dbPath));
+
+        String databasesFolder = "/data/data/" + context.getPackageName() + "/databases/";
+        String dbPath2 = databasesFolder + DBManager.DB_NAME;
+        SQLiteDatabase.deleteDatabase(new File(dbPath2));
+
+        Log.v("DBManager","Deleted databases " + dbPath + " and " + dbPath2);
     }
 
     @Deprecated
