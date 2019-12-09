@@ -1,15 +1,15 @@
 package it.collideorscopeapps.codename_hippopotamos.database;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 
+import androidx.test.filters.Suppress;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
@@ -38,6 +38,8 @@ public class DBManagerTest {
         DBManager.dropTables(this.appContext);
     }
 
+    @Ignore("Not implemented")
+    @Suppress
     @Test
     public void deleteExistingDatabase() {
 
@@ -46,11 +48,11 @@ public class DBManagerTest {
 
     }
 
-    @Test
+    @Test@Suppress
     public void openDatabaseReadonly() {
     }
 
-    @Test
+    @Test@Suppress
     public void createDBFromSqlFile() {
     }
 
@@ -93,14 +95,14 @@ public class DBManagerTest {
         assertTrue(min_ln);
     }
 
-    @Test
+    @Test@Suppress
     public void onCreate() {
 
         // TODO test, this was not being called after DBManager instance creation
         // so in the DBManager construction had to call db creation from sql file
     }
 
-    @Test
+    @Test@Suppress
     public void onUpgrade() {
     }
 }
