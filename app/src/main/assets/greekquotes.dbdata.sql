@@ -65,14 +65,17 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (15,'τεκνοῖ δὲ �
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (15,2,'And again he (Uranus, the sky) begat children by Earth, the Titans as they are named: Ocean, Coeus, Hyperion, Crius, Iapetus, and, youngest of all, Cronus (Time)');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (7,15);
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (8,'Todos','Apollodoro, I.2.1 Zeus, Plutone, Poseidone');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (8,'Zeus, Pluto, Poseidon','Apollodoro, I.2.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (16,' καὶ Κύκλωπες τότε Διὶ μὲν διδόασι βροντὴν καὶ ἀστραπὴν καὶ κεραυνόν, Πλούτωνι δὲ κυνέην, Ποσειδῶνι δὲ τρίαιναν');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (16,1,'And the Cyclopes then gave Zeus thunder and lightning and a thunderbolt,4 and on Pluto they bestowed a helmet and on Poseidon a trident.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (8,16);
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (9,'Todos','Apollodoro, I.3.1 Irene, Dike e le Moire');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (17,'..Irene, Dike e le Moire');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (9,'Δίκην, Εἰρήνην, Εὐνομίαν','Apollodoro, I.3.1');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (17,'Εἰρήνην Εὐνομίαν Δίκην, μοίρας');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (17,2,'Irene, la Pace, Eunomia, l''Ordine, Dike, la Giustizia, e le Moire');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (17,1,'Peace, Order, Justice, and the Fates');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (9,17);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (9,1,'Εἰρήνην Εὐνομίαν Δίκην: ACC sg; μοίρας: ACC pl (f)');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (10,'The North Wind and the Sun','..');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (18,'..The North Wind and the Sun');
@@ -148,7 +151,6 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (27,2,'da Mnemosine gli nascono le Muse');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (21,27);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (21,1,'ἐκ Μνημοσύνης: GEN sg, μούσας: ACC pl');
-
 
 
 
