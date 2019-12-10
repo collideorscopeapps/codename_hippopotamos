@@ -6,6 +6,7 @@ INSERT INTO "credits" ("credit") VALUES ('Laboratorio di Cultura digitale, Dipar
 INSERT INTO "credits" ("credit") VALUES ('Wikipedia, List of Greek phrases, https://en.wikipedia.org/wiki/List_of_Greek_phrases');
 INSERT INTO "credits" ("credit") VALUES ('Francese, Christopher. Greek Core Vocabulary. Dickinson College Commentaries (2014). http://dcc.dickinson.edu/greek-core-list');
 INSERT INTO "credits" ("credit") VALUES ('Revithiadou, A. (2018) Ancient Greek pitch accent');
+INSERT INTO "credits" ("credit") VALUES ('Poesia laina, http://www.poesialatina.it/_ns/Greek/tt2/Esopo/Esopo046.html');
 
 INSERT INTO "app_notes" ("title","note") VALUES ('about','Hippopotamuses are located in central and southern Africa, south of the Sahara desert and near the Nile River.</br></br><b>Diet</b></br>They are vegetarians and mostly eat grass. They may travel long distances during the night from their water source to reach the areas where they graze. They also sometimes eat fruit that has fallen off of trees or crops grown by local people.');
 
@@ -77,9 +78,47 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (9,17);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (9,1,'Εἰρήνην Εὐνομίαν Δίκην: ACC sg; μοίρας: ACC pl (f)');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (10,'The North Wind and the Sun','..');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (18,'..The North Wind and the Sun');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (10,'The North Wind and the Sun','Aesop');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (18,'Βορέας καὶ Ἥλιος περὶ δυνάμεως ἤριζον·');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (18,2,'Borea e il Sole litigavano su chi fosse il più forte (sulla forza).');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (18,1,'The North Wind and the Sun were disputing which was the stronger (on strenght).');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (10,18);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (10,1,'ἤριζον: ..');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (22,'The North Wind and the Sun (2)','Aesop');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (33,'ἔδοξε δὲ αὐτοῖς ἐκείνῳ τὴν νίκην ἀπονεῖμαι, ὃς ἂν αὐτῶν ἄνθρωπον ὁδοιπόρον ἐκδύσῃ.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (33,2,'Decisero di assegnare la vittoria a chi di loro avesse spogliato un viandante.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (33,1,'They agreed that the one who succeeded in making a traveler take his cloak off would win.');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (22,33);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (22,1,'ἔδοξε: ..');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (23,'The North Wind and the Sun (3)','Aesop');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (28,'καὶ ὁ Βορέας ἀρξάμενος σφοδρὸς ἦν· τοῦ δὲ ἀνθρώπου ἀντεχομένου τῆς ἐσθῆτος μᾶλλον ἐπέκειτο.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (28,2,'Boreas all''inzio era impetuoso; e siccome l''uomo stava attaccato al vestito, soffiava di più.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (28,1,'Then the North Wind started blowing hard; and the more he blew the more closely did the traveler fold his cloak around him.');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (23,28);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (23,1,'ὁ Βορέας ἀρξάμενος σφοδρὸς ἦν: ..');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (24,'The North Wind and the Sun (4)','Aesop');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (29,'ὁ δὲ ὑπὸ τοῦ ψύχους καταπονούμενος ἔτι μᾶλλον καὶ περιττοτέραν ἐσθῆτα προσελάμβανεν,');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (29,2,'E quello, tormentato ancora di più dal freddo si aggiunse anche un altro vestito,');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (24,29);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (24,1,'καταπονούμενος: ..; προσελάμβανεν: ..');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (25,'The North Wind and the Sun (5)','Aesop');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (30,'ἕως ἀποκαμὼν ὁ Βορέας τῷ Ἡλίῳ μεταπαρέδωκε.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (30,2,'finché Boreas, stancatosi, cedette (l''uomo) ad Elios.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (30,1,'and at last the North Wind grew quite weary, handing it over to the Sun.');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (25,30);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (25,1,'ἀποκαμὼν: part sg aor act, NOM sg (m); μεταπαρέδωκε: 3rd sg aor ind act');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (26,'The North Wind and the Sun (6)','Aesop');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (31,'κἀκεῖνος τὸ μὲν πρῶτον μετρίως προσέλαμψε· τοῦ δὲ ἀνθρώπου τὰ περισσὰ τῶν ἱματίων ἀποτιθεμένου σφοδρότερον τὸ καῦμα ἐπέτεινε, μέχρις οὗ πρὸς τὴν ἀλέαν ἀντέχειν μὴ δυνάμενος ἀποδυσάμενος ποταμοῦ παραῤῥέοντος ἐπὶ λουτρὸν ἀπῄει.');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (26,31);
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (27,'The North Wind and the Sun (7)','Aesop');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (32,'ὁ λόγος δηλοῖ, ὅτι πολλάκις τὸ πείθειν τοῦ βιάζεσθαι ἀνυστικώτερόν ἐστι.');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (27,32);
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (11,'Eureka','ARCHIMEDES (PLUTARCH 73.1094c)');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (19,'εὕρηκα');

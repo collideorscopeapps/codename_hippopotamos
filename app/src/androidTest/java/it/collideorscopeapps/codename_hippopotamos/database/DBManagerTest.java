@@ -14,7 +14,7 @@ import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class DBManagerTest {
 
@@ -64,10 +64,11 @@ public class DBManagerTest {
         dbManager = new DBManager(appContext);
         TreeMap<Integer, Schermata> schermate = dbManager.getSchermate(DBManager.Languages.EN);
 
-        int min_num_schermate = 14;
+        int min_num_schermate = 27;
         boolean min_schermate = schermate.size() >= min_num_schermate;
 
-        assertTrue(min_schermate);
+        String failMessage = "Expected " + min_num_schermate + " schermate, found " + schermate.size();
+        assertTrue(failMessage,min_schermate);
     }
 
     @Test
