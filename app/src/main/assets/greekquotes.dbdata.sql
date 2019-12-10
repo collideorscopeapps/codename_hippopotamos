@@ -92,12 +92,8 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (13,'Thyrants','Talete 35');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (20,'τί καινὸν εἴη τεθεαμένος; Γέροντα τύραννον.');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (20,2,'What is the strangest thing to see? An aged tyrant.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (20,1,'What is the strangest thing to see? An aged tyrant.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (13,20);
-
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,1,'Good, noble');
 
 INSERT INTO "playlists" ("_id","description") VALUES (0,'Test playlist');
 INSERT INTO "schermate" ("_id","description") VALUES (14,'audio test');
@@ -106,6 +102,16 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,5
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,6);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,9);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,11);
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (15,'Thyrants','Talete 35');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (21,'καθείρξαντες αὐτοὺς ἐν τῷ Ταρτάρῳ');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (21,1,'shut them up in Tartarus (in the nether world)');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (15,21);
+
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,1,'Good, noble');
+
 
 
 INSERT INTO "playlists" ("_id","description") VALUES (1,'Parole, vocabolario, declinazioni');
