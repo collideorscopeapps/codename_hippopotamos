@@ -49,29 +49,29 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") V
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (4,9,1);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (4,10,1);
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (5,'Incipits','Apollodoro, I.1.1');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (5,'Incipits','Apollod. I.1.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (13,'Οὐρανὸς πρῶτος τοῦ παντὸς ἐδυνάστευσε κόσμου.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (13,2,'Urano ..per primo cosmo ..');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (5,13);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (5,1,'τοῦ κόσμου GEN sg (m? decl?)');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (6,'εἰς Τάρταρον','Apollodoro, I.1.2');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (6,'εἰς Τάρταρον','Apollod. I.1.2');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (14,'τόπος δὲ οὖτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (14,2,'A dark place in the Ade, as far from Earth as Earth is from heaven');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (6,14);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (6,1,'εἰς Τάρταρον, εἰς + Acc');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (7,'The start of Time','Apollodoro, I.1.3');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (7,'The start of Time','Apollod. I.1.3');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (15,'τεκνοῖ δὲ αὖθις ἐκ Γῆς παῖδας μὲν τοὺς Τιτᾶνας προσαγορευθέντας, Ὠκεανὸν Κοῖον Ὑπερίονα Κρεῖον Ἰαπετὸν καὶ νεώτατον ἁπάντων Κρόνον');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (15,2,'And again he (Uranus, the sky) begat children by Earth, the Titans as they are named: Ocean, Coeus, Hyperion, Crius, Iapetus, and, youngest of all, Cronus (Time)');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (7,15);
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (8,'Zeus, Pluto, Poseidon','Apollodoro, I.2.1');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (8,'Zeus, Pluto, Poseidon','Apollod. I.2.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (16,' καὶ Κύκλωπες τότε Διὶ μὲν διδόασι βροντὴν καὶ ἀστραπὴν καὶ κεραυνόν, Πλούτωνι δὲ κυνέην, Ποσειδῶνι δὲ τρίαιναν');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (16,1,'And the Cyclopes then gave Zeus thunder and lightning and a thunderbolt,4 and on Pluto they bestowed a helmet and on Poseidon a trident.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (8,16);
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (9,'Δίκην, Εἰρήνην, Εὐνομίαν','Apollodoro, I.3.1');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (9,'Δίκην, Εἰρήνην, Εὐνομίαν','Apollod. I.3.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (17,'Εἰρήνην Εὐνομίαν Δίκην, μοίρας');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (17,2,'Irene, la Pace, Eunomia, l''Ordine, Dike, la Giustizia, e le Moire');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (17,1,'Peace, Order, Justice, and the Fates');
@@ -120,7 +120,7 @@ INSERT INTO "schermate" ("_id","description","author_ref") VALUES (27,'The North
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (32,'ὁ λόγος δηλοῖ, ὅτι πολλάκις τὸ πείθειν τοῦ βιάζεσθαι ἀνυστικώτερόν ἐστι.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (27,32);
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (11,'Eureka','ARCHIMEDES (PLUTARCH 73.1094c)');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (11,'Eureka','Archimedes (Plutarch 73.1094c)');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (19,'εὕρηκα');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (19,2,'ho trovato.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (11,19);
@@ -132,7 +132,7 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (12,12);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (12,1,'τὶς ἀθανάτων: GEN pl');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (13,'Thyrants','Talete 35');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (13,'Thyrants','Thales of Miletus, 35');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (20,'τί καινὸν εἴη τεθεαμένος; Γέροντα τύραννον.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (20,1,'What is the strangest thing to see? An aged tyrant.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (13,20);
@@ -241,3 +241,6 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,27);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,13);
 
 
+--TODOs
+--add/concat/merge/join column eec to description
+--table: s_descriptions_translations (default in english), move it text in new table
