@@ -79,7 +79,7 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (10,'The North Wind and the Sun','..');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (18,'..The North Wind and the Sun');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (10,18)
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (10,18);
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (11,'Eureka','ARCHIMEDES (PLUTARCH 73.1094c)');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (19,'εὕρηκα');
