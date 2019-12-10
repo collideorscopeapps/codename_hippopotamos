@@ -35,7 +35,7 @@ INSERT INTO "schermate" ("_id","description","author_ref") VALUES (3,'Fun Fact',
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (8,'αἴκα');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (8,2,'se (ipotetico) (solo in dialetto dorico)');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (3,8);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (3,1,'αἴκα / αἴκε / αἴ κα / αἴ κε dor. / om. eἴκε for εἰ+ἄν > ἐάν');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (3,1,'αἴκα / αἴκε / αἴ κα / αἴ κε dor. / om. eἴκε for εἰ+ἄν > ἐάν, ἄν');
 INSERT INTO "easter_egg_comments" ("schermata_id","language_id","eeComment") VALUES (3,1,'Plutarch reports that Phillip II of Macedon sent word to the Spartans, saying that "if I should invade Laconia, I shall drive you out." The Spartans laconically responded with "if."');
 
 INSERT INTO "schermate" ("_id","description") VALUES (4,'I declinazione in α puro');
@@ -191,6 +191,11 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (21,27);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (21,1,'ἐκ Μνημοσύνης: GEN sg, μούσας: ACC pl');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (28,'The Spartans','Plutarch, De garrulitate, 17');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (34,'γράψαντος αὐτοῖς τοῦ Φιλίππου ‘ἂν ἐμβάλω εἰς τὴν Λακωνικήν, ἀναστάτους ὑμᾶς ποιήσω, ’ ἀντέγραψαν ‘αἴκα.’');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (34,1,'when Philip wrote to them, ‘If I invade Laconia, I shall turn you out,’ they wrote back, ‘If.’');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (28,34);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (28,1,'');
 
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
@@ -205,3 +210,34 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,4);
 
 INSERT INTO "playlists" ("_id","description") VALUES (2,'Frasi celebri');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (2,3);
+
+INSERT INTO "playlists" ("_id","description") VALUES (3,'Reading list');
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,1);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,2);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,4);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,12);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,5);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,6);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,7);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,8);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,9);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,15);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,16);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,17);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,18);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,19);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,20);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,21);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,3);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,28);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,11);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,10);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,22);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,23);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,24);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,25);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,26);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,27);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,13);
+
+

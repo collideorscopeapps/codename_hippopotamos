@@ -2,6 +2,7 @@
 DROP VIEW IF EXISTS v_quotes_and_translations;
 DROP VIEW IF EXISTS v_schermate;
 DROP VIEW IF EXISTS v_schermate_grouped;
+DROP VIEW IF EXISTS v_reading_list;
 
 DROP TABLE IF EXISTS "playlists_schermate";
 DROP TABLE IF EXISTS "playlists";

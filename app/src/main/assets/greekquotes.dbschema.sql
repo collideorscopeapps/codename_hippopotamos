@@ -110,7 +110,7 @@ CREATE VIEW v_schermate AS
     WHERE  qs.greek_quote_id = gq._id AND qs.schermata_id = s._id
     ORDER BY s_id;
 
- CREATE VIEW v_schermate_grouped AS
+CREATE VIEW v_schermate_grouped AS
      SELECT s._id AS s_id,
      GROUP_CONCAT(gq._id) AS gq_id,
      GROUP_CONCAT(gq.quoteText,', ') AS quote,
@@ -125,3 +125,6 @@ CREATE VIEW v_schermate AS
      GROUP BY s_id
      ORDER BY s_id;
 
+CREATE VIEW v_reading_list AS
+    SELECT quote, cit, description
+    FROM v_schermate_grouped;
