@@ -103,10 +103,16 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,6
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,9);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,11);
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (15,'Thyrants','Talete 35');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (15,'In the nether world','Apollod. 1.2.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (21,'καθείρξαντες αὐτοὺς ἐν τῷ Ταρτάρῳ');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (21,1,'shut them up in Tartarus (in the nether world)');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (15,21);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (15,1,'ἐν τῷ Ταρτάρῳ: DAT sg (m)');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (16,'Heavens, sea and Hades','Apollod. 1.2.1');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (22,'καὶ λαγχάνει Ζεὺς μὲν τὴν ἐν οὐρανῷ δυναστείαν, Ποσειδῶν δὲ τὴν ἐν θαλάσσῃ, Πλούτων δὲ τὴν ἐν Ἅιδου.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (22,1,'and to Zeus was allotted the dominion of the sky, to Poseidon the dominion of the sea, and to Pluto the dominion in Hades');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (16,22);
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
