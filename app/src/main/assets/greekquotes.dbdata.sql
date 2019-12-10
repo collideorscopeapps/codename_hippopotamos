@@ -61,8 +61,8 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (6,14
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (6,1,'εἰς Τάρταρον, εἰς + Acc');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (7,'The start of Time','Apollodoro, I.1.3');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (15,'..Κρόνον');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (15,2,'..Cronos..');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (15,'τεκνοῖ δὲ αὖθις ἐκ Γῆς παῖδας μὲν τοὺς Τιτᾶνας προσαγορευθέντας, Ὠκεανὸν Κοῖον Ὑπερίονα Κρεῖον Ἰαπετὸν καὶ νεώτατον ἁπάντων Κρόνον');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (15,2,'And again he (Uranus, the sky) begat children by Earth, the Titans as they are named: Ocean, Coeus, Hyperion, Crius, Iapetus, and, youngest of all, Cronus (Time)');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (7,15);
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (8,'Todos','Apollodoro, I.2.1 Zeus, Plutone, Poseidone');
