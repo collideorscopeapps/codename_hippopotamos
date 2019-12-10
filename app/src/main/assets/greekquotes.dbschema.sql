@@ -100,7 +100,7 @@ CREATE VIEW v_schermate AS
     SELECT s._id AS s_id,
     gq._id AS gq_id,
     gq.quoteText AS quote,
-    gq.phoneticTranscription AS phoneticTranscription,
+     gq.phoneticTranscription AS phoneticTranscription,
     qs.position AS position,
     s.title AS title,
     s.description AS description,
@@ -108,5 +108,20 @@ CREATE VIEW v_schermate AS
     gq.audioFileName as audioFileName
     FROM greek_quotes gq, quotes_in_schermate qs, schermate s
     WHERE  qs.greek_quote_id = gq._id AND qs.schermata_id = s._id
-    ORDER BY s._id;
+    ORDER BY s_id;
+
+ CREATE VIEW v_schermate_grouped AS
+     SELECT s._id AS s_id,
+     GROUP_CONCAT(gq._id) AS gq_id,
+     GROUP_CONCAT(gq.quoteText,', ') AS quote,
+     GROUP_CONCAT( gq.phoneticTranscription,', ') AS phoneticTranscription,
+     qs.position AS position,
+     s.title AS title,
+     s.description AS description,
+     s.author_ref AS cit,
+     GROUP_CONCAT(gq.audioFileName) as audioFileName
+     FROM greek_quotes gq, quotes_in_schermate qs, schermate s
+     WHERE  qs.greek_quote_id = gq._id AND qs.schermata_id = s._id
+     GROUP BY s_id
+     ORDER BY s_id;
 

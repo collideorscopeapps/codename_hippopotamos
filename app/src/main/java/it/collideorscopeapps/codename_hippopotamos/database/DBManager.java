@@ -173,10 +173,7 @@ public class DBManager extends SQLiteOpenHelper {
 
         myDatabase.beginTransaction();
         try {
-            // we need to split by semicolons only in schema creation statements, which can be multiline
-            for (String query : schemaQueries.split(";")) {
-                myDatabase.execSQL(query);
-            }
+            execSchemaCreationQueries(myDatabase, schemaQueries);
 
             // here we can execute one line at a time (statements are single-line
             for(int i=0;i<dataInsertStatements.size();i++) {
@@ -207,6 +204,13 @@ public class DBManager extends SQLiteOpenHelper {
         }
 
         return creationPerformed;
+    }
+
+    public static void execSchemaCreationQueries(SQLiteDatabase myDatabase, String schemaQueries) {
+        // we need to split by semicolons only in schema creation statements, which can be multiline
+        for (String query : schemaQueries.split(";")) {
+            myDatabase.execSQL(query);
+        }
     }
 
     public static boolean isDBEmpty(Context myContext, SQLiteDatabase db) {
