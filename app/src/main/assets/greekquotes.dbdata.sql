@@ -6,7 +6,8 @@ INSERT INTO "credits" ("credit") VALUES ('Laboratorio di Cultura digitale, Dipar
 INSERT INTO "credits" ("credit") VALUES ('Wikipedia, List of Greek phrases, https://en.wikipedia.org/wiki/List_of_Greek_phrases');
 INSERT INTO "credits" ("credit") VALUES ('Francese, Christopher. Greek Core Vocabulary. Dickinson College Commentaries (2014). http://dcc.dickinson.edu/greek-core-list');
 INSERT INTO "credits" ("credit") VALUES ('Revithiadou, A. (2018) Ancient Greek pitch accent');
-INSERT INTO "credits" ("credit") VALUES ('Poesia laina, http://www.poesialatina.it/_ns/Greek/tt2/Esopo/Esopo046.html');
+INSERT INTO "credits" ("credit") VALUES ('Poesia laina, testi greci interattivi http://www.poesialatina.it/_ns/Greek/tt2/p/Elenco.html');
+INSERT INTO "credits" ("credit") VALUES ('http://homermultitext.blogspot.com/2013/06/iliad-8-scholia-on-mythological.html');
 
 INSERT INTO "app_notes" ("title","note") VALUES ('about','Hippopotamuses are located in central and southern Africa, south of the Sahara desert and near the Nile River.</br></br><b>Diet</b></br>They are vegetarians and mostly eat grass. They may travel long distances during the night from their water source to reach the areas where they graze. They also sometimes eat fruit that has fallen off of trees or crops grown by local people.');
 
@@ -51,15 +52,16 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") V
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (5,'Incipits','Apollod. I.1.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (13,'Οὐρανὸς πρῶτος τοῦ παντὸς ἐδυνάστευσε κόσμου.');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (13,2,'Urano ..per primo cosmo ..');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (13,2,'Urano fù il primo signore di tutto l''universo.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (13,1,'Uranus (Sky) was the first lord of the whole universe.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (5,13);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (5,1,'τοῦ κόσμου GEN sg (m? decl?)');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (5,1,'τοῦ κόσμου GEN sg (m, II decl.); ἐδυνάστευσε + GEN: was lord over');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (6,'εἰς Τάρταρον','Apollod. I.1.2');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (14,'τόπος δὲ οὖτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (14,2,'A dark place in the Ade, as far from Earth as Earth is from heaven');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (14,'τούτους [..] εἰς Τάρταρον ἔρριψε （τόπος δὲ οὖτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (14,2,'threw them into Tartarus, a dark place in the Ade, as far from Earth as Earth is from heaven');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (6,14);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (6,1,'εἰς Τάρταρον, εἰς + Acc');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (6,1,'εἰς Τάρταρον, εἰς + Acc (sg, II decl.)');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (7,'The start of Time','Apollod. I.1.3');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (15,'τεκνοῖ δὲ αὖθις ἐκ Γῆς παῖδας μὲν τοὺς Τιτᾶνας προσαγορευθέντας, Ὠκεανὸν Κοῖον Ὑπερίονα Κρεῖον Ἰαπετὸν καὶ νεώτατον ἁπάντων Κρόνον');
@@ -197,6 +199,9 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (28,34);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (28,1,'');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (29,'Ὀρφεὺς','Apollod. 1.3.2');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (35,'Ὀρφεὺς ὁ ἀσκήσας κιθαρῳδίαν, ὃς ᾁδων ἐκίνει λίθους τε καὶ δένδρα.');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (29,35);
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
@@ -211,11 +216,13 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,4);
 INSERT INTO "playlists" ("_id","description") VALUES (2,'Frasi celebri');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (2,3);
 
-INSERT INTO "playlists" ("_id","description") VALUES (3,'Reading list');
+INSERT INTO "playlists" ("_id","description") VALUES (3,'Reading list - word series for ear training');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,1);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,2);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,4);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,12);
+
+INSERT INTO "playlists" ("_id","description") VALUES (4,'Reading list - micro quotes to learn nouns declensions');
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,12);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,5);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,6);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,7);

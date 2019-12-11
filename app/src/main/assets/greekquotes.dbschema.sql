@@ -141,8 +141,12 @@ CREATE VIEW v_schermate_grouped AS
      s.title AS title,
      s.description AS description,
      s.author_ref AS cit,
+     s.linguisticNote AS linguisticNote,
+     s.eeComment AS eeComment,
      GROUP_CONCAT(gq.audioFileName) as audioFileName
-     FROM greek_quotes gq, quotes_in_schermate qs, schermate s
+     FROM greek_quotes gq,
+     quotes_in_schermate qs,
+     v_schermate_default_language s
      WHERE  qs.greek_quote_id = gq._id AND qs.schermata_id = s._id
      GROUP BY s_id
      ORDER BY s_id;--/

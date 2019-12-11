@@ -27,6 +27,14 @@ public class Utils {
     --     ELSE (SELECT max(sorting)+1 FROM playlists_schermate )
     --    END)
     * */
+
+        // get data (schermate in a play list)
+        // for each schermata print:
+        // description/title
+        // quote series in the schermata
+        // cit
+        // some note apt for the reader
+
         return null;
     }
 
