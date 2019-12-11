@@ -18,6 +18,8 @@ public class Utils {
     final static String SCHEMA_SQL_FILE = "greekquotes.dbschema.sql";
 
 
+    public static String getPrettifiedReadingList() {
+
     /*
     *  --TODO get a playlist, write java utility to print (to txt) reading list from playlist
     --(CASE (SELECT count(*) FROM playlists_schermate )
@@ -26,6 +28,8 @@ public class Utils {
     --     ELSE (SELECT max(sorting)+1 FROM playlists_schermate )
     --    END)
     * */
+        return null;
+    }
 
     public static String getShemaCreationQueriesFromSqlFile(AssetManager assetManager) {
 
