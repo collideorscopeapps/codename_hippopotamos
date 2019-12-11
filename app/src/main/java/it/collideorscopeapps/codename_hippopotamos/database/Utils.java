@@ -17,6 +17,16 @@ public class Utils {
     final static String DROP_SCHEMA_SQL_FILE = "greekquotes.dropschema.sql";
     final static String SCHEMA_SQL_FILE = "greekquotes.dbschema.sql";
 
+
+    /*
+    *  --TODO get a playlist, write java utility to print (to txt) reading list from playlist
+    --(CASE (SELECT count(*) FROM playlists_schermate )
+    --     WHEN 0 THEN 0
+    --     WHEN NULL THEN 0
+    --     ELSE (SELECT max(sorting)+1 FROM playlists_schermate )
+    --    END)
+    * */
+
     public static String getShemaCreationQueriesFromSqlFile(AssetManager assetManager) {
 
         return getQueriesFromSqlFile(assetManager, SCHEMA_SQL_FILE);

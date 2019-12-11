@@ -208,7 +208,8 @@ public class DBManager extends SQLiteOpenHelper {
 
     public static void execSchemaCreationQueries(SQLiteDatabase myDatabase, String schemaQueries) {
         // we need to split by semicolons only in schema creation statements, which can be multiline
-        for (String query : schemaQueries.split(";")) {
+        String separator = "--/";
+        for (String query : schemaQueries.split(separator)) {
             myDatabase.execSQL(query);
         }
     }
