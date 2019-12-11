@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
@@ -77,13 +78,14 @@ public class DBManagerTest {
     @Test
     public void checkFreshResetDBHasNoRows() {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        String schemaQueries = Utils.getShemaCreationQueriesFromSqlFile(appContext.getAssets());
+        ArrayList<String> schemaStatements
+                = Utils.getSchemaCreationStatementsFromSqlFile(appContext.getAssets());
 
         String dbPath = appContext.getDatabasePath(DBManager.DB_NAME).getPath();
         SQLiteDatabase db = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
 
         DBManager.dropTables(this.appContext);//DBManager.dropTablesHelper(appContext, db);
-        DBManager.execSchemaCreationQueries(db,schemaQueries);
+        DBManager.execSchemaCreationQueries(db,schemaStatements);
 
         // check schermate, quotes are empty
         TreeMap<Integer, Schermata> schermate = dbManager.getSchermate(DBManager.Languages.EN);

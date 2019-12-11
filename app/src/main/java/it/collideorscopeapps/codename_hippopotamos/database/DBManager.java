@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -55,20 +53,7 @@ public class DBManager extends SQLiteOpenHelper {
         this.myContext = context;
     }
 
-    @Deprecated
-    public void openDatabaseReadonly() {
 
-
-        /*String dbPath = myContext.getDatabasePath(DB_NAME).getPath();
-
-        if(myDatabase != null && myDatabase.isOpen()) {
-            return;
-        }
-
-        myDatabase = openDBWithFKConstraints(dbPath, null, SQLiteDatabase.OPEN_READONLY);
-        */
-
-    }
 
     private static SQLiteDatabase openDBWithFKConstraints(String path,
                                                           SQLiteDatabase.CursorFactory cf,
@@ -121,15 +106,41 @@ public class DBManager extends SQLiteOpenHelper {
             Log.v("DBManager", "Ending DB transaction..");
             myDatabase.endTransaction();
             Log.v("DBManager", "DB transaction ended. Closing db..");
-            myDatabase.close();
-            Log.v("DBManager", "DB transaction ended. DB closed.");
+            // TODO check: removed all close statements,
+            //  except the one after getting the data from the db
+            //myDatabase.close();
+            //Log.v("DBManager", "DB transaction ended. DB closed.");
             //TODO check if close causes errors if reopening
         }
 
         return dropPerformed;
     }
 
-    public static Boolean createDBFromSqlFile(Context myContext, SQLiteDatabase myDatabase) {
+    private static SQLiteDatabase ensureDBOpen(Context myContext, SQLiteDatabase db) {
+
+        //TODO check the need for this, add tests. was giving error when db closed
+        // when db file manually deleted before runnning tests
+        return ensureDBOpen(myContext,db,SQLiteDatabase.OPEN_READONLY);
+
+    }
+
+    private static SQLiteDatabase ensureDBOpen(Context myContext,
+                                               SQLiteDatabase db,
+                                               int openMode) {
+
+        //TODO check the need for this, add tests. was giving error when db closed
+        // when db file manually deleted before runnning tests
+
+        if(db == null || !db.isOpen()) {
+            String dbPath = myContext.getDatabasePath(DB_NAME).getPath();
+            db = openDBWithFKConstraints(dbPath, null, openMode);
+        }
+
+        return db;
+    }
+
+    public static boolean createDBFromSqlFile(Context myContext,
+                                              SQLiteDatabase myDatabase) {
         //TODO use DB version, check it to avoid creating db every time app starts
 
         Boolean creationPerformed = false;
@@ -163,17 +174,26 @@ public class DBManager extends SQLiteOpenHelper {
             return creationPerformed;
         }
 
-
         Log.v("DBManager", "DB is empty, remaking schema and data from Sql file..");
 
+        return runSchemaCreationQueriesHelper(myContext, myDatabase);
+    }
+
+    private static boolean runSchemaCreationQueriesHelper(
+            Context myContext,
+            SQLiteDatabase myDatabase) {
+
+        boolean creationPerformed = false;
+
         AssetManager assetManager = myContext.getAssets();
-        String schemaQueries = Utils.getShemaCreationQueriesFromSqlFile(assetManager);
+        ArrayList<String> schemaStatements = Utils.getSchemaCreationStatementsFromSqlFile(assetManager);
         TreeMap<Integer,String> dataInsertStatements = Utils.getSingleLineSqlStatementsFromInputStream(
                 assetManager, Utils.DATA_INSERT_SQL_FILE);
 
+        myDatabase = ensureDBOpen(myContext, myDatabase, SQLiteDatabase.OPEN_READWRITE);
         myDatabase.beginTransaction();
         try {
-            execSchemaCreationQueries(myDatabase, schemaQueries);
+            execSchemaCreationQueries(myDatabase, schemaStatements);
 
             // here we can execute one line at a time (statements are single-line
             for(int i=0;i<dataInsertStatements.size();i++) {
@@ -195,8 +215,12 @@ public class DBManager extends SQLiteOpenHelper {
             Log.v("DBManager", "Ending DB transaction..");
             myDatabase.endTransaction();
             Log.v("DBManager", "DB transaction ended. Closing db..");
-            myDatabase.close();
-            Log.v("DBManager", "DB transaction ended. DB closed.");
+            // TODO we should not close it after tables creation, only
+            // after getting the data
+            // TODO check: removed all close statements,
+            //  except the one after getting the data from the db
+            // myDatabase.close();
+            // Log.v("DBManager", "DB transaction ended. DB closed.");
 
             //Boolean isDbLockedByCurrentThread = myDatabase.isDbLockedByCurrentThread();
             //Boolean isStillOpen = myDatabase.isOpen();
@@ -206,11 +230,12 @@ public class DBManager extends SQLiteOpenHelper {
         return creationPerformed;
     }
 
-    public static void execSchemaCreationQueries(SQLiteDatabase myDatabase, String schemaQueries) {
-        // we need to split by semicolons only in schema creation statements, which can be multiline
-        String separator = "--/";
-        for (String query : schemaQueries.split(separator)) {
-            myDatabase.execSQL(query);
+    public static void execSchemaCreationQueries(SQLiteDatabase myDatabase,
+                                                 ArrayList<String> schemaStatements) {
+        for (String statement : schemaStatements) {
+            //Log.v("DBManager",statement);
+            myDatabase.execSQL(statement);
+            //Log.v("DBManager",getConcatTableNames(myDatabase));
         }
     }
 
@@ -218,21 +243,12 @@ public class DBManager extends SQLiteOpenHelper {
 
         Boolean isDBEmpty = true;
 
-        String allTableNamesQuery = "SELECT name FROM sqlite_master WHERE type='table'";
-        ArrayList<String> tableNames = new ArrayList<>();
-        Cursor c = db.rawQuery(allTableNamesQuery, null);
-        if (c.moveToFirst()) {
-            while ( !c.isAfterLast() ) {
-                int firstColumnIdx = 0;
-                tableNames.add(c.getString(firstColumnIdx));
-                c.moveToNext();
-            }
-        }
-        int min_tables = 2;
-        if(tableNames.size()>2) {
-            isDBEmpty = false;
-        }
+        // TODO add test for this case, was giving error when db closed
+        // gives error when db file manually deleted before runnning tests
+        db = ensureDBOpen(myContext, db);
 
+        String tableNamesConcat = getConcatTableNames(db);
+        isDBEmpty = !tableNamesConcat.contains("v_schermate_and_quotes,");
         return isDBEmpty;
     }
 
@@ -253,9 +269,14 @@ public class DBManager extends SQLiteOpenHelper {
         TreeMap<Integer, String> linguisticNotes = getLinguisticNotes(language);
         TreeMap<Integer, String> easterEggComments = getEasterEggComments(language);
 
-        String quotesAndSchermateQuery = "SELECT * FROM v_schermate";
-        try(SQLiteDatabase db = getWritableDatabase();
-            Cursor cursor = db.rawQuery(quotesAndSchermateQuery, null)) { // todo merge try
+        // TODO rededish, review: problems with db creation,
+        //  opening, state, and closing cycles
+        String quotesAndSchermateQuery = "SELECT * FROM v_schermate_and_quotes";
+        SQLiteDatabase db = ensureDBOpen(myContext,null);
+        if(isDBEmpty(myContext,db)) {
+            runSchemaCreationQueriesHelper(myContext, db);
+        }
+        try(Cursor cursor = db.rawQuery(quotesAndSchermateQuery, null)) { // todo merge try
 
             cursor.moveToFirst();
             while(!cursor.isAfterLast()) {
@@ -263,14 +284,44 @@ public class DBManager extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
+        catch (SQLiteException sqle) {
+            Log.e("DBManager", sqle.toString());
+            Log.e("DBManager", "Tables: " + getConcatTableNames(db));
+        }
         catch (Exception e) {
             Log.e("DBManager", e.toString());
         }
 
-
-
         this.schermate = newSchermate;
+        db.close();//not needed anymore once data is loaded
         return this.schermate;
+    }
+
+    private static String getConcatTableNames(SQLiteDatabase db) {
+
+        String allTableNamesQuery = "SELECT name " +
+                "FROM sqlite_master " +
+                "WHERE type='table' OR type = 'view' ";
+        //ArrayList<String> tableNames = new ArrayList<>();
+        String tableNamesConcat = "";
+        int tablesCount = 0;
+        Cursor c = db.rawQuery(allTableNamesQuery, null);
+        if (c.moveToFirst()) {
+            while ( !c.isAfterLast() ) {
+                int firstColumnIdx = 0;
+                String tableName = c.getString(firstColumnIdx);
+                //tableNames.add(tableName);
+                tableNamesConcat += tableName + ",";
+                tablesCount++;
+                c.moveToNext();
+            }
+        }
+        Log.v("DBManager","Tables in DB ("
+                + tablesCount + ") " + tableNamesConcat);
+
+        //if(tablesCount < 3) {isDBEmpty = true;}
+
+        return tableNamesConcat;
     }
 
     private static void addQuoteAndSchermata(Cursor cursor,
@@ -371,23 +422,6 @@ public class DBManager extends SQLiteOpenHelper {
             }
         }
         return linguisticNotes;
-    }
-
-    @Deprecated
-     private void tryReadDB() throws IOException {
-
-
-        File dbFile = myContext.getDatabasePath(DB_NAME);
-
-        if (!dbFile.exists()) {
-
-            InputStream myInput = this.myContext.getAssets().open(DB_NAME);
-            myInput.close();
-        }
-
-        String appDataPath = myContext.getApplicationInfo().dataDir;
-
-
     }
 
     @Override

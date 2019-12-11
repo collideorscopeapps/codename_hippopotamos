@@ -7,16 +7,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 
 public class Utils {
 
     final static String DATA_INSERT_SQL_FILE = "greekquotes.dbdata.sql";
     final static String DROP_SCHEMA_SQL_FILE = "greekquotes.dropschema.sql";
-    final static String SCHEMA_SQL_FILE = "greekquotes.dbschema.sql";
-
+    public final static String SCHEMA_SQL_FILE = "greekquotes.dbschema.sql";
 
     public static String getPrettifiedReadingList() {
 
@@ -31,16 +30,19 @@ public class Utils {
         return null;
     }
 
-    public static String getShemaCreationQueriesFromSqlFile(AssetManager assetManager) {
+    public static ArrayList<String> getSchemaCreationStatementsFromSqlFile(
+            AssetManager assetManager) {
 
-        return getQueriesFromSqlFile(assetManager, SCHEMA_SQL_FILE);
+        return getStatementsFromSqlFile(assetManager, SCHEMA_SQL_FILE);
     }
 
-    private static String getQueriesFromSqlFile(AssetManager assetManager, String assetFileName) {
+    private static ArrayList<String> getStatementsFromSqlFile(
+            AssetManager assetManager,
+            String assetFileName) {
 
         try(InputStream shemaCreationSqlFileInputStream = assetManager.open(assetFileName)) {
 
-            return getQueriesFromInputStream(shemaCreationSqlFileInputStream);
+            return getStatementsFromInputStream(shemaCreationSqlFileInputStream);
         }
         catch (IOException e) {
             Log.e("Utils", e.toString());
@@ -79,8 +81,10 @@ public class Utils {
         return statements;
     }
 
-    private static String getQueriesFromInputStream(InputStream is) {
-        String queries = "";
+    private static ArrayList<String> getStatementsFromInputStream(InputStream is) {
+
+        // we need to split by semicolons only in schema creation statements, which can be multiline
+        final String STATEMENTS_SEPARATOR = "--/";
 
         //creating an InputStreamReader object
         InputStreamReader isReader = new InputStreamReader(is);
@@ -98,9 +102,15 @@ public class Utils {
             Log.e("DB Utils", e.toString());
         }
 
-        queries = sb.toString();
+        String concatQueries = sb.toString();
+        ArrayList<String> sqlStatements = new ArrayList<>();
 
-        return queries;
+        for (String statement : concatQueries.split(STATEMENTS_SEPARATOR)) {
+
+            sqlStatements.add(statement);
+        }
+
+        return sqlStatements;
     }
 
 }
