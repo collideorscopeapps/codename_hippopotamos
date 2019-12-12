@@ -10,6 +10,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.Test;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,8 +24,22 @@ public class UtilsTest {
     @Test
     public void getPrettifiedReadingList() {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        String readingList = Utils.getPrettifiedReadingList(appContext);
 
-        Utils.getPrettifiedReadingList(appContext);
+        File txtFile;
+        try {
+            txtFile = File.createTempFile("reading-list", ".txt");
+            Log.v("UtilsTest","Created temp file: " + txtFile.getAbsolutePath());
+
+            try(FileWriter txtFileFW = new FileWriter(txtFile)) {
+
+                txtFileFW.write(readingList);
+            }
+
+        } catch (IOException e) {
+            Log.e("UtilsTest",e.toString());
+        }
+
     }
 
     @Test@Suppress

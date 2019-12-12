@@ -22,39 +22,52 @@ public class Utils {
     final static String DROP_SCHEMA_SQL_FILE = "greekquotes.dropschema.sql";
     public final static String SCHEMA_SQL_FILE = "greekquotes.dbschema.sql";
 
+    public static void appendLineToStringBuilder(StringBuilder sb, String str) {
+
+        if(str != null) {
+            sb.append(str);
+            sb.append("\n");
+        }
+    }
+
     public static String getPrettifiedReadingList(Context appContext) {
-
-    /*
-    *  --TODO get a playlist, write java utility to print (to txt) reading list from playlist
-    --(CASE (SELECT count(*) FROM playlists_schermate )
-    --     WHEN 0 THEN 0
-    --     WHEN NULL THEN 0
-    --     ELSE (SELECT max(sorting)+1 FROM playlists_schermate )
-    --    END)
-    * */
-
-        // get data (schermate in a play list)
-
 
         DBManager db = new DBManager(appContext);
 
         TreeMap<Integer, Schermata> schermate = db.getSchermate(DBManager.Languages.EN);
         ArrayList<Playlist> playlists = db.getPlaylists();
 
+        StringBuilder sb = new StringBuilder();
         for(Playlist pl : playlists) {
 
-            //TODO print playlist title/descritpion
+            String emptyLine = "";
+            appendLineToStringBuilder(sb, pl.getDescription());
+            appendLineToStringBuilder(sb, emptyLine);
 
             TreeMap<Integer, Schermata> rankedSchermate = pl.getRankedSchermate();
-            //TODO
-            // for each schermata print:
-            // description/title
-            // quote series in the schermata
-            // cit
-            // some note apt for the reader
+
+            for(Integer schermataRank: rankedSchermate.keySet()) {
+                Schermata currentSchermata = rankedSchermate.get(schermataRank);
+
+                //appendLineToStringBuilder(sb, currentSchermata.getTitle());
+                appendLineToStringBuilder(sb, currentSchermata.getDescription());
+
+                appendLineToStringBuilder(sb, currentSchermata.getQuotesAsString());
+
+                appendLineToStringBuilder(sb, currentSchermata.getCitation());
+                appendLineToStringBuilder(sb, currentSchermata.getLinguisticNotes());
+                appendLineToStringBuilder(sb, currentSchermata.getEasterEggComment());
+                //TODO? add some other note apt for the reading list reader
+
+                appendLineToStringBuilder(sb, emptyLine);
+            }
+
+            appendLineToStringBuilder(sb, emptyLine);
+            appendLineToStringBuilder(sb, emptyLine);
+
         }
 
-        return null;
+        return sb.toString();
     }
 
     public static TreeSet<Integer> getIntsFromConcatString(String concat) {
