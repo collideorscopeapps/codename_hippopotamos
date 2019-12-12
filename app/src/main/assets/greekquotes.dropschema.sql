@@ -9,6 +9,7 @@ DROP VIEW IF EXISTS v_schermate_default_language;
 
 DROP TABLE IF EXISTS "playlists_schermate";
 DROP TABLE IF EXISTS "playlists";
+DROP TABLE IF EXISTS "schermate_descriptions_translations";
 DROP TABLE IF EXISTS "easter_egg_comments";
 DROP TABLE IF EXISTS "linguistic_notes";
 DROP TABLE IF EXISTS "quotes_in_schermate";

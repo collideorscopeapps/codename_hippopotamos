@@ -77,6 +77,15 @@ CREATE TABLE IF NOT EXISTS "easter_egg_comments" (
 	FOREIGN KEY("language_id") REFERENCES "translation_languages"("_id")
 );--/
 
+CREATE TABLE IF NOT EXISTS "schermate_descriptions_translations" (
+	"schermata_id"	INTEGER NOT NULL,
+	"language_id"	INTEGER NOT NULL,
+	"description"	TEXT,
+	PRIMARY KEY("schermata_id","language_id"),
+	FOREIGN KEY("schermata_id") REFERENCES "schermate"("_id"),
+	FOREIGN KEY("language_id") REFERENCES "translation_languages"("_id")
+);--/
+
 CREATE TABLE IF NOT EXISTS "playlists" (
 	"_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	"description"   TEXT UNIQUE

@@ -27,7 +27,7 @@ public class Schermata implements Serializable {
     }
 
     public String getCitation() {
-        return citation;
+        return "(" + citation + ")";
     }
 
     public String getEasterEggComment() {
@@ -67,7 +67,7 @@ public class Schermata implements Serializable {
             boolean isLastQuote = currentQuoteNum == this.quotes.size();
             if(isLastQuote) {
                 final String comma = ".";
-                if(!quoteText.endsWith("comma")) {
+                if(!quoteText.endsWith(comma)) {
                     closingComma = comma;
                 }
             }

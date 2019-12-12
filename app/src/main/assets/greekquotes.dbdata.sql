@@ -18,7 +18,8 @@ INSERT INTO "app_notes" ("title","note") VALUES ('about','Hippopotamuses are loc
 
 INSERT INTO "news" ("title","link") VALUES ('Pablo Escobar''s hippos keep multiplying and Colombia doesn''t know how to stop it','https://www.cbsnews.com/news/pablo-escobars-hippos-keep-multiplying-and-colombia-doesnt-know-how-to-stop-it/');
 
-INSERT INTO "schermate" ("_id","description") VALUES (1,'parossìtone due sillabe');
+INSERT INTO "schermate" ("_id","description") VALUES (1,'Disyllabic paroxytone words');
+INSERT INTO "schermate_descriptions_translations" ("schermata_id","language_id","description") VALUES (1,2,'parossìtone due sillabe');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (3,'τόπος');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (4,'φίλος','filosf.ogg');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (5,'λόγος','logosf.ogg');
@@ -29,7 +30,8 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") V
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (1,4,2);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (1,5,3);
 
-INSERT INTO "schermate" ("_id","description") VALUES (2,'proparossìtone tre sillabe');
+INSERT INTO "schermate" ("_id","description") VALUES (2,'Trisyllabic Proparoxytone words');
+INSERT INTO "schermate_descriptions_translations" ("schermata_id","language_id","description") VALUES (2,2,'proparossìtone tre sillabee');
 INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription","audioFileName") VALUES (6,'ἄνθρωπος','ántʰrɔɔpós','anthrwpf.ogg');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (7,'ἄγγελος');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (6,2,'Uomo');
@@ -44,7 +46,8 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (3,8)
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (3,1,'αἴκα / αἴκε / αἴ κα / αἴ κε dor. / om. eἴκε for εἰ+ἄν > ἐάν, ἄν');
 INSERT INTO "easter_egg_comments" ("schermata_id","language_id","eeComment") VALUES (3,1,'Plutarch reports that Phillip II of Macedon sent word to the Spartans, saying that "if I should invade Laconia, I shall drive you out." The Spartans laconically responded with "if."');
 
-INSERT INTO "schermate" ("_id","description") VALUES (4,'I declinazione in α puro');
+INSERT INTO "schermate" ("_id","description") VALUES (4,'1st declension, pure -ᾱ');
+INSERT INTO "schermate_descriptions_translations" ("schermata_id","language_id","description") VALUES (4,2,'I declinazione in α puro');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (9,'χώρα','xwraf.ogg');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (10,'μοῖρα');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (11,'ἡμέρα','hhmeraf.ogg');
