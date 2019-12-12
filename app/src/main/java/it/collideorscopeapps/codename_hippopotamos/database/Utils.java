@@ -1,5 +1,6 @@
 package it.collideorscopeapps.codename_hippopotamos.database;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 
@@ -9,6 +10,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.TreeSet;
+
+import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
+import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 
 public class Utils {
@@ -17,7 +22,7 @@ public class Utils {
     final static String DROP_SCHEMA_SQL_FILE = "greekquotes.dropschema.sql";
     public final static String SCHEMA_SQL_FILE = "greekquotes.dbschema.sql";
 
-    public static String getPrettifiedReadingList() {
+    public static String getPrettifiedReadingList(Context appContext) {
 
     /*
     *  --TODO get a playlist, write java utility to print (to txt) reading list from playlist
@@ -29,13 +34,40 @@ public class Utils {
     * */
 
         // get data (schermate in a play list)
-        // for each schermata print:
-        // description/title
-        // quote series in the schermata
-        // cit
-        // some note apt for the reader
+
+
+        DBManager db = new DBManager(appContext);
+
+        TreeMap<Integer, Schermata> schermate = db.getSchermate(DBManager.Languages.EN);
+        ArrayList<Playlist> playlists = db.getPlaylists();
+
+        for(Playlist pl : playlists) {
+
+            //TODO print playlist title/descritpion
+
+            TreeMap<Integer, Schermata> rankedSchermate = pl.getRankedSchermate();
+            //TODO
+            // for each schermata print:
+            // description/title
+            // quote series in the schermata
+            // cit
+            // some note apt for the reader
+        }
 
         return null;
+    }
+
+    public static TreeSet<Integer> getIntsFromConcatString(String concat) {
+
+        TreeSet<Integer> ints = new TreeSet<>();
+        //Todo ordering might not be guaranted in TreeSet, check
+        for(String num:concat.split(",")) {
+
+            int numParsed = Integer.parseInt(num);
+            ints.add(numParsed);
+        }
+
+        return ints;
     }
 
     public static ArrayList<String> getSchemaCreationStatementsFromSqlFile(

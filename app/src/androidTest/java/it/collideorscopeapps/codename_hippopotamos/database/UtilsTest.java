@@ -19,8 +19,11 @@ import static org.junit.Assert.*;
 
 public class UtilsTest {
 
-    @Test@Suppress
+    @Test
     public void getPrettifiedReadingList() {
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+
+        Utils.getPrettifiedReadingList(appContext);
     }
 
     @Test@Suppress
@@ -30,6 +33,7 @@ public class UtilsTest {
     @Test@Suppress
     public void getSingleLineSqlStatementsFromInputStream() {
     }
+
 
     @Test
     public void checkSqlFileCustomSeparator() {

@@ -9,8 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
+import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
@@ -38,6 +41,12 @@ public class DBManager extends SQLiteOpenHelper {
     private final Context myContext; //TODO check if final is necessary
 
     private TreeMap<Integer, Schermata> schermate;
+
+    public ArrayList<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    private ArrayList<Playlist> playlists;
 
     public DBManager(Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
@@ -268,6 +277,7 @@ public class DBManager extends SQLiteOpenHelper {
 
         TreeMap<Integer, String> linguisticNotes = getLinguisticNotes(language);
         TreeMap<Integer, String> easterEggComments = getEasterEggComments(language);
+        this.playlists = getPlaylistsFromDB();
 
         // TODO rededish, review: problems with db creation,
         //  opening, state, and closing cycles
@@ -293,6 +303,10 @@ public class DBManager extends SQLiteOpenHelper {
         }
 
         this.schermate = newSchermate;
+        for(Playlist pl :this.playlists) {
+            pl.setSchermate(this.schermate);
+        }
+
         db.close();//not needed anymore once data is loaded
         return this.schermate;
     }
@@ -370,6 +384,47 @@ public class DBManager extends SQLiteOpenHelper {
             schermate.put(idSchermata, currentSchermata);
         }
         currentSchermata.addQuote(currentQuote);
+    }
+
+    private ArrayList<Playlist> getPlaylistsFromDB() {
+
+        ArrayList<Playlist> playlists = new ArrayList<>();
+
+        try(SQLiteDatabase db = getReadableDatabase()) {
+
+            String playlistsQuery = "SELECT * FROM v_playlists";
+            Cursor cursor = db.rawQuery(playlistsQuery, null);
+            cursor.moveToFirst();
+
+            while(!cursor.isAfterLast()) {
+
+                Integer playlistId = cursor.getInt(cursor.getColumnIndex("p_id"));
+                String description = cursor.getString(cursor.getColumnIndex("description"));
+
+                String schermateConcat = cursor.getString(cursor.getColumnIndex("schermate"));
+                String playOrderConcat = cursor.getString(cursor.getColumnIndex("sorting"));
+
+                TreeSet<Integer> schermateIds = Utils.getIntsFromConcatString(schermateConcat);
+                TreeSet<Integer> playOrderRanks = Utils.getIntsFromConcatString(playOrderConcat);
+
+                TreeMap<Integer, Integer> playListAsRankedSchermate = new TreeMap<>();
+                Iterator<Integer> schermateIdsItr = schermateIds.iterator();
+                Iterator<Integer> playOrderRanksItr = playOrderRanks.iterator();
+                while(schermateIdsItr.hasNext()) {
+                    int key = schermateIdsItr.next();
+                    int value = playOrderRanksItr.next();
+
+                    playListAsRankedSchermate.put(key, value);
+                }
+
+                Playlist currentPlaylist = new Playlist(description, playListAsRankedSchermate);
+
+                playlists.add(currentPlaylist);
+                cursor.moveToNext();
+            }
+        }
+
+        return playlists;
     }
 
     public  TreeMap<Integer, String> getEasterEggComments(Languages language) {

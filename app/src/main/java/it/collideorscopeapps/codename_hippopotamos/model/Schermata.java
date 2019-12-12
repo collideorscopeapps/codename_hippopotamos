@@ -5,6 +5,10 @@ import java.util.ArrayList;
 
 public class Schermata implements Serializable {
 
+    public int getId() {
+        return id;
+    }
+
     private int id;
     private String title;
     private String description;
