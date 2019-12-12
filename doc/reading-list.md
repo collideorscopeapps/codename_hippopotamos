@@ -1,13 +1,9 @@
 ### Reading list - word series for ear training
 
-```
-τόπος, φίλος, λόγος.
-```
+> τόπος, φίλος, λόγος.
 (Place, friend, word.)
 
-```
-ἄνθρωπος, ἄγγελος.
-```
+> ἄνθρωπος, ἄγγελος.
 (Man, messenger.)
 
 ```
