@@ -8,6 +8,11 @@ INSERT INTO "credits" ("credit") VALUES ('Francese, Christopher. Greek Core Voca
 INSERT INTO "credits" ("credit") VALUES ('Revithiadou, A. (2018) Ancient Greek pitch accent');
 INSERT INTO "credits" ("credit") VALUES ('Poesia laina, testi greci interattivi http://www.poesialatina.it/_ns/Greek/tt2/p/Elenco.html');
 INSERT INTO "credits" ("credit") VALUES ('http://homermultitext.blogspot.com/2013/06/iliad-8-scholia-on-mythological.html');
+INSERT INTO "credits" ("credit") VALUES ('https://latinygriegojanda.files.wordpress.com/2012/06/orfeo-y-euridice.pdf');
+INSERT INTO "credits" ("credit") VALUES ('https://www.cornellcollege.edu/classical_studies/ariadne/audio/index.shtml');
+INSERT INTO "credits" ("credit") VALUES ('https://soundcloud.com/archaeologymag/what-ancient-greek-music');
+INSERT INTO "credits" ("credit") VALUES ('https://sites.google.com/site/materialesathenaze/ho-dikaiopolis');
+INSERT INTO "credits" ("credit") VALUES ('http://aliso.pntic.mec.es/agalle17/trabajo_final/cap4.html');
 
 INSERT INTO "app_notes" ("title","note") VALUES ('about','Hippopotamuses are located in central and southern Africa, south of the Sahara desert and near the Nile River.</br></br><b>Diet</b></br>They are vegetarians and mostly eat grass. They may travel long distances during the night from their water source to reach the areas where they graze. They also sometimes eat fruit that has fallen off of trees or crops grown by local people.');
 
@@ -70,7 +75,7 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (7,15
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (8,'Zeus, Pluto, Poseidon','Apollod. I.2.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (16,' καὶ Κύκλωπες τότε Διὶ μὲν διδόασι βροντὴν καὶ ἀστραπὴν καὶ κεραυνόν, Πλούτωνι δὲ κυνέην, Ποσειδῶνι δὲ τρίαιναν');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (16,1,'And the Cyclopes then gave Zeus thunder and lightning and a thunderbolt,4 and on Pluto they bestowed a helmet and on Poseidon a trident.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (16,1,'And the Cyclopes then gave Zeus thunder and lightning and a thunderbolt, and on Pluto they bestowed a helmet and on Poseidon a trident.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (8,16);
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (9,'Δίκην, Εἰρήνην, Εὐνομίαν','Apollod. I.3.1');
@@ -151,12 +156,13 @@ INSERT INTO "schermate" ("_id","description","author_ref") VALUES (15,'In the ne
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (21,'καθείρξαντες αὐτοὺς ἐν τῷ Ταρτάρῳ');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (21,1,'shut them up in Tartarus (in the nether world)');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (15,21);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (15,1,'ἐν τῷ Ταρτάρῳ: DAT sg (m)');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (15,1,'ἐν τῷ Ταρτάρῳ: DAT sg (m)..');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (16,'Heavens, sea and Hades','Apollod. 1.2.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (22,'καὶ λαγχάνει Ζεὺς μὲν τὴν ἐν οὐρανῷ δυναστείαν, Ποσειδῶν δὲ τὴν ἐν θαλάσσῃ, Πλούτων δὲ τὴν ἐν Ἅιδου.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (22,1,'and to Zeus was allotted the dominion of the sky, to Poseidon the dominion of the sea, and to Pluto the dominion in Hades');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (16,22);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (16,1,'ἐν οὐρανῷ, ἐν θαλάσσῃ: DAT sg ..');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (17,'Atlas','Apollod. 1.2.3');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (23,'Ἄτλας, ὃς ἔχει τοῖς ὤμοις τὸν οὐρανόν');
@@ -201,7 +207,10 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (29,'Ὀρφεὺς','Apollod. 1.3.2');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (35,'Ὀρφεὺς ὁ ἀσκήσας κιθαρῳδίαν, ὃς ᾁδων ἐκίνει λίθους τε καὶ δένδρα.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (35,1,'Orpheus, who practised minstrelsy and by his songs moved stones and trees.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (29,35);
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (29,1,'λίθους τε καὶ δένδρα: ACC pl (f, nt II decl.');
+
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
@@ -223,30 +232,39 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,4);
 
 INSERT INTO "playlists" ("_id","description") VALUES (4,'Reading list - micro quotes to learn nouns declensions');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,12);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,5);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,6);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,7);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,8);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,9);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,15);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,16);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,17);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,18);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,19);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,20);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,21);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,3);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,28);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,11);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,10);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,22);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,23);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,24);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,25);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,26);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,27);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,13);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,5);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,6);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,9);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,15);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,16);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,17);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,18);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,19);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,20);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,21);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,29);
+--..more..
 
+INSERT INTO "playlists" ("_id","description") VALUES (5,'Reading list - quotes to learn verb forms');
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,11);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,10);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,22);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,23);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,24);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,25);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,26);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,27);
+
+INSERT INTO "playlists" ("_id","description") VALUES (6,'Reading list - mythic and epic quotes');
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (6,7);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (6,8);
+
+INSERT INTO "playlists" ("_id","description") VALUES (7,'Reading list - more quotes');
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,13);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,28);
+
+INSERT INTO "playlists" ("_id","description") VALUES (8,'Reading list - quotes for prepositions');
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (8,3);
 
 --TODOs
 --add/concat/merge/join column eec to description
