@@ -49,11 +49,12 @@ public class Utils {
             for(Integer schermataRank: rankedSchermate.keySet()) {
                 Schermata currentSchermata = rankedSchermate.get(schermataRank);
 
-                //appendLineToStringBuilder(sb, currentSchermata.getTitle());
-                appendLineToStringBuilder(sb, currentSchermata.getDescription());
+                appendLineToStringBuilder(sb, currentSchermata.getTitle());
+                //appendLineToStringBuilder(sb, currentSchermata.getDescription());
 
                 appendLineToStringBuilder(sb, currentSchermata.getQuotesAsString());
 
+                // TODO add translation, by selected language
                 appendLineToStringBuilder(sb, currentSchermata.getCitation());
                 appendLineToStringBuilder(sb, currentSchermata.getLinguisticNotes());
                 appendLineToStringBuilder(sb, currentSchermata.getEasterEggComment());

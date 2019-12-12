@@ -27,7 +27,12 @@ public class Schermata implements Serializable {
     }
 
     public String getCitation() {
-        return "(" + citation + ")";
+
+        if(citation == null) {
+            return null;
+        } else {
+            return "(" + citation + ")";
+        }
     }
 
     public String getEasterEggComment() {

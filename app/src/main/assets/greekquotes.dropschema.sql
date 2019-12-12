@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS "schermate_descriptions_translations";
 DROP TABLE IF EXISTS "easter_egg_comments";
 DROP TABLE IF EXISTS "linguistic_notes";
 DROP TABLE IF EXISTS "quotes_in_schermate";
+DROP TABLE IF EXISTS "schermate_greek_translations";
 DROP TABLE IF EXISTS "schermate";
 DROP TABLE IF EXISTS "quotes_translations";
 DROP TABLE IF EXISTS "translation_languages";

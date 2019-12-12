@@ -49,6 +49,15 @@ CREATE TABLE IF NOT EXISTS "schermate" (
 	"author_ref" TEXT
 );--/
 
+CREATE TABLE IF NOT EXISTS "schermate_greek_translations" (
+	"schermata_id"	INTEGER NOT NULL,
+	"language_id"	INTEGER NOT NULL,
+	"translation"	TEXT,
+	PRIMARY KEY("schermata_id","language_id"),
+	FOREIGN KEY("schermata_id") REFERENCES "schermate"("_id"),
+	FOREIGN KEY("language_id") REFERENCES "translation_languages"("_id")
+);--/
+
 CREATE TABLE IF NOT EXISTS "quotes_in_schermate" (
 	"greek_quote_id"	INTEGER NOT NULL,
 	"schermata_id"	INTEGER NOT NULL,
