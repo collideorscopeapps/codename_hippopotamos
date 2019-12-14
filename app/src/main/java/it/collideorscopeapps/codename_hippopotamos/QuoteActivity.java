@@ -60,6 +60,8 @@ public class QuoteActivity extends AppCompatActivity {
 
         //TODO handle activity getting closed by OS
         // saving the current screen, so can be reloaded at reopening
+        // handle activity lifecycle
+        // avoid activy replaying audio every time is app is reopened from background
 
         //TODO
         // keep current scermata in playlist
@@ -71,6 +73,8 @@ public class QuoteActivity extends AppCompatActivity {
         // load the screen data into the TV, etc
         // set also the audio player
         // log error message when audio file not found
+
+        // hippopotamos tagline: you don't find such phrases among the Romans
 
 
 
