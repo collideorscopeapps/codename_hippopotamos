@@ -51,12 +51,12 @@ public class QuoteActivity extends AppCompatActivity {
         this.playlists = dbMng.getPlaylists();
 
         // TODO get UI widgets to populate
-        // populate UI widgets with data for current schermata
         // ..
         // set event listeners on some widgets (play button, back and forward buttons)
         // add favourites button
-        Button playBtn = findViewById(R.id.playButton);
+        this.greekTV = findViewById(R.id.greekTextTV);
 
+        Button playBtn = findViewById(R.id.playButton);
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,6 +64,23 @@ public class QuoteActivity extends AppCompatActivity {
             }
         });
 
+        Button nextScreenBtn = findViewById(R.id.nextButton);
+        nextScreenBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Schermata nextScreen = plItr.getNextScreen();
+                refreshToScreen(nextScreen);
+            }
+        });
+
+        Button prevScreenBtn = findViewById(R.id.backButton);
+        prevScreenBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Schermata prevScreen = plItr.getPrevScreen();
+                refreshToScreen(prevScreen);
+            }
+        });
 
         //TODO handle activity getting closed by OS
         // saving the current screen, so can be reloaded at reopening
@@ -76,7 +93,7 @@ public class QuoteActivity extends AppCompatActivity {
 
         //TODO should this be an instance variable?
         Schermata currentScreen = this.plItr.getCurrentScreen();
-
+        refreshToScreen(currentScreen);
 
         // hippopotamos tagline: you don't find such phrases among the Romans
         //(queste frasi tra i Romani non le trovate)
@@ -90,21 +107,8 @@ public class QuoteActivity extends AppCompatActivity {
         //(queste frasi non ci sono in latino)
         // (poi ripetere la tagline solo come commento alla frase dei due grammar books)
 
-        //TODO
-        // load screen data into the TV, etc
-        // set also the audio player
-        // log error message when audio file not found
-        this.greekTV = findViewById(R.id.greekTextTV);
-        this.greekTV.setText(currentScreen.getQuotesAsString());
-
-
 
         // FIXME screen glitch on displaying the soft aspiration for ἀγαθός
-
-        // TODO handle event of moving from one screen to the other
-        // use the back and forth buttons, handle onClick events
-
-        // poi lo scorrimento da una schermata all'altra è gestito dagli event listeners
 
         //TODO use new AudioPlayerHelper
         //TODO
@@ -113,6 +117,19 @@ public class QuoteActivity extends AppCompatActivity {
         // not when changing to other screen with other audio quotes
 
         //TODO ..might prepare in advance file descriptors for next screen
+    }
+
+    private Schermata getCurrentSchermata() {
+        return this.plItr.getCurrentScreen();
+    }
+
+    private void refreshToScreen(Schermata screen) {
+        //TODO
+        // populate UI widgets with data for current schermata
+        // load screen data into the TV, etc
+        // set also the audio player
+        // log error message when audio file not found
+        this.greekTV.setText(screen.getQuotesAsString());
     }
 
     @Deprecated
