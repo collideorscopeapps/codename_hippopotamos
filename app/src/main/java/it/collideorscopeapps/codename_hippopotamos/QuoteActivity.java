@@ -76,7 +76,7 @@ public class QuoteActivity extends AppCompatActivity {
 
         // hippopotamos tagline: you don't find such phrases among the Romans
 
-
+        // FIXME screen glitch on displaying the soft aspiration for ἀγαθός
 
         // TODO handle event of moving from one screen to the other
         // use the back and forth buttons, handle onClick events
