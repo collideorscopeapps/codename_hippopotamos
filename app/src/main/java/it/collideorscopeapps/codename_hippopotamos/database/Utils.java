@@ -48,15 +48,15 @@ public class Utils {
         for(Playlist pl : playlists) {
 
             if(!pl.isDisabled()) {
-                appenPlaylistToStringBuilder(sb, pl);
+                appendPlaylistToStringBuilder(sb, pl);
             }
         }
 
         return sb.toString();
     }
 
-    private static void appenPlaylistToStringBuilder(StringBuilder sb,
-                                                     Playlist pl) {
+    private static void appendPlaylistToStringBuilder(StringBuilder sb,
+                                                      Playlist pl) {
         final String emptyLine = "";
         final String gitHubHeadings = "### ";
         final String quoteSrtart = "> **";
