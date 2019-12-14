@@ -6,6 +6,16 @@
     android:orientation="vertical"
     tools:context=".QuoteActivity">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
     <TextView
         android:id="@+id/titleTV"
         android:layout_width="wrap_content"
@@ -107,4 +117,6 @@
         android:text="** you don't find such phrases among the Romans"
         />
 
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
