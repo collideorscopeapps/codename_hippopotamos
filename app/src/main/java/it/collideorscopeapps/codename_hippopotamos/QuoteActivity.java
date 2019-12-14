@@ -9,9 +9,12 @@ import android.view.View;
 import android.widget.Button;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper;
+import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
+import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
@@ -21,7 +24,8 @@ public class QuoteActivity extends AppCompatActivity {
     // iterate the quotes, get the audio files from assets folder
     // play the ogg vorbis files
 
-    HashMap schermate;
+    TreeMap<Integer, Schermata>  schermate;
+    ArrayList<Playlist> playlists;
     String currentAudioFilePath;
     AssetManager assetManager;
     AudioPlayerHelper audioPlayerHelper;
@@ -31,15 +35,16 @@ public class QuoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote);
 
-        //TODO should get schermate directly from DBManager not from main activity (no need to use extras)
-        schermate = (HashMap) getIntent().getExtras().get("schermate");
+        DBManager dbMng = new DBManager(this);
+
+        this.schermate = dbMng.getSchermate(DBManager.Languages.EN);
+        this.playlists = dbMng.getPlaylists();
 
         // TODO get UI widgets to populate
         // populate UI widgets with data for current schermata
         // ..
-
         // set event listeners on some widgets (play button, back and forward buttons)
-        // favourites button
+        // add favourites button
         Button playBtn = findViewById(R.id.playButton);
 
         playBtn.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +53,16 @@ public class QuoteActivity extends AppCompatActivity {
                 playCurrentFile();
             }
         });
+
+        //TODO
+        // load playlists
+        // start from the first one, load it into the TV, etc
+        // set also the audio player
+        // log error message when audio file not found
+        // keep current scermata in playlist (implement possibility to go back
+        // (iterators?)
+
+        // TODO implement scroll vertically for when screen doesn't fit into the ..phone screen
 
         // poi lo scorrimento da una schermata all'altra è gestito dagli event listeners
         final int ID_SCHEMATA_AUDIO_TEST = 14;
