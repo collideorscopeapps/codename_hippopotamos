@@ -55,7 +55,6 @@ public class QuoteActivity extends AppCompatActivity {
         });
 
         //TODO
-        // load playlists
         // start from the first one, load it into the TV, etc
         // set also the audio player
         // log error message when audio file not found
