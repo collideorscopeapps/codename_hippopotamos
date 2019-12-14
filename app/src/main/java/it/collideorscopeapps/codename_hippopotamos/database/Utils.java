@@ -40,8 +40,11 @@ public class Utils {
         StringBuilder sb = new StringBuilder();
         for(Playlist pl : playlists) {
 
-            String emptyLine = "";
-            appendLineToStringBuilder(sb, pl.getDescription());
+            final String emptyLine = "";
+            final String gitHubHeadings = "### ";
+            final String quoteSrtart = "> **";
+            final String boldEnd = "**";
+            appendLineToStringBuilder(sb, gitHubHeadings + pl.getDescription());
             appendLineToStringBuilder(sb, emptyLine);
 
             TreeMap<Integer, Schermata> rankedSchermate = pl.getRankedSchermate();
@@ -52,9 +55,14 @@ public class Utils {
                 appendLineToStringBuilder(sb, currentSchermata.getTitle());
                 //appendLineToStringBuilder(sb, currentSchermata.getDescription());
 
-                appendLineToStringBuilder(sb, currentSchermata.getQuotesAsString());
+                appendLineToStringBuilder(sb, emptyLine);
+                appendLineToStringBuilder(sb, quoteSrtart
+                        + currentSchermata.getQuotesAsString()
+                        + boldEnd);
+                appendLineToStringBuilder(sb, emptyLine);
 
-                // TODO add translation, by selected language
+                // TODO (in DB manager and queries) translation by selected user language
+                appendLineToStringBuilder(sb, currentSchermata.getTranslation());
                 appendLineToStringBuilder(sb, currentSchermata.getCitation());
                 appendLineToStringBuilder(sb, currentSchermata.getLinguisticNotes());
                 appendLineToStringBuilder(sb, currentSchermata.getEasterEggComment());

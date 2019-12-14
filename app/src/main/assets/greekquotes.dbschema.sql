@@ -128,8 +128,10 @@ CREATE VIEW v_schermate_default_language AS
     FROM schermate s
     LEFT JOIN linguistic_notes n ON n.schermata_id = s._id
     LEFT JOIN easter_egg_comments e ON e.schermata_id = s._id
+    LEFT JOIN schermate_greek_translations gt ON gt.schermata_id = s._id
     WHERE (n.language_id = 1 OR n.language_id IS NULL)
-    AND (e.language_id = 1 OR e.language_id IS NULL);--/
+    AND (e.language_id = 1 OR e.language_id IS NULL)
+    AND (gt.language_id = 1 OR gt.language_id IS NULL);--/
 
 CREATE VIEW v_schermate_and_quotes AS
     SELECT s._id AS s_id,
@@ -139,6 +141,7 @@ CREATE VIEW v_schermate_and_quotes AS
     qs.position AS position,
     s.title AS title,
     s.description AS description,
+    s.translation AS default_translation,
     s.author_ref AS cit,
     s.linguisticNote AS linguisticNote,
     s.eeComment AS eeComment,
@@ -158,6 +161,7 @@ CREATE VIEW v_schermate_grouped AS
      qs.position AS position,
      s.title AS title,
      s.description AS description,
+     s.translation AS default_translation,
      s.author_ref AS cit,
      s.linguisticNote AS linguisticNote,
      s.eeComment AS eeComment,

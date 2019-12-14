@@ -103,33 +103,33 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (18,'Βορέας καὶ
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (18,2,'Borea e il Sole litigavano su chi fosse il più forte (sulla forza).');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (18,1,'The North Wind and the Sun were disputing which was the stronger (on strenght).');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (10,18);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (10,1,'ἤριζον: ..');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (10,1,'ἤριζον: imperf ind act, 3rd pl (ἐρίζω)');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (22,'The North Wind and the Sun (2)','Aesop');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (22,1,'The North Wind and the Sun were disputing which was the stronger (on strenght).');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (22,1,'It was resolved that vicory would be given to the one who succeeded in making a traveler take off his cloak.');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (33,'ἔδοξε δὲ αὐτοῖς ἐκείνῳ τὴν νίκην ἀπονεῖμαι, ὃς ἂν αὐτῶν ἄνθρωπον ὁδοιπόρον ἐκδύσῃ.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (33,2,'Decisero di assegnare la vittoria a chi di loro avesse spogliato un viandante.');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (33,1,'They agreed that the one who succeeded in making a traveler take his cloak off would win.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (33,1,'It was resolved that the one who succeeded in making a traveler take his cloak off would win.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (22,33);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (22,1,'ἔδοξε: ..');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (22,1,'ἔδοξε: aor ind act, 3rd sg');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (23,'The North Wind and the Sun (3)','Aesop');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (23,1,'The North Wind and the Sun were disputing which was the stronger (on strenght).');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (23,1,'Then the North Wind started blowing hard; and the more he blew the more closely did the traveler fold his cloak around himself.');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (28,'καὶ ὁ Βορέας ἀρξάμενος σφοδρὸς ἦν· τοῦ δὲ ἀνθρώπου ἀντεχομένου τῆς ἐσθῆτος μᾶλλον ἐπέκειτο.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (28,2,'Boreas all''inzio era impetuoso; e siccome l''uomo stava attaccato al vestito, soffiava di più.');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (28,1,'Then the North Wind started blowing hard; and the more he blew the more closely did the traveler fold his cloak around him.');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (28,1,'Then the North Wind started blowing hard; and the more he blew the more closely did the traveler fold his cloak around himself.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (23,28);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (23,1,'ὁ Βορέας ἀρξάμενος σφοδρὸς ἦν: ..');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (24,'The North Wind and the Sun (4)','Aesop');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (24,1,'And that one, tormented even more by the cold, put more clothes on.');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (24,1,'Tormented even more by the cold, he put more clothes on.');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (29,'ὁ δὲ ὑπὸ τοῦ ψύχους καταπονούμενος ἔτι μᾶλλον καὶ περιττοτέραν ἐσθῆτα προσελάμβανεν,');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (29,2,'E quello, tormentato ancora di più dal freddo si aggiunse anche un altro vestito,');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (24,29);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (24,1,'καταπονούμενος: ..; προσελάμβανεν: ..');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (25,'The North Wind and the Sun (5)','Aesop');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (25,1,'And that one, tormented even more by the cold, put more clothes on.');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (25,1,'and at last the North Wind grew quite weary, handing it over to the Sun.');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (30,'ἕως ἀποκαμὼν ὁ Βορέας τῷ Ἡλίῳ μεταπαρέδωκε.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (30,2,'finché Boreas, stancatosi, cedette (l''uomo) ad Elios.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (30,1,'and at last the North Wind grew quite weary, handing it over to the Sun.');
@@ -142,7 +142,7 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (31,'κἀκεῖνος τ
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (26,31);
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (27,'The North Wind and the Sun (7)','Aesop');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (27,1,'since the the traveler took off the extra clothes, he sent more intense heat.');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (27,1,'as the traveler took off the extra clothes, he sent more intense heat.');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (36,'τοῦ δὲ ἀνθρώπου τὰ περισσὰ τῶν ἱματίων ἀποτιθεμένου σφοδρότερον τὸ καῦμα ἐπέτεινε,');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (27,36);
 
@@ -286,6 +286,8 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,24);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,25);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,26);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,27);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,31);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,32);
 
 INSERT INTO "playlists" ("_id","description") VALUES (6,'Reading list - mythic and epic quotes');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (6,7);

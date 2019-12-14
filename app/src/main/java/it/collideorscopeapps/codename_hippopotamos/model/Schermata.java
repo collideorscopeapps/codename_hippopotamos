@@ -41,6 +41,16 @@ public class Schermata implements Serializable {
 
     private String title;
     private String description;
+
+    public String getTranslation() {
+        if(translation == null) {
+            return null;
+        } else {
+            return "(" + translation + ")";
+        }
+    }
+
+    private String translation;
     private String citation;
     private String linguisticNotes;
     private String easterEggComment;
@@ -96,11 +106,13 @@ public class Schermata implements Serializable {
     public Schermata(int id,
                      String title,
                      String description,
+                     String translation,
                      String linguisticNotes,
                      String citation,
                      String easterEggComment) {
         this.id = id;
         this.title = title;
+        this.translation = translation;
         this.description = description;
         this.linguisticNotes = linguisticNotes;
         this.citation = citation;

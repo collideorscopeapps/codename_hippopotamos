@@ -350,6 +350,7 @@ public class DBManager extends SQLiteOpenHelper {
         final int positionColIdx = cursor.getColumnIndex("position");
         final int titleColIdx = cursor.getColumnIndex("title");
         final int descriptionColIdx = cursor.getColumnIndex("description");
+        final int defaultTranslationColIdx = cursor.getColumnIndex("default_translation");
         final int citColIdx = cursor.getColumnIndex("cit");
         final int audioFileNameColIdx = cursor.getColumnIndex("audioFileName");
 
@@ -366,11 +367,13 @@ public class DBManager extends SQLiteOpenHelper {
         String linguisticNote = linguisticNotes.get(idSchermata);
         String eeComment = easterEggComments.get(idSchermata);
 
+        // NB schermata translation is used in place of those of each quote
+        //TODO change this on the basis of user language preferences
+        String defaultTranslation = cursor.getString(defaultTranslationColIdx);
+        Log.v("DBManager","Translation: " + defaultTranslation);
+
         Quote currentQuote = new Quote(idQuote, quotePosition, greekQuote,
                 phoneticTranscription, audioFileName);
-
-        // TODO schermate can have translations to be used in place of those of each quote
-        // TODO schermatePlaylists
 
         Schermata currentSchermata = schermate.get(idSchermata);
         if(null == currentSchermata) {
@@ -378,6 +381,7 @@ public class DBManager extends SQLiteOpenHelper {
                     idSchermata,
                     title,
                     description,
+                    defaultTranslation,
                     linguisticNote,
                     cit,
                     eeComment);

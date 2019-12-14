@@ -28,7 +28,7 @@ public class UtilsTest {
 
         File txtFile;
         try {
-            txtFile = File.createTempFile("reading-list", ".txt");
+            txtFile = File.createTempFile("reading-list", ".md");
             Log.v("UtilsTest","Created temp file: " + txtFile.getAbsolutePath());
 
             try(FileWriter txtFileFW = new FileWriter(txtFile)) {
