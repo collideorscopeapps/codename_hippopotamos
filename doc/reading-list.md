@@ -109,28 +109,28 @@
 
 > **ἔδοξε δὲ αὐτοῖς ἐκείνῳ τὴν νίκην ἀπονεῖμαι, ὃς ἂν αὐτῶν ἄνθρωπον ὁδοιπόρον ἐκδύσῃ.**
 
-(The North Wind and the Sun were disputing which was the stronger (on strenght).)
+(It was resolved that vicory would be given to the one who succeeded in making a traveler take off his cloak.)
 (Aesop)
 ἔδοξε: aor ind act, 3rd sg
 
 
 > **καὶ ὁ Βορέας ἀρξάμενος σφοδρὸς ἦν· τοῦ δὲ ἀνθρώπου ἀντεχομένου τῆς ἐσθῆτος μᾶλλον ἐπέκειτο.**
 
-(The North Wind and the Sun were disputing which was the stronger (on strenght).)
+(Then the North Wind started blowing hard; and the more he blew the more closely did the traveler fold his cloak around himself.)
 (Aesop)
 ὁ Βορέας ἀρξάμενος σφοδρὸς ἦν: ..
 
 
 > **ὁ δὲ ὑπὸ τοῦ ψύχους καταπονούμενος ἔτι μᾶλλον καὶ περιττοτέραν ἐσθῆτα προσελάμβανεν,.**
 
-(And that one, tormented even more by the cold, put more clothes on.)
+(Tormented even more by the cold, he put more clothes on.)
 (Aesop)
 καταπονούμενος: ..; προσελάμβανεν: ..
 
 
 > **ἕως ἀποκαμὼν ὁ Βορέας τῷ Ἡλίῳ μεταπαρέδωκε.**
 
-(And that one, tormented even more by the cold, put more clothes on.)
+(and at last the North Wind grew quite weary, handing it over to the Sun.)
 (Aesop)
 ἀποκαμὼν: part sg aor act, NOM sg (m); μεταπαρέδωκε: 3rd sg aor ind act
 
@@ -143,7 +143,19 @@
 
 > **τοῦ δὲ ἀνθρώπου τὰ περισσὰ τῶν ἱματίων ἀποτιθεμένου σφοδρότερον τὸ καῦμα ἐπέτεινε,.**
 
-(since the the traveler took off the extra clothes, he sent more intense heat.)
+(as the traveler took off the extra clothes, he sent more intense heat.)
+(Aesop)
+
+
+> **μέχρις οὗ πρὸς τὴν ἀλέαν ἀντέχειν μὴ δυνάμενος ἀποδυσάμενος ποταμοῦ παραῤῥέοντος ἐπὶ λουτρὸν ἀπῄει.**
+
+(In the end, when the traveler couldn't stand the heat, since there was a river nearby, he stripped off his clothes and went to take a bath.)
+(Aesop)
+
+
+> **ὁ λόγος δηλοῖ, ὅτι πολλάκις τὸ πείθειν τοῦ βιάζεσθαι ἀνυστικώτερόν ἐστι.**
+
+(The story shows that persuasion is often more effective than violence.)
 (Aesop)
 
 
