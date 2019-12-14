@@ -24,9 +24,11 @@ public class Utils {
 
     public static void appendLineToStringBuilder(StringBuilder sb, String str) {
 
+        String doubleNewLine = "\n\n";
+
         if(str != null) {
             sb.append(str);
-            sb.append("\n");
+            sb.append(doubleNewLine);
         }
     }
 
@@ -57,12 +59,10 @@ public class Utils {
 
     private static void appendPlaylistToStringBuilder(StringBuilder sb,
                                                       Playlist pl) {
-        final String emptyLine = "";
         final String gitHubHeadings = "### ";
         final String quoteStart = "> **";
         final String boldEnd = "**";
         appendLineToStringBuilder(sb, gitHubHeadings + pl.getDescription());
-        appendLineToStringBuilder(sb, emptyLine);
 
         TreeMap<Integer, Schermata> rankedSchermate = pl.getRankedSchermate();
 
@@ -72,11 +72,9 @@ public class Utils {
             appendLineToStringBuilder(sb, currentSchermata.getTitle());
             //appendLineToStringBuilder(sb, currentSchermata.getDescription());
 
-            appendLineToStringBuilder(sb, emptyLine);
             appendLineToStringBuilder(sb, quoteStart
                     + currentSchermata.getQuotesAsString()
                     + boldEnd);
-            appendLineToStringBuilder(sb, emptyLine);
 
             // TODO (in DB manager and queries) translation by selected user language
             appendLineToStringBuilder(sb, currentSchermata.getTranslation());
@@ -84,12 +82,7 @@ public class Utils {
             appendLineToStringBuilder(sb, currentSchermata.getLinguisticNotes());
             appendLineToStringBuilder(sb, currentSchermata.getEasterEggComment());
             //TODO? add some other note apt for the reading list reader
-
-            appendLineToStringBuilder(sb, emptyLine);
         }
-
-        appendLineToStringBuilder(sb, emptyLine);
-        appendLineToStringBuilder(sb, emptyLine);
     }
 
     public static TreeSet<Integer> getIntsFromConcatString(String concat) {
