@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +27,10 @@ public class QuoteActivity extends AppCompatActivity {
     // todo, at activity startup, get schermata with "audio test"
     // iterate the quotes, get the audio files from assets folder
     // play the ogg vorbis files
+
+    TextView greekTV, phoneticsTV, titleTV, translationTV, lingNotesTV, eeCTV;
+    //EditText addressET;
+    //ImageView imageIV;
 
     TreeMap<Integer, Schermata>  schermateById;
     ArrayList<Playlist> playlists;
@@ -67,14 +74,30 @@ public class QuoteActivity extends AppCompatActivity {
         // keep current scermata in playlist
         this.plItr = new PlaylistIterator(this.schermateById, this.playlists);
 
+        //TODO should this be an instance variable?
         Schermata currentScreen = this.plItr.getCurrentScreen();
 
-        //TODO
-        // load the screen data into the TV, etc
-        // set also the audio player
-        // log error message when audio file not found
 
         // hippopotamos tagline: you don't find such phrases among the Romans
+        //(queste frasi tra i Romani non le trovate)
+        //in latino non ce ne sono di queste frasi
+        //queste parole i Romani non ce le avevano
+        //queste frasi i Romani non ce le avevano
+        //questa letteratura i Romani non ce l'avevano
+        //queste lettere i Romani non ce le avevano (tagline changes at every startup in italian)
+        // (switches randomly among multiple translations)
+        //queste frasi in latino non ci sono
+        //(queste frasi non ci sono in latino)
+        // (poi ripetere la tagline solo come commento alla frase dei due grammar books)
+
+        //TODO
+        // load screen data into the TV, etc
+        // set also the audio player
+        // log error message when audio file not found
+        this.greekTV = findViewById(R.id.greekTextTV);
+        this.greekTV.setText(currentScreen.getQuotesAsString());
+
+
 
         // FIXME screen glitch on displaying the soft aspiration for ἀγαθός
 
@@ -82,6 +105,18 @@ public class QuoteActivity extends AppCompatActivity {
         // use the back and forth buttons, handle onClick events
 
         // poi lo scorrimento da una schermata all'altra è gestito dagli event listeners
+
+        //TODO use new AudioPlayerHelper
+        //TODO
+        // release of mp with AudioPlayerHelper.close, would be only
+        // when quitting activity
+        // not when changing to other screen with other audio quotes
+
+        //TODO ..might prepare in advance file descriptors for next screen
+    }
+
+    @Deprecated
+    private void loadAudioTestScreen() {
         final int ID_SCHEMATA_AUDIO_TEST = 14;
         final int ID_SOME_QUOTE = 1;
         Schermata audio_test = (Schermata) schermateById.get(ID_SCHEMATA_AUDIO_TEST);
@@ -114,13 +149,6 @@ public class QuoteActivity extends AppCompatActivity {
         //this.mediaPlayer = AudioPlayUtils.setUpMediaPlayer();
         //AudioPlayUtils.playAudioFile(mediaPlayer, assetManager, currentAudioFilePath);
 
-        //TODO use new AudioPlayerHelper
-        //TODO
-        // release of mp with AudioPlayerHelper.close, would be only
-        // when quitting activity
-        // not when changing to other screen with other audio quotes
-
-        //TODO ..might prepare in advance file descriptors for next screen
     }
 
     private void playCurrentFile() {
