@@ -73,6 +73,10 @@ public class QuoteActivity extends AppCompatActivity {
         // log error message when audio file not found
 
 
+
+        // TODO handle event of moving from one screen to the other
+        // use the back and forth buttons, handle onClick events
+
         // poi lo scorrimento da una schermata all'altra è gestito dagli event listeners
         final int ID_SCHEMATA_AUDIO_TEST = 14;
         final int ID_SOME_QUOTE = 1;
