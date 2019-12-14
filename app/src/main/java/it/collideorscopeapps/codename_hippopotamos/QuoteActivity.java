@@ -15,6 +15,7 @@ import java.util.TreeMap;
 import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper;
 import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
 import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
+import it.collideorscopeapps.codename_hippopotamos.model.PlaylistIterator;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
@@ -24,8 +25,10 @@ public class QuoteActivity extends AppCompatActivity {
     // iterate the quotes, get the audio files from assets folder
     // play the ogg vorbis files
 
-    TreeMap<Integer, Schermata>  schermate;
+    TreeMap<Integer, Schermata>  schermateById;
     ArrayList<Playlist> playlists;
+    PlaylistIterator plItr;
+
     String currentAudioFilePath;
     AssetManager assetManager;
     AudioPlayerHelper audioPlayerHelper;
@@ -37,7 +40,7 @@ public class QuoteActivity extends AppCompatActivity {
 
         DBManager dbMng = new DBManager(this);
 
-        this.schermate = dbMng.getSchermateById(DBManager.Languages.EN);
+        this.schermateById = dbMng.getSchermateById(DBManager.Languages.EN);
         this.playlists = dbMng.getPlaylists();
 
         // TODO get UI widgets to populate
@@ -54,20 +57,26 @@ public class QuoteActivity extends AppCompatActivity {
             }
         });
 
-        //TODO
-        // keep current scermata in playlist (implement possibility to go back
-        // (iterators?)
 
+        //TODO handle activity getting closed by OS
+        // saving the current screen, so can be reloaded at reopening
 
         //TODO
-        // start from the first one, load it into the TV, etc
+        // keep current scermata in playlist
+        this.plItr = new PlaylistIterator(this.schermateById, this.playlists);
+
+        Schermata currentScreen = this.plItr.getCurrentScreen();
+
+        //TODO
+        // load the screen data into the TV, etc
         // set also the audio player
         // log error message when audio file not found
+
 
         // poi lo scorrimento da una schermata all'altra è gestito dagli event listeners
         final int ID_SCHEMATA_AUDIO_TEST = 14;
         final int ID_SOME_QUOTE = 1;
-        Schermata audio_test = (Schermata) schermate.get(ID_SCHEMATA_AUDIO_TEST);
+        Schermata audio_test = (Schermata) schermateById.get(ID_SCHEMATA_AUDIO_TEST);
         Quote some_quote = audio_test.getQuotes().get(ID_SOME_QUOTE);
         String audioFileName = some_quote.getAudioFileName();
         String audioFilesSubFolder = "audio/";
