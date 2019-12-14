@@ -261,7 +261,7 @@ public class DBManager extends SQLiteOpenHelper {
         return isDBEmpty;
     }
 
-    public TreeMap<Integer, Schermata> getSchermate(DBManager.Languages language) {
+    public TreeMap<Integer, Schermata> getSchermateById(DBManager.Languages language) {
 
         // todo, translations languages
         // TODO some fields use a default language if the preferred one is absent

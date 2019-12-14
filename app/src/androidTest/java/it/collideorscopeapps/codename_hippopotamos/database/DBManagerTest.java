@@ -65,7 +65,7 @@ public class DBManagerTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         DBManager dbManager;
         dbManager = new DBManager(appContext);
-        TreeMap<Integer, Schermata> schermate = dbManager.getSchermate(DBManager.Languages.EN);
+        TreeMap<Integer, Schermata> schermate = dbManager.getSchermateById(DBManager.Languages.EN);
 
         int extectedMinNumSchermate = 27;
         int extectedMinNumQuotes = 32;
@@ -88,7 +88,7 @@ public class DBManagerTest {
         DBManager.execSchemaCreationQueries(db,schemaStatements);
 
         // check schermate, quotes are empty
-        TreeMap<Integer, Schermata> schermate = dbManager.getSchermate(DBManager.Languages.EN);
+        TreeMap<Integer, Schermata> schermate = dbManager.getSchermateById(DBManager.Languages.EN);
         checkSchermate(schermate,0, 0);
         checkQuotes(schermate,0,0);
     }

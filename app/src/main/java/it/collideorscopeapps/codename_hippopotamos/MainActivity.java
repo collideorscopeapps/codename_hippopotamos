@@ -7,12 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.AsyncResponse;
-import it.collideorscopeapps.codename_hippopotamos.database.CopyFileTask;
 import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
@@ -33,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
         //this.createDB();
         // TODO get chosen language from shared preferences
-        schermate = dbManager.getSchermate(DBManager.Languages.EN);
+        schermate = dbManager.getSchermateById(DBManager.Languages.EN);
         openQuoteActivity();
     }
 

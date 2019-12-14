@@ -37,7 +37,7 @@ public class QuoteActivity extends AppCompatActivity {
 
         DBManager dbMng = new DBManager(this);
 
-        this.schermate = dbMng.getSchermate(DBManager.Languages.EN);
+        this.schermate = dbMng.getSchermateById(DBManager.Languages.EN);
         this.playlists = dbMng.getPlaylists();
 
         // TODO get UI widgets to populate
@@ -55,11 +55,14 @@ public class QuoteActivity extends AppCompatActivity {
         });
 
         //TODO
+        // keep current scermata in playlist (implement possibility to go back
+        // (iterators?)
+
+
+        //TODO
         // start from the first one, load it into the TV, etc
         // set also the audio player
         // log error message when audio file not found
-        // keep current scermata in playlist (implement possibility to go back
-        // (iterators?)
 
         // poi lo scorrimento da una schermata all'altra è gestito dagli event listeners
         final int ID_SCHEMATA_AUDIO_TEST = 14;
