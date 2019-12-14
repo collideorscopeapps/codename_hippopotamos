@@ -22,14 +22,20 @@ public class Utils {
     final static String DROP_SCHEMA_SQL_FILE = "greekquotes.dropschema.sql";
     public final static String SCHEMA_SQL_FILE = "greekquotes.dbschema.sql";
 
-    public static void appendLineToStringBuilder(StringBuilder sb, String str) {
-
+    public static void appendLineToStringBuilder(StringBuilder sb,
+                                                 String preamble,
+                                                 String lineCore) {
         String doubleNewLine = "\n\n";
 
-        if(str != null) {
-            sb.append(str);
+        if(lineCore != null) {
+            sb.append(preamble + lineCore);
             sb.append(doubleNewLine);
         }
+    }
+
+    public static void appendLineToStringBuilder(StringBuilder sb, String str) {
+
+        appendLineToStringBuilder(sb, "", str);
     }
 
     public static boolean castSqliteBoolean(int value) {
@@ -79,7 +85,9 @@ public class Utils {
             // TODO (in DB manager and queries) translation by selected user language
             appendLineToStringBuilder(sb, currentSchermata.getTranslation());
             appendLineToStringBuilder(sb, currentSchermata.getCitation());
-            appendLineToStringBuilder(sb, currentSchermata.getLinguisticNotes());
+            appendLineToStringBuilder(sb,
+                    "Linguistic/grammar notes: ",
+                    currentSchermata.getLinguisticNotes());
             appendLineToStringBuilder(sb, currentSchermata.getEasterEggComment());
             //TODO? add some other note apt for the reading list reader
         }

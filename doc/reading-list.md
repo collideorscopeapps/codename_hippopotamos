@@ -20,7 +20,7 @@
 
 (Apollod. I.1.1)
 
-τοῦ κόσμου GEN sg (m, II decl.); ἐδυνάστευσε + GEN: was lord over
+Linguistic/grammar notes: τοῦ κόσμου GEN sg (m, II decl.); ἐδυνάστευσε + GEN: was lord over
 
 > **τούτους [..] εἰς Τάρταρον ἔρριψε （τόπος δὲ οὖτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.**
 
@@ -28,7 +28,7 @@
 
 (Apollod. I.1.2)
 
-εἰς Τάρταρον, εἰς + Acc (sg, II decl.)
+Linguistic/grammar notes: εἰς Τάρταρον, εἰς + Acc (sg, II decl.)
 
 > **Εἰρήνην Εὐνομίαν Δίκην, μοίρας.**
 
@@ -36,7 +36,7 @@
 
 (Apollod. I.3.1)
 
-Εἰρήνην Εὐνομίαν Δίκην: ACC sg; μοίρας: ACC pl (f)
+Linguistic/grammar notes: Εἰρήνην Εὐνομίαν Δίκην: ACC sg; μοίρας: ACC pl (f)
 
 > **τὶς ἀθανάτων.**
 
@@ -44,55 +44,55 @@
 
 (Om. Iliad 6.128)
 
-τὶς ἀθανάτων: GEN pl
+Linguistic/grammar notes: τὶς ἀθανάτων: GEN pl
 
 > **καθείρξαντες αὐτοὺς ἐν τῷ Ταρτάρῳ.**
 
 (Apollod. 1.2.1)
 
-ἐν τῷ Ταρτάρῳ: DAT sg (m)..
+Linguistic/grammar notes: ἐν τῷ Ταρτάρῳ: DAT sg (m)..
 
 > **καὶ λαγχάνει Ζεὺς μὲν τὴν ἐν οὐρανῷ δυναστείαν, Ποσειδῶν δὲ τὴν ἐν θαλάσσῃ, Πλούτων δὲ τὴν ἐν Ἅιδου.**
 
 (Apollod. 1.2.1)
 
-ἐν οὐρανῷ, ἐν θαλάσσῃ: DAT sg ..
+Linguistic/grammar notes: ἐν οὐρανῷ, ἐν θαλάσσῃ: DAT sg ..
 
 > **Ἄτλας, ὃς ἔχει τοῖς ὤμοις τὸν οὐρανόν.**
 
 (Apollod. 1.2.3)
 
-τοῖς ὤμοις: DAT pl (m)
+Linguistic/grammar notes: τοῖς ὤμοις: DAT pl (m)
 
 > **Ἠοῦς δὲ καὶ Ἀστραίου ἄνεμοι καὶ ἄστρα.**
 
 (Apollod. 1.2.4)
 
-ἄνεμοι καὶ ἄστρα: NOM pl (m, nt)
+Linguistic/grammar notes: ἄνεμοι καὶ ἄστρα: NOM pl (m, nt)
 
 > **Πάλλαντος δὲ καὶ Στυγὸς Νίκη Κράτος Ζῆλος Βία.**
 
 (Apollod. 1.2.4)
 
-Νίκη Κράτος Ζῆλος Βία.: NOM sg (f, nt, m, f)
+Linguistic/grammar notes: Νίκη Κράτος Ζῆλος Βία.: NOM sg (f, nt, m, f)
 
 > **Ζεὺς δὲ γαμεῖ μὲν Ἥραν [..] μίγνυται δὲ πολλαῖς θνηταῖς τε καὶ ἀθανάτοις γυναιξίν.**
 
 (Apollod. 1.3.1)
 
-πολλαῖς γυναιξίν: DAT pl
+Linguistic/grammar notes: πολλαῖς γυναιξίν: DAT pl
 
 > **ἐκ δὲ Μνημοσύνης μούσας.**
 
 (Apollod. 1.3.1)
 
-ἐκ Μνημοσύνης: GEN sg, μούσας: ACC pl
+Linguistic/grammar notes: ἐκ Μνημοσύνης: GEN sg, μούσας: ACC pl
 
 > **Ὀρφεὺς ὁ ἀσκήσας κιθαρῳδίαν, ὃς ᾁδων ἐκίνει λίθους τε καὶ δένδρα.**
 
 (Apollod. 1.3.2)
 
-λίθους τε καὶ δένδρα: ACC pl (f, nt II decl.
+Linguistic/grammar notes: λίθους τε καὶ δένδρα: ACC pl (f, nt II decl.
 
 ### Reading list - quotes to learn verb forms
 
@@ -102,7 +102,7 @@
 
 (Aesop)
 
-ἤριζον: imperf ind act, 3rd pl (ἐρίζω)
+Linguistic/grammar notes: ἤριζον: imperf ind act, 3rd pl (ἐρίζω)
 
 > **ἔδοξε δὲ αὐτοῖς ἐκείνῳ τὴν νίκην ἀπονεῖμαι, ὃς ἂν αὐτῶν ἄνθρωπον ὁδοιπόρον ἐκδύσῃ.**
 
@@ -110,7 +110,7 @@
 
 (Aesop)
 
-ἔδοξε: aor ind act, 3rd sg
+Linguistic/grammar notes: ἔδοξε: aor ind act, 3rd sg
 
 > **καὶ ὁ Βορέας ἀρξάμενος σφοδρὸς ἦν· τοῦ δὲ ἀνθρώπου ἀντεχομένου τῆς ἐσθῆτος μᾶλλον ἐπέκειτο.**
 
@@ -118,7 +118,7 @@
 
 (Aesop)
 
-ὁ Βορέας ἀρξάμενος σφοδρὸς ἦν: ..
+Linguistic/grammar notes: ὁ Βορέας ἀρξάμενος σφοδρὸς ἦν: ..
 
 > **ὁ δὲ ὑπὸ τοῦ ψύχους καταπονούμενος ἔτι μᾶλλον καὶ περιττοτέραν ἐσθῆτα προσελάμβανεν,.**
 
@@ -126,7 +126,7 @@
 
 (Aesop)
 
-καταπονούμενος: ..; προσελάμβανεν: ..
+Linguistic/grammar notes: καταπονούμενος: ..; προσελάμβανεν: ..
 
 > **ἕως ἀποκαμὼν ὁ Βορέας τῷ Ἡλίῳ μεταπαρέδωκε.**
 
@@ -134,7 +134,7 @@
 
 (Aesop)
 
-ἀποκαμὼν: part sg aor act, NOM sg (m); μεταπαρέδωκε: 3rd sg aor ind act
+Linguistic/grammar notes: ἀποκαμὼν: part sg aor act, NOM sg (m); μεταπαρέδωκε: 3rd sg aor ind act
 
 > **κἀκεῖνος τὸ μὲν πρῶτον μετρίως προσέλαμψε·.**
 
@@ -186,7 +186,7 @@
 
 (Plutarch, De garrulitate, 17)
 
-
+Linguistic/grammar notes:
 
 ### Reading list - quotes for prepositions
 
@@ -196,7 +196,7 @@
 
 (Plutarch, De garrulitate, 17)
 
-αἴκα / αἴκε / αἴ κα / αἴ κε dor. / om. eἴκε for εἰ+ἄν > ἐάν, ἄν
+Linguistic/grammar notes: αἴκα / αἴκε / αἴ κα / αἴ κε dor. / om. eἴκε for εἰ+ἄν > ἐάν, ἄν
 
 Plutarch reports that Phillip II of Macedon sent word to the Spartans, saying that "if I should invade Laconia, I shall drive you out." The Spartans laconically responded with "if."
 
