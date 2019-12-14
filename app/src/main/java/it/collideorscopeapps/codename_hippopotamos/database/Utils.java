@@ -59,7 +59,7 @@ public class Utils {
                                                       Playlist pl) {
         final String emptyLine = "";
         final String gitHubHeadings = "### ";
-        final String quoteSrtart = "> **";
+        final String quoteStart = "> **";
         final String boldEnd = "**";
         appendLineToStringBuilder(sb, gitHubHeadings + pl.getDescription());
         appendLineToStringBuilder(sb, emptyLine);
@@ -73,7 +73,7 @@ public class Utils {
             //appendLineToStringBuilder(sb, currentSchermata.getDescription());
 
             appendLineToStringBuilder(sb, emptyLine);
-            appendLineToStringBuilder(sb, quoteSrtart
+            appendLineToStringBuilder(sb, quoteStart
                     + currentSchermata.getQuotesAsString()
                     + boldEnd);
             appendLineToStringBuilder(sb, emptyLine);
