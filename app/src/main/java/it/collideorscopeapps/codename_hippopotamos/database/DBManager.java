@@ -370,7 +370,7 @@ public class DBManager extends SQLiteOpenHelper {
         // NB schermata translation is used in place of those of each quote
         //TODO change this on the basis of user language preferences
         String defaultTranslation = cursor.getString(defaultTranslationColIdx);
-        Log.v("DBManager","Translation: " + defaultTranslation);
+        //Log.v("DBManager","Translation: " + defaultTranslation);
 
         Quote currentQuote = new Quote(idQuote, quotePosition, greekQuote,
                 phoneticTranscription, audioFileName);
