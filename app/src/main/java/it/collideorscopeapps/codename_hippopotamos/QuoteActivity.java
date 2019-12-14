@@ -108,8 +108,8 @@ public class QuoteActivity extends AppCompatActivity {
         // (poi ripetere la tagline solo come commento alla frase dei due grammar books)
 
 
-        // FIXME screen glitch on displaying the soft aspiration for ἀγαθός
-
+        //FIXME screen glitch on displaying the soft aspiration
+        // try changing font
         //TODO use new AudioPlayerHelper
         //TODO
         // release of mp with AudioPlayerHelper.close, would be only
