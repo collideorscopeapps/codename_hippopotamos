@@ -249,12 +249,12 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,1,'Good, noble');
 
 
-INSERT INTO "playlists" ("_id","description") VALUES (1,'Parole, vocabolario, declinazioni');
+INSERT INTO "playlists" ("_id","description","disabled") VALUES (1,'Parole, vocabolario, declinazioni',1);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,1);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,2);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,4);
 
-INSERT INTO "playlists" ("_id","description") VALUES (2,'Frasi celebri');
+INSERT INTO "playlists" ("_id","description","disabled") VALUES (2,'Frasi celebri',1);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (2,3);
 
 INSERT INTO "playlists" ("_id","description") VALUES (3,'Reading list - word series for ear training');

@@ -12,6 +12,12 @@ public class Playlist {
         return description;
     }
 
+    private boolean disabled;
+
+    public boolean isDisabled() {
+        return  this.disabled;
+    }
+
     public TreeMap<Integer, Schermata> getRankedSchermate() {
         return rankedSchermate;
     }
@@ -19,10 +25,13 @@ public class Playlist {
     private TreeMap<Integer, Schermata> rankedSchermate;// key is the play order
     private TreeMap<Integer, Integer> rankedSchermateIds;// key is the schermata id, value the play rank
 
-    public Playlist(String description, TreeMap<Integer, Integer> rankedSchermateIds) {
+    public Playlist(String description, TreeMap<Integer,
+            Integer> rankedSchermateIds,
+                    boolean disabled) {
 
         this.description = description;
         this.rankedSchermateIds = rankedSchermateIds;
+        this.disabled = disabled;
     }
 
     public void setSchermate(TreeMap<Integer, Schermata> schermateSuperSet) {

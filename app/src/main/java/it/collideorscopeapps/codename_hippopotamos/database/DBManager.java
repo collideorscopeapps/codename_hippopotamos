@@ -404,6 +404,8 @@ public class DBManager extends SQLiteOpenHelper {
 
                 Integer playlistId = cursor.getInt(cursor.getColumnIndex("p_id"));
                 String description = cursor.getString(cursor.getColumnIndex("description"));
+                int disabledAsInt = cursor.getInt(cursor.getColumnIndex("disabled"));
+                boolean disabled = Utils.castSqliteBoolean(disabledAsInt);
 
                 String schermateConcat = cursor.getString(cursor.getColumnIndex("schermate"));
                 String playOrderConcat = cursor.getString(cursor.getColumnIndex("sorting"));
@@ -421,7 +423,9 @@ public class DBManager extends SQLiteOpenHelper {
                     playListAsRankedSchermate.put(key, value);
                 }
 
-                Playlist currentPlaylist = new Playlist(description, playListAsRankedSchermate);
+                Playlist currentPlaylist = new Playlist(description,
+                        playListAsRankedSchermate,
+                        disabled);
 
                 playlists.add(currentPlaylist);
                 cursor.moveToNext();

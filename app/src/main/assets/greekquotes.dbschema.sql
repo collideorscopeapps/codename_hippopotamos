@@ -97,7 +97,8 @@ CREATE TABLE IF NOT EXISTS "schermate_descriptions_translations" (
 
 CREATE TABLE IF NOT EXISTS "playlists" (
 	"_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	"description"   TEXT UNIQUE
+	"description"   TEXT UNIQUE,
+	"disabled" BOOLEAN DEFAULT FALSE
 );--/
 
 CREATE TABLE IF NOT EXISTS "playlists_schermate" (
@@ -180,6 +181,7 @@ CREATE VIEW v_reading_list AS
 CREATE VIEW v_playlists AS
     SELECT p._id AS p_id,
     p.description,
+    p.disabled AS disabled,
     GROUP_CONCAT(ps.schermata_id) AS schermate,
     GROUP_CONCAT(ps.sorting) AS sorting
     FROM playlists p, playlists_schermate ps

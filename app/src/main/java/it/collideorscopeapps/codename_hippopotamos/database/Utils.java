@@ -30,6 +30,13 @@ public class Utils {
         }
     }
 
+    public static boolean castSqliteBoolean(int value) {
+
+        boolean isTrue = value != 0;
+
+        return isTrue;
+    }
+
     public static String getPrettifiedReadingList(Context appContext) {
 
         DBManager db = new DBManager(appContext);
@@ -40,43 +47,49 @@ public class Utils {
         StringBuilder sb = new StringBuilder();
         for(Playlist pl : playlists) {
 
-            final String emptyLine = "";
-            final String gitHubHeadings = "### ";
-            final String quoteSrtart = "> **";
-            final String boldEnd = "**";
-            appendLineToStringBuilder(sb, gitHubHeadings + pl.getDescription());
-            appendLineToStringBuilder(sb, emptyLine);
-
-            TreeMap<Integer, Schermata> rankedSchermate = pl.getRankedSchermate();
-
-            for(Integer schermataRank: rankedSchermate.keySet()) {
-                Schermata currentSchermata = rankedSchermate.get(schermataRank);
-
-                appendLineToStringBuilder(sb, currentSchermata.getTitle());
-                //appendLineToStringBuilder(sb, currentSchermata.getDescription());
-
-                appendLineToStringBuilder(sb, emptyLine);
-                appendLineToStringBuilder(sb, quoteSrtart
-                        + currentSchermata.getQuotesAsString()
-                        + boldEnd);
-                appendLineToStringBuilder(sb, emptyLine);
-
-                // TODO (in DB manager and queries) translation by selected user language
-                appendLineToStringBuilder(sb, currentSchermata.getTranslation());
-                appendLineToStringBuilder(sb, currentSchermata.getCitation());
-                appendLineToStringBuilder(sb, currentSchermata.getLinguisticNotes());
-                appendLineToStringBuilder(sb, currentSchermata.getEasterEggComment());
-                //TODO? add some other note apt for the reading list reader
-
-                appendLineToStringBuilder(sb, emptyLine);
+            if(!pl.isDisabled()) {
+                appenPlaylistToStringBuilder(sb, pl);
             }
-
-            appendLineToStringBuilder(sb, emptyLine);
-            appendLineToStringBuilder(sb, emptyLine);
-
         }
 
         return sb.toString();
+    }
+
+    private static void appenPlaylistToStringBuilder(StringBuilder sb,
+                                                     Playlist pl) {
+        final String emptyLine = "";
+        final String gitHubHeadings = "### ";
+        final String quoteSrtart = "> **";
+        final String boldEnd = "**";
+        appendLineToStringBuilder(sb, gitHubHeadings + pl.getDescription());
+        appendLineToStringBuilder(sb, emptyLine);
+
+        TreeMap<Integer, Schermata> rankedSchermate = pl.getRankedSchermate();
+
+        for(Integer schermataRank: rankedSchermate.keySet()) {
+            Schermata currentSchermata = rankedSchermate.get(schermataRank);
+
+            appendLineToStringBuilder(sb, currentSchermata.getTitle());
+            //appendLineToStringBuilder(sb, currentSchermata.getDescription());
+
+            appendLineToStringBuilder(sb, emptyLine);
+            appendLineToStringBuilder(sb, quoteSrtart
+                    + currentSchermata.getQuotesAsString()
+                    + boldEnd);
+            appendLineToStringBuilder(sb, emptyLine);
+
+            // TODO (in DB manager and queries) translation by selected user language
+            appendLineToStringBuilder(sb, currentSchermata.getTranslation());
+            appendLineToStringBuilder(sb, currentSchermata.getCitation());
+            appendLineToStringBuilder(sb, currentSchermata.getLinguisticNotes());
+            appendLineToStringBuilder(sb, currentSchermata.getEasterEggComment());
+            //TODO? add some other note apt for the reading list reader
+
+            appendLineToStringBuilder(sb, emptyLine);
+        }
+
+        appendLineToStringBuilder(sb, emptyLine);
+        appendLineToStringBuilder(sb, emptyLine);
     }
 
     public static TreeSet<Integer> getIntsFromConcatString(String concat) {
