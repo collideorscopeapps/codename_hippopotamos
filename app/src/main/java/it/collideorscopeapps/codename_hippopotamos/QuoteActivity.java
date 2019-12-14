@@ -62,8 +62,6 @@ public class QuoteActivity extends AppCompatActivity {
         // keep current scermata in playlist (implement possibility to go back
         // (iterators?)
 
-        // TODO implement scroll vertically for when screen doesn't fit into the ..phone screen
-
         // poi lo scorrimento da una schermata all'altra è gestito dagli event listeners
         final int ID_SCHEMATA_AUDIO_TEST = 14;
         final int ID_SOME_QUOTE = 1;
