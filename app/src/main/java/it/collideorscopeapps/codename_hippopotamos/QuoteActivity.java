@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ public class QuoteActivity extends AppCompatActivity {
     // todo, at activity startup, get schermata with "audio test"
     // iterate the quotes, get the audio files from assets folder
     // play the ogg vorbis files
+    OnSwipeTouchListener onSwipeTouchListener;
 
     TextView greekTV, phoneticsTV, titleTV, translationTV, lingNotesTV, eeCTV;
     //EditText addressET;
@@ -68,8 +70,7 @@ public class QuoteActivity extends AppCompatActivity {
         nextScreenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Schermata nextScreen = plItr.getNextScreen();
-                refreshToScreen(nextScreen);
+                goNext();
             }
         });
 
@@ -77,10 +78,11 @@ public class QuoteActivity extends AppCompatActivity {
         prevScreenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Schermata prevScreen = plItr.getPrevScreen();
-                refreshToScreen(prevScreen);
+                goBack();
             }
         });
+
+        setLeftRightSwipeBehavior();
 
         //TODO handle activity getting closed by OS
         // saving the current screen, so can be reloaded at reopening
@@ -117,6 +119,41 @@ public class QuoteActivity extends AppCompatActivity {
         // not when changing to other screen with other audio quotes
 
         //TODO ..might prepare in advance file descriptors for next screen
+    }
+
+    private void setLeftRightSwipeBehavior() {
+        //View rootView = this.getCurrentFocus().getRootView();
+        View rootView = findViewById(R.id.greekTextTV).getRootView();;
+
+        onSwipeTouchListener = new OnSwipeTouchListener(QuoteActivity.this) {
+            @Override
+            public void onSwipeLeft() {
+                goNext();
+            }
+
+            @Override
+            public void onSwipeRight() {
+                goBack();
+            }
+        };
+
+        rootView.setOnTouchListener(onSwipeTouchListener);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev){
+        onSwipeTouchListener.getGestureDetector().onTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private void goNext() {
+        Schermata nextScreen = plItr.getNextScreen();
+        refreshToScreen(nextScreen);
+    }
+
+    private void goBack() {
+        Schermata prevScreen = plItr.getPrevScreen();
+        refreshToScreen(prevScreen);
     }
 
     private Schermata getCurrentSchermata() {
