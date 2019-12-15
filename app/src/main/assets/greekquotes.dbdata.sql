@@ -72,7 +72,7 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (6,'εἰς Τάρταρον','Apollod. I.1.2');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (6,1,'he threw them into Tartarus, a dark place in the Ade, as far from Earth as Earth is from heaven');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (14,'τούτους [..] εἰς Τάρταρον ἔρριψε （τόπος δὲ οὖτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (14,'τούτους [..] εἰς Τάρταρον ἔρριψε （τόπος δὲ οὖτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.)');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (14,2,'he threw them into Tartarus, a dark place in the Ade, as far from Earth as Earth is from heaven');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (6,14);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (6,1,'εἰς Τάρταρον, εἰς + Acc (sg, II decl.)');
@@ -249,6 +249,10 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (33,3
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (33,1,'with their teeth have they bitten the dust.');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (33,1,'ὀδὰξ: adv. "(biting) with the teeth"; ἕλον (αἱρέω): "grasp", aor.2 homeric, 3rd pl ind act; οὖδας: "surface of the earth, ground" sg neut epic indeclform');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (34,'The Memorable thoughts of Socrates','Xenophon, Memorabilia 1.1.1');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (40,'ἀδικεῖ Σωκράτης οὓς μὲν ἡ πόλις νομίζει θεοὺς οὐ νομίζων, ἕτερα δὲ καινὰ δαιμόνια εἰσφέρων: ἀδικεῖ δὲ καὶ τοὺς νέους διαφθείρων.');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (34,40);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (33,1,'Socrates is guilty of rejecting the gods acknowledged by the state, and of introducint new strange deities: he is also guilty of corrupting the youth.');
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
@@ -299,6 +303,7 @@ INSERT INTO "playlists" ("_id","description") VALUES (6,'Reading list - mythic a
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (6,7);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (6,8);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (6,33);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (6,34);
 
 INSERT INTO "playlists" ("_id","description") VALUES (7,'Reading list - more quotes');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,13);
