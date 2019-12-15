@@ -243,6 +243,12 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (29,35);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (29,1,'λίθους τε καὶ δένδρα: ACC pl (f, nt II decl.');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (33,'Another one bites the dust','Homer, Iliad, XI.749, XIX.61, XXII.17, XXIV.738');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (39,'ὀδὰξ ἕλον οὖδας.');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (33,39);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (33,1,'with their teeth have they bitten the dust.');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (33,1,'ὀδὰξ: adv. "(biting) with the teeth"; ἕλον (αἱρέω): "grasp", aor.2 homeric, 3rd pl ind act; οὖδας: "surface of the earth, ground" sg neut epic indeclform');
+
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
@@ -292,6 +298,7 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (5,32);
 INSERT INTO "playlists" ("_id","description") VALUES (6,'Reading list - mythic and epic quotes');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (6,7);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (6,8);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (6,33);
 
 INSERT INTO "playlists" ("_id","description") VALUES (7,'Reading list - more quotes');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,13);
