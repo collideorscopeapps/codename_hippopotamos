@@ -72,6 +72,17 @@
     />
 
     <TextView
+        android:id="@+id/citationRefTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="2dp"
+        android:layout_marginHorizontal="10dp"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        />
+
+    <TextView
         android:id="@+id/phoneticsTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

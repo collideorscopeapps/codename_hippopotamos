@@ -64,6 +64,7 @@ public class QuoteActivity extends AppCompatActivity {
         // add favourites button
         this.greekTV = findViewById(R.id.greekTextTV);
         this.titleTV = findViewById(R.id.titleTV);
+        this.citationTV = findViewById(R.id.citationRefTV);
         this.eeCTV = findViewById(R.id.eeCommentTV);
         this.lingNotesTV = findViewById(R.id.linguisticNoteTV);
         this.phoneticsTV = findViewById(R.id.phoneticsTV);
@@ -210,7 +211,7 @@ public class QuoteActivity extends AppCompatActivity {
         //TODO FIXME this.phoneticsTV.setText(screen.);
         //this.phoneticsTV = findViewById(R.id.phoneticsTV);
 
-        //TODO this.citationTV.setText(screen.)
+        this.citationTV.setText(screen.getCitation());
         this.translationTV.setText(screen.getTranslation());
         this.eeCTV.setText(screen.getEasterEggComment());
         this.lingNotesTV.setText(screen.getLinguisticNotes());
