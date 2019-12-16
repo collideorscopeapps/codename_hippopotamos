@@ -46,7 +46,7 @@ INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","transl
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (8,'αἴκα');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (8,2,'se (ipotetico) (solo in dialetto dorico)');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (3,8);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (3,1,'αἴκα / αἴκε / αἴ κα / αἴ κε dor. / om. eἴκε for εἰ+ἄν > ἐάν, ἄν');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (3,1,'αἴκα / αἴκε / αἴ κα / αἴ κε dor. / hom. eἴκε for εἰ+ἄν > ἐάν, ἄν');
 INSERT INTO "easter_egg_comments" ("schermata_id","language_id","eeComment") VALUES (3,1,'Plutarch reports that Phillip II of Macedon sent word to the Spartans, saying that "if I should invade Laconia, I shall drive you out." The Spartans laconically responded with "if."');
 
 INSERT INTO "schermate" ("_id","description") VALUES (4,'1st declension, pure -ᾱ');
