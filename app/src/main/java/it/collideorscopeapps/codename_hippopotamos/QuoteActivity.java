@@ -30,7 +30,13 @@ public class QuoteActivity extends AppCompatActivity {
     // play the ogg vorbis files
     OnSwipeTouchListener onSwipeTouchListener;
 
-    TextView greekTV, phoneticsTV, titleTV, translationTV, lingNotesTV, eeCTV;
+    TextView titleTV,
+            greekTV,
+            citationTV,
+            phoneticsTV,
+            translationTV,
+            lingNotesTV,
+            eeCTV;
     //EditText addressET;
     //ImageView imageIV;
 
@@ -57,6 +63,11 @@ public class QuoteActivity extends AppCompatActivity {
         // set event listeners on some widgets (play button, back and forward buttons)
         // add favourites button
         this.greekTV = findViewById(R.id.greekTextTV);
+        this.titleTV = findViewById(R.id.titleTV);
+        this.eeCTV = findViewById(R.id.eeCommentTV);
+        this.lingNotesTV = findViewById(R.id.linguisticNoteTV);
+        this.phoneticsTV = findViewById(R.id.phoneticsTV);
+        this.translationTV = findViewById(R.id.translationTV);
 
         Button playBtn = findViewById(R.id.playButton);
         playBtn.setOnClickListener(new View.OnClickListener() {
@@ -109,9 +120,23 @@ public class QuoteActivity extends AppCompatActivity {
         //(queste frasi non ci sono in latino)
         // (poi ripetere la tagline solo come commento alla frase dei due grammar books)
 
+        //TODO
+        // (unsure, because of user interface psychological effects, also I like the bare unmarked buttons)
+        // remove buttons, only use swipes, and click on greek text to play it again
 
         //FIXME screen glitch on displaying the soft aspiration
+        // also ῆ not displayed
         // try changing font
+        //FIXME
+        // title not displayed
+        //FIXME
+        // some playlits actually not shown in app (mythic quotes)
+        //TODO
+        // add option to disable autoplay, might be annoying when swiping quickly many quotes
+        // (or disable it if two swipes in quick succession
+        // better: don't start it immediately, give the user time to swipe. if he doesn't, start playing
+        //TODO
+        // add credit, wiki page with aika quote
         //TODO use new AudioPlayerHelper
         //TODO
         // release of mp with AudioPlayerHelper.close, would be only
@@ -161,12 +186,27 @@ public class QuoteActivity extends AppCompatActivity {
     }
 
     private void refreshToScreen(Schermata screen) {
+
+        //TODO set defaults for "(this word is untranslatable)"
+        // set a screen where is displayed
+        // with doric, epic, ionic and attic
+        // some preview/tutorial screen? ..
+
         //TODO
         // populate UI widgets with data for current schermata
         // load screen data into the TV, etc
         // set also the audio player
         // log error message when audio file not found
         this.greekTV.setText(screen.getQuotesAsString());
+        this.titleTV.setText(screen.getTitle());
+
+        //TODO FIXME this.phoneticsTV.setText(screen.);
+        //this.phoneticsTV = findViewById(R.id.phoneticsTV);
+
+        //TODO this.citationTV.setText(screen.)
+        this.translationTV.setText(screen.getTranslation());
+        this.eeCTV.setText(screen.getEasterEggComment());
+        this.lingNotesTV.setText(screen.getLinguisticNotes());
     }
 
     @Deprecated
