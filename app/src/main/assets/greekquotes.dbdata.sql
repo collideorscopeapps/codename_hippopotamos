@@ -176,7 +176,7 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (20,'τί καινὸν ε
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (20,1,'What is the strangest thing to see? An aged tyrant.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (13,20);
 
-INSERT INTO "playlists" ("_id","description") VALUES (0,'Test playlist');
+INSERT INTO "playlists" ("_id","description") VALUES (8,'Test playlist');
 INSERT INTO "schermate" ("_id","description") VALUES (14,'audio test');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,4);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,5);
@@ -258,6 +258,8 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,1,'Good, noble');
 
+INSERT INTO "playlists" ("_id","description") VALUES (0,'Reading list - quotes for prepositions');
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (0,3);
 
 INSERT INTO "playlists" ("_id","description","disabled") VALUES (1,'Parole, vocabolario, declinazioni',1);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,1);
@@ -309,8 +311,6 @@ INSERT INTO "playlists" ("_id","description") VALUES (7,'Reading list - more quo
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,13);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,28);
 
-INSERT INTO "playlists" ("_id","description") VALUES (8,'Reading list - quotes for prepositions');
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (8,3);
 
 --TODOs
 --add/concat/merge/join column eec to description
