@@ -8,8 +8,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -37,6 +36,7 @@ public class QuoteActivity extends AppCompatActivity {
             translationTV,
             lingNotesTV,
             eeCTV;
+    FrameLayout playbackButtonsFL;
     //EditText addressET;
     //ImageView imageIV;
 
@@ -68,6 +68,12 @@ public class QuoteActivity extends AppCompatActivity {
         this.lingNotesTV = findViewById(R.id.linguisticNoteTV);
         this.phoneticsTV = findViewById(R.id.phoneticsTV);
         this.translationTV = findViewById(R.id.translationTV);
+        this.playbackButtonsFL = findViewById(R.id.playbackButtons);
+
+        this.playbackButtonsFL.setVisibility(View.GONE);
+        this.phoneticsTV.setVisibility(View.GONE);
+
+        //TODO fix title not showing, fix translations not showing, fix playlists not playing
 
         Button playBtn = findViewById(R.id.playButton);
         playBtn.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +132,7 @@ public class QuoteActivity extends AppCompatActivity {
 
         //FIXME screen glitch on displaying the soft aspiration
         // also ῆ not displayed
+        // on android 4.4.2 also ῖ not showing (all circumflex letters?)
         // try changing font
         //FIXME
         // title not displayed
