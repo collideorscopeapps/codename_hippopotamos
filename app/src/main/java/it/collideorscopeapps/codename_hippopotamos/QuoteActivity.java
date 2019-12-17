@@ -29,6 +29,10 @@ public class QuoteActivity extends AppCompatActivity {
     // play the ogg vorbis files
     OnSwipeTouchListener onSwipeTouchListener;
 
+    //TODO add localization and screenshots, to give a glance
+    // at the app in pictures https://gitlab.com/fdroid/fdroiddata/blob/master/CONTRIBUTING.md
+    // https://f-droid.org/en/docs/All_About_Descriptions_Graphics_and_Screenshots/
+
     TextView titleTV,
             greekTV,
             citationTV,
