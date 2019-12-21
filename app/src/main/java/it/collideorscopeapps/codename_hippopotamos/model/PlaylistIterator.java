@@ -17,6 +17,13 @@ public class PlaylistIterator {
     static final boolean DEFAULT_SKIP_DISABLED_PLAYLISTS = true;
     boolean skipDisabledPlaylists;
 
+    enum Move {
+        SET_TO_FIRST,
+        FW,
+        BW
+    }
+    Move lastPlaylistSwitchMove;
+
     Playlist currentPl;
     TreeMap<Integer, Schermata> currentRankedSchermate;
     int currentScreenRank;
@@ -56,6 +63,7 @@ public class PlaylistIterator {
         this.playlistIterator = this.playlists.listIterator();
 
         this.currentPl = this.playlistIterator.next();
+        this.lastPlaylistSwitchMove = Move.SET_TO_FIRST;
         Log.v("PlaylistIterator","Starting with playlist " + currentPl.getDescription());
 
         this.currentRankedSchermate = this.currentPl.getRankedSchermate();
@@ -94,7 +102,7 @@ public class PlaylistIterator {
             this.currentScreenRank = currentScreenEntry.getKey();
 
             this.notMovedYet = false;
-            return  this.currentScreen;
+            return this.currentScreen;
 
         }
 
@@ -106,10 +114,17 @@ public class PlaylistIterator {
 
         } else {
 
+            if(this.lastPlaylistSwitchMove == Move.BW) {
+                // when we go back and forth in a ListIterator, we should skip one
+                // because it returns twice the same
+                this.playlistIterator.next();
+            }
+
             if(this.playlistIterator.hasNext()) {
 
                 this.currentPl = this.playlistIterator.next();
-                Log.v("PlaylistIterator","Moving to playlist " + currentPl.getDescription());
+                this.lastPlaylistSwitchMove = Move.FW;
+                Log.v("PlaylistIterator","Moving fw to playlist " + currentPl.getDescription());
                 this.currentRankedSchermate = this.currentPl.getRankedSchermate();
 
                 nextScreenEntry = this.currentRankedSchermate.firstEntry();
@@ -117,7 +132,6 @@ public class PlaylistIterator {
                 // Exception, should have checked hasNext() first
                 throw new NoSuchElementException();//todo print current playlist, rank, and screen
             }
-
         }
 
         return nextScreen(nextScreenEntry);
@@ -136,13 +150,18 @@ public class PlaylistIterator {
             return false;
         }
 
-        if (currentRankedSchermate.firstKey() != this.currentScreenRank) {
+        if (!weAreAtFirstScreenOfPlaylist()) {
             return true;
         }
 
         return this.playlistIterator.hasPrevious();
 
         //other limit (unlikely) scenario: the first playlist has no screens
+    }
+
+    private boolean weAreAtFirstScreenOfPlaylist() {
+
+        return currentRankedSchermate.firstKey() == this.currentScreenRank;
     }
 
     public Schermata getPrevScreen() {
@@ -154,15 +173,23 @@ public class PlaylistIterator {
 
         Map.Entry<Integer, Schermata> prevScreenEntry;
 
-        if(currentRankedSchermate.firstKey() != this.currentScreenRank) {
+        if (!weAreAtFirstScreenOfPlaylist()) {
 
             prevScreenEntry = this.currentRankedSchermate.lowerEntry(this.currentScreenRank);
 
         } else {
 
+            if(this.lastPlaylistSwitchMove == Move.FW) {
+                // when we go back and forth in a ListIterator, we should skip one
+                // because it returns twice the same
+                this.playlistIterator.previous();
+            }
+
             if(this.playlistIterator.hasPrevious()) {
 
                 this.currentPl = this.playlistIterator.previous();
+                this.lastPlaylistSwitchMove = Move.BW;
+                Log.v("PlaylistIterator","Moving bw to playlist " + currentPl.getDescription());
                 this.currentRankedSchermate = this.currentPl.getRankedSchermate();
 
                 prevScreenEntry = this.currentRankedSchermate.lastEntry();

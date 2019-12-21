@@ -1,6 +1,7 @@
 package it.collideorscopeapps.codename_hippopotamos.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.test.filters.Suppress;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -66,19 +67,28 @@ public class PlaylistIteratorTest {
 
         plItr = new PlaylistIterator(schermateById, playlists);
 
+        //TODO check if any screen is in no playlist
         int totalUniqueScreens = schermateById.size();
         int expectedMoves = totalViewableScreensAppearancesCount;
 
+        Log.d("PlaylistIteratorTest","Iterating screens forward");
         int forwardMovesCount = 0;
         while(plItr.hasNextScreen()) {
-            plItr.getNextScreen();
+            Schermata screen = plItr.getNextScreen();
             forwardMovesCount++;
+
+            Log.d("PlaylistIteratorTest", "(" + forwardMovesCount + ") " + screen.toString());
         }
 
+        Log.d("PlaylistIteratorTest","Iterating screens backward");
         int backwardMovesCount = 0;
         while(plItr.hasPrevScreen()) {
-            plItr.getPrevScreen();
+            Schermata screen = plItr.getPrevScreen();
             backwardMovesCount++;
+
+            Log.d("PlaylistIteratorTest", "("
+                    + (forwardMovesCount - backwardMovesCount)
+                    + ") " + screen.toString());
         }
 
         String errorMsg = "Expected " + expectedMoves
@@ -91,7 +101,7 @@ public class PlaylistIteratorTest {
                 + "; disabled playlists " + disabledPlaylistsCount;
 
         assertTrue(errorMsg, expectedMoves == forwardMovesCount);
-        assertTrue(errorMsg, expectedMoves == backwardMovesCount);
+        assertTrue(errorMsg, expectedMoves-1 == backwardMovesCount);
     }
 
     @Test@Suppress

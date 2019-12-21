@@ -138,4 +138,10 @@ public class Schermata implements Serializable {
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+
+        return this.title + " | " + this.description + " | " + this.translation;
+    }
 }
