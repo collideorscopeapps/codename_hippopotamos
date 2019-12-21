@@ -16,6 +16,28 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            //testCoverageEnabled = true
+        }
+    }
+    testOptions {
+        unitTests.includeAndroidResources = true
+        //  unitTests.returnDefaultValues = true
+    }
+    sourceSets {
+        final String SHARED_TEST_DIR = 'src/testShared/java'
+        test {
+            java.srcDirs += SHARED_TEST_DIR
+        }
+        androidTest {
+            java.srcDirs += SHARED_TEST_DIR
+        }
+    }
+    flavorDimensions "default"
+    productFlavors{
+        sharedTest {
+            dimension "default"
+        }
     }
 }
 
@@ -24,6 +46,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
+    testImplementation 'androidx.test:core:1.0.0'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    testImplementation "com.google.truth:truth:1.0"
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    sharedTestImplementation 'junit:junit:4.12'
+    sharedTestImplementation 'org.mockito:mockito-core:1.10.19'
+    sharedTestImplementation 'com.google.truth:truth:1.0'
 }
