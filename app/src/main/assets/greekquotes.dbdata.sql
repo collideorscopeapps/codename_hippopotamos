@@ -252,7 +252,7 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (34,'The Memorable thoughts of Socrates','Xenophon, Memorabilia 1.1.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (40,'ἀδικεῖ Σωκράτης οὓς μὲν ἡ πόλις νομίζει θεοὺς οὐ νομίζων, ἕτερα δὲ καινὰ δαιμόνια εἰσφέρων: ἀδικεῖ δὲ καὶ τοὺς νέους διαφθείρων.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (34,40);
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (33,1,'Socrates is guilty of rejecting the gods acknowledged by the state, and of introducint new strange deities: he is also guilty of corrupting the youth.');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (34,1,'Socrates is guilty of rejecting the gods acknowledged by the state, and of introducint new strange deities: he is also guilty of corrupting the youth.');
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
