@@ -176,7 +176,7 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (20,'τί καινὸν ε
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (20,1,'What is the strangest thing to see? An aged tyrant.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (13,20);
 
-INSERT INTO "playlists" ("_id","description") VALUES (8,'Test playlist');
+INSERT INTO "playlists" ("_id","description","disabled") VALUES (8,'Test playlist',1);
 INSERT INTO "schermate" ("_id","description") VALUES (14,'audio test');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,4);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,5);
