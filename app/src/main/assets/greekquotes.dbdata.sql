@@ -265,6 +265,13 @@ INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (42,'οἵ
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (36,42);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (36,1,'near arrogant men, that plundered them');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (37,'far from men that live by toil','Hom. Od. 6.8');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (43,'ἑκὰς ἀνδρῶν ἀλφηστάων,','ekasandron.ogg');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (37,43);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (37,1,'far from men that live by toil');
+
+
+
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
@@ -324,7 +331,8 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,13);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,28);
 
 INSERT INTO "playlists" ("_id","description") VALUES (9,'Recorded quotes');
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,36);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,36);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,37);
 
 --TODOs
 --add/concat/merge/join column eec to description
