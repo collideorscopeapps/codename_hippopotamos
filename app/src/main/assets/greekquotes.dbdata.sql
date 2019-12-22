@@ -271,6 +271,21 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (37,4
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (37,1,'far from men that live by toil');
 
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (38,'The wall','Hom. Od. 6.9');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (44,'ἀμφὶ δὲ τεῖχος ἔλασσε πόλει','Od.6.9-anphideteikos.ogg');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (38,44);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (38,1,'He surrounded the city with a wall');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (39,'οἴκους','Hom. Od. 6.9');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (45,'καὶ ἐδείματο οἴκους,','Od.6.9-kaiedeimato.ogg');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (39,45);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (39,1,'and he built houses');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (40,'Temples (νηοὺς)','Hom. Od. 6.10');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (46,'καὶ νηοὺς ποίησε θεῶν','Od.6.10-kaineus.ogg');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (40,46);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (40,1,'and he made temples for the gods');
+
 
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
@@ -333,6 +348,9 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,28);
 INSERT INTO "playlists" ("_id","description") VALUES (9,'Recorded quotes');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,36);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,37);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,38);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,39);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,40);
 
 --TODOs
 --add/concat/merge/join column eec to description
