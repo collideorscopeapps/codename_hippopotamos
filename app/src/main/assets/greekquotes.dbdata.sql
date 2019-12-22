@@ -286,6 +286,13 @@ INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (46,'κα�
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (40,46);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (40,1,'and he made temples for the gods');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (41,'Gleaming eyes','Hom. Od. 6.13, 6.24');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (47,'γλαυκῶπις Ἀθήνη','Od.6.13-glaukopis.ogg');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (48,'γλαυκῶπις Ἀθήνη','Od.6.24-glaukopis.ogg');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (41,47);
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (41,48);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (41,1,'gleaming-eyed Athena');
+
 
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
@@ -351,6 +358,7 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,37);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,38);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,39);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,40);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,41);
 
 --TODOs
 --add/concat/merge/join column eec to description

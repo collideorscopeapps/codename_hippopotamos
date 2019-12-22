@@ -19,9 +19,10 @@ CREATE TABLE IF NOT EXISTS "news" (
 
 CREATE TABLE IF NOT EXISTS "greek_quotes" (
 	"_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	"quoteText"	TEXT UNIQUE,
+	"quoteText"	TEXT,
 	"phoneticTranscription" TEXT,
-	"audioFileName"	TEXT
+	"audioFileName"	TEXT,
+	CONSTRAINT unique_quote UNIQUE (quoteText,audioFileName)
 );--/
 
 CREATE TABLE IF NOT EXISTS "android_metadata" (

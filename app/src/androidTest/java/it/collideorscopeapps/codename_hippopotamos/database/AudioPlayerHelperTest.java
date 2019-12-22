@@ -60,7 +60,9 @@ public class AudioPlayerHelperTest {
 
         //FIXME TODO add more files
         //"xwraf.ogg", "logosf.ogg", "nomosf.ogg"};
-        String[] audioFileNames = new String[]{"oispheas.ogg", "ekasandron.ogg",
+        String[] audioFileNames = new String[]{
+                "Od.6.13-glaukopis.ogg","Od.6.24-glaukopis.ogg",
+                "oispheas.ogg", "ekasandron.ogg",
                 "Od.6.9-anphideteikos.ogg",
                 "Od.6.9-kaiedeimato.ogg",
                 "Od.6.10-kaineus.ogg"};
