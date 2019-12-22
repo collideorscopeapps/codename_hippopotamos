@@ -25,18 +25,12 @@ android {
         //  unitTests.returnDefaultValues = true
     }
     sourceSets {
-        final String SHARED_TEST_DIR = 'src/testShared/java'
+        final String SHARED_TEST_DIR = 'src/sharedTest/java'
         test {
             java.srcDirs += SHARED_TEST_DIR
         }
         androidTest {
             java.srcDirs += SHARED_TEST_DIR
-        }
-    }
-    flavorDimensions "default"
-    productFlavors{
-        sharedTest {
-            dimension "default"
         }
     }
 }
@@ -51,7 +45,4 @@ dependencies {
     testImplementation "com.google.truth:truth:1.0"
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    sharedTestImplementation 'junit:junit:4.12'
-    sharedTestImplementation 'org.mockito:mockito-core:1.10.19'
-    sharedTestImplementation 'com.google.truth:truth:1.0'
 }
