@@ -160,6 +160,8 @@ public class QuoteActivity extends AppCompatActivity {
         //TODO: tweak quoteactivity to load and play the audio file if present
         //TODO: add check in quote activity, if file present, show toad if not
         //TODO: should the audio player throw exception or return message/boolean?
+
+        //FIXME increase volume
     }
 
     private void setLeftRightSwipeBehavior() {
