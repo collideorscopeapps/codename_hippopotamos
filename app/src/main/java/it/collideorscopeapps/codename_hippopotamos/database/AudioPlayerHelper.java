@@ -149,6 +149,8 @@ public class AudioPlayerHelper implements Closeable {
 
     private void playNext(int trackIdx) {
 
+        //TODO-FIXME handle if assetFileDescriptors is empty and get ArrayIndexOutOfBoundsException
+
         //setDataSource, state goes from idle to initialized
         try {
             insertFileIntoMediaplayer(mediaPlayer, assetFileDescriptors[trackIdx]);

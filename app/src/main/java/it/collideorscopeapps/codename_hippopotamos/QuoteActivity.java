@@ -156,6 +156,10 @@ public class QuoteActivity extends AppCompatActivity {
         // not when changing to other screen with other audio quotes
 
         //TODO ..might prepare in advance file descriptors for next screen
+
+        //TODO: tweak quoteactivity to load and play the audio file if present
+        //TODO: add check in quote activity, if file present, show toad if not
+        //TODO: should the audio player throw exception or return message/boolean?
     }
 
     private void setLeftRightSwipeBehavior() {

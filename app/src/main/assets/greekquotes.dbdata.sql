@@ -13,6 +13,7 @@ INSERT INTO "credits" ("credit") VALUES ('https://www.cornellcollege.edu/classic
 INSERT INTO "credits" ("credit") VALUES ('https://soundcloud.com/archaeologymag/what-ancient-greek-music');
 INSERT INTO "credits" ("credit") VALUES ('https://sites.google.com/site/materialesathenaze/ho-dikaiopolis');
 INSERT INTO "credits" ("credit") VALUES ('http://aliso.pntic.mec.es/agalle17/trabajo_final/cap4.html');
+INSERT INTO "credits" ("credit") VALUES ('https://librivox.org/the-odyssey-book-6-by-homer/');
 
 INSERT INTO "app_notes" ("title","note") VALUES ('about','Hippopotamuses are located in central and southern Africa, south of the Sahara desert and near the Nile River.</br></br><b>Diet</b></br>They are vegetarians and mostly eat grass. They may travel long distances during the night from their water source to reach the areas where they graze. They also sometimes eat fruit that has fallen off of trees or crops grown by local people.');
 
@@ -254,6 +255,17 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (40,'ἀδικεῖ Σωκ
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (34,40);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (34,1,'Socrates is guilty of rejecting the gods acknowledged by the state, and of introducint new strange deities: he is also guilty of corrupting the youth.');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (35,'Arrogant plunderers','Hom. Od. 6.6');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (41,'ἀγχοῦ Κυκλώπων ἀνδρῶν ὑπερηνορεόντων, οἵ σφεας σινέσκοντο');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (35,41);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (35,1,'near arrogant men, that plundered them');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (36,'Plunderers','Hom. Od. 6.6');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (42,'οἵ σφεας σινέσκοντο','oispheas.ogg');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (36,42);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (36,1,'near arrogant men, that plundered them');
+
+
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,1,'Good, noble');
@@ -311,6 +323,8 @@ INSERT INTO "playlists" ("_id","description") VALUES (7,'Reading list - more quo
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,13);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,28);
 
+INSERT INTO "playlists" ("_id","description") VALUES (9,'Recorded quotes');
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,36);
 
 --TODOs
 --add/concat/merge/join column eec to description
