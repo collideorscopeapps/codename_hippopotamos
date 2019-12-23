@@ -162,6 +162,9 @@ public class QuoteActivity extends AppCompatActivity {
         //TODO: should the audio player throw exception or return message/boolean?
 
         //FIXME increase volume
+
+        //TODO add counter in bottom left corner to know in which screen / playlist we are
+        // i.e. 1 / 40
     }
 
     private void setLeftRightSwipeBehavior() {
