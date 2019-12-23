@@ -300,6 +300,12 @@ INSERT INTO "greek_quotes" ("_id","audioFileName","quoteText") VALUES (50,'Od.6.
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (42,50);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (42,1,'Athena went away to Olympus, which they say is the everlasting home of the gods. Here no wind beats roughly, and neither rain nor snow can fall; but it abides in everlasting sunshine and in a great peacefulness of light, wherein the blessed gods are illumined for ever and ever.');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (43,'Vultures eat his heart in Hades','Apollod. 1.4.1');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (51,'γῦπες γὰρ αὐτοῦ τὴν καρδίαν ἐν Ἅιδου ἐσθίουσιν.');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (43,51);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (43,1,'for vultures eat his heart in Hades');
+
+
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
@@ -366,6 +372,10 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,39);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,40);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,41);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,42);
+
+INSERT INTO "playlists" ("_id","description") VALUES (10,'Unlotted quotes to assign and annotate');
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,43);
+
 
 --TODOs
 --add/concat/merge/join column eec to description
