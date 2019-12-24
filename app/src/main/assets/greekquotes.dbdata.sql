@@ -315,6 +315,11 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (53,'αὐτοὺς δὲ 
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (45,53);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (45,1,'made them prey for all dogs and birds');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (46,'','Iliad 1.5');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (54,'Διὸς δ᾽ ἐτελείετο βουλή,');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (46,54);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (46,1,'and so was the will of Zeus fulfilled');
+
 
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
@@ -387,6 +392,8 @@ INSERT INTO "playlists" ("_id","description") VALUES (10,'Unlotted quotes to ass
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,43);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,44);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,45);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,46);
+
 
 
 --TODOs
