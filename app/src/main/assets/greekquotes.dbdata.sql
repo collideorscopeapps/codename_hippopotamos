@@ -189,12 +189,14 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (14,1
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (15,'In the nether world','Apollod. 1.2.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (21,'καθείρξαντες αὐτοὺς ἐν τῷ Ταρτάρῳ');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (21,1,'shut them up in Tartarus (in the nether world)');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (15,1,'shut them up in Tartarus (in the nether world)');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (15,21);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (15,1,'ἐν τῷ Ταρτάρῳ: DAT sg (m)..');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (16,'Heavens, sea and Hades','Apollod. 1.2.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (22,'καὶ λαγχάνει Ζεὺς μὲν τὴν ἐν οὐρανῷ δυναστείαν, Ποσειδῶν δὲ τὴν ἐν θαλάσσῃ, Πλούτων δὲ τὴν ἐν Ἅιδου.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (22,1,'and to Zeus was allotted the dominion of the sky, to Poseidon the dominion of the sea, and to Pluto the dominion in Hades');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (16,1,'and to Zeus was allotted the dominion of the sky, to Poseidon the dominion of the sea, and to Pluto the dominion in Hades');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (16,22);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (16,1,'ἐν οὐρανῷ, ἐν θαλάσσῃ: DAT sg ..');
 
@@ -202,6 +204,7 @@ INSERT INTO "schermate" ("_id","description","author_ref") VALUES (17,'Atlas','A
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (23,'Ἄτλας, ὃς ἔχει τοῖς ὤμοις τὸν οὐρανόν');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (23,1,'Atlas, who has the sky on his shoulders');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (23,2,'Atlante, che porta il cielo sulle spalle');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (17,1,'Atlas, who has the sky on his shoulders');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (17,23);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (17,1,'τοῖς ὤμοις: DAT pl (m)');
 
@@ -209,6 +212,7 @@ INSERT INTO "schermate" ("_id","description","author_ref") VALUES (18,'ἄνεμ
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (24,'Ἠοῦς δὲ καὶ Ἀστραίου ἄνεμοι καὶ ἄστρα');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (24,1,'and to Dawn and Astraeus were born winds and stars');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (24,2,'e dall''Aurora e da Astreo nacquero i venti e le stelle');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (18,1,'and to Dawn and Astraeus were born winds and stars');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (18,24);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (18,1,'ἄνεμοι καὶ ἄστρα: NOM pl (m, nt)');
 
@@ -216,6 +220,7 @@ INSERT INTO "schermate" ("_id","description","author_ref") VALUES (19,'Νίκη 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (25,'Πάλλαντος δὲ καὶ Στυγὸς Νίκη Κράτος Ζῆλος Βία.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (25,1,'and to Pallas and Styx were born Victory, Dominion, Emulation, and Violence.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (25,2,'e da Pallante e Stige nacquero Nike, la vittoria, Crato, il potere, Zelo, l''ardore, e Bia, la violenza.');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (19,1,'and to Pallas and Styx were born Victory, Dominion, Emulation, and Violence.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (19,25);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (19,1,'Νίκη Κράτος Ζῆλος Βία.: NOM sg (f, nt, m, f)');
 
@@ -223,12 +228,14 @@ INSERT INTO "schermate" ("_id","description","author_ref") VALUES (20,'Ζεὺς
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (26,'Ζεὺς δὲ γαμεῖ μὲν Ἥραν [..] μίγνυται δὲ πολλαῖς θνηταῖς τε καὶ ἀθανάτοις γυναιξίν.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (26,1,'Zeus wedded Hera .. but he had intercourse with many women, both mortals and immortals.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (26,2,'Zeus sposa Era .. ma si unisce a molte donne, mortali e immortali');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (20,1,'Zeus wedded Hera .. but he had intercourse with many women, both mortals and immortals.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (20,26);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (20,1,'πολλαῖς γυναιξίν: DAT pl');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (21,'μούσας','Apollod. 1.3.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (27,'ἐκ δὲ Μνημοσύνης μούσας');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (27,1,'by Memory he had the Muses');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (21,1,'by Memory he had the Muses');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (27,2,'da Mnemosine gli nascono le Muse');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (21,27);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (21,1,'ἐκ Μνημοσύνης: GEN sg, μούσας: ACC pl');
@@ -236,12 +243,14 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (28,'The Spartans','Plutarch, De garrulitate, 17');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (34,'γράψαντος αὐτοῖς τοῦ Φιλίππου ‘ἂν ἐμβάλω εἰς τὴν Λακωνικήν, ἀναστάτους ὑμᾶς ποιήσω, ’ ἀντέγραψαν ‘αἴκα.’');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (34,1,'when Philip wrote to them, ‘If I invade Laconia, I shall turn you out,’ they wrote back, ‘If.’');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (28,1,'when Philip wrote to them, ‘If I invade Laconia, I shall turn you out,’ they wrote back, ‘If.’');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (28,34);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (28,1,'');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (29,'Ὀρφεὺς','Apollod. 1.3.2');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (35,'Ὀρφεὺς ὁ ἀσκήσας κιθαρῳδίαν, ὃς ᾁδων ἐκίνει λίθους τε καὶ δένδρα.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (35,1,'Orpheus, who practised minstrelsy and by his songs moved stones and trees.');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (29,1,'Orpheus, who practised minstrelsy and by his songs moved stones and trees.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (29,35);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (29,1,'λίθους τε καὶ δένδρα: ACC pl (f, nt II decl.');
 
