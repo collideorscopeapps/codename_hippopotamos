@@ -425,7 +425,7 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,40);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,41);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,42);
 
-INSERT INTO "playlists" ("_id","description") VALUES (10,'Unlotted quotes to assign and annotate');
+INSERT INTO "playlists" ("_id","description") VALUES (10,'Unallotted quotes to assign and annotate');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,43);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,44);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,45);
