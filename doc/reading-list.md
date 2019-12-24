@@ -170,7 +170,7 @@ Linguistic/grammar notes: ἤριζον: imperf ind act, 3rd pl (ἐρίζω)
 
 > **ἔδοξε δὲ αὐτοῖς ἐκείνῳ τὴν νίκην ἀπονεῖμαι, ὃς ἂν αὐτῶν ἄνθρωπον ὁδοιπόρον ἐκδύσῃ.**
 
-(It was resolved that vicory would be given to the one who succeeded in making a traveler take off his cloak.)
+(It was resolved that vicτory would be given to the one who succeeded in making a traveler take off his cloak.)
 
 (Aesop)
 
@@ -270,7 +270,7 @@ Linguistic/grammar notes: ὀδὰξ: adv. "(biting) with the teeth"; ἕλον 
 
 > **ἀδικεῖ Σωκράτης οὓς μὲν ἡ πόλις νομίζει θεοὺς οὐ νομίζων, ἕτερα δὲ καινὰ δαιμόνια εἰσφέρων: ἀδικεῖ δὲ καὶ τοὺς νέους διαφθείρων.**
 
-(Socrates is guilty of rejecting the gods acknowledged by the state, and of introducint new strange deities: he is also guilty of corrupting the youth.)
+(Socrates is guilty of rejecting the gods acknowledged by the state, and of introducing new strange deities: he is also guilty of corrupting the youth.)
 
 (Xenophon, Memorabilia 1.1.1)
 
@@ -278,11 +278,11 @@ Linguistic/grammar notes: ὀδὰξ: adv. "(biting) with the teeth"; ἕλον 
 
 <br />
 
-> **τί καινὸν εἴη τεθεαμένος; Γέροντα τύραννον.**
+> **τί δὲ καινὸν εἴη τεθεαμένος ἔφη: "γέροντα τύραννον.".**
 
-(What is the strangest thing to see? An aged tyrant.)
+(To the question what was the strangest thing he had ever seen, his answer was, "An aged tyrant.")
 
-(Thales of Miletus, 35)
+(Diogenes Laertius, Lives of Eminent Philosophers 1.1.36)
 
 <br />
 
@@ -352,7 +352,7 @@ Linguistic/grammar notes:
 
 (Hom. Od. 6.41-46)
 
-### Unlotted quotes to assign and annotate
+### Unallotted quotes to assign and annotate
 
 <br />
 
