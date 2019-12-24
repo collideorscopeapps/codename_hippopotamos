@@ -25,7 +25,7 @@ public class Utils {
     public static void appendLineToStringBuilder(StringBuilder sb,
                                                  String preamble,
                                                  String lineCore) {
-        String doubleNewLine = "\n\n";
+        final String doubleNewLine = "\n\n";
 
         if(lineCore != null) {
             sb.append(preamble + lineCore);
@@ -37,6 +37,12 @@ public class Utils {
 
         appendLineToStringBuilder(sb, "", str);
     }
+
+    public static void appendEmptyLineToStringBuilder(StringBuilder sb) {
+
+        appendLineToStringBuilder(sb, "<br />");
+    }
+
 
     public static boolean castSqliteBoolean(int value) {
 
@@ -74,6 +80,8 @@ public class Utils {
 
         for(Integer schermataRank: rankedSchermate.keySet()) {
             Schermata currentSchermata = rankedSchermate.get(schermataRank);
+
+            appendEmptyLineToStringBuilder(sb);
 
             appendLineToStringBuilder(sb, currentSchermata.getTitle());
             //appendLineToStringBuilder(sb, currentSchermata.getDescription());
