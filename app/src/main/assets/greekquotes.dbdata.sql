@@ -108,7 +108,7 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (10,1
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (10,1,'ἤριζον: imperf ind act, 3rd pl (ἐρίζω)');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (22,'The North Wind and the Sun (2)','Aesop');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (22,1,'It was resolved that vicory would be given to the one who succeeded in making a traveler take off his cloak.');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (22,1,'It was resolved that vicτory would be given to the one who succeeded in making a traveler take off his cloak.');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (33,'ἔδοξε δὲ αὐτοῖς ἐκείνῳ τὴν νίκην ἀπονεῖμαι, ὃς ἂν αὐτῶν ἄνθρωπον ὁδοιπόρον ἐκδύσῃ.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (33,2,'Decisero di assegnare la vittoria a chi di loro avesse spogliato un viandante.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (33,1,'It was resolved that the one who succeeded in making a traveler take his cloak off would win.');
