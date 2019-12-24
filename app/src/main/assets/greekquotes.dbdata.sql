@@ -172,10 +172,10 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (12,12);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (12,1,'τὶς ἀθανάτων: GEN pl');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (13,'Thyrants','Thales of Miletus, 35');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (13,1,'What is the strangest thing to see? An aged tyrant.');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (20,'τί καινὸν εἴη τεθεαμένος; Γέροντα τύραννον.');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (20,1,'What is the strangest thing to see? An aged tyrant.');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (13,'Thyrants','Diogenes Laertius, Lives of Eminent Philosophers 1.1.36');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (13,1,'To the question what was the strangest thing he had ever seen, his answer was, "An aged tyrant."');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (20,'τί δὲ καινὸν εἴη τεθεαμένος ἔφη: "γέροντα τύραννον."');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (20,1,'To the question what was the strangest thing he had ever seen, his answer was, "An aged tyrant."');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (13,20);
 
 INSERT INTO "playlists" ("_id","description","disabled") VALUES (8,'Test playlist',1);
