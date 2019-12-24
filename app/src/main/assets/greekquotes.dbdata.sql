@@ -305,6 +305,16 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (51,'γῦπες γὰρ �
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (43,51);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (43,1,'for vultures eat his heart in Hades');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (44,'','Apollod. 1.4.2');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (52,'ἐκτεμὼν τὸ δέρμα');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (44,52);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (44,1,'stripping off (his) skin');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (45,'','Iliad 1.4');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (53,'αὐτοὺς δὲ ἑλώρια τεῦχε κύνεσσιν οἰωνοῖσί τε πᾶσι');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (45,53);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (45,1,'made them prey for all dogs and birds');
+
 
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
@@ -375,6 +385,8 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,42);
 
 INSERT INTO "playlists" ("_id","description") VALUES (10,'Unlotted quotes to assign and annotate');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,43);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,44);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,45);
 
 
 --TODOs
