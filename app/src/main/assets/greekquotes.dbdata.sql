@@ -340,6 +340,12 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (58,'τίσειαν Δαν
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (50,58);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (50,1,'let the Greeks pay for my tears by your arrows');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (51,'','Iliad 1.49');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (59,'δεινὴ δὲ κλαγγὴ γένετ᾽ ἀργυρέοιο βιοῖο:');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (51,59);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (51,1,'a terrible twang came from the silver bow.');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (51,1,'γένετ᾽: (γίγνομαι) 3rd sg aor ind mid homeric ionic unaugmented');
+
 
 
 
@@ -418,6 +424,7 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,47);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,48);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,49);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,50);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,51);
 
 
 
