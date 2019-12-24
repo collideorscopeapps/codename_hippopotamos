@@ -316,9 +316,30 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (45,5
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (45,1,'made them prey for all dogs and birds');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (46,'','Iliad 1.5');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (54,'Διὸς δ᾽ ἐτελείετο βουλή,');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (54,'Διὸς δ᾽ ἐτελείετο βουλή');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (46,54);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (46,1,'and so was the will of Zeus fulfilled');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (47,'','Iliad 1.18');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (55,'θεοὶ [..] Ὀλύμπια δώματ᾽ ἔχοντες');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (47,55);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (47,1,'the gods who have houses in mount Olympus');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (48,'','Iliad 1.40');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (56,'πίονα μηρί᾽ ἔκηα ταύρων ἠδ᾽ αἰγῶν');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (48,56);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (48,1,'burned fat thigh-pieces of bulls and goats');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (49,'','Iliad 1.41');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (57,'τὸ δέ μοι κρήηνον ἐέλδωρ:');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (49,57);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (49,1,'fulfill this prayer for me');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (50,'','Iliad 1.42');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (58,'τίσειαν Δαναοὶ ἐμὰ δάκρυα σοῖσι βέλεσσιν.');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (50,58);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (50,1,'let the Greeks pay for my tears by your arrows');
+
 
 
 
@@ -393,6 +414,10 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,43);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,44);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,45);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,46);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,47);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,48);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,49);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,50);
 
 
 
