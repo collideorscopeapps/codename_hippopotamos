@@ -73,9 +73,9 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (5,13
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (5,1,'τοῦ κόσμου GEN sg (m, II decl.); ἐδυνάστευσε + GEN: was lord over');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (6,'εἰς Τάρταρον','Apollod. I.1.2');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (6,1,'he threw them into Tartarus, a dark place in the Ade, as far from Earth as Earth is from heaven');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (6,1,'he threw them into Tartarus (this is a dark place in the Ade, as far from Earth as Earth is from heaven)');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (14,'τούτους [..] εἰς Τάρταρον ἔρριψε （τόπος δὲ οὗτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.)');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (14,2,'he threw them into Tartarus, a dark place in the Ade, as far from Earth as Earth is from heaven');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (14,2,'he threw them into Tartarus (this is a dark place in the Ade, as far from Earth as Earth is from heaven)');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (6,14);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (6,1,'εἰς Τάρταρον, εἰς + Acc (sg, II decl.)');
 
