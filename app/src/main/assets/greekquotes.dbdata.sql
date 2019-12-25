@@ -195,8 +195,8 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (16,'Heavens, sea and Hades','Apollod. 1.2.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (22,'καὶ λαγχάνει Ζεὺς μὲν τὴν ἐν οὐρανῷ δυναστείαν, Ποσειδῶν δὲ τὴν ἐν θαλάσσῃ, Πλούτων δὲ τὴν ἐν Ἅιδου.');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (22,1,'and to Zeus was allotted the dominion of the sky, to Poseidon the dominion of the sea, and to Pluto the dominion in Hades');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (16,1,'and to Zeus was allotted the dominion of the sky, to Poseidon the dominion of the sea, and to Pluto the dominion in Hades');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (22,1,'and to Zeus was allotted the dominion in the sky, to Poseidon the dominion in the sea, and to Pluto the dominion in Hades');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (16,1,'and to Zeus was allotted the dominion in the sky, to Poseidon the dominion in the sea, and to Pluto the dominion in Hades');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (16,22);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (16,1,'ἐν οὐρανῷ, ἐν θαλάσσῃ: DAT sg ..');
 
