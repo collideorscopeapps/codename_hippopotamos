@@ -356,6 +356,17 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (51,5
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (51,1,'a terrible twang came from the silver bow.');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (51,1,'γένετ᾽: (γίγνομαι) 3rd sg aor ind mid homeric ionic unaugmented');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (52,'','Iliad 1.30');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (60,'ἡμετέρῳ ἐνὶ οἴκῳ');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (52,60);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (51,1,'in our house.');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (52,1,'ἐνὶ οἴκῳ: ἐν + DAT. ἐνὶ is just a poetic version of ἐν');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (53,'','Iliad 6.500');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (61,'αἳ μὲν ἔτι ζωὸν γόον Ἕκτορα ᾧ ἐνὶ οἴκῳ');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (53,61);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (51,1,'although still alive, they mourned Hector in his house');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (53,1,'αἳ: they (female); ᾧ: his, DAT; ζωὸν: adj sg masc ACC');
 
 
 
@@ -435,6 +446,8 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,48);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,49);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,50);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,51);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,52);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,53);
 
 
 
