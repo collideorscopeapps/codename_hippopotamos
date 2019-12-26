@@ -252,7 +252,7 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (35,'Ὀρφεὺς ὁ �
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (35,1,'Orpheus, who practised minstrelsy and by his songs moved stones and trees.');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (29,1,'Orpheus, who practised minstrelsy and by his songs moved stones and trees.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (29,35);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (29,1,'λίθους τε καὶ δένδρα: ACC pl (f, nt II decl.');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (29,1,'λίθους τε καὶ δένδρα: ACC pl (f, nt II decl.)');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (33,'Another one bites the dust','Homer, Iliad, XI.749, XIX.61, XXII.17, XXIV.738');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (39,'ὀδὰξ ἕλον οὖδας.');
