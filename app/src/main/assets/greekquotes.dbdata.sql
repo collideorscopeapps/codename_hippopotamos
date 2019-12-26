@@ -202,9 +202,9 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (17,'Atlas','Apollod. 1.2.3');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (23,'Ἄτλας, ὃς ἔχει τοῖς ὤμοις τὸν οὐρανόν');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (23,1,'Atlas, who has the sky on his shoulders');
+INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (23,1,'Atlas, who carries on his shoulders the sky');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (23,2,'Atlante, che porta il cielo sulle spalle');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (17,1,'Atlas, who has the sky on his shoulders');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (17,1,'Atlas, who carries on his shoulders the sky');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (17,23);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (17,1,'τοῖς ὤμοις: DAT pl (m)');
 
