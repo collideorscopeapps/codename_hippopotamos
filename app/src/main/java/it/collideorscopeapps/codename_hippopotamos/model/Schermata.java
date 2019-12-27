@@ -103,9 +103,42 @@ public class Schermata implements Serializable {
     private ArrayList<Quote> quotes;
     private String quotesAsString;
 
+    private Quote shortQuote;
+
+    public Integer getShortQuoteId() {
+        return shortQuoteId;
+    }
+
+    public Integer getFullQuoteId() {
+        return fullQuoteId;
+    }
+
+    private Integer shortQuoteId;
+
+    public Quote getShortQuote() {
+        return shortQuote;
+    }
+
+    public void setShortQuote(Quote shortQuote) {
+        this.shortQuote = shortQuote;
+    }
+
+    public Quote getFullQuote() {
+        return fulltQuote;
+    }
+
+    public void setFulltQuote(Quote fulltQuote) {
+        this.fulltQuote = fulltQuote;
+    }
+
+    private Quote fulltQuote;
+    private Integer fullQuoteId;
+
     public Schermata(int id,
                      String title,
                      String description,
+                     Integer shortQuoteId,
+                     Integer fullQuoteId,
                      String translation,
                      String linguisticNotes,
                      String citation,
@@ -114,6 +147,8 @@ public class Schermata implements Serializable {
         this.title = title;
         this.translation = translation;
         this.description = description;
+        this.shortQuoteId = shortQuoteId;
+        this.fullQuoteId = fullQuoteId;
         this.linguisticNotes = linguisticNotes;
         this.citation = citation;
         this.easterEggComment = easterEggComment;

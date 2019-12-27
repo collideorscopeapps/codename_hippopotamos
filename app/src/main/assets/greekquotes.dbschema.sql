@@ -158,6 +158,8 @@ CREATE VIEW v_schermate_and_quotes AS
     qs.position AS position,
     s.title AS title,
     s.description AS description,
+    s.short_quote_id AS short_quote_id,
+    s.full_quote_id AS full_quote_id,
     s.translation AS default_translation,
     s.author_ref AS cit,
     s.linguisticNote AS linguisticNote,

@@ -274,6 +274,7 @@ public class DBManager extends SQLiteOpenHelper {
         //openDatabaseReadonly();
 
         TreeMap<Integer, Schermata> newSchermate = new TreeMap<Integer, Schermata>();
+        TreeMap<Integer, Quote> newAllQuotes = new TreeMap<Integer, Quote>();
 
         TreeMap<Integer, String> linguisticNotes = getLinguisticNotes(language);
         TreeMap<Integer, String> easterEggComments = getEasterEggComments(language);
@@ -281,16 +282,54 @@ public class DBManager extends SQLiteOpenHelper {
 
         // TODO rededish, review: problems with db creation,
         //  opening, state, and closing cycles
-        String quotesAndSchermateQuery = "SELECT * FROM v_schermate_and_quotes";
         SQLiteDatabase db = ensureDBOpen(myContext,null);
         if(isDBEmpty(myContext,db)) {
             runSchemaCreationQueriesHelper(myContext, db);
         }
-        try(Cursor cursor = db.rawQuery(quotesAndSchermateQuery, null)) { // todo merge try
+        processGetAllQuotesQuery(db, newAllQuotes);
+        processScreensAndQuotesQuery(db, newSchermate, linguisticNotes, easterEggComments);
+        setShortAndFullQuotesInScreens(newAllQuotes, newSchermate);
+
+        this.schermate = newSchermate;
+        for(Playlist pl :this.playlists) {
+            pl.setSchermate(this.schermate);
+        }
+
+        db.close();//not needed anymore once data is loaded
+        return this.schermate;
+    }
+
+    private static void setShortAndFullQuotesInScreens(
+            TreeMap<Integer, Quote> allQuotes,
+            TreeMap<Integer, Schermata> allScreens) {
+
+        for(Schermata screen: allScreens.values()) {
+            if(null != screen.getShortQuoteId()) {
+                Quote shortQuote = allQuotes.get(screen.getShortQuoteId());
+                screen.setShortQuote(shortQuote);
+            }
+            if(null != screen.getFullQuoteId()) {
+                Quote fullQuote = allQuotes.get(screen.getFullQuoteId());
+                screen.setFulltQuote(fullQuote);
+            }
+        }
+    }
+
+    private static void processScreensAndQuotesQuery(
+            SQLiteDatabase db,
+            TreeMap<Integer, Schermata> newSchermate,
+            TreeMap<Integer, String> linguisticNotes,
+            TreeMap<Integer, String> easterEggComments) {
+        String quotesAndSchermateQuery = "SELECT * FROM v_schermate_and_quotes";
+        try(Cursor cursor = db.rawQuery(quotesAndSchermateQuery, null)) {
+            // todo merge try
 
             cursor.moveToFirst();
             while(!cursor.isAfterLast()) {
-                addQuoteAndSchermata(cursor, newSchermate, linguisticNotes, easterEggComments);
+                addQuoteAndSchermata(cursor,
+                        newSchermate,
+                        linguisticNotes,
+                        easterEggComments);
                 cursor.moveToNext();
             }
         }
@@ -301,14 +340,21 @@ public class DBManager extends SQLiteOpenHelper {
         catch (Exception e) {
             Log.e("DBManager", e.toString());
         }
+    }
 
-        this.schermate = newSchermate;
-        for(Playlist pl :this.playlists) {
-            pl.setSchermate(this.schermate);
+    private static void processGetAllQuotesQuery(
+            SQLiteDatabase db,
+            TreeMap<Integer, Quote> allQuotes
+    ) {
+        String quotesAndSchermateQuery = "SELECT * FROM greek_quotes";
+        try(Cursor cursor = db.rawQuery(quotesAndSchermateQuery, null)) { // todo merge try
+
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                addQuote(cursor, allQuotes);
+                cursor.moveToNext();
+            }
         }
-
-        db.close();//not needed anymore once data is loaded
-        return this.schermate;
     }
 
     private static String getConcatTableNames(SQLiteDatabase db) {
@@ -338,6 +384,24 @@ public class DBManager extends SQLiteOpenHelper {
         return tableNamesConcat;
     }
 
+    private static void addQuote(Cursor cursor,
+                                 TreeMap<Integer, Quote> allQuotes) {
+
+        final int greekQuoteIddColIdx = cursor.getColumnIndex("_id");
+        final int quoteColIdx = cursor.getColumnIndex("quoteText");
+        final int phoneticColIdx = cursor.getColumnIndex("phoneticTranscription");
+        final int audioFileNameColIdx = cursor.getColumnIndex("audioFileName");
+
+        int idQuote = cursor.getInt(greekQuoteIddColIdx);
+        String greekQuote = cursor.getString(quoteColIdx);
+        String phoneticTranscription = cursor.getString(phoneticColIdx);
+        String audioFileName = cursor.getString(audioFileNameColIdx);
+
+        Quote currentQuote = new Quote(idQuote, greekQuote,
+                phoneticTranscription, audioFileName);
+        allQuotes.put(idQuote, currentQuote);
+    }
+
     private static void addQuoteAndSchermata(Cursor cursor,
                                              TreeMap<Integer,Schermata> schermate,
                                              TreeMap<Integer,String> linguisticNotes,
@@ -346,6 +410,8 @@ public class DBManager extends SQLiteOpenHelper {
         final int schermataIdColIdx = cursor.getColumnIndex("s_id");
         final int greekQuoteIddColIdx = cursor.getColumnIndex("gq_id");
         final int quoteColIdx = cursor.getColumnIndex("quote");
+        final int short_quote_idColIdx = cursor.getColumnIndex("short_quote_id");
+        final int full_quote_idColIdx = cursor.getColumnIndex("full_quote_id");
         final int phoneticColIdx = cursor.getColumnIndex("phoneticTranscription");
         final int positionColIdx = cursor.getColumnIndex("position");
         final int titleColIdx = cursor.getColumnIndex("title");
@@ -356,6 +422,8 @@ public class DBManager extends SQLiteOpenHelper {
 
         int idSchermata = cursor.getInt(schermataIdColIdx);
         int idQuote = cursor.getInt(greekQuoteIddColIdx);
+        Integer shortQuoteId = getNullableInteger(cursor, short_quote_idColIdx);
+        Integer fullQuoteId = getNullableInteger(cursor, full_quote_idColIdx);
         String greekQuote = cursor.getString(quoteColIdx);
         String phoneticTranscription = cursor.getString(phoneticColIdx);
         int quotePosition = cursor.getInt(positionColIdx);
@@ -377,10 +445,13 @@ public class DBManager extends SQLiteOpenHelper {
 
         Schermata currentSchermata = schermate.get(idSchermata);
         if(null == currentSchermata) {
+
             currentSchermata= new Schermata(
                     idSchermata,
                     title,
                     description,
+                    shortQuoteId,
+                    fullQuoteId,
                     defaultTranslation,
                     linguisticNote,
                     cit,
@@ -390,7 +461,20 @@ public class DBManager extends SQLiteOpenHelper {
         currentSchermata.addQuote(currentQuote);
     }
 
+    private static Integer getNullableInteger(Cursor cursor, int colIdx) {
+
+        Integer value = null;
+        boolean colIsNull = Cursor.FIELD_TYPE_NULL == cursor.getType(colIdx);
+        if(!colIsNull) {
+            value = cursor.getInt(colIdx);
+        }
+
+        return value;
+    }
+
     private ArrayList<Playlist> getPlaylistsFromDB() {
+
+        //TODO sort playlist according to new field
 
         ArrayList<Playlist> playlists = new ArrayList<>();
 

@@ -14,8 +14,10 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -73,6 +75,25 @@ public class DBManagerTest {
         int maxQuotes = 100;
         checkSchermate(schermate,extectedMinNumSchermate, maxSchermate);
         checkQuotes(schermate,extectedMinNumQuotes,maxQuotes);
+    }
+
+    @Test
+    public void getShortAndFullQuote() {
+
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        DBManager dbManager;
+        dbManager = new DBManager(appContext);
+        TreeMap<Integer, Schermata> schermate = dbManager.getSchermateById(DBManager.Languages.EN);
+
+        Schermata firstScreen = schermate.get(5);
+        Quote firstShortQuote = firstScreen.getShortQuote();
+        Quote firstFullQuote = firstScreen.getFullQuote();
+
+        String expected = "Οὐραν<CASE>ὸς</CASE> πρῶτ<CASE>ος</CASE>";
+        assertEquals("wrong firstShortQuote", expected, firstShortQuote.getQuoteText());
+
+        expected = "Οὐραν<CASE>ὸς</CASE> πρῶτ<CASE>ος</CASE> τοῦ παντὸς ἐδυνάστευσε κόσμου.";
+        assertEquals("wrong firstFullQuote", expected, firstFullQuote.getQuoteText());
     }
 
     @Test

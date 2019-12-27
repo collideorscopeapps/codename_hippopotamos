@@ -43,5 +43,14 @@ public class Quote implements Serializable {
         this.audioFileName = audioFileName;
     }
 
+    public Quote(int id,
+                 String quoteText,
+                 String phoneticTranscription,
+                 String audioFileName) {
 
+        this.id = id;
+        this.quoteText = quoteText;
+        this.phoneticTranscription = phoneticTranscription;
+        this.audioFileName = audioFileName;
+    }
 }
