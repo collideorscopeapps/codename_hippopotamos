@@ -23,7 +23,7 @@ import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 public class QuoteActivity extends AppCompatActivity {
-
+/*
     // todo, at activity startup, get schermata with "audio test"
     // iterate the quotes, get the audio files from assets folder
     // play the ogg vorbis files
@@ -45,10 +45,6 @@ public class QuoteActivity extends AppCompatActivity {
     //EditText addressET;
     //ImageView imageIV;
 
-    TreeMap<Integer, Schermata> schermateById;
-    TreeMap<Integer,Playlist> playlists;
-    PlaylistIterator plItr;
-
     String currentAudioFilePath;
     AssetManager assetManager;
     AudioPlayerHelper audioPlayerHelper;
@@ -57,11 +53,6 @@ public class QuoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote);
-
-        DBManager dbMng = new DBManager(this);
-
-        this.schermateById = dbMng.getSchermateById(DBManager.Languages.EN);
-        this.playlists = dbMng.getPlaylists();
 
         // TODO get UI widgets to populate
         // ..
@@ -299,5 +290,5 @@ public class QuoteActivity extends AppCompatActivity {
     private void playCurrentFile() {
         this.audioPlayerHelper.play();
         //AudioPlayUtils.playAudioFile(mediaPlayer, assetManager, currentAudioFilePath);
-    }
+    }*/
 }

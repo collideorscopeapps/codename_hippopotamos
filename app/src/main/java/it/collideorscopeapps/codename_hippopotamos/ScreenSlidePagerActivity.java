@@ -61,6 +61,9 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         @Override
         public Fragment createFragment(int position) {
             return new ScreenSlidePagerFragment();
+
+            //TODO
+            // code here for switching quote
         }
 
         @Override
