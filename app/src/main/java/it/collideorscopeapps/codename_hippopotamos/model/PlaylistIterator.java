@@ -3,8 +3,7 @@ package it.collideorscopeapps.codename_hippopotamos.model;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.ListIterator;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.TreeMap;
@@ -12,8 +11,8 @@ import java.util.TreeMap;
 public class PlaylistIterator {
 
     TreeMap<Integer, Schermata> schermateById;
-    ArrayList<Playlist> playlists;
-    ListIterator<Playlist> playlistIterator;
+    TreeMap<Integer,Playlist> playlists;
+    TreeMapIterator<Integer,Playlist> playlistIterator;
     static final boolean DEFAULT_SKIP_DISABLED_PLAYLISTS = true;
     boolean skipDisabledPlaylists;
 
@@ -32,12 +31,12 @@ public class PlaylistIterator {
     boolean notMovedYet = true;
 
     public PlaylistIterator(TreeMap<Integer, Schermata> schermateById,
-                            ArrayList<Playlist> playlists) {
+                            TreeMap<Integer,Playlist> playlists) {
         this(schermateById, playlists, DEFAULT_SKIP_DISABLED_PLAYLISTS);
     }
 
     public PlaylistIterator(TreeMap<Integer, Schermata> schermateById,
-                            ArrayList<Playlist> playlists,
+                            TreeMap<Integer,Playlist> playlists,
                             boolean skipDisabledPlaylists) {
 
         this.schermateById = schermateById;
@@ -45,10 +44,11 @@ public class PlaylistIterator {
         this.playlists = playlists;
         this.skipDisabledPlaylists = skipDisabledPlaylists;
         if(skipDisabledPlaylists) {
-            ArrayList<Playlist> enabledPlaylists = new ArrayList<>();
-            for (Playlist pl : playlists) {
+            TreeMap<Integer,Playlist> enabledPlaylists = new TreeMap<>();
+            for (Integer plRank : playlists.keySet()) {
+                Playlist pl = playlists.get(plRank);
                 if (!pl.isDisabled()) {
-                    enabledPlaylists.add(pl);
+                    enabledPlaylists.put(plRank, pl);
                     Log.v("PlaylistIterator","Added one enabled playlist");
                 }
                 else {
@@ -60,7 +60,7 @@ public class PlaylistIterator {
             Log.v("PlaylistIterator","Using " + this.playlists.size() + " playlists");
         }
 
-        this.playlistIterator = this.playlists.listIterator();
+        this.playlistIterator = new TreeMapIterator<>(this.playlists);
 
         this.currentPl = this.playlistIterator.next();
         this.lastPlaylistSwitchMove = Move.SET_TO_FIRST;
@@ -209,4 +209,89 @@ public class PlaylistIterator {
         return this.currentScreen;
     }
 
+}
+
+class TreeMapIterator<K,V> implements Iterator {
+
+    private TreeMap<K,V> treeMap;
+    private K currentKey;
+
+    //This is for compatibility with ListIterator<E>:
+    // alternating calls to next() and previous() return the same element
+    enum Direction {
+        NOT_STARTED_YET,
+        FW,
+        BW
+    }
+    Direction currentDirection;
+
+    public TreeMapIterator(TreeMap<K,V> playlists) {
+
+        this.treeMap = playlists;
+        this.currentKey = playlists.firstKey();
+        this.currentDirection = Direction.NOT_STARTED_YET;
+    }
+
+    private V getCurrentValue() {
+        return this.treeMap.get(this.currentKey);
+    }
+
+    private K getCurrentKey() {
+        return this.currentKey;
+    }
+
+    @Override
+    public boolean hasNext() {
+
+        if(this.currentDirection == Direction.NOT_STARTED_YET) {
+            return this.treeMap.size() > 0;
+        } else if(this.currentDirection == Direction.FW) {
+            K higherKey = this.treeMap.higherKey(this.currentKey);
+            return higherKey != null;
+        } else {//this.currentDirection == Direction.BW) {
+            return true;
+        }
+    }
+
+    public boolean hasPrevious() {
+        if(this.currentDirection == Direction.NOT_STARTED_YET) {
+            return false;
+        } else if(this.currentDirection == Direction.BW) {
+            K lowerKey = this.treeMap.lowerKey(this.currentKey);
+            return lowerKey != null;
+        } else {//this.currentDirection == Direction.FW) {
+            return true;
+        }
+    }
+
+    @Override
+    public V next() {
+
+        if(!this.hasNext()) {
+            throw new NoSuchElementException();
+        }
+
+        if(this.currentDirection == Direction.FW) {
+            this.currentKey = this.treeMap.higherKey(this.currentKey);
+        }
+        //otherwise just change direction and return same element
+        //this is both for NOT_STARTED_YET and BW
+
+        this.currentDirection = Direction.FW;
+        return this.getCurrentValue();
+    }
+
+    public V previous() {
+        if(!this.hasPrevious()) {
+            throw new NoSuchElementException();
+        }
+
+        if(this.currentDirection == Direction.BW) {
+            //otherwise just change direction and return same element
+            this.currentKey = this.treeMap.lowerKey(this.currentKey);
+        }
+
+        this.currentDirection = Direction.BW;
+        return this.getCurrentValue();
+    }
 }

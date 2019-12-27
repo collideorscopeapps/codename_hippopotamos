@@ -56,10 +56,10 @@ public class Utils {
         DBManager db = new DBManager(appContext);
 
         TreeMap<Integer, Schermata> schermate = db.getSchermateById(DBManager.Languages.EN);
-        ArrayList<Playlist> playlists = db.getPlaylists();
+        TreeMap<Integer,Playlist> playlists = db.getPlaylists();
 
         StringBuilder sb = new StringBuilder();
-        for(Playlist pl : playlists) {
+        for(Playlist pl : playlists.values()) {
 
             if(!pl.isDisabled()) {
                 appendPlaylistToStringBuilder(sb, pl);

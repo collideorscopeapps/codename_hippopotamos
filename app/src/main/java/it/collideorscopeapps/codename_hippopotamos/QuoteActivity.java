@@ -46,7 +46,7 @@ public class QuoteActivity extends AppCompatActivity {
     //ImageView imageIV;
 
     TreeMap<Integer, Schermata>  schermateById;
-    ArrayList<Playlist> playlists;
+    TreeMap<Integer,Playlist> playlists;
     PlaylistIterator plItr;
 
     String currentAudioFilePath;

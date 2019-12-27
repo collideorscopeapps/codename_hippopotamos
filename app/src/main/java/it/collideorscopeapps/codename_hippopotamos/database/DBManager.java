@@ -3,6 +3,7 @@ package it.collideorscopeapps.codename_hippopotamos.database;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -42,11 +43,11 @@ public class DBManager extends SQLiteOpenHelper {
 
     private TreeMap<Integer, Schermata> schermate;
 
-    public ArrayList<Playlist> getPlaylists() {
+    public TreeMap<Integer,Playlist> getPlaylists() {
         return playlists;
     }
 
-    private ArrayList<Playlist> playlists;
+    private TreeMap<Integer,Playlist> playlists;
 
     public DBManager(Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
@@ -291,7 +292,7 @@ public class DBManager extends SQLiteOpenHelper {
         setShortAndFullQuotesInScreens(newAllQuotes, newSchermate);
 
         this.schermate = newSchermate;
-        for(Playlist pl :this.playlists) {
+        for(Playlist pl :this.playlists.values()) {
             pl.setSchermate(this.schermate);
         }
 
@@ -472,15 +473,23 @@ public class DBManager extends SQLiteOpenHelper {
         return value;
     }
 
-    private ArrayList<Playlist> getPlaylistsFromDB() {
+    private static Integer getNullableInteger(Cursor cursor, String colName) {
 
-        //TODO sort playlist according to new field
+        return getNullableInteger(cursor, cursor.getColumnIndex(colName));
+    }
 
-        ArrayList<Playlist> playlists = new ArrayList<>();
+    private TreeMap<Integer, Playlist> getPlaylistsFromDB() {
+
+        TreeMap<Integer,Playlist> playlists = new TreeMap<>();
+
+        final String PLAYLISTS_T = "v_playlists";
 
         try(SQLiteDatabase db = getReadableDatabase()) {
 
-            String playlistsQuery = "SELECT * FROM v_playlists";
+            int playlistCount = (int)DatabaseUtils.queryNumEntries(
+                    db,PLAYLISTS_T,null);
+
+            String playlistsQuery = "SELECT * FROM " + PLAYLISTS_T;
             Cursor cursor = db.rawQuery(playlistsQuery, null);
             cursor.moveToFirst();
 
@@ -488,9 +497,11 @@ public class DBManager extends SQLiteOpenHelper {
 
                 Integer playlistId = cursor.getInt(cursor.getColumnIndex("p_id"));
                 String description = cursor.getString(cursor.getColumnIndex("description"));
+
+                int playlistRank = getPlaylistRank(cursor,playlistCount,playlistId);
+
                 int disabledAsInt = cursor.getInt(cursor.getColumnIndex("disabled"));
                 boolean disabled = Utils.castSqliteBoolean(disabledAsInt);
-
                 String schermateConcat = cursor.getString(cursor.getColumnIndex("schermate"));
                 String playOrderConcat = cursor.getString(cursor.getColumnIndex("sorting"));
 
@@ -511,12 +522,25 @@ public class DBManager extends SQLiteOpenHelper {
                         playListAsRankedSchermate,
                         disabled);
 
-                playlists.add(currentPlaylist);
+                playlists.put(playlistRank,currentPlaylist);
                 cursor.moveToNext();
             }
         }
 
         return playlists;
+    }
+
+    private static int getPlaylistRank(Cursor cursor, int playlistsCount, int playlistId) {
+
+        Integer rankInDB = getNullableInteger(cursor,"playlist_rank");
+        int rank;
+
+        if(rankInDB == null) {
+            rank = playlistsCount + playlistId;
+        } else {
+            rank = rankInDB;
+        }
+        return rank;
     }
 
     public  TreeMap<Integer, String> getEasterEggComments(Languages language) {

@@ -24,12 +24,16 @@ public class PlaylistIteratorTest {
         // TODO handle the fact that some playlists may be disables, so the moves count might decrease
         // TODO (implement in iterator and quote activity option to skip disabled screens or not)
 
+        //FIXME W/System: A resource failed to call close.
+        // W/SQLiteConnectionPool: A SQLiteConnection object for database '/data/user/0/it.collideorscopeapps.codename_hippopotamos/databases/greekquotes' was leaked!  Please fix your application to end transactions in progress properly and to close the database when it is no longer needed.
+        // 2019-12-27 17:59:59.766 11380-11395/it.collideorscopeapps.codename_hippopotamos
+
         // get an iterator, gets from first screen to last and then back to first
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         DBManager dbManager = new DBManager(appContext);
 
         TreeMap<Integer, Schermata> schermateById;
-        ArrayList<Playlist> playlists;
+        TreeMap<Integer,Playlist> playlists;
         PlaylistIterator plItr;
         schermateById = dbManager.getSchermateById(DBManager.Languages.EN);
         playlists = dbManager.getPlaylists();
@@ -40,7 +44,7 @@ public class PlaylistIteratorTest {
         int viewAbleScreensRepetitionsCount = 0;
         int totalViewableScreensAppearancesCount = 0;
         TreeMap<Integer, Integer> screensAppearencesCount = new TreeMap<>();//first id is screen id, second is count
-        for(Playlist pl:playlists) {
+        for(Playlist pl:playlists.values()) {
             TreeMap<Integer, Schermata> rankedSchermate = pl.getRankedSchermate();
 
             if(pl.isDisabled()) {

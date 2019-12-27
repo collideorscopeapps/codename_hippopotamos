@@ -200,10 +200,12 @@ CREATE VIEW v_playlists AS
     SELECT p._id AS p_id,
     p.description,
     p.disabled AS disabled,
+    p.play_order AS playlist_rank,
     GROUP_CONCAT(ps.schermata_id) AS schermate,
     GROUP_CONCAT(ps.sorting) AS sorting
     FROM playlists p, playlists_schermate ps
     WHERE p._id = ps.playlist_id
     GROUP BY p_id
+    ORDER BY playlist_rank
     --ORDER BY ps.sorting
     ;--/
