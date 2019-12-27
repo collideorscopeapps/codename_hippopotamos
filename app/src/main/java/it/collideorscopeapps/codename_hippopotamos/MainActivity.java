@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         //this.createDB();
         // TODO get chosen language from shared preferences
         schermate = dbManager.getSchermateById(DBManager.Languages.EN);
-        openQuoteActivity();
+        //openQuoteActivity();
+        openSlideActivity();
     }
 
     public void processFinish(Boolean wasCopySuccessful){
@@ -56,6 +57,16 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         intent.putExtra("schermate", schermate);
         startActivityForResult(intent, QUOTE_ACTIVITY);
 
+        //FIXME probably a bug to do another activity start
+        startActivity(intent);
+
+        //FIXME reported issue that double back button give blank screen
+        // probably is the returning into main activity, which is empty
+    }
+
+    void openSlideActivity() {
+        Intent intent = new Intent(MainActivity.this,
+                ScreenSlidePagerActivity.class);
         startActivity(intent);
     }
 }
