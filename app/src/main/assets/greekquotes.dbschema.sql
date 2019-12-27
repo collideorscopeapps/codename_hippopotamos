@@ -136,15 +136,9 @@ CREATE VIEW v_quotes_and_translations AS
     WHERE gq._id = qt.greek_quote_id AND qt.language_id = tl._id
     ORDER BY translation_language;--/
 
-CREATE VIEW v_screen_with_subclasses AS
-    SELECT *, "NOUN_DECLENSION" AS screen_type
-    FROM schermate s
-    LEFT JOIN noun_declensions_screens nds ON nds.base_screen_id = s._id
-;--/
-
 CREATE VIEW v_schermate_default_language AS
     SELECT *
-    FROM v_screen_with_subclasses s
+    FROM schermate s
     LEFT JOIN linguistic_notes n ON n.schermata_id = s._id
     LEFT JOIN easter_egg_comments e ON e.schermata_id = s._id
     LEFT JOIN schermate_greek_translations gt ON gt.schermata_id = s._id
