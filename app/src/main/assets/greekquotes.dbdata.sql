@@ -45,7 +45,7 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") V
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (3,'Fun Fact','Plutarch, De garrulitate, 17');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (3,1,'if');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (8,'αἴκα');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (8,'α<CASE>ἴ</CASE>κ<CASE>α</CASE>');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (8,2,'se (ipotetico) (solo in dialetto dorico)');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (3,8);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (3,1,'αἴκα / αἴκε / αἴ κα / αἴ κε dor. / hom. eἴκε for εἰ+ἄν > ἐάν, ἄν');
@@ -64,9 +64,10 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") V
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (4,9,1);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (4,10,1);
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (5,'Incipits','Apollod. 1.1.1');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (13,'Οὐραν<CASE>ὸς</CASE> πρῶτ<CASE>ος</CASE> τοῦ παντὸς ἐδυνάστευσε κόσμου.');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (62,'Οὐραν<CASE>ὸς</CASE> πρῶτ<CASE>ος</CASE>');
+INSERT INTO "schermate" ("_id","full_quote_id","short_quote_id","description","author_ref") VALUES (5,13,62,'Incipits','Apollod. 1.1.1');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (5,1,'Uranus (Sky) was the first lord of the whole universe.');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (13,'Οὐρανὸς πρῶτος τοῦ παντὸς ἐδυνάστευσε κόσμου.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (13,2,'Urano fù il primo signore di tutto l''universo.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (13,1,'Uranus (Sky) was the first lord of the whole universe.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (5,13);

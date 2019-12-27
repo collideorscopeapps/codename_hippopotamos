@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -218,7 +219,11 @@ public class QuoteActivity extends AppCompatActivity {
         // load screen data into the TV, etc
         // set also the audio player
         // log error message when audio file not found
-        this.greekTV.setText(screen.getQuotesAsString());
+        this.greekTV.setText(Html.fromHtml(screen.getQuotesAsString(),
+                null,
+                new MyHtmlTagHandler()));
+        //FIXME db get not refreshed after changes and new run
+
         this.titleTV.setText(screen.getTitle());
 
         //TODO FIXME this.phoneticsTV.setText(screen.);
