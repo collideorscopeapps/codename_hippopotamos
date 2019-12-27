@@ -21,7 +21,7 @@ public class MyHtmlTagHandler implements Html.TagHandler {
         }
     }
 
-    private void processCaseHighlight(boolean opening, Editable output) {
+    private static void processCaseHighlight(boolean opening, Editable output) {
         final StyleSpan bold = new StyleSpan(Typeface.NORMAL);
         final ForegroundColorSpan green = new ForegroundColorSpan(Color.GREEN);
         //To get the color integer associated with a particular color resource ID,
@@ -73,7 +73,7 @@ public class MyHtmlTagHandler implements Html.TagHandler {
         * */
     }
 
-    private Object getLast(Editable text, Class kind) {
+    private static Object getLast(Editable text, Class kind) {
         Object[] objs = text.getSpans(0, text.length(), kind);
 
         if (objs.length == 0) {

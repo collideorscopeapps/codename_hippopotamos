@@ -35,7 +35,8 @@ public class QuoteActivity extends AppCompatActivity {
     // https://f-droid.org/en/docs/All_About_Descriptions_Graphics_and_Screenshots/
 
     TextView titleTV,
-            greekTV,
+            greekShortTV,
+            greekLongTV,
             citationTV,
             phoneticsTV,
             translationTV,
@@ -45,7 +46,7 @@ public class QuoteActivity extends AppCompatActivity {
     //EditText addressET;
     //ImageView imageIV;
 
-    TreeMap<Integer, Schermata>  schermateById;
+    TreeMap<Integer, Schermata> schermateById;
     TreeMap<Integer,Playlist> playlists;
     PlaylistIterator plItr;
 
@@ -67,7 +68,8 @@ public class QuoteActivity extends AppCompatActivity {
         // ..
         // set event listeners on some widgets (play button, back and forward buttons)
         // add favourites button
-        this.greekTV = findViewById(R.id.greekTextTV);
+        this.greekShortTV = findViewById(R.id.greekShortTextTV);
+        this.greekLongTV = findViewById(R.id.greekLongTextTV);
         this.titleTV = findViewById(R.id.titleTV);
         this.citationTV = findViewById(R.id.citationRefTV);
         this.eeCTV = findViewById(R.id.eeCommentTV);
@@ -169,10 +171,14 @@ public class QuoteActivity extends AppCompatActivity {
     }
 
     private void setLeftRightSwipeBehavior() {
-        //View rootView = this.getCurrentFocus().getRootView();
-        View rootView = findViewById(R.id.greekTextTV).getRootView();;
 
-        onSwipeTouchListener = new OnSwipeTouchListener(QuoteActivity.this) {
+        //TODO add swipe animation
+
+        //View rootView = this.getCurrentFocus().getRootView();
+        View rootView = findViewById(R.id.greekShortTextTV).getRootView();
+
+        onSwipeTouchListener = new OnSwipeTouchListener(
+                QuoteActivity.this) {
             @Override
             public void onSwipeLeft() {
                 goNext();
@@ -214,17 +220,17 @@ public class QuoteActivity extends AppCompatActivity {
         // with doric, epic, ionic and attic
         // some preview/tutorial screen? ..
 
+        this.titleTV.setText(screen.getTitle());
+
         //TODO
         // populate UI widgets with data for current schermata
         // load screen data into the TV, etc
         // set also the audio player
         // log error message when audio file not found
-        this.greekTV.setText(Html.fromHtml(screen.getQuotesAsString(),
-                null,
-                new MyHtmlTagHandler()));
-        //FIXME db get not refreshed after changes and new run
+        setGreekTV(this.greekShortTV, screen.getShortQuote());
+        setGreekTV(this.greekLongTV, screen.getFullQuote());
 
-        this.titleTV.setText(screen.getTitle());
+        //FIXME db gets not refreshed after changes and new run
 
         //TODO FIXME this.phoneticsTV.setText(screen.);
         //this.phoneticsTV = findViewById(R.id.phoneticsTV);
@@ -233,6 +239,26 @@ public class QuoteActivity extends AppCompatActivity {
         this.translationTV.setText(screen.getTranslation());
         this.eeCTV.setText(screen.getEasterEggComment());
         this.lingNotesTV.setText(screen.getLinguisticNotes());
+    }
+
+    private static void setGreekTV(TextView tv, Quote quote) {
+        final MyHtmlTagHandler htmlTagHandler
+                = new MyHtmlTagHandler();
+
+
+        //TODO (not in this method)
+        // update previous quotes to show in new short/long quote format
+
+        if(quote == null) {
+            Log.e("QuoteActivity","Null quote passed.");
+            tv.setText("");
+        }
+        else {
+            String quoteTxt = quote.getQuoteText();
+            tv.setText(Html.fromHtml(quoteTxt,
+                    null,
+                    htmlTagHandler));
+        }
     }
 
     @Deprecated
