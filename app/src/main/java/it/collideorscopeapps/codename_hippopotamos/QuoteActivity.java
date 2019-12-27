@@ -13,7 +13,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper;
