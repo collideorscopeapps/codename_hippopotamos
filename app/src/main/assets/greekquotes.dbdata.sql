@@ -64,7 +64,7 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") V
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (4,9,1);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") VALUES (4,10,1);
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (5,'Incipits','Apollod. I.1.1');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (5,'Incipits','Apollod. 1.1.1');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (5,1,'Uranus (Sky) was the first lord of the whole universe.');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (13,'Οὐρανὸς πρῶτος τοῦ παντὸς ἐδυνάστευσε κόσμου.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (13,2,'Urano fù il primo signore di tutto l''universo.');
@@ -72,14 +72,14 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (5,13);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (5,1,'τοῦ κόσμου GEN sg (m, II decl.); ἐδυνάστευσε + GEN: was lord over');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (6,'εἰς Τάρταρον','Apollod. I.1.2');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (6,'εἰς Τάρταρον','Apollod. 1.1.2');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (6,1,'he threw them into Tartarus (this is a dark place in the Ade, as far from Earth as Earth is from heaven)(lit.: having as much distance from Earth as Earth from heaven)');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (14,'τούτους [..] εἰς Τάρταρον ἔρριψε （τόπος δὲ οὗτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.)');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (14,2,'he threw them into Tartarus (this is a dark place in the Ade, as far from Earth as Earth is from heaven)(lit.: having as much distance from Earth as Earth from heaven)');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (6,14);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (6,1,'εἰς Τάρταρον, εἰς + Acc (sg, II decl.)');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (7,'The start of Time','Apollod. I.1.3');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (7,'The start of Time','Apollod. 1.1.3');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (7,1,'And again he (Uranus, the sky) begat children by Earth, the Titans as they are named: Ocean, Coeus, Hyperion, Crius, Iapetus, and, youngest of all, Cronus (Time)');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (15,'τεκνοῖ δὲ αὖθις ἐκ Γῆς παῖδας μὲν τοὺς Τιτᾶνας προσαγορευθέντας, Ὠκεανὸν Κοῖον Ὑπερίονα Κρεῖον Ἰαπετὸν καὶ νεώτατον ἁπάντων Κρόνον');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (15,2,'And again he (Uranus, the sky) begat children by Earth, the Titans as they are named: Ocean, Coeus, Hyperion, Crius, Iapetus, and, youngest of all, Cronus (Time)');
@@ -359,13 +359,13 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (52,'','Iliad 1.30');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (60,'ἡμετέρῳ ἐνὶ οἴκῳ');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (52,60);
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (51,1,'in our house.');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (52,1,'in our house.');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (52,1,'ἐνὶ οἴκῳ: ἐν + DAT. ἐνὶ is just a poetic version of ἐν');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (53,'','Iliad 6.500');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (61,'αἳ μὲν ἔτι ζωὸν γόον Ἕκτορα ᾧ ἐνὶ οἴκῳ');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (53,61);
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (51,1,'although still alive, they mourned Hector in his house');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (53,1,'although still alive, they mourned Hector in his house');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (53,1,'αἳ: they (female); ᾧ: his, DAT; ζωὸν: adj sg masc ACC');
 
 
@@ -390,9 +390,9 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,1);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,2);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,4);
 
-INSERT INTO "playlists" ("_id","description") VALUES (4,'Reading list - micro quotes to learn nouns declensions');
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,12);
+INSERT INTO "playlists" ("_id","play_order","description") VALUES (4,1,'Reading list - micro quotes to learn nouns declensions');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,5);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,21);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,6);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,9);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,15);
@@ -401,8 +401,8 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,17);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,18);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,19);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,20);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,21);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,29);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,12);
 --..more..
 
 INSERT INTO "playlists" ("_id","description") VALUES (5,'Reading list - quotes to learn verb forms');

@@ -99,6 +99,7 @@ CREATE TABLE IF NOT EXISTS "schermate_descriptions_translations" (
 CREATE TABLE IF NOT EXISTS "playlists" (
 	"_id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	"description"   TEXT UNIQUE,
+	"play_order" INTEGER,
 	"disabled" BOOLEAN DEFAULT FALSE
 );--/
 
