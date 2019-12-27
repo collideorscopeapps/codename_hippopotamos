@@ -50,6 +50,16 @@ CREATE TABLE IF NOT EXISTS "schermate" (
 	"author_ref" TEXT
 );--/
 
+CREATE TABLE IF NOT EXISTS "noun_declensions_screens" (
+	"_id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"base_screen_id" INTEGER NOT NULL,
+	"short_quote_id" INTEGER NOT NULL,
+	"full_quote_id" INTEGER NOT NULL,
+	FOREIGN KEY("base_screen_id") REFERENCES "schermate"("_id"),
+	FOREIGN KEY("short_quote_id") REFERENCES "greek_quotes"("_id"),
+	FOREIGN KEY("full_quote_id") REFERENCES "greek_quotes"("_id")
+);--/
+
 CREATE TABLE IF NOT EXISTS "schermate_greek_translations" (
 	"schermata_id"	INTEGER NOT NULL,
 	"language_id"	INTEGER NOT NULL,
@@ -126,9 +136,15 @@ CREATE VIEW v_quotes_and_translations AS
     WHERE gq._id = qt.greek_quote_id AND qt.language_id = tl._id
     ORDER BY translation_language;--/
 
+CREATE VIEW v_screen_with_subclasses AS
+    SELECT *, "NOUN_DECLENSION" AS screen_type
+    FROM schermate s
+    LEFT JOIN noun_declensions_screens nds ON nds.base_screen_id = s._id
+;--/
+
 CREATE VIEW v_schermate_default_language AS
     SELECT *
-    FROM schermate s
+    FROM v_screen_with_subclasses s
     LEFT JOIN linguistic_notes n ON n.schermata_id = s._id
     LEFT JOIN easter_egg_comments e ON e.schermata_id = s._id
     LEFT JOIN schermate_greek_translations gt ON gt.schermata_id = s._id
