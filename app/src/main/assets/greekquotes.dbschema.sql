@@ -47,7 +47,11 @@ CREATE TABLE IF NOT EXISTS "schermate" (
 	"_id"	INTEGER PRIMARY KEY AUTOINCREMENT,
 	"title"	TEXT,
 	"description"	TEXT,
-	"author_ref" TEXT
+	"author_ref" TEXT,
+    "short_quote_id" INTEGER,
+    "full_quote_id" INTEGER,
+    FOREIGN KEY("short_quote_id") REFERENCES "greek_quotes"("_id"),
+    FOREIGN KEY("full_quote_id") REFERENCES "greek_quotes"("_id")
 );--/
 
 CREATE TABLE IF NOT EXISTS "noun_declensions_screens" (
