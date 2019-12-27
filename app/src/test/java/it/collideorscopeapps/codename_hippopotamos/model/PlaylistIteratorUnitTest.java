@@ -30,7 +30,10 @@ public class PlaylistIteratorUnitTest {
 
     private static Schermata getMockScreen(int id) {
         return new Schermata(id,
-                "","","","","","");
+                "","",
+                0,0,
+                "","",
+                "","");
     }
 
     @Test
@@ -52,7 +55,7 @@ public class PlaylistIteratorUnitTest {
 
 
         // create two playlists
-        ArrayList<Playlist> playlists = new ArrayList<>();
+        TreeMap<Integer,Playlist> playlists = new TreeMap<>();
         TreeMap<Integer, Schermata> schermateById = new TreeMap<>();
 
         int firstScreenId = 0;
@@ -67,7 +70,7 @@ public class PlaylistIteratorUnitTest {
             Playlist currentPlaylist = new Playlist("1st Pl",
                     playListOneAsRankedSchermate, false);
             currentPlaylist.setSchermate(schermateById);
-            playlists.add(currentPlaylist);
+            playlists.put(1, currentPlaylist);
         }
 
         // 2nd pl with two screens
@@ -83,7 +86,7 @@ public class PlaylistIteratorUnitTest {
             Playlist currentPlaylist = new Playlist("2nd Pl",
                     playListTwoAsRankedSchermate, false);
             currentPlaylist.setSchermate(schermateById);
-            playlists.add(currentPlaylist);
+            playlists.put(2,currentPlaylist);
         }
 
         return new PlaylistIterator(schermateById, playlists);
