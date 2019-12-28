@@ -23,29 +23,42 @@ public class QuoteViewModel extends AndroidViewModel {
     public QuoteViewModel(Application application) {
         super(application);
         dbMng = new DBManager(application);
+
+        init();
     }
 
     private TreeMap<Integer, Schermata> getSchermateById() {
-        if (schermateById == null) {
 
-            //TODO FIXME retrieve language settings from shared preferences
-            this.schermateById = dbMng.getSchermateById(DBManager.Languages.EN);
-            this.playlists = dbMng.getPlaylists();
-
-        }
         return this.schermateById;
     }
 
-    public int getScreenCount() {
-        //FIXME do a more precise count iterating playlists
-        return this.getSchermateById().size();
+    private void init() {
+
+        //TODO FIXME retrieve language settings from shared preferences
+        this.schermateById = dbMng.getSchermateById(DBManager.Languages.EN);
+        this.playlists = dbMng.getPlaylists();
+        //TODO
+        // keep current schermata in playlist
+        this.plItr = new PlaylistIterator(this.schermateById, this.playlists);
     }
 
-    public Schermata getScreen(int screenId) {
+    public int getScreenCount() {
+
+        return this.plItr.screensCount();
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+
+        this.dbMng.close();
+    }
+
+    /*public Schermata getScreen(int screenId) {
         return this.getSchermateById().get(screenId);
     }
 
     private void loadUsers() {
         // Do an asynchronous operation to fetch users.
-    }
+    }*/
 }

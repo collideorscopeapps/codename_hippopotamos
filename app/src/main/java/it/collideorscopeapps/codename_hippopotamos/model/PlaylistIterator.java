@@ -69,6 +69,18 @@ public class PlaylistIterator {
         this.currentRankedSchermate = this.currentPl.getRankedSchermate();
     }
 
+    public int screensCount() {
+        return screensCount(this.playlists);
+    }
+
+    private static int screensCount(TreeMap<Integer,Playlist> playlists) {
+        int displayedScreensCountTmp = 0;
+        for(Playlist pl: playlists.values()) {
+            displayedScreensCountTmp += pl.getRankedSchermate().size();
+        }
+        return displayedScreensCountTmp;
+    }
+
     public Schermata getCurrentScreen() {
         if(this.notMovedYet) {
             return this.getNextScreen();

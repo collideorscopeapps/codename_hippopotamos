@@ -91,9 +91,7 @@ public class QuoteActivity extends AppCompatActivity {
         // handle activity lifecycle
         // avoid activy replaying audio every time is app is reopened from background
 
-        //TODO
-        // keep current scermata in playlist
-        this.plItr = new PlaylistIterator(this.schermateById, this.playlists);
+        //..removed stuff
 
         //TODO should this be an instance variable?
         Schermata currentScreen = this.plItr.getCurrentScreen();
