@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.os.Bundle;
 import android.util.Log;
 
+import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.QuoteFragment;
 import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.QuoteViewModel;
 
@@ -88,7 +89,9 @@ public class QuotePagerActivity extends FragmentActivity {
             // code here for switching quote
             // Return a NEW fragment instance in createFragment(int)
             Log.d("QuotePagerAdapter","Creating quoteFragment at " + position);
-            Fragment fragment = QuoteFragment.newInstance(position);
+            Schermata screen = this.fragActivity.mViewModel.getScreenAt(position);
+            Log.d("QuotePagerActivity","Fragment with screen: " + screen.toString());
+            Fragment fragment = QuoteFragment.newInstance(position, screen);
             Bundle args = new Bundle();
             args.putInt(QuoteFragment.SCREEN_ID_BUNDLE_FIELD, position + 1);
             fragment.setArguments(args);

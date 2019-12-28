@@ -47,6 +47,10 @@ public class QuoteViewModel extends AndroidViewModel {
         return this.plItr.screensCount();
     }
 
+    public Schermata getScreenAt(int position) {
+        return this.plItr.getScreenAt(position);
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();

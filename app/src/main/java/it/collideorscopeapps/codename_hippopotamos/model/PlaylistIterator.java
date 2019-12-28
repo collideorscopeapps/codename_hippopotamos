@@ -13,6 +13,7 @@ public class PlaylistIterator {
     TreeMap<Integer, Schermata> schermateById;
     TreeMap<Integer,Playlist> playlists;
     TreeMapIterator<Integer,Playlist> playlistIterator;
+    TreeMap<Integer,Schermata> pagedScreens;
     static final boolean DEFAULT_SKIP_DISABLED_PLAYLISTS = true;
     boolean skipDisabledPlaylists;
 
@@ -40,9 +41,20 @@ public class PlaylistIterator {
                             boolean skipDisabledPlaylists) {
 
         this.schermateById = schermateById;
-
         this.playlists = playlists;
         this.skipDisabledPlaylists = skipDisabledPlaylists;
+        filterDisabledPlaylists();
+        this.playlistIterator = new TreeMapIterator<>(this.playlists);
+        initPagedScreens();
+
+        this.currentPl = this.playlistIterator.next();
+        this.lastPlaylistSwitchMove = Move.SET_TO_FIRST;
+        Log.v("PlaylistIterator","Starting with playlist " + currentPl.getDescription());
+
+        this.currentRankedSchermate = this.currentPl.getRankedSchermate();
+    }
+
+    void filterDisabledPlaylists() {
         if(skipDisabledPlaylists) {
             TreeMap<Integer,Playlist> enabledPlaylists = new TreeMap<>();
             for (Integer plRank : playlists.keySet()) {
@@ -59,14 +71,6 @@ public class PlaylistIterator {
             Log.v("PlaylistIterator","Total playlists: " + playlists.size());
             Log.v("PlaylistIterator","Using " + this.playlists.size() + " playlists");
         }
-
-        this.playlistIterator = new TreeMapIterator<>(this.playlists);
-
-        this.currentPl = this.playlistIterator.next();
-        this.lastPlaylistSwitchMove = Move.SET_TO_FIRST;
-        Log.v("PlaylistIterator","Starting with playlist " + currentPl.getDescription());
-
-        this.currentRankedSchermate = this.currentPl.getRankedSchermate();
     }
 
     public int screensCount() {
@@ -79,6 +83,26 @@ public class PlaylistIterator {
             displayedScreensCountTmp += pl.getRankedSchermate().size();
         }
         return displayedScreensCountTmp;
+    }
+
+    void initPagedScreens() {
+        this.pagedScreens = new TreeMap<>();
+        final int FIRST_PAGE_NUM = 0;
+        int currentPageNum = FIRST_PAGE_NUM;
+        for(Playlist pl:this.playlists.values()){
+            for(Schermata screen:pl.getRankedSchermate().values()) {
+                pagedScreens.put(currentPageNum, screen);
+                currentPageNum++;
+            }
+        }
+    }
+
+    public Schermata getScreenAt(int position) {
+        if(position > this.screensCount()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        return pagedScreens.get(position);
     }
 
     public Schermata getCurrentScreen() {

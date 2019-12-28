@@ -188,53 +188,7 @@ public class QuoteActivity extends AppCompatActivity {
         return this.plItr.getCurrentScreen();
     }
 
-    private void refreshToScreen(Schermata screen) {
 
-        //TODO set defaults for "(this word is untranslatable)"
-        // set a screen where is displayed
-        // with doric, epic, ionic and attic
-        // some preview/tutorial screen? ..
-
-        this.titleTV.setText(screen.getTitle());
-
-        //TODO
-        // populate UI widgets with data for current schermata
-        // load screen data into the TV, etc
-        // set also the audio player
-        // log error message when audio file not found
-        setGreekTV(this.greekShortTV, screen.getShortQuote());
-        setGreekTV(this.greekLongTV, screen.getFullQuote());
-
-        //FIXME db gets not refreshed after changes and new run
-
-        //TODO FIXME this.phoneticsTV.setText(screen.);
-        //this.phoneticsTV = findViewById(R.id.phoneticsTV);
-
-        this.citationTV.setText(screen.getCitation());
-        this.translationTV.setText(screen.getTranslation());
-        this.eeCTV.setText(screen.getEasterEggComment());
-        this.lingNotesTV.setText(screen.getLinguisticNotes());
-    }
-
-    private static void setGreekTV(TextView tv, Quote quote) {
-        final MyHtmlTagHandler htmlTagHandler
-                = new MyHtmlTagHandler();
-
-
-        //TODO (not in this method)
-        // update previous quotes to show in new short/long quote format
-
-        if(quote == null) {
-            Log.e("QuoteActivity","Null quote passed.");
-            tv.setText("");
-        }
-        else {
-            String quoteTxt = quote.getQuoteText();
-            tv.setText(Html.fromHtml(quoteTxt,
-                    null,
-                    htmlTagHandler));
-        }
-    }
 
     @Deprecated
     private void loadAudioTestScreen() {

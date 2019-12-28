@@ -9,13 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import it.collideorscopeapps.codename_hippopotamos.MyHtmlTagHandler;
 import it.collideorscopeapps.codename_hippopotamos.R;
+import it.collideorscopeapps.codename_hippopotamos.model.Quote;
+import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 public class QuoteFragment extends Fragment {
 
@@ -23,8 +27,8 @@ public class QuoteFragment extends Fragment {
 
     private QuoteViewModel mViewModel;
 
-    int screenId;
     int position;
+    Schermata screen;
 
     TextView titleTV,
             greekShortTV,
@@ -35,12 +39,13 @@ public class QuoteFragment extends Fragment {
             lingNotesTV,
             eeCTV;
 
-    public QuoteFragment(int position) {
+    public QuoteFragment(int position, Schermata screen) {
         this.position = position;
+        this.screen = screen;
     }
 
-    public static QuoteFragment newInstance(int position) {
-        return new QuoteFragment(position);
+    public static QuoteFragment newInstance(int position, Schermata screen) {
+        return new QuoteFragment(position, screen);
     }
 
     @Nullable
@@ -77,31 +82,77 @@ public class QuoteFragment extends Fragment {
         mViewModel = viewModelProvider.get(QuoteViewModel.class);
         // TODO: Use the ViewModel
 
-        if (savedInstanceState != null) {
-            // Restore last state for current screen
-            this.screenId = savedInstanceState.getInt(SCREEN_ID_BUNDLE_FIELD);
+        //TODO check if we actually need to use Bundle savedInstanceState in some way
 
-            //test FIXME
-            this.titleTV.setText("position: " + this.screenId
-                    + " of " + mViewModel.getScreenCount());
+        // if (savedInstanceState != null) { ..}
+        // Restore last state for current screen
+        //this.screenId = savedInstanceState.getInt(SCREEN_ID_BUNDLE_FIELD);
+        // else Log.e("QuoteFragment","Null saved state");
 
-            //TODO, get screen data from ViewModel
-            //Schermata screen = mViewModel.getScreen(this.screenId);
+        loadWidgets(this.screen);
 
-            //TODO slidePagerActivity must someone put the page position
-            // (corrensponding activity id), in the Bundle savedInstanceState
+        //TODO, get screen data from ViewModel
+        //Schermata screen = mViewModel.getScreen(this.screenId);
+
+        //TODO slidePagerActivity must someone put the page position
+        // (corrensponding activity id), in the Bundle savedInstanceState
+
+    }
+
+    private void loadWidgets(Schermata screen) {
+
+        //TODO set defaults for "(this word is untranslatable)"
+        // set a screen where is displayed
+        // with doric, epic, ionic and attic
+        // some preview/tutorial screen? ..
+
+        //test, FIXME
+        this.titleTV.setText(screen.getTitle());
+        this.titleTV.setText("position: " + this.position
+                + " of " + mViewModel.getScreenCount());
+
+        //TODO
+        // populate UI widgets with data for current schermata
+        // load screen data into the TV, etc
+        // set also the audio player
+        // log error message when audio file not found
+        setGreekTV(this.greekShortTV, screen.getShortQuote());
+        setGreekTV(this.greekLongTV, screen.getFullQuote());
+
+        //FIXME db gets not refreshed after changes and new run
+
+        //TODO FIXME this.phoneticsTV.setText(screen.);
+        //this.phoneticsTV = findViewById(R.id.phoneticsTV);
+
+        this.citationTV.setText(screen.getCitation());
+        this.translationTV.setText(screen.getTranslation());
+        this.eeCTV.setText(screen.getEasterEggComment());
+        this.lingNotesTV.setText(screen.getLinguisticNotes());
+    }
+
+    private static void setGreekTV(TextView tv, Quote quote) {
+        final MyHtmlTagHandler htmlTagHandler
+                = new MyHtmlTagHandler();
+
+        //TODO (not in this method)
+        // update previous quotes to show in new short/long quote format
+
+        if(quote == null) {
+            Log.e("QuoteActivity","Null quote passed.");
+            tv.setText("");
         }
         else {
-            Log.e("QuoteFragment","Null saved state");
-            this.titleTV.setText("position: " + this.position
-                    + " of " + mViewModel.getScreenCount());
+            String quoteTxt = quote.getQuoteText();
+            tv.setText(Html.fromHtml(quoteTxt,
+                    null,
+                    htmlTagHandler));
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(SCREEN_ID_BUNDLE_FIELD, this.screenId);
+        //outState.putInt(SCREEN_ID_BUNDLE_FIELD, this.screenId);
     }
 
 }
