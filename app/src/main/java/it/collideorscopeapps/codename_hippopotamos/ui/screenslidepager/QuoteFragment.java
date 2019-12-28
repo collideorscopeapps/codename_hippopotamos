@@ -65,6 +65,8 @@ public class QuoteFragment extends Fragment {
         this.lingNotesTV = view.findViewById(R.id.linguisticNoteTV);
         this.phoneticsTV = view.findViewById(R.id.phoneticsTV);
         this.translationTV = view.findViewById(R.id.translationTV);
+
+        this.phoneticsTV.setVisibility(View.GONE);
     }
 
     @Override

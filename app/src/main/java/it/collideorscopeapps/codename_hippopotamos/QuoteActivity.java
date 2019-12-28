@@ -57,7 +57,6 @@ public class QuoteActivity extends AppCompatActivity {
         this.playbackButtonsFL = findViewById(R.id.playbackButtons);
 
         this.playbackButtonsFL.setVisibility(View.GONE);
-        this.phoneticsTV.setVisibility(View.GONE);
 
         //TODO fix title not showing, fix translations not showing, fix playlists not playing
 
