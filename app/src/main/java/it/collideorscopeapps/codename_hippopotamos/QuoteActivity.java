@@ -33,14 +33,8 @@ public class QuoteActivity extends AppCompatActivity {
     // at the app in pictures https://gitlab.com/fdroid/fdroiddata/blob/master/CONTRIBUTING.md
     // https://f-droid.org/en/docs/All_About_Descriptions_Graphics_and_Screenshots/
 
-    TextView titleTV,
-            greekShortTV,
-            greekLongTV,
-            citationTV,
-            phoneticsTV,
-            translationTV,
-            lingNotesTV,
-            eeCTV;
+    // ..removed stuff
+
     FrameLayout playbackButtonsFL;
     //EditText addressET;
     //ImageView imageIV;
@@ -58,14 +52,8 @@ public class QuoteActivity extends AppCompatActivity {
         // ..
         // set event listeners on some widgets (play button, back and forward buttons)
         // add favourites button
-        this.greekShortTV = findViewById(R.id.greekShortTextTV);
-        this.greekLongTV = findViewById(R.id.greekLongTextTV);
-        this.titleTV = findViewById(R.id.titleTV);
-        this.citationTV = findViewById(R.id.citationRefTV);
-        this.eeCTV = findViewById(R.id.eeCommentTV);
-        this.lingNotesTV = findViewById(R.id.linguisticNoteTV);
-        this.phoneticsTV = findViewById(R.id.phoneticsTV);
-        this.translationTV = findViewById(R.id.translationTV);
+
+        // ..removed stuff
         this.playbackButtonsFL = findViewById(R.id.playbackButtons);
 
         this.playbackButtonsFL.setVisibility(View.GONE);

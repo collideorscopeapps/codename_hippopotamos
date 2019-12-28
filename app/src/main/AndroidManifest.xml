@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ScreenSlidePagerActivity"/>
+        <activity android:name=".QuotePagerActivity"/>
         <activity android:name=".QuoteActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -36,6 +36,11 @@ public class ScreenSlidePagerViewModel extends AndroidViewModel {
         return this.schermateById;
     }
 
+    public int getScreenCount() {
+        //FIXME do a more precise count iterating playlists
+        return this.getSchermateById().size();
+    }
+
     public Schermata getScreen(int screenId) {
         return this.getSchermateById().get(screenId);
     }

@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
     void openSlideActivity() {
         Intent intent = new Intent(MainActivity.this,
-                ScreenSlidePagerActivity.class);
+                QuotePagerActivity.class);
         startActivity(intent);
     }
 }

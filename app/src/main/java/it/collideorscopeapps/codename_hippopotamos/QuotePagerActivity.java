@@ -2,18 +2,24 @@ package it.collideorscopeapps.codename_hippopotamos;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.util.Log;
 
-import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.ScreenSlidePagerFragment;
+import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.QuoteFragment;
+import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.ScreenSlidePagerViewModel;
 
-public class ScreenSlidePagerActivity extends FragmentActivity {
+public class QuotePagerActivity extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
     private static final int NUM_PAGES = 5;
+
+    private ScreenSlidePagerViewModel mViewModel;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -31,9 +37,11 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_slide_pager_activity);
 
+        getData();
+
         // Instantiate a ViewPager2 and a PagerAdapter.
         viewPager = findViewById(R.id.pager);
-        pagerAdapter = new ScreenSlidePagerAdapter(this);
+        pagerAdapter = new QuotePagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
     }
 
@@ -49,26 +57,47 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         }
     }
 
+    public int getScreenCount() {
+        return this.mViewModel.getScreenCount();
+    }
+
+    private void getData() {
+        ViewModelProvider viewModelProvider = ViewModelProviders.of(this);
+        this.mViewModel
+                = viewModelProvider.get(ScreenSlidePagerViewModel.class);
+    }
+
     /**
-     * A simple pager adapter that represents 5 ScreenSlidePagerFragment objects, in
+     * A simple pager adapter that represents 5 QuoteFragment objects, in
      * sequence.
      */
-    private class ScreenSlidePagerAdapter extends FragmentStateAdapter {
-        public ScreenSlidePagerAdapter(FragmentActivity fa) {
-            super(fa);
+    private class QuotePagerAdapter extends FragmentStateAdapter {
+
+        QuotePagerActivity fragActivity;
+
+        public QuotePagerAdapter(QuotePagerActivity fragActivity) {
+            super(fragActivity);
+
+            this.fragActivity = fragActivity;
         }
 
         @Override
         public Fragment createFragment(int position) {
-            return new ScreenSlidePagerFragment();
 
             //TODO
             // code here for switching quote
+            // Return a NEW fragment instance in createFragment(int)
+            Log.d("QuotePagerAdapter","Creating quoteFragment at " + position);
+            Fragment fragment = QuoteFragment.newInstance(position);
+            Bundle args = new Bundle();
+            args.putInt(QuoteFragment.SCREEN_ID_BUNDLE_FIELD, position + 1);
+            fragment.setArguments(args);
+            return fragment;
         }
 
         @Override
         public int getItemCount() {
-            return NUM_PAGES;
+            return this.fragActivity.getScreenCount();
         }
     }
 }
