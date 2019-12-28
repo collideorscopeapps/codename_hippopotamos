@@ -9,6 +9,7 @@ import android.util.Log;
 import java.io.Closeable;
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AudioPlayerHelper implements Closeable {
 
@@ -89,6 +90,26 @@ public class AudioPlayerHelper implements Closeable {
         }
     };
 
+
+    public AudioPlayerHelper(AssetManager assetManager,
+                             ArrayList<String> audioFilePaths) throws IOException {
+
+        this(assetManager, toArray(audioFilePaths));
+    }
+
+    private static String[] toArray(ArrayList<String> arrayList){
+        ArrayList<String> nonEmptyValues = new ArrayList<>();
+        for(String s:arrayList) {
+            if(s != null) {
+                nonEmptyValues.add(s);
+            }
+        }
+        String[] valuesArray = new String[nonEmptyValues.size()];
+        valuesArray = nonEmptyValues.toArray(valuesArray);
+
+        return valuesArray;
+    }
+
     public AudioPlayerHelper(AssetManager assetManager,
                              String[] audioFilePaths) throws IOException {
 
@@ -165,6 +186,12 @@ public class AudioPlayerHelper implements Closeable {
     }
 
     public void play() {
+
+        //TODO add test for this scenario (no files)
+        if(this.assetFileDescriptors.length == 0) {
+            Log.e("AudioPlayerHelper","No files to play");
+            return;
+        }
 
         if(!this.firstFilePlayedAtLeastOnce
                 && currentPlayerState == PlayerState.IDLE) {

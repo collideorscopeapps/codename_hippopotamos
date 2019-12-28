@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import it.collideorscopeapps.codename_hippopotamos.MyHtmlTagHandler;
@@ -34,7 +35,7 @@ public class QuoteFragment extends Fragment {
 
     private QuoteViewModel mViewModel;
 
-    final String AUDIO_FILES_SUBFOLDER = "audio/";
+    final static String AUDIO_FILES_SUBFOLDER = "audio/";
     AssetManager assetManager;
     AudioPlayerHelper audioPlayerHelper;
 
@@ -88,22 +89,8 @@ public class QuoteFragment extends Fragment {
         playbackButtonsFL.setVisibility(View.GONE);
 
         this.assetManager = view.getContext().getAssets();
-        String[] audioFilePathsNames;
-        {
-            String shortQuoteAudioFilePath = AUDIO_FILES_SUBFOLDER
-                    + screen.getShortQuote().getAudioFileName();
-            String longQuoteAudioFilePath = AUDIO_FILES_SUBFOLDER
-                    + screen.getFullQuote().getAudioFileName();
-            audioFilePathsNames = new String[2];
-
-            if(assetExists(this.assetManager,shortQuoteAudioFilePath)) {
-                audioFilePathsNames[0] = shortQuoteAudioFilePath;
-            }
-
-            if(assetExists(this.assetManager,longQuoteAudioFilePath)) {
-                audioFilePathsNames[1] = longQuoteAudioFilePath;
-            }
-        }
+        ArrayList<String> audioFilePathsNames
+                = getAudioFilePathNames(assetManager, screen);
 
         try {
             this.audioPlayerHelper = new AudioPlayerHelper(
@@ -150,6 +137,46 @@ public class QuoteFragment extends Fragment {
         // review/study mode
     }
 
+    static ArrayList<String> getAudioFilePathNames(
+            AssetManager assetManager, Schermata screen) {
+
+        ArrayList<String> audioFilePathsNames = new ArrayList<>();
+
+        //TODO FIXME handling of missing quote files
+        if(assetExists(assetManager,getShortQuoteAudioFilePath(screen))) {
+            audioFilePathsNames.add(getShortQuoteAudioFilePath(screen));
+        }
+
+        if(assetExists(assetManager,getLongQuoteAudioFilePath(screen))) {
+            audioFilePathsNames.add(getLongQuoteAudioFilePath(screen));
+        }
+
+        return audioFilePathsNames;
+    }
+
+    static String getShortQuoteAudioFilePath(Schermata screen) {
+
+        return getQuoteAudioFilePath(screen.getShortQuote());
+    }
+
+    static String getLongQuoteAudioFilePath(Schermata screen) {
+
+        return getQuoteAudioFilePath(screen.getFullQuote());
+    }
+
+    static String getQuoteAudioFilePath(Quote quote) {
+        final String EMPTY_STRING = "";
+
+        if(quote == null) {
+            return EMPTY_STRING;
+        }
+
+        String shortQuoteAudioFilePath = AUDIO_FILES_SUBFOLDER
+                + quote.getAudioFileName();
+
+        return shortQuoteAudioFilePath;
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -171,6 +198,11 @@ public class QuoteFragment extends Fragment {
 
         //TODO check that audioplayer is not null
         this.audioPlayerHelper.play();
+
+        //TODO show toast for non existing audio files
+        // possibility: keep arraylists: one for existing audio files
+        // one for quotes that have none
+        // one for quotes that should have one but is missing
     }
 
     void playShortQuote() {
@@ -260,7 +292,7 @@ public class QuoteFragment extends Fragment {
         // update previous quotes to show in new short/long quote format
 
         if(quote == null) {
-            Log.e("QuoteActivity","Null quote passed.");
+            Log.e("QuoteFragment","Null quote passed.");
             tv.setText("");
         }
         else {
