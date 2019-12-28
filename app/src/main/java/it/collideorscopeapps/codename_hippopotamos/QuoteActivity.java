@@ -54,37 +54,10 @@ public class QuoteActivity extends AppCompatActivity {
         // add favourites button
 
         // ..removed stuff
-        this.playbackButtonsFL = findViewById(R.id.playbackButtons);
-
-        this.playbackButtonsFL.setVisibility(View.GONE);
 
         //TODO fix title not showing, fix translations not showing, fix playlists not playing
 
-        Button playBtn = findViewById(R.id.playButton);
-        playBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                playCurrentFile();
-            }
-        });
-
-        Button nextScreenBtn = findViewById(R.id.nextButton);
-        nextScreenBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goNext();
-            }
-        });
-
-        Button prevScreenBtn = findViewById(R.id.backButton);
-        prevScreenBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goBack();
-            }
-        });
-
-        setLeftRightSwipeBehavior();
+        // ..removed stuff
 
         //TODO handle activity getting closed by OS
         // saving the current screen, so can be reloaded at reopening
@@ -92,10 +65,6 @@ public class QuoteActivity extends AppCompatActivity {
         // avoid activy replaying audio every time is app is reopened from background
 
         //..removed stuff
-
-        //TODO should this be an instance variable?
-        Schermata currentScreen = this.plItr.getCurrentScreen();
-        refreshToScreen(currentScreen);
 
         // hippopotamos tagline: you don't find such phrases among the Romans
         //(queste frasi tra i Romani non le trovate)
@@ -188,8 +157,6 @@ public class QuoteActivity extends AppCompatActivity {
         return this.plItr.getCurrentScreen();
     }
 
-
-
     @Deprecated
     private void loadAudioTestScreen() {
         final int ID_SCHEMATA_AUDIO_TEST = 14;
@@ -212,7 +179,14 @@ public class QuoteActivity extends AppCompatActivity {
             idx++;
         }
 
-        //TODO handle event onactivity end to release media player
+        //TODO implement pause if we click again on the (short/long) quote
+        // that is playing
+        // also maybe one more click to resume, double to start over/stop
+        // and ..stop/reset if we click on the other quote while paused
+
+        //TODO the two quotes to be put in the audioFilePathsNames are the
+        // short and the long one. check if they exist.
+
         try {
             this.audioPlayerHelper = new AudioPlayerHelper(
                     assetManager, audioFilePathsNames);

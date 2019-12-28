@@ -102,5 +102,8 @@ public class QuotePagerActivity extends FragmentActivity {
         public int getItemCount() {
             return this.fragActivity.getScreenCount();
         }
+
+        //TODO handle event onactivity end to release media player
+
     }
 }

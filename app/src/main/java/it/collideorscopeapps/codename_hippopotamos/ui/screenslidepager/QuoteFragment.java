@@ -14,10 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import it.collideorscopeapps.codename_hippopotamos.MyHtmlTagHandler;
 import it.collideorscopeapps.codename_hippopotamos.R;
+import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
@@ -26,6 +28,7 @@ public class QuoteFragment extends Fragment {
     public static final String SCREEN_ID_BUNDLE_FIELD = "screenId";
 
     private QuoteViewModel mViewModel;
+    AudioPlayerHelper audioPlayerHelper;
 
     int position;
     Schermata screen;
@@ -72,6 +75,60 @@ public class QuoteFragment extends Fragment {
         this.translationTV = view.findViewById(R.id.translationTV);
 
         this.phoneticsTV.setVisibility(View.GONE);
+
+        FrameLayout playbackButtonsFL = view.findViewById(R.id.playbackButtons);
+        playbackButtonsFL.setVisibility(View.GONE);
+
+        this.greekShortTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playShortQuote();
+            }
+        });
+
+        this.greekLongTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playLongQuote();
+            }
+        });
+
+        //TODO
+        //(2)second type of screen: disambiguation
+        //this could have multiple quotes
+        //a .."title" with the ending to disanmbiguate
+
+        //(1)adjective screen should be like noun declension screens
+        //(3)then prepositions/conjunctions, (4)verbs, (5)adverbs
+        //(6)pronouns
+        //(7)then longer quotes with notes
+        //(8) and recap screens (i.e. for noun declensions)
+        // type I: single quote, with shorter and longer version
+        // i.e. for a GEN pl ending, and detailed linguistic notes
+        // type II: recap/multiple quotes
+        // on the audio side, typeII could be done using the longer quote
+        // all in one audio file
+
+        //TODO on Main screen choices, "Demo", to play some screens that have audio
+        // ..
+        // then settings, about, credits, ..list of screens, favourites, (history..)
+        // resume from last
+        // longplay mode
+        // review/study mode
+    }
+
+    void playShortQuote() {
+
+    }
+
+    void playLongQuote() {
+
+    }
+
+    //TODO this is to be called after swipe of new fragment
+    // the other individual play methods when user clicks on quote
+    void playShortAndLongQuote() {
+
     }
 
     @Override
