@@ -12,7 +12,7 @@ import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.PlaylistIterator;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
-public class ScreenSlidePagerViewModel extends AndroidViewModel {
+public class QuoteViewModel extends AndroidViewModel {
     // WIP: Implement the ViewModel
 
     TreeMap<Integer, Schermata> schermateById;
@@ -20,7 +20,7 @@ public class ScreenSlidePagerViewModel extends AndroidViewModel {
     PlaylistIterator plItr;
     DBManager dbMng;
 
-    public ScreenSlidePagerViewModel(Application application) {
+    public QuoteViewModel(Application application) {
         super(application);
         dbMng = new DBManager(application);
     }

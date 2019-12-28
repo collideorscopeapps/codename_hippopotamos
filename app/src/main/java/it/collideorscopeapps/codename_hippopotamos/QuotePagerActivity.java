@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.QuoteFragment;
-import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.ScreenSlidePagerViewModel;
+import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.QuoteViewModel;
 
 public class QuotePagerActivity extends FragmentActivity {
     /**
@@ -19,7 +19,7 @@ public class QuotePagerActivity extends FragmentActivity {
      */
     private static final int NUM_PAGES = 5;
 
-    private ScreenSlidePagerViewModel mViewModel;
+    private QuoteViewModel mViewModel;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -64,7 +64,7 @@ public class QuotePagerActivity extends FragmentActivity {
     private void getData() {
         ViewModelProvider viewModelProvider = ViewModelProviders.of(this);
         this.mViewModel
-                = viewModelProvider.get(ScreenSlidePagerViewModel.class);
+                = viewModelProvider.get(QuoteViewModel.class);
     }
 
     /**

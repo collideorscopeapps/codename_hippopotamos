@@ -21,7 +21,7 @@ public class QuoteFragment extends Fragment {
 
     public static final String SCREEN_ID_BUNDLE_FIELD = "screenId";
 
-    private ScreenSlidePagerViewModel mViewModel;
+    private QuoteViewModel mViewModel;
 
     int screenId;
     int position;
@@ -72,7 +72,7 @@ public class QuoteFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         ViewModelProvider viewModelProvider = ViewModelProviders.of(this);
-        mViewModel = viewModelProvider.get(ScreenSlidePagerViewModel.class);
+        mViewModel = viewModelProvider.get(QuoteViewModel.class);
         // TODO: Use the ViewModel
 
         if (savedInstanceState != null) {
@@ -90,7 +90,7 @@ public class QuoteFragment extends Fragment {
             // (corrensponding activity id), in the Bundle savedInstanceState
         }
         else {
-            Log.e("ScreenSlidePagerFragmen","Null saved state");
+            Log.e("QuoteFragment","Null saved state");
             this.titleTV.setText("position: " + this.position
                     + " of " + mViewModel.getScreenCount());
         }
