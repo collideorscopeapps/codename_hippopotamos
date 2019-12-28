@@ -369,6 +369,17 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (53,6
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (53,1,'although still alive, they mourned Hector in his house');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (53,1,'αἳ: they (female); ᾧ: his, DAT; ζωὸν: adj sg masc ACC');
 
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (54,'the greatest of all gain, the acquisition of a good friend','Xenophon, Memorabilia 1.2.7');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (63,'ἐθαύμαζε δ᾽ εἴ τις ἀρετὴν ἐπαγγελλόμενος ἀργύριον πράττοιτο καὶ μὴ νομίζοι τὸ μέγιστον κέρδος ἕξειν φίλον ἀγαθὸν κτησάμενος');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (54,63);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (54,1,'He wondered, likewise, why a man, who promises to teach virtue, should ask money; as if he believed not the greatest of all gain to consist in the acquisition of a good friend');
+
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (55,'','Xenophon, Memorabilia 1.6.14');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (64,'ἥδομαι φίλοις ἀγαθοῖς');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (55,64);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (55,1,'my delight is to be with good friends');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (55,1,'φίλοις ἀγαθοῖς: DAT pl; ἥδομαι: verb 1st sg pres ind mp');
+
 
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
@@ -449,6 +460,8 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,50);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,51);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,52);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,53);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,54);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (10,55);
 
 
 
