@@ -35,14 +35,6 @@ public class QuoteActivity extends AppCompatActivity {
 
     // ..removed stuff
 
-    FrameLayout playbackButtonsFL;
-    //EditText addressET;
-    //ImageView imageIV;
-
-    String currentAudioFilePath;
-    AssetManager assetManager;
-    AudioPlayerHelper audioPlayerHelper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,9 +156,8 @@ public class QuoteActivity extends AppCompatActivity {
         Schermata audio_test = (Schermata) schermateById.get(ID_SCHEMATA_AUDIO_TEST);
         Quote some_quote = audio_test.getQuotes().get(ID_SOME_QUOTE);
         String audioFileName = some_quote.getAudioFileName();
-        String audioFilesSubFolder = "audio/";
+
         this.currentAudioFilePath = audioFilesSubFolder + audioFileName;
-        this.assetManager = this.getAssets();
 
         String singleAudioFileName = "hhmeraf.ogg";
         String[] audioFileNames = new String[]{"xwraf.ogg", "logosf.ogg", "nomosf.ogg"};
@@ -187,21 +178,12 @@ public class QuoteActivity extends AppCompatActivity {
         //TODO the two quotes to be put in the audioFilePathsNames are the
         // short and the long one. check if they exist.
 
-        try {
-            this.audioPlayerHelper = new AudioPlayerHelper(
-                    assetManager, audioFilePathsNames);
-            this.audioPlayerHelper.play();
-        } catch (IOException e) {
-            Log.e("QuoteActivity",e.toString());
-        }
+        //TODO display a toast if clicking play and there is no file
 
         //this.mediaPlayer = AudioPlayUtils.setUpMediaPlayer();
         //AudioPlayUtils.playAudioFile(mediaPlayer, assetManager, currentAudioFilePath);
 
     }
 
-    private void playCurrentFile() {
-        this.audioPlayerHelper.play();
-        //AudioPlayUtils.playAudioFile(mediaPlayer, assetManager, currentAudioFilePath);
-    }*/
+    //..removed stuff*/
 }

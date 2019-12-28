@@ -3,6 +3,8 @@ package it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.util.Arrays;
+
 import it.collideorscopeapps.codename_hippopotamos.MyHtmlTagHandler;
 import it.collideorscopeapps.codename_hippopotamos.R;
 import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper;
@@ -28,6 +33,9 @@ public class QuoteFragment extends Fragment {
     public static final String SCREEN_ID_BUNDLE_FIELD = "screenId";
 
     private QuoteViewModel mViewModel;
+
+    final String AUDIO_FILES_SUBFOLDER = "audio/";
+    AssetManager assetManager;
     AudioPlayerHelper audioPlayerHelper;
 
     int position;
@@ -79,6 +87,31 @@ public class QuoteFragment extends Fragment {
         FrameLayout playbackButtonsFL = view.findViewById(R.id.playbackButtons);
         playbackButtonsFL.setVisibility(View.GONE);
 
+        this.assetManager = view.getContext().getAssets();
+        String[] audioFilePathsNames;
+        {
+            String shortQuoteAudioFilePath = AUDIO_FILES_SUBFOLDER
+                    + screen.getShortQuote().getAudioFileName();
+            String longQuoteAudioFilePath = AUDIO_FILES_SUBFOLDER
+                    + screen.getFullQuote().getAudioFileName();
+            audioFilePathsNames = new String[2];
+
+            if(assetExists(this.assetManager,shortQuoteAudioFilePath)) {
+                audioFilePathsNames[0] = shortQuoteAudioFilePath;
+            }
+
+            if(assetExists(this.assetManager,longQuoteAudioFilePath)) {
+                audioFilePathsNames[1] = longQuoteAudioFilePath;
+            }
+        }
+
+        try {
+            this.audioPlayerHelper = new AudioPlayerHelper(
+                    assetManager, audioFilePathsNames);
+        } catch (IOException e) {
+            Log.e("QuoteFragment",e.toString());
+        }
+
         this.greekShortTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +150,29 @@ public class QuoteFragment extends Fragment {
         // review/study mode
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        playShortAndLongQuote();
+
+        //TODO FIXME
+        // should the media player be shared between fragmants?
+        // or should we create and destroy one on each fragment?
+        // then we should handle it on fragment lifecycle (close of mp)
+    }
+
+    //TODO this is to be called after swipe of new fragment
+    // the other individual play methods when user clicks on quote
+    void playShortAndLongQuote() {
+
+        //TODO FIXME check that we are playing both quotes
+        // since this code was used in previous quote activity
+
+        //TODO check that audioplayer is not null
+        this.audioPlayerHelper.play();
+    }
+
     void playShortQuote() {
 
     }
@@ -125,10 +181,19 @@ public class QuoteFragment extends Fragment {
 
     }
 
-    //TODO this is to be called after swipe of new fragment
-    // the other individual play methods when user clicks on quote
-    void playShortAndLongQuote() {
+    //TODO move in some utils
+    static boolean assetExists(AssetManager assetManager, String path) {
 
+        boolean exists = false;
+        try{
+            exists = Arrays.asList(assetManager.list("")).contains(path);
+        }
+        catch (IOException e) {
+            Log.e("QuoteFragment","Getting assets list: " + e.toString());
+        }
+        finally {
+            return exists;
+        }
     }
 
     @Override
