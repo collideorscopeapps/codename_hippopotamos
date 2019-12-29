@@ -196,8 +196,8 @@ public class DBManagerTest {
     @Test@Suppress
     public void onCreate() {
 
-        // TODO test, this was not being called after DBManager instance creation
-        // so in the DBManager construction had to call db creation from sql file
+        // TODO test, this was not being called after DB Manager instance creation
+        // so in the DB Manager construction had to call db creation from sql file
     }
 
     @Test@Suppress
