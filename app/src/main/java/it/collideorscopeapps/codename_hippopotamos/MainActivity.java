@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.TreeMap;
@@ -15,10 +17,13 @@ import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
+    public static final int QUOTE_ACTIVITY = 100;
+
     private DBManager dbManager;
     TreeMap<Integer, Schermata> schermate;
 
-    public static final int QUOTE_ACTIVITY = 100;
+    Button demoBtn;
+    Button startPlayingBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +33,23 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         dbManager = new DBManager(this);
         // this should call on create
 
+        this.demoBtn = this.findViewById(R.id.demoBtn);
+
+
+        this.startPlayingBtn = this.findViewById(R.id.startPlayingBtn);
+        this.startPlayingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSlideActivity();
+            }
+        });
+
         //this.createDB();
         // TODO get chosen language from shared preferences
+        //TODO ensure this is done asynch, not on UI thread
         schermate = dbManager.getSchermateById(DBManager.Languages.EN);
         //openQuoteActivity();
-        openSlideActivity();
+
     }
 
     public void processFinish(Boolean wasCopySuccessful){

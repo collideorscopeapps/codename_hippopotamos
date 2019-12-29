@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/quoteCitation"
         >
         <Button
-            android:id="@+id/demo"
+            android:id="@+id/demoBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -57,7 +57,7 @@
             />
 
         <Button
-            android:id="@+id/startPlaying"
+            android:id="@+id/startPlayingBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
