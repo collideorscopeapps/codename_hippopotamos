@@ -95,6 +95,11 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     }
 
     void openSlideActivity() {
+
+        //TODO split in two methods, one for demo mode
+        // getting demo playlist and starting the QuoteFragment on that
+        //
+
         Intent intent = new Intent(MainActivity.this,
                 QuotePagerActivity.class);
         startActivity(intent);
