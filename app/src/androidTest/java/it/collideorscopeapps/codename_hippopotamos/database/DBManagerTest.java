@@ -32,15 +32,20 @@ public class DBManagerTest {
         this.appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         this.dbManager = new DBManager(appContext);
 
-        DBManager.dropTables(this.appContext);
-        DBManager.createDBFromSqlFile(appContext,null);
+        this.dbManager.dropTables(this.appContext);
+        this.dbManager.createDBFromSqlFile(appContext,null);
     }
 
 
     @After
     public void tearDown() throws Exception {
 
-        DBManager.dropTables(this.appContext);
+        if(this.dbManager == null) {//FIXME dbManager instances lifecycle
+            this.appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+            this.dbManager = new DBManager(appContext);
+        }
+
+        this.dbManager.dropTables(this.appContext);
     }
 
     @Ignore("Not implemented")
@@ -105,7 +110,7 @@ public class DBManagerTest {
         String dbPath = appContext.getDatabasePath(DBManager.DB_NAME).getPath();
         SQLiteDatabase db = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
 
-        DBManager.dropTables(this.appContext);//DBManager.dropTablesHelper(appContext, db);
+        this.dbManager.dropTables(this.appContext);//DBManager.dropTablesHelper(appContext, db);
         DBManager.execSchemaCreationQueries(db,schemaStatements);
 
         // check schermate, quotes are empty

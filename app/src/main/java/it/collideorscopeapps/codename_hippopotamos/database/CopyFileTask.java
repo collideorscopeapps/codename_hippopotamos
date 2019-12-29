@@ -54,7 +54,8 @@ public class CopyFileTask extends AsyncTask<CopyFileTask.Task, Integer, Boolean>
 
     private Boolean createDbFromSqlFile() {
 
-        return DBManager.createDBFromSqlFile(this.context, this.sqLiteDatabase);
+        DBManager dbManager = new DBManager(this.context);
+        return dbManager.createDBFromSqlFile(this.context, this.sqLiteDatabase);
     }
 
     @Deprecated

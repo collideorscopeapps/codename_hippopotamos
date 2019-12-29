@@ -3,6 +3,7 @@ package it.collideorscopeapps.codename_hippopotamos;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +51,20 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         schermate = dbManager.getSchermateById(DBManager.Languages.EN);
         //openQuoteActivity();
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        this.dbManager.close();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        this.dbManager.ensureDBOpen(this, null);
     }
 
     public void processFinish(Boolean wasCopySuccessful){

@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeMap;
@@ -18,7 +20,7 @@ import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
-public class DBManager extends SQLiteOpenHelper {
+public class DBManager extends SQLiteOpenHelper implements Closeable {
 
     public final Languages DEFAULT_LANGUAGE = Languages.EN;
     public enum Languages {
@@ -30,6 +32,8 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     public static final String DB_NAME = "greekquotes";
+
+    SQLiteDatabase _myDB;
 
     // TODO for the audio files, not stored into the db, check how to have them in the sd card only
     // i.e. by downloading them
@@ -64,22 +68,44 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
 
+    private SQLiteDatabase tryOpenDB(String path,
+                                     SQLiteDatabase.CursorFactory cf,
+                                     int flags) {
+        SQLiteDatabase db;
+        try {
+            db = SQLiteDatabase.openDatabase(path, cf, flags);
+            return db;
+        }
+        catch (Exception e) {
+            Log.e("DBManager",e.toString());
+            return null;
+        }
+    }
 
-    private static SQLiteDatabase openDBWithFKConstraints(String path,
+    public SQLiteDatabase openDBWithFKConstraints(String path,
                                                           SQLiteDatabase.CursorFactory cf,
                                                           int flags) {
         //FIXME this failed on device, " unknown error (code 14): Could not open database"
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(path, cf, flags);
+        SQLiteDatabase db = tryOpenDB(path,cf,flags);
+        if(db == null) {
+            return null;
+        }
 
         db.setForeignKeyConstraintsEnabled(true);
+
+        this._myDB = db;
 
         return db;
 
     }
 
-    public static Boolean dropTables(Context myContext) {
+    public Boolean dropTables(Context myContext) {
         String dbPath = myContext.getDatabasePath(DB_NAME).getPath();
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
+        SQLiteDatabase db;
+        db = tryOpenDB(dbPath,null,SQLiteDatabase.OPEN_READWRITE);//FIXME
+        if(db == null) {
+            return null;
+        }
         db.setForeignKeyConstraintsEnabled(true);
 
         return DBManager.dropTablesHelper(myContext, db);
@@ -126,7 +152,7 @@ public class DBManager extends SQLiteOpenHelper {
         return dropPerformed;
     }
 
-    private static SQLiteDatabase ensureDBOpen(Context myContext, SQLiteDatabase db) {
+    public SQLiteDatabase ensureDBOpen(Context myContext, SQLiteDatabase db) {
 
         //TODO check the need for this, add tests. was giving error when db closed
         // when db file manually deleted before runnning tests
@@ -134,7 +160,7 @@ public class DBManager extends SQLiteOpenHelper {
 
     }
 
-    private static SQLiteDatabase ensureDBOpen(Context myContext,
+    private SQLiteDatabase ensureDBOpen(Context myContext,
                                                SQLiteDatabase db,
                                                int openMode) {
 
@@ -149,7 +175,7 @@ public class DBManager extends SQLiteOpenHelper {
         return db;
     }
 
-    public static boolean createDBFromSqlFile(Context myContext,
+    public boolean createDBFromSqlFile(Context myContext,
                                               SQLiteDatabase myDatabase) {
         //TODO use DB version, check it to avoid creating db every time app starts
 
@@ -163,6 +189,9 @@ public class DBManager extends SQLiteOpenHelper {
                     dbPath,
                     null,
                     SQLiteDatabase.CREATE_IF_NECESSARY);
+            if(myDatabase == null) {
+                return false;
+            }
         }
 
         int myDBVersion = myDatabase.getVersion();
@@ -189,7 +218,7 @@ public class DBManager extends SQLiteOpenHelper {
         return runSchemaCreationQueriesHelper(myContext, myDatabase);
     }
 
-    private static boolean runSchemaCreationQueriesHelper(
+    private boolean runSchemaCreationQueriesHelper(
             Context myContext,
             SQLiteDatabase myDatabase) {
 
@@ -249,7 +278,7 @@ public class DBManager extends SQLiteOpenHelper {
         }
     }
 
-    public static boolean isDBEmpty(Context myContext, SQLiteDatabase db) {
+    public boolean isDBEmpty(Context myContext, SQLiteDatabase db) {
 
         Boolean isDBEmpty = true;
 
@@ -296,7 +325,7 @@ public class DBManager extends SQLiteOpenHelper {
             pl.setSchermate(this.schermate);
         }
 
-        db.close();//not needed anymore once data is loaded
+        //FIXME removing this db.close();//not needed anymore once data is loaded
         return this.schermate;
     }
 
@@ -607,5 +636,10 @@ public class DBManager extends SQLiteOpenHelper {
         // TODO
     }
 
+    @Override
+    public synchronized void close() {
+        super.close();
 
+        this._myDB.close();
+    }
 }
