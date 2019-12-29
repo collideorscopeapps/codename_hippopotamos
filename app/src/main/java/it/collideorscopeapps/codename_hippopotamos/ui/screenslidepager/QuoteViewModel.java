@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
+import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.PlaylistIterator;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
@@ -18,11 +19,13 @@ public class QuoteViewModel extends AndroidViewModel {
     TreeMap<Integer, Schermata> schermateById;
     TreeMap<Integer, Playlist> playlists;
     PlaylistIterator plItr;
-    DBManager dbMng;
+    QuotesProvider quotesProvider;
 
     public QuoteViewModel(Application application) {
         super(application);
-        dbMng = new DBManager(application);
+
+        this.quotesProvider = new QuotesProvider();
+        this.quotesProvider.create(application);
 
         init();
     }
@@ -35,8 +38,8 @@ public class QuoteViewModel extends AndroidViewModel {
     private void init() {
 
         //TODO FIXME retrieve language settings from shared preferences
-        this.schermateById = dbMng.getSchermateById(DBManager.Languages.EN);
-        this.playlists = dbMng.getPlaylists();
+        this.schermateById = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
+        this.playlists = quotesProvider.getPlaylists();
         //TODO
         // keep current schermata in playlist
         this.plItr = new PlaylistIterator(this.schermateById, this.playlists);
@@ -55,7 +58,7 @@ public class QuoteViewModel extends AndroidViewModel {
     protected void onCleared() {
         super.onCleared();
 
-        this.dbMng.close();
+        this.quotesProvider.close();
     }
 
     /*public Schermata getScreen(int screenId) {

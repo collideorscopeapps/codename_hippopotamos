@@ -54,8 +54,10 @@ public class CopyFileTask extends AsyncTask<CopyFileTask.Task, Integer, Boolean>
 
     private Boolean createDbFromSqlFile() {
 
-        DBManager dbManager = new DBManager(this.context);
-        return dbManager.createDBFromSqlFile(this.context, this.sqLiteDatabase);
+        QuotesProvider quotesProvider = new QuotesProvider();
+        quotesProvider.create(this.context);
+        quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
+        return true;
     }
 
     @Deprecated
@@ -64,13 +66,13 @@ public class CopyFileTask extends AsyncTask<CopyFileTask.Task, Integer, Boolean>
         final String DB_LOCATION = "/data/data" +
                 "/it.collideorscopeapps.codename_hippopotamos" +
                 "/databases/";
-        String outputFileName = DB_LOCATION + DBManager.DB_NAME;
+        String outputFileName = DB_LOCATION + QuotesProvider.DB_NAME;
 
         boolean wasCopySuccessful = false;
 
         // TODO check if there is enough space in the SD card to copy the db
 
-        try(InputStream dbAssetFileInputStream = assetManager.open(DBManager.DB_NAME);
+        try(InputStream dbAssetFileInputStream = assetManager.open(QuotesProvider.DB_NAME);
             OutputStream outputStream = new FileOutputStream(outputFileName)) {
 
 

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
+import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 
 import static org.junit.Assert.*;
 
@@ -30,13 +31,14 @@ public class PlaylistIteratorTest {
 
         // get an iterator, gets from first screen to last and then back to first
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        DBManager dbManager = new DBManager(appContext);
+        QuotesProvider quotesProvider = new QuotesProvider();
+        quotesProvider.create(appContext);
 
         TreeMap<Integer, Schermata> schermateById;
         TreeMap<Integer,Playlist> playlists;
         PlaylistIterator plItr;
-        schermateById = dbManager.getSchermateById(DBManager.Languages.EN);
-        playlists = dbManager.getPlaylists();
+        schermateById = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
+        playlists = quotesProvider.getPlaylists();
 
         int totalPlaylists = playlists.size();
         int disabledPlaylistsCount = 0;

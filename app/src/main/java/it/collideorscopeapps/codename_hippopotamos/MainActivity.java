@@ -14,13 +14,14 @@ import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.AsyncResponse;
 import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
+import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
     public static final int QUOTE_ACTIVITY = 100;
 
-    private DBManager dbManager;
+    private QuotesProvider quotesProvider;
     TreeMap<Integer, Schermata> schermate;
 
     Button demoBtn;
@@ -30,9 +31,6 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        dbManager = new DBManager(this);
-        // this should call on create
 
         this.demoBtn = this.findViewById(R.id.demoBtn);
 
@@ -48,23 +46,24 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         //this.createDB();
         // TODO get chosen language from shared preferences
         //TODO ensure this is done asynch, not on UI thread
-        schermate = dbManager.getSchermateById(DBManager.Languages.EN);
+        this.quotesProvider = new QuotesProvider();
+        this.quotesProvider.create(this);
+        schermate = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
         //openQuoteActivity();
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
 
-        this.dbManager.close();
+        this.quotesProvider.close();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        this.dbManager.ensureDBOpen(this, null);
+        schermate = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
     }
 
     public void processFinish(Boolean wasCopySuccessful){

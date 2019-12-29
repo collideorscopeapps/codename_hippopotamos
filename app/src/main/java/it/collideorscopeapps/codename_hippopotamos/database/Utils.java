@@ -53,10 +53,12 @@ public class Utils {
 
     public static String getPrettifiedReadingList(Context appContext) {
 
-        DBManager db = new DBManager(appContext);
+        QuotesProvider quotesProvider = new QuotesProvider();
+        quotesProvider.create(appContext);
 
-        TreeMap<Integer, Schermata> schermate = db.getSchermateById(DBManager.Languages.EN);
-        TreeMap<Integer,Playlist> playlists = db.getPlaylists();
+        TreeMap<Integer, Schermata> schermate
+                = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
+        TreeMap<Integer,Playlist> playlists = quotesProvider.getPlaylists();
 
         StringBuilder sb = new StringBuilder();
         for(Playlist pl : playlists.values()) {
