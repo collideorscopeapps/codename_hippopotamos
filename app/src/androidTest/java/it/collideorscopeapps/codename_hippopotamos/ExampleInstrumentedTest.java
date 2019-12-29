@@ -14,7 +14,6 @@ import org.junit.runner.RunWith;
 import java.io.File;
 import java.util.TreeMap;
 
-import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 import static org.junit.Assert.*;

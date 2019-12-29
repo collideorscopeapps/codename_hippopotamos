@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.junit.Assert;
 import java.util.TreeMap;
 
-import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 //import static com.google.common.truth.Truth.assertThat;

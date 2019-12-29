@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.TreeMap;
 
-import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
+import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -43,7 +43,8 @@ public class DBManagerTest {
         // Given a mocked Context injected into the object under test...
         //when(mockContext.getString(R.string.hello_world))
         //        .thenReturn(FAKE_STRING);
-        DBManager dbManager = new DBManager(mockContext);
+        QuotesProvider quotesProvider = new QuotesProvider();
+        quotesProvider.create(mockContext);
 
         // ...when the string is returned from the object under test...
         //String result = dbManager.getHelloWorldString();
@@ -51,7 +52,8 @@ public class DBManagerTest {
         // ...then the result should be the expected one.
         //assertThat(result).isEqualTo(FAKE_STRING);
 
-        TreeMap<Integer, Schermata> schermate = dbManager.getSchermateById(DBManager.Languages.EN);
+        TreeMap<Integer, Schermata> schermate
+                = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
 
         int extectedMinNumSchermate = 27;
         int extectedMinNumQuotes = 32;

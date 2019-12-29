@@ -11,7 +11,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
 import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 
 import static org.junit.Assert.*;

@@ -13,7 +13,6 @@ import android.widget.Toast;
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.AsyncResponse;
-import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
 import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 

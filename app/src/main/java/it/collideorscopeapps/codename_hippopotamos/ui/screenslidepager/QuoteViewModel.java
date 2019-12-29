@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.TreeMap;
 
-import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
 import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.PlaylistIterator;

@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper;
-import it.collideorscopeapps.codename_hippopotamos.database.DBManager;
 import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.PlaylistIterator;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
