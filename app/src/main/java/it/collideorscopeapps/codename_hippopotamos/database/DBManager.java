@@ -68,7 +68,7 @@ public class DBManager extends SQLiteOpenHelper {
     private static SQLiteDatabase openDBWithFKConstraints(String path,
                                                           SQLiteDatabase.CursorFactory cf,
                                                           int flags) {
-
+        //FIXME this failed on device, " unknown error (code 14): Could not open database"
         SQLiteDatabase db = SQLiteDatabase.openDatabase(path, cf, flags);
 
         db.setForeignKeyConstraintsEnabled(true);
