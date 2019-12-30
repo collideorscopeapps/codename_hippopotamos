@@ -3,7 +3,6 @@ package it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager;
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.ViewModel;
 
 import java.util.TreeMap;
 
@@ -25,8 +24,6 @@ public class QuoteViewModel extends AndroidViewModel {
 
         this.quotesProvider = new QuotesProvider();
         this.quotesProvider.create(application);
-
-        init();
     }
 
     private TreeMap<Integer, Schermata> getSchermateById() {
@@ -34,14 +31,24 @@ public class QuoteViewModel extends AndroidViewModel {
         return this.schermateById;
     }
 
-    private void init() {
+    public void init(QuotesProvider.Languages language,
+                     String playlistDescriptor) {
+
+        initQuotesProvider(language, playlistDescriptor);
 
         //TODO FIXME retrieve language settings from shared preferences
-        this.schermateById = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
-        this.playlists = quotesProvider.getPlaylists();
+        this.schermateById = quotesProvider.getSchermateById();
+        this.playlists = quotesProvider.getPlaylistsByRank();
         //TODO
         // keep current schermata in playlist
         this.plItr = new PlaylistIterator(this.schermateById, this.playlists);
+    }
+
+    private void initQuotesProvider(QuotesProvider.Languages language,
+                                    String playlistDescriptor) {
+
+        //TODO pass playlist filter and language choice
+        this.quotesProvider.init(language, playlistDescriptor);
     }
 
     public int getScreenCount() {

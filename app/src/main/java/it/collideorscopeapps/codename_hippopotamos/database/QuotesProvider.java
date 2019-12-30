@@ -1,26 +1,15 @@
 package it.collideorscopeapps.codename_hippopotamos.database;
 
-import android.content.ContentProvider;
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.UriMatcher;
 import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQueryBuilder;
-import android.net.Uri;
-import android.provider.LiveFolders;
-import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -57,7 +46,7 @@ public class QuotesProvider {
     public static final String DB_NAME = "greekquotes";
     public static final String TAG = "QuotesProvider";
 
-    public final Languages DEFAULT_LANGUAGE = Languages.EN;
+    public final static Languages DEFAULT_LANGUAGE = Languages.EN;
     public enum Languages {
         //TODO check if numeric values cna be explicity assigned
         //TODO to ensure they matche the db
@@ -155,12 +144,13 @@ public class QuotesProvider {
         }
     }
 
+    Languages languageSetting;
     private DBHelper mOpenHelper;
     private TreeMap<Integer, Schermata> schermate;
-    public TreeMap<Integer,Playlist> getPlaylists() {
-        return playlists;
+    public TreeMap<Integer,Playlist> getPlaylistsByRank() {
+        return playlistsByRank;
     }
-    private TreeMap<Integer,Playlist> playlists;
+    private TreeMap<Integer,Playlist> playlistsByRank;
 
     public void create(Context context) {
         //TODO: ensure schema creation is not lenghty operation or make it asynch
@@ -170,20 +160,66 @@ public class QuotesProvider {
         mOpenHelper = new DBHelper(context);
     }
 
+    public void init() {
+        init(DEFAULT_LANGUAGE);
+    }
+
+    public void init(Languages language) {
+        init(language,null);
+    }
+
+    public void init(Languages language, String playlistDescriptor) {
+        setLanguageSetting(language);
+
+        getDataFromDB();
+
+        if(playlistDescriptor != null && !playlistDescriptor.isEmpty()) {
+            //TODO make a test for this to ensure that we don't pass the wrong
+            // playlist descritpion and get none
+          Playlist pl = filterPlaylist(playlistDescriptor, this.playlistsByRank);
+
+          this.setPlaylistsByRank(pl);
+        }
+    }
+
+    private void setLanguageSetting(Languages language) {
+        this.languageSetting = language;
+    }
+
+    private void setPlaylistsByRank(Playlist pl) {
+        this.playlistsByRank.clear();
+
+        if(pl != null) {
+            int firstToPlayRank = 0;
+            this.playlistsByRank.put(firstToPlayRank, pl);
+        }
+    }
+
+    public static Playlist filterPlaylist(String playlistDescription,
+                                       TreeMap<Integer,Playlist> playlists) {
+
+        Log.d(TAG, "Filtering from " + playlists.size() + " playlists");
+        for(Playlist pl:playlists.values()) {
+            Log.d(TAG, "Filtering playlist: " + pl.getDescription());
+
+            if(pl.getDescription().equals(playlistDescription)) {
+                return pl;
+            }
+        }
+
+        Log.e(TAG,"Filter resulted in no playlist");
+        return null;
+    }
+
     /*public boolean onCreate() {
         //mOpenHelper = new DBHelper(getContext());
         return false;
     }*/
 
-    public TreeMap<Integer, Schermata> getSchermateById(QuotesProvider.Languages language) {
-
-        if(this.schermate != null) {
-            return this.schermate;
-        }
+    private void getDataFromDB() {
 
         // todo, translations languages
         // TODO some fields use a default language if the preferred one is absent
-
 
         //myCreateDBFromSqlFile();
         //openDatabaseReadonly();
@@ -191,9 +227,9 @@ public class QuotesProvider {
         TreeMap<Integer, Schermata> newSchermate = new TreeMap<Integer, Schermata>();
         TreeMap<Integer, Quote> newAllQuotes = new TreeMap<Integer, Quote>();
 
-        TreeMap<Integer, String> linguisticNotes = getLinguisticNotes(language);
-        TreeMap<Integer, String> easterEggComments = getEasterEggComments(language);
-        this.playlists = getPlaylistsFromDB();
+        TreeMap<Integer, String> linguisticNotes = getLinguisticNotes(this.languageSetting);
+        TreeMap<Integer, String> easterEggComments = getEasterEggComments(this.languageSetting);
+        this.playlistsByRank = getPlaylistsFromDB();
 
         // TODO rededish, review: problems with db creation,
         //  opening, state, and closing cycles
@@ -203,11 +239,15 @@ public class QuotesProvider {
         setShortAndFullQuotesInScreens(newAllQuotes, newSchermate);
 
         this.schermate = newSchermate;
-        for(Playlist pl :this.playlists.values()) {
+        for(Playlist pl :this.playlistsByRank.values()) {
             pl.setSchermate(this.schermate);
         }
 
         //FIXME removing this db.close();//not needed anymore once data is loaded
+    }
+
+    public TreeMap<Integer, Schermata> getSchermateById() {
+
         return this.schermate;
     }
 
@@ -392,7 +432,7 @@ public class QuotesProvider {
 
     private TreeMap<Integer, Playlist> getPlaylistsFromDB() {
 
-        TreeMap<Integer,Playlist> playlists = new TreeMap<>();
+        TreeMap<Integer,Playlist> playlistsByRank = new TreeMap<>();
 
         final String PLAYLISTS_T = "v_playlists";
 
@@ -434,12 +474,12 @@ public class QuotesProvider {
                         playListAsRankedSchermate,
                         disabled);
 
-                playlists.put(playlistRank,currentPlaylist);
+                playlistsByRank.put(playlistRank,currentPlaylist);
                 cursor.moveToNext();
             }
         }
 
-        return playlists;
+        return playlistsByRank;
     }
 
     private static int getPlaylistRank(Cursor cursor, int playlistsCount, int playlistId) {

@@ -18,11 +18,10 @@ import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
-    public static final int QUOTE_ACTIVITY = 100;
     private static final String TAG = "MainActivity";
 
-    private QuotesProvider quotesProvider;
-    TreeMap<Integer, Schermata> schermate;
+    //TODO we don't need the screens here, but probably will need data from db
+    // for main title quote and translation
 
     Button demoBtn;
     Button startPlayingBtn;
@@ -56,27 +55,30 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         //this.createDB();
         // TODO get chosen language from shared preferences
         //TODO ensure this is done asynch, not on UI thread
-        this.quotesProvider = new QuotesProvider();
+        /*this.quotesProvider = new QuotesProvider();
         this.quotesProvider.create(this);
-        schermate = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
+        quotesProvider.init(QuotesProvider.Languages.EN);
+        schermate = quotesProvider.getSchermateById();
+        */
     }
 
     @Override
     protected void onPause() {
         super.onPause();
 
-        this.quotesProvider.close();
+        //this.quotesProvider.close();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        schermate = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
+        //schermate = quotesProvider.getSchermateById();
     }
 
     public void processFinish(Boolean wasCopySuccessful){
 
+        /*
         if(wasCopySuccessful) {
 
             Utils.shortToast(this, "Copy database success");
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
             Utils.shortToast(this, "Copy database ERROR");
             Log.v("Main activity", "Copy database ERROR");
         }
+         */
     }
 
     void runDemo() {
@@ -103,11 +106,10 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
         Intent intent = new Intent(MainActivity.this, QuoteActivity.class);
 
-        intent.putExtra("schermate", schermate);
-        startActivityForResult(intent, QUOTE_ACTIVITY);
+        //startActivityForResult(intent, QUOTE_ACTIVITY);
 
         //FIXME probably a bug to do another activity start
-        startActivity(intent);
+        //startActivity(intent);
 
         //FIXME reported issue that double back button give blank screen
         // probably is the returning into main activity, which is empty

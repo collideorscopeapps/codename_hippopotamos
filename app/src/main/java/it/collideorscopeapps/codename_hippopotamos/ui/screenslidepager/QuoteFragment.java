@@ -33,13 +33,13 @@ public class QuoteFragment extends Fragment {
 
     public static final String SCREEN_ID_BUNDLE_FIELD = "screenId";
 
-    private QuoteViewModel mViewModel;
-
     AssetManager assetManager;
     AudioPlayerHelper audioPlayerHelper;
 
     int position;
+    int screensCount;
     Schermata screen;
+
 
     TextView titleTV,
             greekShortTV,
@@ -50,13 +50,15 @@ public class QuoteFragment extends Fragment {
             lingNotesTV,
             eeCTV;
 
-    public QuoteFragment(int position, Schermata screen) {
+    public QuoteFragment(int position, Schermata screen, int screensCount) {
+        this.screensCount = screensCount;
         this.position = position;
         this.screen = screen;
     }
 
-    public static QuoteFragment newInstance(int position, Schermata screen) {
-        return new QuoteFragment(position, screen);
+    public static QuoteFragment newInstance(int position, Schermata screen,
+                                            int screensCount) {
+        return new QuoteFragment(position, screen, screensCount);
     }
 
     @Nullable
@@ -162,6 +164,8 @@ public class QuoteFragment extends Fragment {
         //TODO FIXME check that we are playing both quotes
         // since this code was used in previous quote activity
 
+        //FIXME audio don't seem to play in API 19 while running tests, plays on 29
+
         //TODO check that audioplayer is not null
         this.audioPlayerHelper.play();
 
@@ -183,8 +187,8 @@ public class QuoteFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ViewModelProvider viewModelProvider = ViewModelProviders.of(this);
-        mViewModel = viewModelProvider.get(QuoteViewModel.class);
+        //ViewModelProvider viewModelProvider = ViewModelProviders.of(this);
+        //mViewModel = viewModelProvider.get(QuoteViewModel.class);
         // TODO: Use the ViewModel
 
         //TODO check if we actually need to use Bundle savedInstanceState in some way
@@ -194,7 +198,7 @@ public class QuoteFragment extends Fragment {
         //this.screenId = savedInstanceState.getInt(SCREEN_ID_BUNDLE_FIELD);
         // else Log.e("QuoteFragment","Null saved state");
 
-        loadWidgets(this.screen);
+        loadWidgets();
 
         //TODO, get screen data from ViewModel
         //Schermata screen = mViewModel.getScreen(this.screenId);
@@ -204,7 +208,7 @@ public class QuoteFragment extends Fragment {
 
     }
 
-    private void loadWidgets(Schermata screen) {
+    private void loadWidgets() {
 
         //TODO set defaults for "(this word is untranslatable)"
         // set a screen where is displayed
@@ -214,7 +218,7 @@ public class QuoteFragment extends Fragment {
         //test, FIXME
         this.titleTV.setText(screen.getTitle());
         this.titleTV.setText("position: " + this.position
-                + " of " + mViewModel.getScreenCount());
+                + " of " + this.screensCount);
 
         //TODO
         // populate UI widgets with data for current schermata

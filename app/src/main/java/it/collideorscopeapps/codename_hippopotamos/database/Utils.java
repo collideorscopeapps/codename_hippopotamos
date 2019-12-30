@@ -55,10 +55,11 @@ public class Utils {
 
         QuotesProvider quotesProvider = new QuotesProvider();
         quotesProvider.create(appContext);
+        quotesProvider.init();
 
         TreeMap<Integer, Schermata> schermate
-                = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
-        TreeMap<Integer,Playlist> playlists = quotesProvider.getPlaylists();
+                = quotesProvider.getSchermateById();
+        TreeMap<Integer,Playlist> playlists = quotesProvider.getPlaylistsByRank();
 
         StringBuilder sb = new StringBuilder();
         for(Playlist pl : playlists.values()) {

@@ -8,7 +8,6 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
@@ -32,12 +31,13 @@ public class PlaylistIteratorTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         QuotesProvider quotesProvider = new QuotesProvider();
         quotesProvider.create(appContext);
+        quotesProvider.init();
 
         TreeMap<Integer, Schermata> schermateById;
         TreeMap<Integer,Playlist> playlists;
         PlaylistIterator plItr;
-        schermateById = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
-        playlists = quotesProvider.getPlaylists();
+        schermateById = quotesProvider.getSchermateById();
+        playlists = quotesProvider.getPlaylistsByRank();
 
         int totalPlaylists = playlists.size();
         int disabledPlaylistsCount = 0;

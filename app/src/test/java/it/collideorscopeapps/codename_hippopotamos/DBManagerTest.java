@@ -45,6 +45,7 @@ public class DBManagerTest {
         //        .thenReturn(FAKE_STRING);
         QuotesProvider quotesProvider = new QuotesProvider();
         quotesProvider.create(mockContext);
+        quotesProvider.init();
 
         // ...when the string is returned from the object under test...
         //String result = dbManager.getHelloWorldString();
@@ -53,7 +54,7 @@ public class DBManagerTest {
         //assertThat(result).isEqualTo(FAKE_STRING);
 
         TreeMap<Integer, Schermata> schermate
-                = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
+                = quotesProvider.getSchermateById();
 
         int extectedMinNumSchermate = 27;
         int extectedMinNumQuotes = 32;

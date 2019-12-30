@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.os.Bundle;
 import android.util.Log;
 
+import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.QuoteFragment;
 import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.QuoteViewModel;
@@ -20,6 +21,8 @@ public class QuotePagerActivity extends FragmentActivity {
     public static final String TAG = "QuotePagerActivity";
     public static final String DEMO_ACTION = "it.collideorscopeapps.codename_hippopotamos.DEMO";
     public static final String PLAY_ACTION = "it.collideorscopeapps.codename_hippopotamos.PLAY";
+
+    public static final String DEMO_PLAYLIST_NAME = "Recorded quotes";
 
     private QuoteViewModel mViewModel;
 
@@ -39,8 +42,6 @@ public class QuotePagerActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_slide_pager_activity);
 
-        getData();
-
         // Instantiate a ViewPager2 and a PagerAdapter.
         viewPager = findViewById(R.id.pager);
 
@@ -49,10 +50,12 @@ public class QuotePagerActivity extends FragmentActivity {
         String action = this.getIntent().getAction();
         Log.d(TAG,"Action: " + action);
 
+        QuotesProvider.Languages languageSetting = QuotesProvider.DEFAULT_LANGUAGE;
+
         if(action == DEMO_ACTION) {
-            // load demo playlist
+            getData(languageSetting, DEMO_PLAYLIST_NAME);
         } else if(action == PLAY_ACTION) {
-            // load all playlists
+            getData(languageSetting);
         } else {
             Log.e(TAG,"No action specified");
         }
@@ -77,10 +80,17 @@ public class QuotePagerActivity extends FragmentActivity {
         return this.mViewModel.getScreenCount();
     }
 
-    private void getData() {
+    private void getData(QuotesProvider.Languages language) {
+        getData(language, null);
+    }
+
+    private void getData(QuotesProvider.Languages language,
+                         String playlistDescriptor) {
         ViewModelProvider viewModelProvider = ViewModelProviders.of(this);
         this.mViewModel
                 = viewModelProvider.get(QuoteViewModel.class);
+
+        this.mViewModel.init(language, playlistDescriptor);
     }
 
     /**
@@ -105,10 +115,11 @@ public class QuotePagerActivity extends FragmentActivity {
             // Return a NEW fragment instance in createFragment(int)
             Log.d("QuotePagerAdapter","Creating quoteFragment at " + position);
 
-            //TODO this should depend on the action of the intent: demo or start playing
             Schermata screen = this.fragActivity.mViewModel.getScreenAt(position);
+
             Log.d("QuotePagerActivity","Fragment with screen: " + screen.toString());
-            Fragment fragment = QuoteFragment.newInstance(position, screen);
+            Fragment fragment = QuoteFragment.newInstance(position, screen,
+                    this.fragActivity.mViewModel.getScreenCount());
             Bundle args = new Bundle();
             args.putInt(QuoteFragment.SCREEN_ID_BUNDLE_FIELD, position + 1);
             fragment.setArguments(args);

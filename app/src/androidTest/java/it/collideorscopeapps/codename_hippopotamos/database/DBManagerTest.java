@@ -32,8 +32,9 @@ public class DBManagerTest {
         this.appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         this.quotesProvider = new QuotesProvider();
         this.quotesProvider.create(appContext);
+        this.quotesProvider.init();
 
-        quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
+        quotesProvider.getSchermateById();
 
         //this.quotesProvider.dropTables(this.appContext);
     }
@@ -86,8 +87,9 @@ public class DBManagerTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         this.quotesProvider = new QuotesProvider();
         this.quotesProvider.create(appContext);
+        this.quotesProvider.init();
 
-        return quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
+        return quotesProvider.getSchermateById();
     }
 
     @Test
