@@ -31,38 +31,6 @@
                     android:text="Title"
                     />
 
-                <FrameLayout
-                    android:id="@+id/playbackButtons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:paddingVertical="10dp"
-                    >
-
-                    <Button
-                        android:id="@+id/backButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        />
-
-                    <Button
-                        android:id="@+id/playButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        />
-
-                    <Button
-                        android:id="@+id/nextButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        />
-
-                </FrameLayout>
-
                 <TextView
                     android:id="@+id/greekShortTextTV"
                     android:layout_width="wrap_content"

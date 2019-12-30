@@ -85,9 +85,6 @@ public class QuoteFragment extends Fragment {
 
         this.phoneticsTV.setVisibility(View.GONE);
 
-        FrameLayout playbackButtonsFL = view.findViewById(R.id.playbackButtons);
-        playbackButtonsFL.setVisibility(View.GONE);
-
         this.assetManager = view.getContext().getAssets();
         ArrayList<String> audioFilePathsNames
                 = getAudioFilePathNames(assetManager, screen);
