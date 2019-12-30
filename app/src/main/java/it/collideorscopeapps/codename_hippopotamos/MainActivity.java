@@ -93,6 +93,10 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
     void runDemo() {
         //TODO
         // load playlist "Recorded quotes"
+        Intent intent = new Intent(MainActivity.this,
+                QuotePagerActivity.class);
+        intent.setAction(QuotePagerActivity.DEMO_ACTION);
+        startActivity(intent);
     }
 
     void openQuoteActivity() {
@@ -111,12 +115,20 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
     void openSlideActivity() {
 
+        //TODO we should tell the activity which playlists to run
+        // or we should specify an action an then the activity retirieves
+        // the playlists
+        // ACTION_DEMO
+        // ACTION_START_PLAYBACK
+        // "The action, if given, must be listed by the component as one it handles."
+
         //TODO split in two methods, one for demo mode
         // getting demo playlist and starting the QuoteFragment on that
         //
 
         Intent intent = new Intent(MainActivity.this,
                 QuotePagerActivity.class);
+        intent.setAction(QuotePagerActivity.PLAY_ACTION);
         startActivity(intent);
     }
 }

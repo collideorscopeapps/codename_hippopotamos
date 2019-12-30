@@ -12,12 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".QuotePagerActivity"/>
+        <activity android:name=".QuotePagerActivity">
+            <intent-filter>
+                <action android:name="it.collideorscopeapps.codename_hippopotamos.DEMO" />
+                <action android:name="it.collideorscopeapps.codename_hippopotamos.PLAY" />
+            </intent-filter>
+        </activity>
         <activity android:name=".QuoteActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

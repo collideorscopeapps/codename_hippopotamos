@@ -15,10 +15,11 @@ import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.QuoteFrag
 import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.QuoteViewModel;
 
 public class QuotePagerActivity extends FragmentActivity {
-    /**
-     * The number of pages (wizard steps) to show in this demo.
-     */
-    private static final int NUM_PAGES = 5;
+
+
+    public static final String TAG = "QuotePagerActivity";
+    public static final String DEMO_ACTION = "it.collideorscopeapps.codename_hippopotamos.DEMO";
+    public static final String PLAY_ACTION = "it.collideorscopeapps.codename_hippopotamos.PLAY";
 
     private QuoteViewModel mViewModel;
 
@@ -42,6 +43,20 @@ public class QuotePagerActivity extends FragmentActivity {
 
         // Instantiate a ViewPager2 and a PagerAdapter.
         viewPager = findViewById(R.id.pager);
+
+        //TODO here in choosing the adapter, make it according to the intent action
+        // i.e. demo or startplaying
+        String action = this.getIntent().getAction();
+        Log.d(TAG,"Action: " + action);
+
+        if(action == DEMO_ACTION) {
+            // load demo playlist
+        } else if(action == PLAY_ACTION) {
+            // load all playlists
+        } else {
+            Log.e(TAG,"No action specified");
+        }
+
         pagerAdapter = new QuotePagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
     }
@@ -89,6 +104,8 @@ public class QuotePagerActivity extends FragmentActivity {
             // code here for switching quote
             // Return a NEW fragment instance in createFragment(int)
             Log.d("QuotePagerAdapter","Creating quoteFragment at " + position);
+
+            //TODO this should depend on the action of the intent: demo or start playing
             Schermata screen = this.fragActivity.mViewModel.getScreenAt(position);
             Log.d("QuotePagerActivity","Fragment with screen: " + screen.toString());
             Fragment fragment = QuoteFragment.newInstance(position, screen);
