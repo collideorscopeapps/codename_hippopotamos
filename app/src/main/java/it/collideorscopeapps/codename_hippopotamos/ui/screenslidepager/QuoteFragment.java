@@ -3,8 +3,9 @@ package it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.res.AssetFileDescriptor;
+import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,13 +17,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import it.collideorscopeapps.codename_hippopotamos.Globals;
 import it.collideorscopeapps.codename_hippopotamos.MyHtmlTagHandler;
 import it.collideorscopeapps.codename_hippopotamos.R;
 import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper;
@@ -35,7 +35,6 @@ public class QuoteFragment extends Fragment {
 
     private QuoteViewModel mViewModel;
 
-    final static String AUDIO_FILES_SUBFOLDER = "audio/";
     AssetManager assetManager;
     AudioPlayerHelper audioPlayerHelper;
 
@@ -71,8 +70,6 @@ public class QuoteFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        //demoCollectionAdapter = new DemoCollectionAdapter(this);
-        //viewPager.setAdapter(demoCollectionAdapter);
 
         this.greekShortTV = view.findViewById(R.id.greekShortTextTV);
         this.greekLongTV = view.findViewById(R.id.greekLongTextTV);
@@ -85,9 +82,11 @@ public class QuoteFragment extends Fragment {
 
         this.phoneticsTV.setVisibility(View.GONE);
 
+        ensureTypeface(view.getContext());
+
         this.assetManager = view.getContext().getAssets();
         ArrayList<String> audioFilePathsNames
-                = getAudioFilePathNames(assetManager, screen);
+                = Globals.getAudioFilePathNames(assetManager, screen);
 
         try {
             this.audioPlayerHelper = new AudioPlayerHelper(
@@ -134,44 +133,14 @@ public class QuoteFragment extends Fragment {
         // review/study mode
     }
 
-    static ArrayList<String> getAudioFilePathNames(
-            AssetManager assetManager, Schermata screen) {
-
-        ArrayList<String> audioFilePathsNames = new ArrayList<>();
-
-        //TODO FIXME handling of missing quote files
-        if(assetExists(assetManager,getShortQuoteAudioFilePath(screen))) {
-            audioFilePathsNames.add(getShortQuoteAudioFilePath(screen));
-        }
-
-        if(assetExists(assetManager,getLongQuoteAudioFilePath(screen))) {
-            audioFilePathsNames.add(getLongQuoteAudioFilePath(screen));
-        }
-
-        return audioFilePathsNames;
-    }
-
-    static String getShortQuoteAudioFilePath(Schermata screen) {
-
-        return getQuoteAudioFilePath(screen.getShortQuote());
-    }
-
-    static String getLongQuoteAudioFilePath(Schermata screen) {
-
-        return getQuoteAudioFilePath(screen.getFullQuote());
-    }
-
-    static String getQuoteAudioFilePath(Quote quote) {
-        final String EMPTY_STRING = "";
-
-        if(quote == null) {
-            return EMPTY_STRING;
-        }
-
-        String shortQuoteAudioFilePath = AUDIO_FILES_SUBFOLDER
-                + quote.getAudioFileName();
-
-        return shortQuoteAudioFilePath;
+    private void ensureTypeface(Context context) {
+        Typeface prefTypeface = Globals.getPreferredTypeface(
+                context);
+        this.greekShortTV.setTypeface(prefTypeface);
+        this.greekLongTV.setTypeface(prefTypeface);
+        this.lingNotesTV.setTypeface(prefTypeface);
+        this.titleTV.setTypeface(prefTypeface);
+        this.translationTV.setTypeface(prefTypeface);
     }
 
     @Override
@@ -208,21 +177,6 @@ public class QuoteFragment extends Fragment {
 
     void playLongQuote() {
 
-    }
-
-    //TODO move in some utils
-    static boolean assetExists(AssetManager assetManager, String path) {
-
-        boolean exists = false;
-        try{
-            exists = Arrays.asList(assetManager.list("")).contains(path);
-        }
-        catch (IOException e) {
-            Log.e("QuoteFragment","Getting assets list: " + e.toString());
-        }
-        finally {
-            return exists;
-        }
     }
 
     @Override
@@ -305,5 +259,4 @@ public class QuoteFragment extends Fragment {
         super.onSaveInstanceState(outState);
         //outState.putInt(SCREEN_ID_BUNDLE_FIELD, this.screenId);
     }
-
 }

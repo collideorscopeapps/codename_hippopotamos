@@ -3,36 +3,47 @@ package it.collideorscopeapps.codename_hippopotamos;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.AsyncResponse;
 import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
+import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
     public static final int QUOTE_ACTIVITY = 100;
+    private static final String TAG = "MainActivity";
 
     private QuotesProvider quotesProvider;
     TreeMap<Integer, Schermata> schermate;
 
     Button demoBtn;
     Button startPlayingBtn;
+    TextView greekMainTitleTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.demoBtn = this.findViewById(R.id.demoBtn);
+        greekMainTitleTV = findViewById(R.id.greekMainTitle);
 
+        this.demoBtn = this.findViewById(R.id.demoBtn);
+        this.demoBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                runDemo();
+            }
+        });
 
         this.startPlayingBtn = this.findViewById(R.id.startPlayingBtn);
         this.startPlayingBtn.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         this.quotesProvider = new QuotesProvider();
         this.quotesProvider.create(this);
         schermate = quotesProvider.getSchermateById(QuotesProvider.Languages.EN);
-        //openQuoteActivity();
     }
 
     @Override
@@ -69,15 +79,20 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
         if(wasCopySuccessful) {
 
-            Toast.makeText(this, "Copy database success", Toast.LENGTH_SHORT).show();
+            Utils.shortToast(this, "Copy database success");
             Log.v("Main activity", "Copy database success, opening quote activity..");
             this.openQuoteActivity();
         }
         else
         {
-            Toast.makeText(this, "Copy database ERROR", Toast.LENGTH_SHORT).show();
+            Utils.shortToast(this, "Copy database ERROR");
             Log.v("Main activity", "Copy database ERROR");
         }
+    }
+
+    void runDemo() {
+        //TODO
+        // load playlist "Recorded quotes"
     }
 
     void openQuoteActivity() {
