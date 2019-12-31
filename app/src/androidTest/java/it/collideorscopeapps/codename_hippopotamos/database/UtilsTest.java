@@ -24,7 +24,7 @@ public class UtilsTest {
     @Test
     public void getPrettifiedReadingList() {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        String readingList = Utils.getPrettifiedReadingList(appContext);
+        String readingList = DBUtils.getPrettifiedReadingList(appContext);
 
         File txtFile;
         try {
@@ -60,7 +60,7 @@ public class UtilsTest {
         // get statements
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         ArrayList<String> parsedSchemaStatements
-                = Utils.getSchemaCreationStatementsFromSqlFile(appContext.getAssets());
+                = DBUtils.getSchemaCreationStatementsFromSqlFile(appContext.getAssets());
 
 
         // parse file to check "CREATE" and "PRAGMA" occurrences
@@ -78,7 +78,7 @@ public class UtilsTest {
         int countStatements = 0;
         AssetManager assetManager = appContext.getAssets();
         try(InputStream shemaCreationSqlFileInputStream
-                    = assetManager.open(Utils.SCHEMA_SQL_FILE)) {
+                    = assetManager.open(DBUtils.SCHEMA_SQL_FILE)) {
 
             //creating an InputStreamReader object
             InputStreamReader isReader = new InputStreamReader(shemaCreationSqlFileInputStream);

@@ -84,9 +84,9 @@ public class QuotesProvider {
             Log.d(TAG, "onCreate, db version: " + db.getVersion());
 
             AssetManager assetManager = myContext.getAssets();
-            ArrayList<String> schemaStatements = Utils.getSchemaCreationStatementsFromSqlFile(assetManager);
-            TreeMap<Integer,String> dataInsertStatements = Utils.getSingleLineSqlStatementsFromInputStream(
-                    assetManager, Utils.DATA_INSERT_SQL_FILE);
+            ArrayList<String> schemaStatements = DBUtils.getSchemaCreationStatementsFromSqlFile(assetManager);
+            TreeMap<Integer,String> dataInsertStatements = DBUtils.getSingleLineSqlStatementsFromInputStream(
+                    assetManager, DBUtils.DATA_INSERT_SQL_FILE);
 
             execSchemaCreationQueries(db, schemaStatements);
             Log.d(TAG, "schema created");
@@ -109,7 +109,7 @@ public class QuotesProvider {
             for (String statement : schemaStatements) {
                 //Log.v(TAG,statement);
                 myDatabase.execSQL(statement);
-                //Log.v(TAG,getConcatTableNames(myDatabase));
+                //Log.v(TAG,DBUtils.getConcatTableNames(myDatabase));
             }
         }
 
@@ -137,9 +137,9 @@ public class QuotesProvider {
 
                     AssetManager assetManager = context.getAssets();
             TreeMap<Integer,String> dropSchemaStatements
-                    = Utils.getSingleLineSqlStatementsFromInputStream(
+                    = DBUtils.getSingleLineSqlStatementsFromInputStream(
                     assetManager,
-                    Utils.DROP_SCHEMA_SQL_FILE);
+                    DBUtils.DROP_SCHEMA_SQL_FILE);
 
             for(int i=0;i<dropSchemaStatements.size();i++) {
                 String statement = dropSchemaStatements.get(i);
@@ -299,7 +299,7 @@ public class QuotesProvider {
         }
         catch (SQLiteException sqle) {
             Log.e(TAG, sqle.toString());
-            Log.e(TAG, "Tables: " + getConcatTableNames(db));
+            Log.e(TAG, "Tables: " + DBUtils.getConcatTableNames(db));
         }
         catch (Exception e) {
             Log.e(TAG, e.toString());
@@ -321,32 +321,6 @@ public class QuotesProvider {
         }
     }
 
-    private static String getConcatTableNames(SQLiteDatabase db) {
-
-        String allTableNamesQuery = "SELECT name " +
-                "FROM sqlite_master " +
-                "WHERE type='table' OR type = 'view' ";
-        //ArrayList<String> tableNames = new ArrayList<>();
-        String tableNamesConcat = "";
-        int tablesCount = 0;
-        Cursor c = db.rawQuery(allTableNamesQuery, null);
-        if (c.moveToFirst()) {
-            while ( !c.isAfterLast() ) {
-                int firstColumnIdx = 0;
-                String tableName = c.getString(firstColumnIdx);
-                //tableNames.add(tableName);
-                tableNamesConcat += tableName + ",";
-                tablesCount++;
-                c.moveToNext();
-            }
-        }
-        Log.v(TAG,"Tables in DB ("
-                + tablesCount + ") " + tableNamesConcat);
-
-        //if(tablesCount < 3) {isDBEmpty = true;}
-
-        return tableNamesConcat;
-    }
 
     private static void addQuote(Cursor cursor,
                                  TreeMap<Integer, Quote> allQuotes) {
@@ -464,12 +438,12 @@ public class QuotesProvider {
                 int playlistRank = getPlaylistRank(cursor,playlistCount,playlistId);
 
                 int disabledAsInt = cursor.getInt(cursor.getColumnIndex("disabled"));
-                boolean disabled = Utils.castSqliteBoolean(disabledAsInt);
+                boolean disabled = DBUtils.castSqliteBoolean(disabledAsInt);
                 String schermateConcat = cursor.getString(cursor.getColumnIndex("schermate"));
                 String playOrderConcat = cursor.getString(cursor.getColumnIndex("sorting"));
 
-                TreeSet<Integer> schermateIds = Utils.getIntsFromConcatString(schermateConcat);
-                TreeSet<Integer> playOrderRanks = Utils.getIntsFromConcatString(playOrderConcat);
+                TreeSet<Integer> schermateIds = DBUtils.getIntsFromConcatString(schermateConcat);
+                TreeSet<Integer> playOrderRanks = DBUtils.getIntsFromConcatString(playOrderConcat);
 
                 TreeMap<Integer, Integer> playListAsRankedSchermate = new TreeMap<>();
                 Iterator<Integer> schermateIdsItr = schermateIds.iterator();
@@ -558,14 +532,7 @@ public class QuotesProvider {
         return linguisticNotes;
     }
 
-    public boolean isDBEmpty(Context myContext, SQLiteDatabase db) {
 
-        Boolean isDBEmpty = true;
-        //..removed stuff ensureDBOpen
-        String tableNamesConcat = getConcatTableNames(db);
-        isDBEmpty = !tableNamesConcat.contains("v_schermate_and_quotes,");
-        return isDBEmpty;
-    }
 
     public synchronized void close() {
         //super.close();

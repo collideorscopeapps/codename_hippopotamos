@@ -2,6 +2,8 @@ package it.collideorscopeapps.codename_hippopotamos.database;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -16,7 +18,9 @@ import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
 
-public class Utils {
+public class DBUtils {
+
+    public final static String TAG = "DBUtils";
 
     final static String DATA_INSERT_SQL_FILE = "greekquotes.dbdata.sql";
     final static String DROP_SCHEMA_SQL_FILE = "greekquotes.dropschema.sql";
@@ -132,7 +136,7 @@ public class Utils {
             return getStatementsFromInputStream(shemaCreationSqlFileInputStream);
         }
         catch (IOException e) {
-            Log.e("Utils", e.toString());
+            Log.e("DBUtils", e.toString());
         }
 
         return null;
@@ -162,7 +166,7 @@ public class Utils {
             }
 
         } catch (IOException e) {
-            Log.e("DB Utils", e.toString());
+            Log.e("DB DBUtils", e.toString());
         }
 
         return statements;
@@ -186,7 +190,7 @@ public class Utils {
             }
 
         } catch (IOException e) {
-            Log.e("DB Utils", e.toString());
+            Log.e("DB DBUtils", e.toString());
         }
 
         String concatQueries = sb.toString();
@@ -200,4 +204,39 @@ public class Utils {
         return sqlStatements;
     }
 
+    public static String getConcatTableNames(SQLiteDatabase db) {
+
+        String allTableNamesQuery = "SELECT name " +
+                "FROM sqlite_master " +
+                "WHERE type='table' OR type = 'view' ";
+        //ArrayList<String> tableNames = new ArrayList<>();
+        String tableNamesConcat = "";
+        int tablesCount = 0;
+        Cursor c = db.rawQuery(allTableNamesQuery, null);
+        if (c.moveToFirst()) {
+            while ( !c.isAfterLast() ) {
+                int firstColumnIdx = 0;
+                String tableName = c.getString(firstColumnIdx);
+                //tableNames.add(tableName);
+                tableNamesConcat += tableName + ",";
+                tablesCount++;
+                c.moveToNext();
+            }
+        }
+        Log.v(TAG,"Tables in DB ("
+                + tablesCount + ") " + tableNamesConcat);
+
+        //if(tablesCount < 3) {isDBEmpty = true;}
+
+        return tableNamesConcat;
+    }
+
+    public static boolean isDBEmpty(Context myContext, SQLiteDatabase db) {
+
+        Boolean isDBEmpty = true;
+        //..removed stuff ensureDBOpen
+        String tableNamesConcat = getConcatTableNames(db);
+        isDBEmpty = !tableNamesConcat.contains("v_schermate_and_quotes,");
+        return isDBEmpty;
+    }
 }

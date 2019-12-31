@@ -126,7 +126,7 @@ public class DBManagerTest {
 
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         ArrayList<String> schemaStatements
-                = Utils.getSchemaCreationStatementsFromSqlFile(appContext.getAssets());
+                = DBUtils.getSchemaCreationStatementsFromSqlFile(appContext.getAssets());
 
         String dbPath = appContext.getDatabasePath(quotesProvider.DB_NAME).getPath();
         SQLiteDatabase db
