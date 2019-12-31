@@ -3,6 +3,8 @@ package it.collideorscopeapps.codename_hippopotamos.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
+
 public class Schermata implements Serializable {
 
     //TODO add option in the db: boolean highlighAccent
@@ -61,7 +63,7 @@ public class Schermata implements Serializable {
 
     public String getQuotesAsString() {
 
-        if(quotesAsString != null && !quotesAsString.isEmpty()) {
+        if(!Utils.isNullOrEmpty(quotesAsString)) {
             return quotesAsString;
         }
 

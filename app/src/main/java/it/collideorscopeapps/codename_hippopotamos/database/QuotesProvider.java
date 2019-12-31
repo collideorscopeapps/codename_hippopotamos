@@ -17,6 +17,7 @@ import java.util.TreeSet;
 import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
+import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class QuotesProvider {
 
@@ -193,7 +194,7 @@ public class QuotesProvider {
 
         getDataFromDB();
 
-        if(playlistDescriptor != null && !playlistDescriptor.isEmpty()) {
+        if(!Utils.isNullOrEmpty(playlistDescriptor)) {
             //TODO make a test for this to ensure that we don't pass the wrong
             // playlist descritpion and get none
           Playlist pl = filterPlaylist(playlistDescriptor, this.playlistsByRank);
