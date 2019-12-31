@@ -155,4 +155,17 @@ public class Utils {
         String quoteTxt = quote.getQuoteText();
         return quoteTxt == null || quoteTxt.isEmpty();
     }
+
+    public static String[] toArray(ArrayList<String> arrayList){
+        ArrayList<String> nonEmptyValues = new ArrayList<>();
+        for(String s:arrayList) {
+            if(s != null) {
+                nonEmptyValues.add(s);
+            }
+        }
+        String[] valuesArray = new String[nonEmptyValues.size()];
+        valuesArray = nonEmptyValues.toArray(valuesArray);
+
+        return valuesArray;
+    }
 }

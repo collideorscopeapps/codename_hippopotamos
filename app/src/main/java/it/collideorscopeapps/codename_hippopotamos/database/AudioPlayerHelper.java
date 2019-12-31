@@ -11,6 +11,8 @@ import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
+
 public class AudioPlayerHelper implements Closeable {
 
     public static final String TAG = "AudioPlayerHelper";
@@ -84,7 +86,6 @@ public class AudioPlayerHelper implements Closeable {
             // we should check if we should play next track
             // or if we have already played the last one
 
-
             //TODO
             // release would be only when quitting activity
             // not when changing to other screen with other audio quotes
@@ -95,20 +96,7 @@ public class AudioPlayerHelper implements Closeable {
     public AudioPlayerHelper(AssetManager assetManager,
                              ArrayList<String> audioFilePaths) throws IOException {
 
-        this(assetManager, toArray(audioFilePaths));
-    }
-
-    private static String[] toArray(ArrayList<String> arrayList){
-        ArrayList<String> nonEmptyValues = new ArrayList<>();
-        for(String s:arrayList) {
-            if(s != null) {
-                nonEmptyValues.add(s);
-            }
-        }
-        String[] valuesArray = new String[nonEmptyValues.size()];
-        valuesArray = nonEmptyValues.toArray(valuesArray);
-
-        return valuesArray;
+        this(assetManager, Utils.toArray(audioFilePaths));
     }
 
     public AudioPlayerHelper(AssetManager assetManager,
