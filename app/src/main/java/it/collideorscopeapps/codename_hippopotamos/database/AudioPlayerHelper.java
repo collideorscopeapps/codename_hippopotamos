@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 public class AudioPlayerHelper implements Closeable {
 
+    public static final String TAG = "AudioPlayerHelper";
+
     AssetManager assetManager;
 
     AssetFileDescriptor[] assetFileDescriptors;
@@ -25,12 +27,11 @@ public class AudioPlayerHelper implements Closeable {
         PREPARING, PREPARED, PLAYING, COMPLETED, STOPPED, ERROR };
     PlayerState currentPlayerState = PlayerState.UNKNOWN;
 
-
     static MediaPlayer.OnErrorListener onErrorListener = new MediaPlayer.OnErrorListener() {
         @Override
         public boolean onError(MediaPlayer mp, int what, int extra) {
 
-            Log.e("AudioPlayerHelper","what: " + what
+            Log.e(TAG,"what: " + what
                     + " extra: " + extra + " " + mp.toString());
 
             return false;
@@ -177,7 +178,7 @@ public class AudioPlayerHelper implements Closeable {
             insertFileIntoMediaplayer(mediaPlayer, assetFileDescriptors[trackIdx]);
             currentPlayerState = PlayerState.INITIALIZED;
         } catch (IOException e) {
-            Log.e("AudioPlayerHelper", e.toString());
+            Log.e(TAG, e.toString());
             currentPlayerState = PlayerState.ERROR;
         }
 
@@ -189,7 +190,7 @@ public class AudioPlayerHelper implements Closeable {
 
         //TODO add test for this scenario (no files)
         if(this.assetFileDescriptors.length == 0) {
-            Log.e("AudioPlayerHelper","No files to play");
+            Log.e(TAG,"No files to play");
             return;
         }
 
@@ -207,7 +208,7 @@ public class AudioPlayerHelper implements Closeable {
             playNext(currentTrackIdx);
         } else {
             String msg = "Play request non accepted state, ignoring. State: " + currentPlayerState;
-            Log.e("AudioPlayerHelper",msg);
+            Log.e(TAG,msg);
         }
 
         // gets a series of audio files (asset file descriptors)
@@ -248,7 +249,7 @@ public class AudioPlayerHelper implements Closeable {
                     assetFileDescriptor.close();
                 }
             } catch (IOException e) {
-                Log.e("AudioPlayerHelper",e.toString());
+                Log.e(TAG,e.toString());
             }
         }
     }
