@@ -199,16 +199,18 @@ public class AudioPlayerHelper implements Closeable {
             // first playback
             this.firstFilePlayedAtLeastOnce = true;
             this.currentTrackIdx = 0;
+            Log.d(TAG,"Play request accepted, first play or idle");
             playNext(currentTrackIdx);
         } else
         if(currentPlayerState == PlayerState.STOPPED
                 && lastFileHasPlayed) {
             // we do one more loop
             this.currentTrackIdx = 0;
+            Log.d(TAG,"Play request accepted from stopped");
             playNext(currentTrackIdx);
         } else {
             String msg = "Play request non accepted state, ignoring. State: " + currentPlayerState;
-            Log.e(TAG,msg);
+            Log.d(TAG,msg);
         }
 
         // gets a series of audio files (asset file descriptors)
