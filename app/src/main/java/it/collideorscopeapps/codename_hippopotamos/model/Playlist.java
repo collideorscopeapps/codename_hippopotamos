@@ -1,10 +1,11 @@
 package it.collideorscopeapps.codename_hippopotamos.model;
 
-import java.util.ArrayList;
+import android.util.Log;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class Playlist {
+
+    private static final String TAG = "Playlist";
 
     private String description;
 
@@ -23,29 +24,42 @@ public class Playlist {
     }
 
     private TreeMap<Integer, Schermata> rankedSchermate;// key is the play order
-    private TreeMap<Integer, Integer> rankedSchermateIds;// key is the schermata id, value the play rank
+    private TreeMap<Integer, Integer> screenRanksById;// key is the schermata id, value the play rank
 
     public Playlist(String description, TreeMap<Integer,
-            Integer> rankedSchermateIds,
+            Integer> screenRanksById,
                     boolean disabled) {
 
         this.description = description;
-        this.rankedSchermateIds = rankedSchermateIds;
+        this.screenRanksById = screenRanksById;
         this.disabled = disabled;
     }
 
     public void setSchermate(TreeMap<Integer, Schermata> schermateSuperSet) {
 
         //TODO add tests for this
+        //TODO add test to ensure each screen is properly ranked within a playlsit
 
         this.rankedSchermate = new TreeMap<>();
 
         for(Schermata schermata: schermateSuperSet.values()) {
             int currentSchermataId = schermata.getId();
-            if(this.rankedSchermateIds.containsKey(currentSchermataId)) {
-                int playOrder = this.rankedSchermateIds.get(currentSchermataId);
+            if(this.screenRanksById.containsKey(currentSchermataId)) {
+
+                int playOrder = this.screenRanksById.get(currentSchermataId);
                 this.rankedSchermate.put(playOrder, schermata);
             }
+        }
+
+        logRankedScreens();
+    }
+
+    private void logRankedScreens() {
+        Log.d(TAG, "Ranked screens for playlist " + this.getDescription() + ":");
+        for(int playOrder: rankedSchermate.keySet()) {
+
+            Schermata screen = rankedSchermate.get(playOrder);
+            Log.d(TAG, "(" + playOrder + ") " + screen.toString());
         }
     }
 }

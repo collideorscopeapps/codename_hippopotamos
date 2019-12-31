@@ -108,10 +108,12 @@ public class DBUtils {
         }
     }
 
-    public static TreeSet<Integer> getIntsFromConcatString(String concat) {
+    //TODO add test
+    public static ArrayList<Integer> getIntsFromConcatString(String concat) {
 
-        TreeSet<Integer> ints = new TreeSet<>();
-        //Todo ordering might not be guaranted in TreeSet, check
+        //FIXED TODO ADD TEST: was using treeset before, that reordered the values, messing up
+        // the implicit association between screens ids and screens ranks within same playlist
+        ArrayList<Integer> ints = new ArrayList<>();
         for(String num:concat.split(",")) {
 
             int numParsed = Integer.parseInt(num);

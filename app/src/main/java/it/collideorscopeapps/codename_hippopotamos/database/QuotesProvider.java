@@ -448,24 +448,29 @@ public class QuotesProvider {
 
                 int disabledAsInt = cursor.getInt(cursor.getColumnIndex("disabled"));
                 boolean disabled = DBUtils.castSqliteBoolean(disabledAsInt);
+
+                //TODO add test to ensure each screen is properly ranked within a playlsit
                 String schermateConcat = cursor.getString(cursor.getColumnIndex("schermate"));
                 String playOrderConcat = cursor.getString(cursor.getColumnIndex("sorting"));
+                Log.d(TAG,"Screen ids: " + schermateConcat);
+                Log.d(TAG,"Screen ranks: " + playOrderConcat);
 
-                TreeSet<Integer> schermateIds = DBUtils.getIntsFromConcatString(schermateConcat);
-                TreeSet<Integer> playOrderRanks = DBUtils.getIntsFromConcatString(playOrderConcat);
+                ArrayList<Integer> schermateIds = DBUtils.getIntsFromConcatString(schermateConcat);
+                ArrayList<Integer> playOrderRanks = DBUtils.getIntsFromConcatString(playOrderConcat);
 
-                TreeMap<Integer, Integer> playListAsRankedSchermate = new TreeMap<>();
+                TreeMap<Integer, Integer> singlePlAsScreenRanksById = new TreeMap<>();
                 Iterator<Integer> schermateIdsItr = schermateIds.iterator();
                 Iterator<Integer> playOrderRanksItr = playOrderRanks.iterator();
                 while(schermateIdsItr.hasNext()) {
-                    int key = schermateIdsItr.next();
-                    int value = playOrderRanksItr.next();
+                    int keyScreenId = schermateIdsItr.next();
+                    int valueScreenRank = playOrderRanksItr.next();
 
-                    playListAsRankedSchermate.put(key, value);
+                    singlePlAsScreenRanksById.put(keyScreenId, valueScreenRank);
+                    Log.d(TAG,"Rank " + valueScreenRank + " for screen " + keyScreenId);
                 }
 
                 Playlist currentPlaylist = new Playlist(description,
-                        playListAsRankedSchermate,
+                        singlePlAsScreenRanksById,
                         disabled);
 
                 playlistsByRank.put(playlistRank,currentPlaylist);
