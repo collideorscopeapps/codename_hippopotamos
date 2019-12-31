@@ -28,6 +28,7 @@ import it.collideorscopeapps.codename_hippopotamos.R;
 import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
+import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class QuoteFragment extends Fragment {
 
@@ -228,6 +229,8 @@ public class QuoteFragment extends Fragment {
         setGreekTV(this.greekShortTV, screen.getShortQuote());
         setGreekTV(this.greekLongTV, screen.getFullQuote());
 
+        adjustForEmptyLongQuote();
+
         //FIXME db gets not refreshed after changes and new run
 
         //TODO FIXME this.phoneticsTV.setText(screen.);
@@ -237,6 +240,21 @@ public class QuoteFragment extends Fragment {
         this.translationTV.setText(screen.getTranslation());
         this.eeCTV.setText(screen.getEasterEggComment());
         this.lingNotesTV.setText(screen.getLinguisticNotes());
+    }
+
+    private void adjustForEmptyLongQuote() {
+
+        if(Utils.isNullOrEmpty(screen.getFullQuote())) {
+
+            this.greekLongTV.setVisibility(View.GONE);
+
+            int newPaddingTop = 100 + this.greekShortTV.getPaddingTop();
+            int paddingBottom = this.greekShortTV.getPaddingBottom();
+            int paddingLeft = this.greekShortTV.getPaddingLeft();
+            int paddingRight = this.greekShortTV.getPaddingRight();
+            this.greekShortTV.setPadding(paddingLeft,newPaddingTop,
+                    paddingRight,paddingBottom);
+        }
     }
 
     private static void setGreekTV(TextView tv, Quote quote) {

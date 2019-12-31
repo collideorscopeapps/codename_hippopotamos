@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
+import it.collideorscopeapps.codename_hippopotamos.model.Quote;
+
 public class Utils {
 
     public static final String DEFAULT_STRING_SEPARATOR = ",";
@@ -142,5 +144,15 @@ public class Utils {
     public static boolean isNullOrEmpty(String string) {
 
         return string == null || string.isEmpty();
+    }
+
+    public static boolean isNullOrEmpty(Quote quote) {
+
+        if(quote == null) {
+            return true;
+        }
+
+        String quoteTxt = quote.getQuoteText();
+        return quoteTxt == null || quoteTxt.isEmpty();
     }
 }
