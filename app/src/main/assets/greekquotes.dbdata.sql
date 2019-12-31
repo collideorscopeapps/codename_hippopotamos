@@ -266,10 +266,11 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (40,'ἀδικεῖ Σωκ
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (34,40);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (34,1,'Socrates is guilty of rejecting the gods acknowledged by the state, and of introducing new strange deities: he is also guilty of corrupting the youth.');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (35,'Arrogant plunderers','Hom. Od. 6.6');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (41,'ἀγχοῦ Κυκλώπων ἀνδρῶν ὑπερηνορεόντων, οἵ σφεας σινέσκοντο');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (35,41);
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (35,1,'near arrogant men, that plundered them');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (41,'ἀνδρ<CASE>ῶν</CASE> ὑπερηνορεόντ<CASE>ων</CASE>, οἵ σφεας σινέσκοντο');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (65,'ἀνδρ<CASE>ῶν</CASE> ὑπερηνορεόντ<CASE>ων</CASE>');
+INSERT INTO "schermate" ("_id","full_quote_id","short_quote_id","description","author_ref") VALUES (35,41,65,'Arrogant men','Hom. Od. 6.5-6');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (35,1,'of arrogant men, that plundered them');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (35,1,'ἀνδρῶν ὑπερηνορεόντων: GEN pl.');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (36,'Plunderers','Hom. Od. 6.6');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (42,'οἵ σφεας σινέσκοντο','oispheas.ogg');
