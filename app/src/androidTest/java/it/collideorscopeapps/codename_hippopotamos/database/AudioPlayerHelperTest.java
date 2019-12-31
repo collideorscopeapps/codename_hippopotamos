@@ -32,7 +32,7 @@ public class AudioPlayerHelperTest {
     public void playSingleFile() throws IOException {
 
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        String singleAudioFileName = "Od.6.6-oispheas.ogg";
+        String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
         String audioFilesSubFolder = "audio/";
         String singleAudioFilePath = audioFilesSubFolder + singleAudioFileName;
         String[]audioFilePathsNames = new String[]{singleAudioFilePath};
@@ -56,7 +56,7 @@ public class AudioPlayerHelperTest {
     public void playMoreFiles() throws IOException {
 
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        String singleAudioFileName = "Od.6.6-oispheas.ogg";
+        String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
 
         //FIXME TODO add more files
         //"xwraf.ogg", "logosf.ogg", "nomosf.ogg"};
