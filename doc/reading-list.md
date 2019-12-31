@@ -1,56 +1,22 @@
-### Reading list - quotes for prepositions
-
-<br />
-
-> **αἴκα.**
-
-(if)
-
-(Plutarch, De garrulitate, 17)
-
-Linguistic/grammar notes: αἴκα / αἴκε / αἴ κα / αἴ κε dor. / hom. eἴκε for εἰ+ἄν > ἐάν, ἄν
-
-Plutarch reports that Phillip II of Macedon sent word to the Spartans, saying that "if I should invade Laconia, I shall drive you out." The Spartans laconically responded with "if."
-
-### Reading list - word series for ear training
-
-<br />
-
-> **τόπος, φίλος, λόγος.**
-
-(Place, friend, word.)
-
-<br />
-
-> **ἄνθρωπος, ἄγγελος.**
-
-(Man, messenger.)
-
-<br />
-
-> **ἡμέρα, χώρα, μοῖρα.**
-
-(Region, fate, day.)
-
 ### Reading list - micro quotes to learn nouns declensions
 
 <br />
 
-> **Οὐρανὸς πρῶτος τοῦ παντὸς ἐδυνάστευσε κόσμου.**
+> **Οὐραν<CASE>ὸς</CASE> πρῶτ<CASE>ος</CASE> τοῦ παντὸς ἐδυνάστευσε κόσμου.**
 
 (Uranus (Sky) was the first lord of the whole universe.)
 
-(Apollod. I.1.1)
+(Apollod. 1.1.1)
 
 Linguistic/grammar notes: τοῦ κόσμου GEN sg (m, II decl.); ἐδυνάστευσε + GEN: was lord over
 
 <br />
 
-> **τούτους [..] εἰς Τάρταρον ἔρριψε （τόπος δὲ οὖτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.).**
+> **τούτους [..] εἰς Τάρταρον ἔρριψε （τόπος δὲ οὗτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.).**
 
-(he threw them into Tartarus, a dark place in the Ade, as far from Earth as Earth is from heaven)
+(he threw them into Tartarus (this is a dark place in the Ade, as far from Earth as Earth is from heaven)(lit.: having as much distance from Earth as Earth from heaven))
 
-(Apollod. I.1.2)
+(Apollod. 1.1.2)
 
 Linguistic/grammar notes: εἰς Τάρταρον, εἰς + Acc (sg, II decl.)
 
@@ -66,7 +32,7 @@ Linguistic/grammar notes: Εἰρήνην Εὐνομίαν Δίκην: ACC sg; 
 
 <br />
 
-> **τὶς ἀθανάτων.**
+> **τις ἀθανάτων.**
 
 (one of the immortals)
 
@@ -88,7 +54,7 @@ Linguistic/grammar notes: ἐν τῷ Ταρτάρῳ: DAT sg (m)..
 
 > **καὶ λαγχάνει Ζεὺς μὲν τὴν ἐν οὐρανῷ δυναστείαν, Ποσειδῶν δὲ τὴν ἐν θαλάσσῃ, Πλούτων δὲ τὴν ἐν Ἅιδου.**
 
-(and to Zeus was allotted the dominion of the sky, to Poseidon the dominion of the sea, and to Pluto the dominion in Hades)
+(and to Zeus was allotted the dominion in the sky, to Poseidon the dominion in the sea, and to Pluto the dominion in Hades)
 
 (Apollod. 1.2.1)
 
@@ -98,7 +64,7 @@ Linguistic/grammar notes: ἐν οὐρανῷ, ἐν θαλάσσῃ: DAT sg ..
 
 > **Ἄτλας, ὃς ἔχει τοῖς ὤμοις τὸν οὐρανόν.**
 
-(Atlas, who has the sky on his shoulders)
+(Atlas, who carries on his shoulders the sky)
 
 (Apollod. 1.2.3)
 
@@ -152,7 +118,41 @@ Linguistic/grammar notes: ἐκ Μνημοσύνης: GEN sg, μούσας: ACC 
 
 (Apollod. 1.3.2)
 
-Linguistic/grammar notes: λίθους τε καὶ δένδρα: ACC pl (f, nt II decl.
+Linguistic/grammar notes: λίθους τε καὶ δένδρα: ACC pl (f, nt II decl.)
+
+### Reading list - quotes for prepositions
+
+<br />
+
+> **α<CASE>ἴ</CASE>κ<CASE>α</CASE>.**
+
+(if)
+
+(Plutarch, De garrulitate, 17)
+
+Linguistic/grammar notes: αἴκα / αἴκε / αἴ κα / αἴ κε dor. / hom. eἴκε for εἰ+ἄν > ἐάν, ἄν
+
+Plutarch reports that Phillip II of Macedon sent word to the Spartans, saying that "if I should invade Laconia, I shall drive you out." The Spartans laconically responded with "if."
+
+### Reading list - word series for ear training
+
+<br />
+
+> **τόπος, φίλος, λόγος.**
+
+(Place, friend, word.)
+
+<br />
+
+> **ἄνθρωπος, ἄγγελος.**
+
+(Man, messenger.)
+
+<br />
+
+> **ἡμέρα, χώρα, μοῖρα.**
+
+(Region, fate, day.)
 
 ### Reading list - quotes to learn verb forms
 
@@ -246,7 +246,7 @@ Linguistic/grammar notes: ἀποκαμὼν: part sg aor act, NOM sg (m); με�
 
 (And again he (Uranus, the sky) begat children by Earth, the Titans as they are named: Ocean, Coeus, Hyperion, Crius, Iapetus, and, youngest of all, Cronus (Time))
 
-(Apollod. I.1.3)
+(Apollod. 1.1.3)
 
 <br />
 
@@ -292,7 +292,7 @@ Linguistic/grammar notes: ὀδὰξ: adv. "(biting) with the teeth"; ἕλον 
 
 (Plutarch, De garrulitate, 17)
 
-Linguistic/grammar notes: 
+Linguistic/grammar notes:
 
 ### Recorded quotes
 
@@ -427,4 +427,42 @@ Linguistic/grammar notes:
 (Iliad 1.49)
 
 Linguistic/grammar notes: γένετ᾽: (γίγνομαι) 3rd sg aor ind mid homeric ionic unaugmented
+
+<br />
+
+> **ἡμετέρῳ ἐνὶ οἴκῳ.**
+
+(in our house.)
+
+(Iliad 1.30)
+
+Linguistic/grammar notes: ἐνὶ οἴκῳ: ἐν + DAT. ἐνὶ is just a poetic version of ἐν
+
+<br />
+
+> **αἳ μὲν ἔτι ζωὸν γόον Ἕκτορα ᾧ ἐνὶ οἴκῳ.**
+
+(although still alive, they mourned Hector in his house)
+
+(Iliad 6.500)
+
+Linguistic/grammar notes: αἳ: they (female); ᾧ: his, DAT; ζωὸν: adj sg masc ACC
+
+<br />
+
+> **ἐθαύμαζε δ᾽ εἴ τις ἀρετὴν ἐπαγγελλόμενος ἀργύριον πράττοιτο καὶ μὴ νομίζοι τὸ μέγιστον κέρδος ἕξειν φίλον ἀγαθὸν κτησάμενος.**
+
+(He wondered, likewise, why a man, who promises to teach virtue, should ask money; as if he believed not the greatest of all gain to consist in the acquisition of a good friend)
+
+(Xenophon, Memorabilia 1.2.7)
+
+<br />
+
+> **ἥδομαι φίλοις ἀγαθοῖς.**
+
+(my delight is to be with good friends)
+
+(Xenophon, Memorabilia 1.6.14)
+
+Linguistic/grammar notes: φίλοις ἀγαθοῖς: DAT pl; ἥδομαι: verb 1st sg pres ind mp
 
