@@ -17,6 +17,7 @@ import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.QuoteView
 
 public class QuotePagerActivity extends FragmentActivity {
 
+    //TODO FIXME there is too much delaty before opening the demo/playlist activity
 
     public static final String TAG = "QuotePagerActivity";
     public static final String DEMO_ACTION = "it.collideorscopeapps.codename_hippopotamos.DEMO";
