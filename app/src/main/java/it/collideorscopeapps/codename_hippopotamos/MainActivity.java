@@ -36,10 +36,8 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
         this.demoBtn = this.findViewById(R.id.demoBtn);
         this.demoBtn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 runDemo();
             }
         });
