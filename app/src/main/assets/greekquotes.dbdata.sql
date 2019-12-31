@@ -266,19 +266,33 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (40,'ἀδικεῖ Σωκ
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (34,40);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (34,1,'Socrates is guilty of rejecting the gods acknowledged by the state, and of introducing new strange deities: he is also guilty of corrupting the youth.');
 
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (66,'δῖ<CASE>ος</CASE> Ὀδυσσεὺς','Od.6.1-diosodisseus.ogg');
+INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (56,66,'The divine Odysseus','Hom. Od. 6.1');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (56,66);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (56,1,'divine Odysseus');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (56,1,'-ος: NOM sg');
+
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (67,'ἀνδρ<CASE>ῶν</CASE>','Od.6.5-andrwn.ogg');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (68,'ὑπερηνορεόντ<CASE>ων</CASE>','Od.6.5-uper-enore-ontwn.ogg');
+INSERT INTO "schermate" ("_id","short_quote_id","full_quote_id","description","author_ref") VALUES (57,67,68,'Arrogant men','Hom. Od. 6.5');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (57,67);
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (57,1,'of arrogant men');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (57,1,'ἀνδρῶν ὑπερηνορεόντων: GEN pl.');
+
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (41,'ἀνδρ<CASE>ῶν</CASE> ὑπερηνορεόντ<CASE>ων</CASE>, οἵ σφεας σινέσκοντο');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (65,'ἀνδρ<CASE>ῶν</CASE> ὑπερηνορεόντ<CASE>ων</CASE>');
 INSERT INTO "schermate" ("_id","full_quote_id","short_quote_id","description","author_ref") VALUES (35,41,65,'Arrogant men','Hom. Od. 6.5-6');
+INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (35,41);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (35,1,'of arrogant men, that plundered them');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (35,1,'ἀνδρῶν ὑπερηνορεόντων: GEN pl.');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (36,'Plunderers','Hom. Od. 6.6');
-INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (42,'οἵ σφεας σινέσκοντο','oispheas.ogg');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (42,'οἵ σφεας σινέσκοντο','Od.6.6-oispheas.ogg');
+INSERT INTO "schermate" ("_id","full_quote_id","short_quote_id","description","author_ref") VALUES (36,41,42,'Plunderers','Hom. Od. 6.6');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (36,42);
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (36,1,'near arrogant men, that plundered them');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (36,1,'that plundered them');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (37,'far from men that live by toil','Hom. Od. 6.8');
-INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (43,'ἑκὰς ἀνδρῶν ἀλφηστάων,','ekasandron.ogg');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (43,'ἑκὰς ἀνδρῶν ἀλφηστάων,','Od.6.8-ekasandron.ogg');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (37,43);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (37,1,'far from men that live by toil');
 
@@ -441,6 +455,9 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,13);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,28);
 
 INSERT INTO "playlists" ("_id","description") VALUES (9,'Recorded quotes');
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id","sorting") VALUES (9,56,1);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id","sorting") VALUES (9,57,2);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,35);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,36);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,37);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,38);

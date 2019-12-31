@@ -42,7 +42,9 @@ public class QuotesProvider {
 
     //End of DB Manager notes
 
-    public static final int DATABASE_VERSION = 3;
+    //FIXME sorting of screens in a playlist; sorting field seems to have no effect
+
+    public static final int DATABASE_VERSION = 10;
     public static final String DB_NAME = "greekquotes";
     public static final String TAG = "QuotesProvider";
 
@@ -63,20 +65,29 @@ public class QuotesProvider {
         DBHelper(Context context) {//todo, should constructor by public?
             super(context, DB_NAME, null, DATABASE_VERSION);
 
+            Log.d(TAG,"Creating SQLiteOpenHelper for " + DB_NAME + " version " + DATABASE_VERSION);
+
             this.myContext = context;
+        }
+
+        @Override
+        public void onConfigure(SQLiteDatabase db) {
+            super.onConfigure(db);
+
+            Log.d(TAG,"Setting setForeignKeyConstraintsEnabled true");
+            db.setForeignKeyConstraintsEnabled(true);
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
 
-            Log.d(TAG, "onCreate");
+            Log.d(TAG, "onCreate, db version: " + db.getVersion());
 
             AssetManager assetManager = myContext.getAssets();
             ArrayList<String> schemaStatements = Utils.getSchemaCreationStatementsFromSqlFile(assetManager);
             TreeMap<Integer,String> dataInsertStatements = Utils.getSingleLineSqlStatementsFromInputStream(
                     assetManager, Utils.DATA_INSERT_SQL_FILE);
 
-            db.setForeignKeyConstraintsEnabled(true);
             execSchemaCreationQueries(db, schemaStatements);
             Log.d(TAG, "schema created");
 
@@ -122,7 +133,7 @@ public class QuotesProvider {
 
         public void dropTables(SQLiteDatabase db, Context context) {
 
-            Log.w(TAG,", dropping DB tables..");
+            Log.w(TAG,"dropping DB tables..");
 
                     AssetManager assetManager = context.getAssets();
             TreeMap<Integer,String> dropSchemaStatements
