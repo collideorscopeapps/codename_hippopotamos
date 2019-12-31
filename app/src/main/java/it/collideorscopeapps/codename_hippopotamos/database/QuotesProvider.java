@@ -43,6 +43,7 @@ public class QuotesProvider {
     //End of DB Manager notes
 
     //FIXME sorting of screens in a playlist; sorting field seems to have no effect
+    //TODO add test for this
 
     public static final int DATABASE_VERSION = 10;
     public static final String DB_NAME = "greekquotes";
@@ -84,12 +85,19 @@ public class QuotesProvider {
             Log.d(TAG, "onCreate, db version: " + db.getVersion());
 
             AssetManager assetManager = myContext.getAssets();
-            ArrayList<String> schemaStatements = DBUtils.getSchemaCreationStatementsFromSqlFile(assetManager);
-            TreeMap<Integer,String> dataInsertStatements = DBUtils.getSingleLineSqlStatementsFromInputStream(
+            ArrayList<String> schemaStatements
+                    = DBUtils.getSchemaCreationStatementsFromSqlFile(assetManager);
+            TreeMap<Integer,String> dataInsertStatements
+                    = DBUtils.getSingleLineSqlStatementsFromInputStream(
                     assetManager, DBUtils.DATA_INSERT_SQL_FILE);
 
             execSchemaCreationQueries(db, schemaStatements);
-            Log.d(TAG, "schema created");
+            insertDataIntoDB(db,dataInsertStatements);
+        }
+
+        private static void insertDataIntoDB(
+                SQLiteDatabase db,
+                TreeMap<Integer,String> dataInsertStatements) {
 
             for(int i=0;i<dataInsertStatements.size();i++) {
                 String statement = dataInsertStatements.get(i);
@@ -111,6 +119,7 @@ public class QuotesProvider {
                 myDatabase.execSQL(statement);
                 //Log.v(TAG,DBUtils.getConcatTableNames(myDatabase));
             }
+            Log.d(TAG, "schema created");
         }
 
         @Override
