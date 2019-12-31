@@ -21,6 +21,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+//TODO FIXME TEST: when increasing db version (in code constant), throws exception
+// doing, in onCreate, db.setForeignKeyConstraintsEnabled(true);
+
+//TODO now that setForeignKeyConstraintsEnabled, run a statement that violates FK to check
+// if it is enforced
+
+//TODO fixme: db is actually not being updated when incrementing db version
+
+//FIXME BUG TEST: screen not shown if table quotes_in_schermate is not used
+
 public class DBManagerTest {
 
     private Context appContext;
