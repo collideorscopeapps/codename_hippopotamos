@@ -197,6 +197,11 @@ public class AudioPlayerHelper implements Closeable {
 
     private void playNext(int trackIdx) {
 
+        if(assetFileDescriptors.length <= trackIdx) {
+            Log.e(TAG,"Track index out of bounds " + assetFileDescriptors);
+            //return;
+        }
+
         //TODO-FIXME handle if assetFileDescriptors is empty
         // and get ArrayIndexOutOfBoundsException
 
@@ -225,8 +230,7 @@ public class AudioPlayerHelper implements Closeable {
 
     public void play() {
 
-        //TODO add test for this scenario (no files)
-        if(this.assetFileDescriptors.length == 0) {
+        if(Utils.isNullOrEmpty(this.assetFileDescriptors)) {
             Log.e(TAG,"No files to play");
             return;
         }

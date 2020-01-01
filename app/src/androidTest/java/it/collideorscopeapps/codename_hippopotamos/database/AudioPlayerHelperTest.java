@@ -46,6 +46,17 @@ public class AudioPlayerHelperTest {
     }
 
     @Test
+    public void playWithNoFiles() throws IOException {
+
+        //TODO add test for calling playnext(int trackIdx) when idx out of bounds exception
+        // (error setting variable currentTrackIdx
+
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
+                assetManager);
+        audioPlayerHelper.play();
+    }
+
+    @Test
     public void playSingleFile() throws IOException {
 
         String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
