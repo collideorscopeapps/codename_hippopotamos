@@ -181,6 +181,19 @@ public class DBManagerTest {
     }
 
     @Test
+    public void allScreensArePresentNoErrorsInViewQueries() {
+
+        int expectedScreenCount
+                = DBUtils.getTableRowsCount(appContext,"schermate");
+
+        int actualScreenCount = quotesProvider.getSchermateById().size();
+
+        assertEquals("Wrong screen count in QuoteProvider",
+                expectedScreenCount,actualScreenCount);
+    }
+
+
+    @Test
     public void getEasterEggComments() {
 
         QuotesProvider.Languages ENG = QuotesProvider.Languages.EN;

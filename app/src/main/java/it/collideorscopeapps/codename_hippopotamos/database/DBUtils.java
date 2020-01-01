@@ -3,7 +3,9 @@ package it.collideorscopeapps.codename_hippopotamos.database;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -12,7 +14,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
@@ -240,5 +241,19 @@ public class DBUtils {
         String tableNamesConcat = getConcatTableNames(db);
         isDBEmpty = !tableNamesConcat.contains("v_schermate_and_quotes,");
         return isDBEmpty;
+    }
+
+    public static int getTableRowsCount(Context context, String tableName) {
+        int rowsCount = -1;
+        SQLiteOpenHelper mOpenHelper = QuotesProvider.createDBOpenHelper(context);
+        try(SQLiteDatabase db = mOpenHelper.getReadableDatabase()) {
+
+            rowsCount = (int) DatabaseUtils.queryNumEntries(
+                    db, tableName, null);
+        } catch (Exception e) {
+            Log.e(TAG,"Unable to count table rows " + e.toString());
+        }
+
+        return rowsCount;
     }
 }

@@ -164,6 +164,10 @@ public class QuotesProvider {
         }
     }
 
+    public static SQLiteOpenHelper createDBOpenHelper(Context context) {
+        return new DBHelper(context);
+    }
+
     Languages languageSetting;
     private DBHelper mOpenHelper;
     private TreeMap<Integer, Schermata> schermate;
