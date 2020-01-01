@@ -127,13 +127,6 @@ public class AudioPlayerHelper implements Closeable {
 
     }
 
-    //TODO maybe there is a method to check mediaplayer actual internal state
-    //it geve this errors:
-    //E/MediaPlayerNative: stop called in state 4, mPlayer(0xebf809a0)
-    //E/MediaPlayerNative: stop called in state 0, mPlayer(0xebf809a0)
-    //E/MediaPlayerNative: attachNewPlayer called in state 4
-    //E/AudioPlayerHelper: java.lang.IllegalStateException
-
     public static final String TAG = "AudioPlayerHelper";
 
     AssetManager assetManager;
@@ -169,7 +162,6 @@ public class AudioPlayerHelper implements Closeable {
     }
 
     private int _currentTrackIdx;
-
 
     public boolean firstFilePlayedAtLeastOnce;
 
@@ -279,7 +271,9 @@ public class AudioPlayerHelper implements Closeable {
         setUpMediaPlayer();
         this.assetManager = assetManager;
 
-        this.changeAudioFiles(audioFilePaths);
+        if(!Utils.isNullOrEmpty(audioFilePaths)) {
+            this.changeAudioFiles(audioFilePaths);
+        }
     }
 
     public void changeAudioFiles(String newAudioFilePath) throws IOException {
