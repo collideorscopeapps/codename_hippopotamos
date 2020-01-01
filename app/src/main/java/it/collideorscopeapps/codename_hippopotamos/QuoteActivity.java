@@ -172,7 +172,7 @@ public class QuoteActivity extends AppCompatActivity {
         //TODO implement pause if we click again on the (short/long) quote
         // that is playing
         // also maybe one more click to resume, double to start over/stop
-        // and ..stop/reset if we click on the other quote while paused
+        // and ..stop/changeAudioFiles if we click on the other quote while paused
 
         //TODO the two quotes to be put in the audioFilePathsNames are the
         // short and the long one. check if they exist.

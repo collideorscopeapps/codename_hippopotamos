@@ -112,7 +112,7 @@ public class QuoteFragment extends Fragment {
 
         //TODO delay setting filenames to audioplayer
         // TODO implement playing long quote after short quote
-        //  by setting both in media player reset
+        //  by setting both in media player changeAudioFiles
 
         //TODO consider implementing for when series of quote files
         // (i.e. screen with word list instead of quote
@@ -248,7 +248,7 @@ public class QuoteFragment extends Fragment {
         // after first playback
 
         try {
-            player.reset(validAssetPaths);
+            player.changeAudioFiles(validAssetPaths);
             player.play();
         } catch (IOException e) {
             Log.e(TAG,e.toString());

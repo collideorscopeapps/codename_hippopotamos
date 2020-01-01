@@ -19,6 +19,15 @@ public class AudioPlayerHelper implements Closeable {
         //TODO this might be used to track and log all calls and state changes
     }
 
+    private class MediaPlayerWrapperOneFileAtATime extends MediaPlayerWrapper {
+
+    }
+
+    private class MediaPlayerWrapperMultipleFiles
+            extends MediaPlayerWrapperOneFileAtATime {
+
+    }
+
     //TODO maybe there is a method to check mediaplayer actual internal state
     //it geve this errors:
     //E/MediaPlayerNative: stop called in state 4, mPlayer(0xebf809a0)
@@ -31,7 +40,38 @@ public class AudioPlayerHelper implements Closeable {
     AssetManager assetManager;
 
     AssetFileDescriptor[] assetFileDescriptors;
-    int currentTrackIdx;
+
+    public int filesCount() {
+        if(Utils.isNullOrEmpty(assetFileDescriptors)) {
+            return 0;
+        }
+
+        return assetFileDescriptors.length;
+    }
+
+    private int getCurrentTrackIdx() {
+        return _currentTrackIdx;
+    }
+
+    private int getLastTrackIdx() {
+        return filesCount() - 1;
+    }
+
+    public void initCurrentTrackIdx() {
+        this._currentTrackIdx = 0;
+    }
+
+    private void incrementCurrentTrackIdx() {
+        this._currentTrackIdx++;
+
+        if(this._currentTrackIdx >= filesCount()) {
+            initCurrentTrackIdx();
+        }
+    }
+
+    private int _currentTrackIdx;
+
+
     public boolean firstFilePlayedAtLeastOnce;
 
     public boolean hasLastFilePlayed() {
@@ -91,16 +131,21 @@ public class AudioPlayerHelper implements Closeable {
             //E/MediaPlayer: error (-38, 0)
             //mp.stop();
             //currentPlayerState = PlayerState.STOPPED;
+            //FIXME: after removing stop, causes:
+            //D/AudioPlayerHelper: Play request non accepted state, ignoring. State: COMPLETED
+
+            //NB from completed, to play again whole loop,
+            // call start()
 
             //FIXME: not playing file after first play
             // seems to be assigned incorrectly)
-            setLastFileHasPlayed(currentTrackIdx == assetFileDescriptors.length-1);
+            setLastFileHasPlayed(getCurrentTrackIdx() == getLastTrackIdx());
             if(!hasLastFilePlayed()) {
                 //play next
                 mp.reset();
                 currentPlayerState = PlayerState.IDLE;
-                currentTrackIdx++;
-                playNext(currentTrackIdx);
+                incrementCurrentTrackIdx();
+                playNext(getCurrentTrackIdx());
             }
             else {
                 // we stay in stopped state. if activity changes screens..
@@ -140,21 +185,21 @@ public class AudioPlayerHelper implements Closeable {
         setUpMediaPlayer();
         this.assetManager = assetManager;
 
-        this.reset(audioFilePaths);
+        this.changeAudioFiles(audioFilePaths);
     }
 
-    public void reset(String newAudioFilePath) throws IOException {
-        reset(new String[]{newAudioFilePath});
+    public void changeAudioFiles(String newAudioFilePath) throws IOException {
+        changeAudioFiles(new String[]{newAudioFilePath});
     }
 
     //TODO test when passing null argument, was raising exception
     //TODO test because creation of asset file descriptor has been
     // postponed to end of method
-    public void reset(String[] newAudioFilePaths) throws IOException {
+    public void changeAudioFiles(String[] newAudioFilePaths) throws IOException {
 
         CloseAssetFileDescriptors();
 
-        this.currentTrackIdx = 0;
+        initCurrentTrackIdx();
         this.firstFilePlayedAtLeastOnce = false;
         this.setLastFileHasPlayed(false);
 
@@ -217,6 +262,7 @@ public class AudioPlayerHelper implements Closeable {
         // and get ArrayIndexOutOfBoundsException
 
         //setDataSource, if ok state goes from idle to initialized
+        //TODO FIXME this method call is misleading
         tryInsertFileIntoMediaplayer(assetFileDescriptors[trackIdx]);
 
         //if ok state goes to PREPARING
@@ -246,20 +292,26 @@ public class AudioPlayerHelper implements Closeable {
             return;
         }
 
+        boolean needsToInitDataSource = currentPlayerState == PlayerState.IDLE;
+
         if(!this.firstFilePlayedAtLeastOnce
                 && currentPlayerState == PlayerState.IDLE) {
             // first playback
             this.firstFilePlayedAtLeastOnce = true;
-            this.currentTrackIdx = 0;
+            initCurrentTrackIdx();
             Log.d(TAG,"Play request accepted, first play or idle");
-            playNext(currentTrackIdx);
+            playNext(getCurrentTrackIdx());
         } else
         if(currentPlayerState == PlayerState.STOPPED
                 ) { //removed: && hasLastFilePlayed() which was causing a bug
+            //TODO FIXME distinguish between playing the initial series of files
+            // or calling changeAudioFiles/reset because we need to change files
+            // but changeAudioFiles/reset is usually already called by setting the new files
+
             // we start the loop of audio tracks again
-            this.currentTrackIdx = 0;
+            initCurrentTrackIdx();
             Log.d(TAG,"Play request accepted from stopped");
-            playNext(currentTrackIdx);
+            playNext(getCurrentTrackIdx());
         } else {
             String msg = "Play request non accepted state, ignoring. State: "
                     + currentPlayerState;
@@ -300,7 +352,7 @@ public class AudioPlayerHelper implements Closeable {
             this.mediaPlayer.stop();
             currentPlayerState = PlayerState.STOPPED;
             //setLastFileHasPlayed(false);
-            currentTrackIdx=0;
+            initCurrentTrackIdx();
         }
     }
 
@@ -332,7 +384,7 @@ public class AudioPlayerHelper implements Closeable {
     private void tryInsertFileIntoMediaplayer(AssetFileDescriptor assetFileDescriptor) {
 
         // this call to make sure we're not calling setDataSource in an invalid state
-        // call to reset() should be valid in any state
+        // call to mp.reset() should be valid in any state
         this.mediaPlayer.reset();
         this.currentPlayerState = PlayerState.IDLE;
         if(this.currentPlayerState != PlayerState.IDLE)

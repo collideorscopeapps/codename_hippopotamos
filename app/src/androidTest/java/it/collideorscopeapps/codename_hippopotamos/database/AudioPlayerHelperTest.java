@@ -14,6 +14,8 @@ import java.io.IOException;
 
 import it.collideorscopeapps.codename_hippopotamos.Globals;
 
+import static org.junit.Assert.assertEquals;
+
 public class AudioPlayerHelperTest {
 
     //TODO more tests for potential player illegal states
@@ -41,7 +43,7 @@ public class AudioPlayerHelperTest {
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
                 assetManager, filePath1);
         audioPlayerHelper.play();
-        audioPlayerHelper.reset(filePath2);
+        audioPlayerHelper.changeAudioFiles(filePath2);
         audioPlayerHelper.play();
     }
 
@@ -61,7 +63,10 @@ public class AudioPlayerHelperTest {
         String singleAudioFilePath = Globals.AUDIO_FILES_SUBFOLDER
                 + "/" + singleAudioFileName;
 
-        audioPlayerHelper.reset(singleAudioFilePath);
+        audioPlayerHelper.changeAudioFiles(singleAudioFilePath);
+        audioPlayerHelper.play();
+
+        audioPlayerHelper.changeAudioFiles(filePaths);
         audioPlayerHelper.play();
     }
 
@@ -133,6 +138,25 @@ public class AudioPlayerHelperTest {
         return audioFilePathsNames;
     }
 
+    //TODO test for trackIdx
+    @Test
+    public void audioFileTrackIdx() throws IOException {
+        String[] audioFilePathsNames = getSomeAudioFilesPaths();
+
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
+                assetManager, audioFilePathsNames);
+        audioPlayerHelper.play();
+
+        assertEquals("files count",audioFilePathsNames.length,
+                audioPlayerHelper.filesCount());
+
+        audioPlayerHelper.close();
+    }
+
+    //TODO FIXME lifecycle of when calling mp.reset()
+    // it should be change files/reset than play
+    // no calls to reset right after play
+
     @Test
     public void playMoreFiles() throws IOException {
 
@@ -152,7 +176,7 @@ public class AudioPlayerHelperTest {
         }
 
         audioFilePathsNames = new String[]{singleAudioFilePath};
-        audioPlayerHelper.reset(audioFilePathsNames);
+        audioPlayerHelper.changeAudioFiles(audioFilePathsNames);
         audioPlayerHelper.play();
 
         playAttempts = 150000;
