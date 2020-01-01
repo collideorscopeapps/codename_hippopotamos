@@ -359,7 +359,7 @@ public class QuoteFragment extends Fragment {
 
             this.greekLongTV.setVisibility(View.GONE);
 
-            int newPaddingTop = 100 + this.greekShortTV.getPaddingTop();
+            int newPaddingTop = 50 + this.greekShortTV.getPaddingTop();
             int paddingBottom = this.greekShortTV.getPaddingBottom();
             int paddingLeft = this.greekShortTV.getPaddingLeft();
             int paddingRight = this.greekShortTV.getPaddingRight();
