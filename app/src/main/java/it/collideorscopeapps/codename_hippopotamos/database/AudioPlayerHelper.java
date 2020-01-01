@@ -42,7 +42,9 @@ public class AudioPlayerHelper implements Closeable {
 
     MediaPlayer mediaPlayer;
     enum PlayerState { UNKNOWN, IDLE, INITIALIZED,
-        PREPARING, PREPARED, PLAYING, COMPLETED, STOPPED, ERROR }
+        PREPARING, PREPARED, PLAYING, COMPLETED, STOPPED, ERROR,
+        END_RELEASED_UNAVAILABLE
+    }
     PlayerState currentPlayerState = PlayerState.UNKNOWN;
 
     static MediaPlayer.OnErrorListener onErrorListener = new MediaPlayer.OnErrorListener() {
@@ -68,7 +70,7 @@ public class AudioPlayerHelper implements Closeable {
 //            player.selectTrack
 
             currentPlayerState = PlayerState.PREPARED;
-            Log.v("QuoteActivity","Starting media player..");
+            Log.v(TAG,"Starting media player..");
             player.start();
             currentPlayerState = PlayerState.PLAYING;
             // handle events during playback?
@@ -297,6 +299,7 @@ public class AudioPlayerHelper implements Closeable {
     public void close() throws IOException {
 
         this.mediaPlayer.release();
+        this.currentPlayerState = PlayerState.END_RELEASED_UNAVAILABLE;
         CloseAssetFileDescriptors();
     }
 
