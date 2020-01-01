@@ -8,6 +8,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,8 +18,6 @@ import it.collideorscopeapps.codename_hippopotamos.Globals;
 import static org.junit.Assert.assertEquals;
 
 public class AudioPlayerHelperTest {
-
-    //TODO more tests for potential player illegal states
 
     AssetManager assetManager;
 
@@ -30,6 +29,21 @@ public class AudioPlayerHelperTest {
 
     @After@Suppress
     public void tearDown() throws Exception {
+    }
+
+    @Test@Ignore
+    public void playerIllegalStates() {
+        //TODO more tests for potential player illegal or incorrect states
+
+        /*
+        notes on possible bugged transitions:
+        (logs from tests)
+        IDLE to IDLE (maybe some redundancy)
+        PREPARING to STOPPED (no intermediate play and completed states)
+        STOPPED to COMPLETED (cant complete after stop)
+        COMPLETED to IDLE (means a call to reset())
+        missing log of transition from PLAYING to UNKNOWN (probably contructor called, other test)
+        */
     }
 
     @Test

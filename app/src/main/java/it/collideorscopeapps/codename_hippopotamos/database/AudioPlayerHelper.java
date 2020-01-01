@@ -15,8 +15,107 @@ import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class AudioPlayerHelper implements Closeable {
 
+    enum PlayerState { UNKNOWN, IDLE, INITIALIZED,
+        PREPARING, PREPARED, PLAYING, COMPLETED, STOPPED, ERROR,
+        END_RELEASED_UNAVAILABLE
+    }
+
     private class MediaPlayerWrapper extends MediaPlayer {
-        //TODO this might be used to track and log all calls and state changes
+
+        private static final String TAG = "MediaPlayerWrapper" ;
+
+        private PlayerState currentPlayerState;
+
+        public MediaPlayerWrapper() {
+            super();
+
+            setCurrentPlayerState(PlayerState.UNKNOWN);
+        }
+
+        public PlayerState getCurrentPlayerState() {
+            return currentPlayerState;
+        }
+
+        private void setCurrentPlayerState(PlayerState state) {
+            Log.v(TAG,"Going from " + getCurrentPlayerState()
+                    + " to " + state);
+            this.currentPlayerState = state;
+        }
+
+        public void setListeners(OnPreparedListener onPreparedListener,
+                                 OnCompletionListener onCompletionListener,
+                                 OnErrorListener onErrorListener) {
+
+            this.setOnPreparedListener(onPreparedListener);
+            this.setOnCompletionListener(onCompletionListener);
+            this.setOnErrorListener(onErrorListener);
+        }
+
+        public void setDefaultAudioAttributes() {
+            if(android.os.Build.VERSION.SDK_INT >= 21) {
+                AudioAttributes DEFAULT_AUDIO_ATTRIBUTES = new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                        .build();
+
+                this.setAudioAttributes(DEFAULT_AUDIO_ATTRIBUTES);
+            }
+            else {
+                //mediaPlayer.setAudioStreamType(..);
+            }
+        }
+
+        public boolean isStateValidForPrepareAsynch() {
+            return (_mediaPlayer.getCurrentPlayerState() == PlayerState.INITIALIZED)
+                    || (_mediaPlayer.getCurrentPlayerState() == PlayerState.STOPPED);
+        }
+
+        public boolean isStateInValidForStop() {
+            return currentPlayerState == PlayerState.IDLE
+                    || currentPlayerState == PlayerState.INITIALIZED
+                    || currentPlayerState == PlayerState.ERROR;
+        }
+
+        @Override
+        public void prepareAsync() throws IllegalStateException {
+            super.prepareAsync();
+            setCurrentPlayerState(PlayerState.PREPARING);
+        }
+
+        @Override
+        public void stop() throws IllegalStateException {
+            super.stop();
+            setCurrentPlayerState(PlayerState.STOPPED);
+        }
+
+        @Override
+        public void release() {
+            super.release();
+            setCurrentPlayerState(PlayerState.END_RELEASED_UNAVAILABLE);
+        }
+
+        @Override
+        public void reset() {
+            super.reset();
+            setCurrentPlayerState(PlayerState.IDLE);
+        }
+
+        @Override
+        public void setDataSource(FileDescriptor fd, long offset, long length) throws IOException, IllegalArgumentException, IllegalStateException {
+            super.setDataSource(fd, offset, length);
+
+            //this method is for compatibility with SDK API < 24
+            setCurrentPlayerState(PlayerState.INITIALIZED);
+        }
+
+        @Override
+        public void setDataSource(String path) throws IOException,
+                IllegalArgumentException, IllegalStateException, SecurityException {
+            super.setDataSource(path);
+
+            //this method works only on SDK API >= 24
+            setCurrentPlayerState(PlayerState.INITIALIZED);
+        }
     }
 
     private class MediaPlayerWrapperOneFileAtATime extends MediaPlayerWrapper {
@@ -84,12 +183,7 @@ public class AudioPlayerHelper implements Closeable {
 
     private boolean _lastFileHasPlayed;
 
-    MediaPlayerWrapper mediaPlayer;
-    enum PlayerState { UNKNOWN, IDLE, INITIALIZED,
-        PREPARING, PREPARED, PLAYING, COMPLETED, STOPPED, ERROR,
-        END_RELEASED_UNAVAILABLE
-    }
-    PlayerState currentPlayerState = PlayerState.UNKNOWN;
+    MediaPlayerWrapper _mediaPlayer;
 
     static MediaPlayer.OnErrorListener onErrorListener = new MediaPlayer.OnErrorListener() {
         @Override
@@ -113,10 +207,10 @@ public class AudioPlayerHelper implements Closeable {
 //            player.setOnErrorListener();
 //            player.selectTrack
 
-            currentPlayerState = PlayerState.PREPARED;
+            _mediaPlayer.setCurrentPlayerState(PlayerState.PREPARED);
             Log.v(TAG,"Starting media player..");
             player.start();
-            currentPlayerState = PlayerState.PLAYING;
+            _mediaPlayer.setCurrentPlayerState(PlayerState.PLAYING);
             // handle events during playback?
         }
     };
@@ -125,12 +219,12 @@ public class AudioPlayerHelper implements Closeable {
         @Override
         public void onCompletion(MediaPlayer mp) {
 
-            currentPlayerState = PlayerState.COMPLETED;
+            _mediaPlayer.setCurrentPlayerState(PlayerState.COMPLETED);
             //FIXME this stop() might be causing the error:
             //E/MediaPlayer: stop called in state 0
             //E/MediaPlayer: error (-38, 0)
             //mp.stop();
-            //currentPlayerState = PlayerState.STOPPED;
+            //_mediaPlayer.setCurrentPlayerState(PlayerState.STOPPED);
             //FIXME: after removing stop, causes:
             //D/AudioPlayerHelper: Play request non accepted state, ignoring. State: COMPLETED
 
@@ -143,7 +237,7 @@ public class AudioPlayerHelper implements Closeable {
             if(!hasLastFilePlayed()) {
                 //play next
                 mp.reset();
-                currentPlayerState = PlayerState.IDLE;
+                _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
                 incrementCurrentTrackIdx();
                 playNext(getCurrentTrackIdx());
             }
@@ -229,24 +323,13 @@ public class AudioPlayerHelper implements Closeable {
 
     private void setUpMediaPlayer() {
 
-        this.mediaPlayer = new MediaPlayerWrapper();
-        this.currentPlayerState = PlayerState.IDLE;
+        this._mediaPlayer = new MediaPlayerWrapper();
+        _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
 
-        mediaPlayer.setOnPreparedListener(onPreparedListener);
-        mediaPlayer.setOnCompletionListener(onCompletionListener);
-        mediaPlayer.setOnErrorListener(onErrorListener);
+        this._mediaPlayer.setListeners(onPreparedListener,
+                onCompletionListener,onErrorListener);
 
-        if(android.os.Build.VERSION.SDK_INT >= 21) {
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-                    .build();
-
-            mediaPlayer.setAudioAttributes(audioAttributes);
-        }
-        else {
-            //mediaPlayer.setAudioStreamType(..);
-        }
+        this._mediaPlayer.setDefaultAudioAttributes();
     }
 
     private void playNext(int trackIdx) {
@@ -271,14 +354,9 @@ public class AudioPlayerHelper implements Closeable {
 
     private void tryPrepareAsynch() {
 
-        boolean isValidStateForPrepareAsynch
-                = (this.currentPlayerState == PlayerState.INITIALIZED)
-                || (this.currentPlayerState == PlayerState.STOPPED);
-
-        if(isValidStateForPrepareAsynch) {
+        if(_mediaPlayer.isStateValidForPrepareAsynch()) {
             try {
-                mediaPlayer.prepareAsync();
-                currentPlayerState = PlayerState.PREPARING;
+                _mediaPlayer.prepareAsync();
             } catch (IllegalStateException e) {
                 Log.e(TAG,e.toString());
             }
@@ -292,17 +370,15 @@ public class AudioPlayerHelper implements Closeable {
             return;
         }
 
-        boolean needsToInitDataSource = currentPlayerState == PlayerState.IDLE;
-
         if(!this.firstFilePlayedAtLeastOnce
-                && currentPlayerState == PlayerState.IDLE) {
+                && _mediaPlayer.getCurrentPlayerState() == PlayerState.IDLE) {
             // first playback
             this.firstFilePlayedAtLeastOnce = true;
             initCurrentTrackIdx();
             Log.d(TAG,"Play request accepted, first play or idle");
             playNext(getCurrentTrackIdx());
         } else
-        if(currentPlayerState == PlayerState.STOPPED
+        if(_mediaPlayer.getCurrentPlayerState() == PlayerState.STOPPED
                 ) { //removed: && hasLastFilePlayed() which was causing a bug
             //TODO FIXME distinguish between playing the initial series of files
             // or calling changeAudioFiles/reset because we need to change files
@@ -314,7 +390,7 @@ public class AudioPlayerHelper implements Closeable {
             playNext(getCurrentTrackIdx());
         } else {
             String msg = "Play request non accepted state, ignoring. State: "
-                    + currentPlayerState;
+                    + _mediaPlayer.getCurrentPlayerState();
             Log.d(TAG,msg);
         }
 
@@ -342,15 +418,12 @@ public class AudioPlayerHelper implements Closeable {
         //accepted states {Prepared, Started, Stopped, Paused, PlaybackCompleted}
         //non accepted states {Idle, Initialized, Error}
 
-        if(currentPlayerState == PlayerState.IDLE
-                || currentPlayerState == PlayerState.INITIALIZED
-                || currentPlayerState == PlayerState.ERROR) {
+        if(_mediaPlayer.isStateInValidForStop()) {
             String msg = "Stop request from non accepted state, ignoring. State: "
-                    + currentPlayerState;
+                    + _mediaPlayer.getCurrentPlayerState();
             Log.e(TAG,msg);
         } else {
-            this.mediaPlayer.stop();
-            currentPlayerState = PlayerState.STOPPED;
+            this._mediaPlayer.stop();
             //setLastFileHasPlayed(false);
             initCurrentTrackIdx();
         }
@@ -359,8 +432,7 @@ public class AudioPlayerHelper implements Closeable {
     @Override
     public void close() throws IOException {
 
-        this.mediaPlayer.release();
-        this.currentPlayerState = PlayerState.END_RELEASED_UNAVAILABLE;
+        this._mediaPlayer.release();
         CloseAssetFileDescriptors();
     }
 
@@ -385,38 +457,34 @@ public class AudioPlayerHelper implements Closeable {
 
         // this call to make sure we're not calling setDataSource in an invalid state
         // call to mp.reset() should be valid in any state
-        this.mediaPlayer.reset();
-        this.currentPlayerState = PlayerState.IDLE;
-        if(this.currentPlayerState != PlayerState.IDLE)
+        this._mediaPlayer.reset();
+        if(_mediaPlayer.getCurrentPlayerState() != PlayerState.IDLE)
         {
             Log.e(TAG,"Invalid attempt for setDataSource from state"
-                    + this.currentPlayerState);
+                    + _mediaPlayer.getCurrentPlayerState());
             return;
         }
 
         try {
             if(android.os.Build.VERSION.SDK_INT >= 24) {
-                mediaPlayer.setDataSource(assetFileDescriptor);
+                _mediaPlayer.setDataSource(assetFileDescriptor);
             }
             else {
                 FileDescriptor fileDescriptor = assetFileDescriptor.getFileDescriptor();
                 long offset = assetFileDescriptor.getStartOffset();
                 long length = assetFileDescriptor.getLength();
-                mediaPlayer.setDataSource(
+                _mediaPlayer.setDataSource(
                         fileDescriptor,
                         offset,
                         length);
             }
-
-            this.currentPlayerState = PlayerState.INITIALIZED;
-
         } catch (IllegalArgumentException e) {
             Log.e(TAG,e.toString());
         } catch (IOException e) {
             Log.e(TAG,e.toString());
         } catch (IllegalStateException e) {
             //TODO should we change to error state?
-            //this.currentPlayerState = PlayerState.ERROR
+            //_mediaPlayer.setCurrentPlayerState(PlayerState.ERROR)
             Log.e(TAG,e.toString());
         }
     }
