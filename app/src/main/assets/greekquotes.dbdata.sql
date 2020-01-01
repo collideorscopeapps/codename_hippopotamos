@@ -283,7 +283,7 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (65,'ἀνδρ<CASE>ῶν<
 INSERT INTO "schermate" ("_id","full_quote_id","short_quote_id","description","author_ref") VALUES (35,41,65,'Arrogant men','Hom. Od. 6.5-6');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (35,41);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (35,1,'of arrogant men, that plundered them');
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (35,1,'ἀνδρῶν ὑπερηνορεόντων: GEN pl.');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (35,1,'-ῶν: GEN pl.');
 
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (42,'οἵ σφεας σινέσκοντο','Od.6.6-oispheas.ogg');
 INSERT INTO "schermate" ("_id","full_quote_id","short_quote_id","description","author_ref") VALUES (36,41,42,'Plunderers','Hom. Od. 6.6');
