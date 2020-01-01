@@ -55,11 +55,11 @@ public class Playlist {
     }
 
     private void logRankedScreens() {
-        Log.d(TAG, "Ranked screens for playlist " + this.getDescription() + ":");
+        Log.v(TAG, "Ranked screens for playlist " + this.getDescription() + ":");
         for(int playOrder: rankedSchermate.keySet()) {
 
             Schermata screen = rankedSchermate.get(playOrder);
-            Log.d(TAG, "(" + playOrder + ") " + screen.toString());
+            Log.v(TAG, "(" + playOrder + ") " + screen.toString());
         }
     }
 }

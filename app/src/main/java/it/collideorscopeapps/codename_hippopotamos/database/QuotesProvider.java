@@ -67,7 +67,7 @@ public class QuotesProvider {
         DBHelper(Context context) {//todo, should constructor by public?
             super(context, DB_NAME, null, DATABASE_VERSION);
 
-            Log.d(TAG,"Creating SQLiteOpenHelper for " + DB_NAME + " version " + DATABASE_VERSION);
+            Log.v(TAG,"Creating SQLiteOpenHelper for " + DB_NAME + " version " + DATABASE_VERSION);
 
             this.myContext = context;
         }
@@ -76,14 +76,14 @@ public class QuotesProvider {
         public void onConfigure(SQLiteDatabase db) {
             super.onConfigure(db);
 
-            Log.d(TAG,"Setting setForeignKeyConstraintsEnabled true");
+            Log.v(TAG,"Setting setForeignKeyConstraintsEnabled true");
             db.setForeignKeyConstraintsEnabled(true);
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
 
-            Log.d(TAG, "onCreate, db version: " + db.getVersion());
+            Log.v(TAG, "onCreate, db version: " + db.getVersion());
 
             AssetManager assetManager = myContext.getAssets();
             ArrayList<String> schemaStatements
@@ -110,7 +110,7 @@ public class QuotesProvider {
                     throw e;
                 }
             }
-            Log.d(TAG, "data inserted");
+            Log.v(TAG, "data inserted");
         }
 
         private static void execSchemaCreationQueries(SQLiteDatabase myDatabase,
@@ -120,14 +120,14 @@ public class QuotesProvider {
                 myDatabase.execSQL(statement);
                 //Log.v(TAG,DBUtils.getConcatTableNames(myDatabase));
             }
-            Log.d(TAG, "schema created");
+            Log.v(TAG, "schema created");
         }
 
         @Override
         public void onOpen(SQLiteDatabase db) {
             super.onOpen(db);
 
-            Log.d(TAG, "DB has been opened");
+            Log.v(TAG, "DB has been opened");
 
             //TODO get data from DB
         }
@@ -161,7 +161,7 @@ public class QuotesProvider {
                     throw e;
                 }
             }
-            Log.d(TAG, "Dropped DB schema and data.");
+            Log.v(TAG, "Dropped DB schema and data.");
         }
     }
 
@@ -219,9 +219,9 @@ public class QuotesProvider {
     public static Playlist filterPlaylist(String playlistDescription,
                                        TreeMap<Integer,Playlist> playlists) {
 
-        Log.d(TAG, "Filtering from " + playlists.size() + " playlists");
+        Log.v(TAG, "Filtering from " + playlists.size() + " playlists");
         for(Playlist pl:playlists.values()) {
-            Log.d(TAG, "Filtering playlist: " + pl.getDescription());
+            Log.v(TAG, "Filtering playlist: " + pl.getDescription());
 
             if(pl.getDescription().equals(playlistDescription)) {
                 return pl;
@@ -453,8 +453,8 @@ public class QuotesProvider {
                 //TODO add test to ensure each screen is properly ranked within a playlsit
                 String schermateConcat = cursor.getString(cursor.getColumnIndex("schermate"));
                 String playOrderConcat = cursor.getString(cursor.getColumnIndex("sorting"));
-                Log.d(TAG,"Screen ids: " + schermateConcat);
-                Log.d(TAG,"Screen ranks: " + playOrderConcat);
+                Log.v(TAG,"Screen ids: " + schermateConcat);
+                Log.v(TAG,"Screen ranks: " + playOrderConcat);
 
                 ArrayList<Integer> schermateIds = DBUtils.getIntsFromConcatString(schermateConcat);
                 ArrayList<Integer> playOrderRanks = DBUtils.getIntsFromConcatString(playOrderConcat);
@@ -467,7 +467,7 @@ public class QuotesProvider {
                     int valueScreenRank = playOrderRanksItr.next();
 
                     singlePlAsScreenRanksById.put(keyScreenId, valueScreenRank);
-                    Log.d(TAG,"Rank " + valueScreenRank + " for screen " + keyScreenId);
+                    Log.v(TAG,"Rank " + valueScreenRank + " for screen " + keyScreenId);
                 }
 
                 Playlist currentPlaylist = new Playlist(description,

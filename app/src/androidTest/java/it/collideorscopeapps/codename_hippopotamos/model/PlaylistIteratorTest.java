@@ -78,22 +78,22 @@ public class PlaylistIteratorTest {
         int totalUniqueScreens = schermateById.size();
         int expectedMoves = totalViewableScreensAppearancesCount;
 
-        Log.d(TAG,"Iterating screens forward");
+        Log.v(TAG,"Iterating screens forward");
         int forwardMovesCount = 0;
         while(plItr.hasNextScreen()) {
             Schermata screen = plItr.getNextScreen();
             forwardMovesCount++;
 
-            Log.d(TAG, "(" + forwardMovesCount + ") " + screen.toString());
+            Log.v(TAG, "(" + forwardMovesCount + ") " + screen.toString());
         }
 
-        Log.d(TAG,"Iterating screens backward");
+        Log.v(TAG,"Iterating screens backward");
         int backwardMovesCount = 0;
         while(plItr.hasPrevScreen()) {
             Schermata screen = plItr.getPrevScreen();
             backwardMovesCount++;
 
-            Log.d(TAG, "("
+            Log.v(TAG, "("
                     + (forwardMovesCount - backwardMovesCount)
                     + ") " + screen.toString());
         }

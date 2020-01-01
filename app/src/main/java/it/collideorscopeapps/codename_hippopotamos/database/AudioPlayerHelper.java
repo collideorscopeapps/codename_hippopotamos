@@ -385,7 +385,7 @@ public class AudioPlayerHelper implements Closeable {
         } else {
             String msg = "Play request non accepted state, ignoring. State: "
                     + _mediaPlayer.getCurrentPlayerState();
-            Log.d(TAG,msg);
+            Log.v(TAG,msg);
         }
 
         // gets a series of audio files (asset file descriptors)
