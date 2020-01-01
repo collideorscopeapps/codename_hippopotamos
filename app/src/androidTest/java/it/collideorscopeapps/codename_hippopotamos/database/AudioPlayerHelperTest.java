@@ -12,32 +12,46 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import it.collideorscopeapps.codename_hippopotamos.Globals;
+
 public class AudioPlayerHelperTest {
+
+    //TODO more tests for potential player illegal states
+
+    AssetManager assetManager;
 
     @Before
     public void setUp() throws Exception {
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        assetManager = appContext.getAssets();
     }
 
     @After@Suppress
     public void tearDown() throws Exception {
     }
 
-    @Test@Suppress
+    @Test
     public void resetAndPlay() throws IOException {
 
-    }
+        String file1 = "Od.6.1-diosodisseus.ogg";
+        String file2 = "Od.6.13-glaukopis.ogg";
+        String filePath1 = Globals.getFilePath(file1,Globals.AUDIO_FILES_SUBFOLDER);
+        String filePath2 = Globals.getFilePath(file2,Globals.AUDIO_FILES_SUBFOLDER);
 
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
+                assetManager, filePath1);
+        audioPlayerHelper.play();
+        audioPlayerHelper.reset(filePath2);
+        audioPlayerHelper.play();
+    }
 
     @Test
     public void playSingleFile() throws IOException {
 
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
         String audioFilesSubFolder = "audio/";
         String singleAudioFilePath = audioFilesSubFolder + singleAudioFileName;
         String[]audioFilePathsNames = new String[]{singleAudioFilePath};
-
-        AssetManager assetManager = appContext.getAssets();
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
                 assetManager, audioFilePathsNames);
@@ -53,9 +67,20 @@ public class AudioPlayerHelperTest {
     }
 
     @Test
+    public void playAfterStopped() throws IOException {
+        String file1 = "Od.6.1-diosodisseus.ogg";
+        String filePath1 = Globals.getFilePath(file1,Globals.AUDIO_FILES_SUBFOLDER);
+
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
+                assetManager, filePath1);
+        audioPlayerHelper.play();
+        audioPlayerHelper.stop();
+        audioPlayerHelper.play();
+    }
+
+    @Test
     public void playMoreFiles() throws IOException {
 
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
 
         //FIXME TODO add more files
@@ -75,8 +100,6 @@ public class AudioPlayerHelperTest {
             audioFilePathsNames[idx] = audioFilesSubFolder + fileName;
             idx++;
         }
-
-        AssetManager assetManager = appContext.getAssets();
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
                 assetManager, audioFilePathsNames);
@@ -99,9 +122,5 @@ public class AudioPlayerHelperTest {
         }
 
         audioPlayerHelper.close();
-    }
-
-    @Test@Suppress
-    public void close() {
     }
 }

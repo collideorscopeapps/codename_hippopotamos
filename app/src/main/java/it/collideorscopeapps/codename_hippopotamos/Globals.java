@@ -35,43 +35,39 @@ public class Globals {
 
         String quoteAudioFileName = quote.getAudioFileName();
         String folder = Globals.AUDIO_FILES_SUBFOLDER;
-        String quoteAudioFilePath = getQuoteAudioFilePath(quote,folder);
 
-        if(!Utils.isNullOrEmpty(quoteAudioFileName)) {
-
-            if(Utils.assetExists(assetManager,quoteAudioFileName, folder)) {
-                return quoteAudioFilePath;
-            }
-            else {
-
-                Log.e(TAG,"No such asset: " + quoteAudioFilePath);
-                String assetsNamesJoined = "";
-                try {
-                    String[] assetsNames = assetManager.list(folder);
-                    assetsNamesJoined = Utils.joinString(assetsNames);
-                } catch (IOException e) {
-                    Log.e(TAG,e.toString());
-                }
-
-                Log.e(TAG,"Available assets in " + folder + ": "
-                        + assetsNamesJoined);
-            }
-        }
-
-        return null;
+        return getAssetFilePath(assetManager,quoteAudioFileName,folder);
     }
 
-    static String getQuoteAudioFilePath(Quote quote, String folder) {
-        final String EMPTY_STRING = "";
-
-        if(quote == null) {
-            return EMPTY_STRING;
+    static String getAssetFilePath(AssetManager assetManager,
+                                    String fileName,
+                                    String folder) {
+        if(Utils.isNullOrEmpty(fileName)) {
+           return null;
         }
 
-        String shortQuoteAudioFilePath = folder
-                + FOLDER_SEPARATOR
-                + quote.getAudioFileName();
+        String assetFilePath = null;
+        if(Utils.assetExists(assetManager, fileName, folder)) {
+            assetFilePath = getFilePath(fileName,folder);
+        }
+        else {
+            Log.e(TAG,"No such asset: " + assetFilePath);
 
-        return shortQuoteAudioFilePath;
+            String[] assetsNames = Utils.getAssetsInFolder(assetManager,folder);
+            String assetsNamesJoined = Utils.joinString(assetsNames);
+
+            Log.e(TAG,"Available assets in " + folder + ": "
+                    + assetsNamesJoined);
+        }
+
+        return assetFilePath;
+    }
+
+    public static String getFilePath(String fileName, String folder) {
+        String path = folder
+                + FOLDER_SEPARATOR
+                + fileName;
+
+        return path;
     }
 }

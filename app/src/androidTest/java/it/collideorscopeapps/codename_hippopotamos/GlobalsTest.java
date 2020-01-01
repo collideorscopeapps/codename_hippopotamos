@@ -25,11 +25,11 @@ public class GlobalsTest {
     @Test
     public void getAudioAssetPath() {
 
-        String assetName = "Od.6.1-diosodisseus.ogg";
+        String assetFileName = "Od.6.1-diosodisseus.ogg";
 
-        Quote quote = new Quote(0,"","",assetName);
+        Quote quote = new Quote(0,"","",assetFileName);
         String expectedPath = Globals.AUDIO_FILES_SUBFOLDER
-                + Globals.FOLDER_SEPARATOR + assetName;
+                + Globals.FOLDER_SEPARATOR + assetFileName;
         String actualPath = Globals.getAudioAssetPath(assetManager,quote);
         assertEquals("Wrong asset path",expectedPath,actualPath);
     }
