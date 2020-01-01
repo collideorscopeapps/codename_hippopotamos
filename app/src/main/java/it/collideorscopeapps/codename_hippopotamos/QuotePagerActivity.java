@@ -10,6 +10,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.io.IOException;
+
+import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper;
 import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 import it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager.QuoteFragment;
@@ -26,6 +29,12 @@ public class QuotePagerActivity extends FragmentActivity {
     public static final String DEMO_PLAYLIST_NAME = "Recorded quotes";
 
     private QuoteViewModel mViewModel;
+
+    public AudioPlayerHelper getAudioPlayer() {
+        return audioPlayer;
+    }
+
+    private AudioPlayerHelper audioPlayer;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -63,6 +72,30 @@ public class QuotePagerActivity extends FragmentActivity {
 
         pagerAdapter = new QuotePagerAdapter(this);
         viewPager.setAdapter(pagerAdapter);
+
+        try {
+            this.audioPlayer = new AudioPlayerHelper(
+                    this.getAssets());
+        } catch (IOException e) {
+            Log.e(TAG,e.toString());
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        //TODO implement close/reopen audio player when activity destroyed
+        //audio player should be created by activity and passed in fragment
+        // constructor
+        //onStart, resume, pause, stop, destroy (close?)
+        // implement player pause/stop when swiping fragments?
+
+        try {
+            this.audioPlayer.close();
+        } catch (IOException e) {
+            Log.e(TAG,e.toString());
+        }
     }
 
     @Override
@@ -119,8 +152,11 @@ public class QuotePagerActivity extends FragmentActivity {
             Schermata screen = this.fragActivity.mViewModel.getScreenAt(position);
 
             Log.d("QuotePagerActivity","Fragment with screen: " + screen.toString());
-            Fragment fragment = QuoteFragment.newInstance(position, screen,
-                    this.fragActivity.mViewModel.getScreenCount());
+            Fragment fragment = QuoteFragment.newInstance(
+                    position, screen,
+                    this.fragActivity.mViewModel.getScreenCount(),
+                    fragActivity.getAudioPlayer(),
+                    fragActivity.getAssets());
             Bundle args = new Bundle();
             args.putInt(QuoteFragment.SCREEN_ID_BUNDLE_FIELD, position + 1);
             fragment.setArguments(args);

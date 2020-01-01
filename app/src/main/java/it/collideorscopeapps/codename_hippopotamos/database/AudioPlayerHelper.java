@@ -67,6 +67,8 @@ public class AudioPlayerHelper implements Closeable {
             mp.stop();
             currentPlayerState = PlayerState.STOPPED;
 
+            //FIXME: not playing file after first play
+            // seems to be assigned incorrectly)
             lastFileHasPlayed = currentTrackIdx == assetFileDescriptors.length-1;
             if(!lastFileHasPlayed) {
                 //play next
@@ -92,6 +94,14 @@ public class AudioPlayerHelper implements Closeable {
         }
     };
 
+    public AudioPlayerHelper(AssetManager assetManager) throws IOException {
+        this(assetManager,(String[])null);
+    }
+
+    public AudioPlayerHelper(AssetManager assetManager,
+                             String audioFilePath)  throws IOException {
+        this(assetManager, new String[]{audioFilePath});
+    }
 
     public AudioPlayerHelper(AssetManager assetManager,
                              ArrayList<String> audioFilePaths) throws IOException {
@@ -108,21 +118,33 @@ public class AudioPlayerHelper implements Closeable {
         this.reset(audioFilePaths);
     }
 
+    public void reset(String newAudioFilePath) throws IOException {
+        reset(new String[]{newAudioFilePath});
+    }
+
+    //TODO test when passing null argument, was raising exception
+    //TODO test because creation of asset file descriptor has been
+    // postponed to end of method
     public void reset(String[] newAudioFilePaths) throws IOException {
 
         CloseAssetFileDescriptors();
 
-        this.assetFileDescriptors = getAssetFileDescriptors(newAudioFilePaths,
-                this.assetManager);
         this.currentTrackIdx = 0;
         this.firstFilePlayedAtLeastOnce = false;
         this.lastFileHasPlayed = false;
+
+        if(newAudioFilePaths != null) {
+            this.assetFileDescriptors = getAssetFileDescriptors(newAudioFilePaths,
+                    this.assetManager);
+        }
     }
 
     private static AssetFileDescriptor[] getAssetFileDescriptors(
             String[] audioFilePaths,
             AssetManager assetManager)
             throws IOException {
+
+        //TODO fixme: handle/filter null/empty filePaths or having no asset
 
         AssetFileDescriptor[] tmpAssetFileDescriptors;
         tmpAssetFileDescriptors = new AssetFileDescriptor[audioFilePaths.length];

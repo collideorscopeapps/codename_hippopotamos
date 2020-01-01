@@ -1,8 +1,5 @@
 package it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager;
 
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
@@ -32,15 +29,18 @@ import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class QuoteFragment extends Fragment {
 
+    public static final String TAG = "QuoteFragment";
     public static final String SCREEN_ID_BUNDLE_FIELD = "screenId";
 
     AssetManager assetManager;
-    AudioPlayerHelper audioPlayerHelper;
+    AudioPlayerHelper audioPlayer;
 
     int position;
     int screensCount;
     Schermata screen;
 
+    String shortQuoteAudioAssetPath;
+    String longQuoteAudioAssetPath;
 
     TextView titleTV,
             greekShortTV,
@@ -51,15 +51,28 @@ public class QuoteFragment extends Fragment {
             lingNotesTV,
             eeCTV;
 
-    public QuoteFragment(int position, Schermata screen, int screensCount) {
+    public QuoteFragment(int position, Schermata screen, int screensCount,
+                         AudioPlayerHelper audioPlayer,
+                         AssetManager assetManager) {
         this.screensCount = screensCount;
         this.position = position;
         this.screen = screen;
+        this.audioPlayer = audioPlayer;
+        this.assetManager = assetManager;
+
+        this.shortQuoteAudioAssetPath
+                = Globals.getAudioAssetPath(assetManager,screen.getShortQuote());
+        this.longQuoteAudioAssetPath
+                = Globals.getAudioAssetPath(assetManager,screen.getFullQuote());
     }
 
     public static QuoteFragment newInstance(int position, Schermata screen,
-                                            int screensCount) {
-        return new QuoteFragment(position, screen, screensCount);
+                                            int screensCount,
+                                            AudioPlayerHelper audioPlayer,
+                                            AssetManager assetManager) {
+        return new QuoteFragment(position, screen, screensCount,
+                audioPlayer,
+                assetManager);
     }
 
     @Nullable
@@ -87,16 +100,14 @@ public class QuoteFragment extends Fragment {
 
         ensureTypeface(view.getContext());
 
-        this.assetManager = view.getContext().getAssets();
-        ArrayList<String> audioFilePathsNames
-                = Globals.getAudioFilePathNames(assetManager, screen);
+        //TODO delay setting filenames to audioplayer
+        // TODO implement playing long quote after short quote
+        //  by setting both in media player reset
 
-        try {
-            this.audioPlayerHelper = new AudioPlayerHelper(
-                    assetManager, audioFilePathsNames);
-        } catch (IOException e) {
-            Log.e("QuoteFragment",e.toString());
-        }
+        //TODO consider implementing for when series of quote files
+        // (i.e. screen with word list instead of quote
+        //ArrayList<String> audioFilePathsNames
+        //        = Globals.getAudioFilePathNames(assetManager, screen);
 
         this.greekShortTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,26 +173,67 @@ public class QuoteFragment extends Fragment {
     // the other individual play methods when user clicks on quote
     void playShortAndLongQuote() {
 
+        String[] paths = new String[] {
+                this.shortQuoteAudioAssetPath,
+                this.longQuoteAudioAssetPath};
+
+        playQuotes(paths,this.audioPlayer);
+    }
+
+    static void playQuotes(String[] quotesAssetsPaths, AudioPlayerHelper player) {
+
+        String[] validAssetPaths = filterNonNullElements(quotesAssetsPaths);
+
         //TODO FIXME check that we are playing both quotes
         // since this code was used in previous quote activity
 
         //FIXME audio don't seem to play in API 19 while running tests, plays on 29
 
         //TODO check that audioplayer is not null
-        this.audioPlayerHelper.play();
 
         //TODO show toast for non existing audio files
         // possibility: keep arraylists: one for existing audio files
         // one for quotes that have none
         // one for quotes that should have one but is missing
+
+        //FIXME: Play request non accepted state, ignoring. State: STOPPED
+        // after first playback
+
+        try {
+            player.reset(validAssetPaths);
+            player.play();
+        } catch (IOException e) {
+            Log.e(TAG,e.toString());
+        }
+    }
+
+    static String[] filterNonNullElements(String[] arrayList) {
+        ArrayList<String> nonNullElementsArrayList = new ArrayList<>();
+        for(String element:arrayList) {
+            if(element != null) {
+                nonNullElementsArrayList.add(element);
+            }
+        }
+
+        return nonNullElementsArrayList.toArray(new String[]{});
+    }
+
+    static void playQuote(String quoteAssetPath, AudioPlayerHelper player) {
+
+        if(Utils.isNullOrEmpty(quoteAssetPath)) {
+            Log.e(TAG,"No quote, can't play");
+            return;
+        }
+
+        playQuotes(new String[]{quoteAssetPath}, player);
     }
 
     void playShortQuote() {
-
+        playQuote(this.shortQuoteAudioAssetPath, this.audioPlayer);
     }
 
     void playLongQuote() {
-
+        playQuote(this.longQuoteAudioAssetPath, this.audioPlayer);
     }
 
     @Override
@@ -197,7 +249,7 @@ public class QuoteFragment extends Fragment {
         // if (savedInstanceState != null) { ..}
         // Restore last state for current screen
         //this.screenId = savedInstanceState.getInt(SCREEN_ID_BUNDLE_FIELD);
-        // else Log.e("QuoteFragment","Null saved state");
+        // else Log.e(TAG,"Null saved state");
 
         loadWidgets();
 
@@ -265,7 +317,7 @@ public class QuoteFragment extends Fragment {
         // update previous quotes to show in new short/long quote format
 
         if(quote == null) {
-            Log.e("QuoteFragment","Null quote passed.");
+            Log.e(TAG,"Null quote passed.");
             tv.setText("");
         }
         else {

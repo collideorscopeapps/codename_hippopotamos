@@ -35,12 +35,9 @@ public class Quote implements Serializable {
                  String quoteText,
                  String phoneticTranscription,
                  String audioFileName) {
+        this(id,quoteText,phoneticTranscription,audioFileName);
 
-        this.id = id;
         this.positionInSchermata = positionInSchermata;
-        this.quoteText = quoteText;
-        this.phoneticTranscription = phoneticTranscription;
-        this.audioFileName = audioFileName;
     }
 
     public Quote(int id,

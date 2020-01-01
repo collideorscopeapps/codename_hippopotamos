@@ -12,6 +12,7 @@ import androidx.core.content.res.ResourcesCompat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -39,21 +40,39 @@ public class Utils {
         return toast;
     }
 
-    public static boolean assetExists(AssetManager assetManager, String path) {
-
+    public static boolean assetExists(AssetManager assetManager,
+                                      String fileName,
+                                      String folder) {
         boolean exists = false;
+        //TODO test/check that Arrays.asList does not thwrow exception for null input
+
+        List<String> existingAssetsPaths = null;
+        String[] existingAssetsPathsAsArray
+                = getAssetsInFolder(assetManager,folder);
+        existingAssetsPaths = Arrays.asList(existingAssetsPathsAsArray);
+        exists = existingAssetsPaths.contains(fileName);
+
+        return exists;
+    }
+
+    public static String[] getAssetsInFolder(AssetManager assetManager,
+                                             String folder) {
         try{
-            exists = Arrays.asList(assetManager.list("")).contains(path);
+            return assetManager.list(folder);
         }
         catch (IOException e) {
-            Log.e("QuoteFragment","Getting assets list: " + e.toString());
-        }
-        finally {
-            return exists;
+            Log.e(TAG,"Unable to get assets list in "
+                    + folder + ": " + e.toString());
+            return new String[]{};
         }
     }
 
+    public static String joinString(String[] strings) {
+        return joinString(Arrays.asList(strings));
+    }
+
     public static String joinString(Iterable<String> strings) {
+
         StringBuilder sb = new StringBuilder();
         String sep = "";
         for(String s: strings) {
