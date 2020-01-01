@@ -21,6 +21,8 @@ import static org.junit.Assert.*;
 
 public class UtilsTest {
 
+    private static final String TAG = "UtilsTest";
+
     @Test
     public void getPrettifiedReadingList() {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -29,7 +31,7 @@ public class UtilsTest {
         File txtFile;
         try {
             txtFile = File.createTempFile("reading-list", ".md");
-            Log.v("UtilsTest","Created temp file: " + txtFile.getAbsolutePath());
+            Log.v(TAG,"Created temp file: " + txtFile.getAbsolutePath());
 
             try(FileWriter txtFileFW = new FileWriter(txtFile)) {
 
@@ -37,7 +39,7 @@ public class UtilsTest {
             }
 
         } catch (IOException e) {
-            Log.e("UtilsTest",e.toString());
+            Log.e(TAG,e.toString());
         }
 
     }
@@ -95,11 +97,11 @@ public class UtilsTest {
                     }
                 }
             } catch (IOException e) {
-                Log.e("DBManagerTest", e.toString());
+                Log.e(TAG, e.toString());
             }
         }
         catch (IOException e) {
-            Log.e("DBManagerTest", e.toString());
+            Log.e(TAG, e.toString());
         }
 
         return countStatements;

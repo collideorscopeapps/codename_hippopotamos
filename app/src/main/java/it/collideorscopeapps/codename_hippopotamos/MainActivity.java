@@ -80,13 +80,13 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         if(wasCopySuccessful) {
 
             Utils.shortToast(this, "Copy database success");
-            Log.v("Main activity", "Copy database success, opening quote activity..");
+            Log.v(TAG, "Copy database success, opening quote activity..");
             this.openQuoteActivity();
         }
         else
         {
             Utils.shortToast(this, "Copy database ERROR");
-            Log.v("Main activity", "Copy database ERROR");
+            Log.v(TAG, "Copy database ERROR");
         }
          */
     }

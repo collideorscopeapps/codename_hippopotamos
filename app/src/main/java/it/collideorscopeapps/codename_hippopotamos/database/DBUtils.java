@@ -138,7 +138,7 @@ public class DBUtils {
             return getStatementsFromInputStream(shemaCreationSqlFileInputStream);
         }
         catch (IOException e) {
-            Log.e("DBUtils", e.toString());
+            Log.e(TAG, e.toString());
         }
 
         return null;
@@ -168,7 +168,7 @@ public class DBUtils {
             }
 
         } catch (IOException e) {
-            Log.e("DB DBUtils", e.toString());
+            Log.e(TAG, e.toString());
         }
 
         return statements;
@@ -192,7 +192,7 @@ public class DBUtils {
             }
 
         } catch (IOException e) {
-            Log.e("DB DBUtils", e.toString());
+            Log.e(TAG, e.toString());
         }
 
         String concatQueries = sb.toString();

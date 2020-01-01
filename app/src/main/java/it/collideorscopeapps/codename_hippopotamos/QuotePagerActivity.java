@@ -147,11 +147,11 @@ public class QuotePagerActivity extends FragmentActivity {
             //TODO
             // code here for switching quote
             // Return a NEW fragment instance in createFragment(int)
-            Log.d("QuotePagerAdapter","Creating quoteFragment at " + position);
+            Log.d(TAG,"Creating quoteFragment at " + position);
 
             Schermata screen = this.fragActivity.mViewModel.getScreenAt(position);
 
-            Log.d("QuotePagerActivity","Fragment with screen: " + screen.toString());
+            Log.d(TAG,"Fragment with screen: " + screen.toString());
             Fragment fragment = QuoteFragment.newInstance(
                     position, screen,
                     this.fragActivity.mViewModel.getScreenCount(),

@@ -16,6 +16,8 @@ import static org.junit.Assert.*;
 
 public class PlaylistIteratorTest {
 
+    private final static String TAG = "PlaylistIteratorTest";
+
     @Test
     public void navigateAllScreens() {
 
@@ -76,22 +78,22 @@ public class PlaylistIteratorTest {
         int totalUniqueScreens = schermateById.size();
         int expectedMoves = totalViewableScreensAppearancesCount;
 
-        Log.d("PlaylistIteratorTest","Iterating screens forward");
+        Log.d(TAG,"Iterating screens forward");
         int forwardMovesCount = 0;
         while(plItr.hasNextScreen()) {
             Schermata screen = plItr.getNextScreen();
             forwardMovesCount++;
 
-            Log.d("PlaylistIteratorTest", "(" + forwardMovesCount + ") " + screen.toString());
+            Log.d(TAG, "(" + forwardMovesCount + ") " + screen.toString());
         }
 
-        Log.d("PlaylistIteratorTest","Iterating screens backward");
+        Log.d(TAG,"Iterating screens backward");
         int backwardMovesCount = 0;
         while(plItr.hasPrevScreen()) {
             Schermata screen = plItr.getPrevScreen();
             backwardMovesCount++;
 
-            Log.d("PlaylistIteratorTest", "("
+            Log.d(TAG, "("
                     + (forwardMovesCount - backwardMovesCount)
                     + ") " + screen.toString());
         }

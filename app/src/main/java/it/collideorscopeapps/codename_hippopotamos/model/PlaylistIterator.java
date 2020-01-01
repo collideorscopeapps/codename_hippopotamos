@@ -10,6 +10,8 @@ import java.util.TreeMap;
 
 public class PlaylistIterator {
 
+    private static final String TAG = "PlaylistIterator";
+
     TreeMap<Integer, Schermata> schermateById;
     TreeMap<Integer,Playlist> playlists;
     TreeMapIterator<Integer,Playlist> playlistIterator;
@@ -49,7 +51,7 @@ public class PlaylistIterator {
 
         this.currentPl = this.playlistIterator.next();
         this.lastPlaylistSwitchMove = Move.SET_TO_FIRST;
-        Log.v("PlaylistIterator","Starting with playlist " + currentPl.getDescription());
+        Log.v(TAG,"Starting with playlist " + currentPl.getDescription());
 
         this.currentRankedSchermate = this.currentPl.getRankedSchermate();
     }
@@ -61,15 +63,15 @@ public class PlaylistIterator {
                 Playlist pl = playlists.get(plRank);
                 if (!pl.isDisabled()) {
                     enabledPlaylists.put(plRank, pl);
-                    Log.v("PlaylistIterator","Added one enabled playlist");
+                    Log.v(TAG,"Added one enabled playlist");
                 }
                 else {
-                    Log.v("PlaylistIterator","Skipped one disabled playlist");
+                    Log.v(TAG,"Skipped one disabled playlist");
                 }
             }
             this.playlists = enabledPlaylists;
-            Log.v("PlaylistIterator","Total playlists: " + playlists.size());
-            Log.v("PlaylistIterator","Using " + this.playlists.size() + " playlists");
+            Log.v(TAG,"Total playlists: " + playlists.size());
+            Log.v(TAG,"Using " + this.playlists.size() + " playlists");
         }
     }
 
@@ -160,7 +162,7 @@ public class PlaylistIterator {
 
                 this.currentPl = this.playlistIterator.next();
                 this.lastPlaylistSwitchMove = Move.FW;
-                Log.v("PlaylistIterator","Moving fw to playlist " + currentPl.getDescription());
+                Log.v(TAG,"Moving fw to playlist " + currentPl.getDescription());
                 this.currentRankedSchermate = this.currentPl.getRankedSchermate();
 
                 nextScreenEntry = this.currentRankedSchermate.firstEntry();
@@ -225,7 +227,7 @@ public class PlaylistIterator {
 
                 this.currentPl = this.playlistIterator.previous();
                 this.lastPlaylistSwitchMove = Move.BW;
-                Log.v("PlaylistIterator","Moving bw to playlist " + currentPl.getDescription());
+                Log.v(TAG,"Moving bw to playlist " + currentPl.getDescription());
                 this.currentRankedSchermate = this.currentPl.getRankedSchermate();
 
                 prevScreenEntry = this.currentRankedSchermate.lastEntry();

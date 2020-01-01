@@ -12,6 +12,8 @@ import java.io.OutputStream;
 
 public class CopyFileTask extends AsyncTask<CopyFileTask.Task, Integer, Boolean> {
 
+    private static final String TAG = "CopyFileTask";
+
     enum Task {
         CREATE_DB_FROM_SQL_FILE,
         COPY_DB_ASSET_FILE
@@ -96,10 +98,10 @@ public class CopyFileTask extends AsyncTask<CopyFileTask.Task, Integer, Boolean>
 
             outputStream.flush();
             wasCopySuccessful = true;
-            Log.v("CopyFileTask", "DB Copied");
+            Log.v(TAG, "DB Copied");
         }
         catch (Exception e) {
-            Log.v("CopyFileTask", "Error: " + e.toString());
+            Log.v(TAG, "Error: " + e.toString());
         }
 
         return wasCopySuccessful;
