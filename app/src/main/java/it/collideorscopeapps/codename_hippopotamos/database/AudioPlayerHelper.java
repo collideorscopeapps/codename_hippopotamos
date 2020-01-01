@@ -78,8 +78,12 @@ public class AudioPlayerHelper implements Closeable {
 
         @Override
         public void prepareAsync() throws IllegalStateException {
-            super.prepareAsync();
-            setCurrentPlayerState(PlayerState.PREPARING);
+            try {
+                super.prepareAsync();
+                setCurrentPlayerState(PlayerState.PREPARING);
+            } catch (Exception e) {
+                Log.e(TAG,e.toString());
+            }
         }
 
         @Override
