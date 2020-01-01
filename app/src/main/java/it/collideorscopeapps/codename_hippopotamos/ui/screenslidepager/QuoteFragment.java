@@ -50,7 +50,8 @@ public class QuoteFragment extends Fragment {
             phoneticsTV,
             translationTV,
             lingNotesTV,
-            eeCTV;
+            eeCTV,
+            pageCounterTV;
 
     public QuoteFragment(int position, Schermata screen, int screensCount,
                          AudioPlayerHelper audioPlayer,
@@ -101,6 +102,7 @@ public class QuoteFragment extends Fragment {
         this.greekShortTV = view.findViewById(R.id.greekShortTextTV);
         this.greekLongTV = view.findViewById(R.id.greekLongTextTV);
         this.titleTV = view.findViewById(R.id.titleTV);
+        this.pageCounterTV = view.findViewById(R.id.pageCounterTV);
         this.citationTV = view.findViewById(R.id.citationRefTV);
         this.eeCTV = view.findViewById(R.id.eeCommentTV);
         this.lingNotesTV = view.findViewById(R.id.linguisticNoteTV);
@@ -225,6 +227,7 @@ public class QuoteFragment extends Fragment {
         this.greekLongTV.setTypeface(prefTypeface);
         this.lingNotesTV.setTypeface(prefTypeface);
         this.titleTV.setTypeface(prefTypeface);
+        this.pageCounterTV.setTypeface(prefTypeface);
         this.translationTV.setTypeface(prefTypeface);
     }
 
@@ -327,10 +330,15 @@ public class QuoteFragment extends Fragment {
         // with doric, epic, ionic and attic
         // some preview/tutorial screen? ..
 
-        //test, FIXME
-        this.titleTV.setText(screen.getTitle());
-        this.titleTV.setText("position: " + this.position
-                + " of " + this.screensCount);
+        if(Utils.isNullOrEmpty(screen.getTitle())) {
+            this.titleTV.setVisibility(View.INVISIBLE);
+        } else {
+            this.titleTV.setText(screen.getTitle());
+        }
+
+        String pageCount = (this.position + 1)
+                + " of " + this.screensCount;
+        this.pageCounterTV.setText(pageCount);
 
         //TODO
         // populate UI widgets with data for current schermata
@@ -359,7 +367,7 @@ public class QuoteFragment extends Fragment {
 
             this.greekLongTV.setVisibility(View.GONE);
 
-            int newPaddingTop = 50 + this.greekShortTV.getPaddingTop();
+            int newPaddingTop = 32 + this.greekShortTV.getPaddingTop();
             int paddingBottom = this.greekShortTV.getPaddingBottom();
             int paddingLeft = this.greekShortTV.getPaddingLeft();
             int paddingRight = this.greekShortTV.getPaddingRight();

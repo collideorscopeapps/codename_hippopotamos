@@ -1,119 +1,143 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    >
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/pageCounterTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_gravity="start"
+        android:textSize="16sp"
+        android:text="Title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".QuoteActivity">
+        android:layout_height="match_parent">
 
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".QuoteActivity">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" >
 
-                <TextView
-                    android:id="@+id/titleTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="32sp"
-                    android:text="Title"
-                    />
-
-                <TextView
-                    android:id="@+id/greekShortTextTV"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:justificationMode="inter_word"
-                    android:textSize="32sp"
-                    android:text="@string/DefaultGreekText"
-                    />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/greekLongTextTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:justificationMode="inter_word"
-                    android:textSize="20sp"
-                    android:text="@string/DefaultGreekText"
-                    />
+                    <TextView
+                        android:id="@+id/titleTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="32sp"
+                        android:text="Title"
+                        />
 
-                <TextView
-                    android:id="@+id/citationRefTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="2dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:textAlignment="center"
-                    android:textSize="12sp"
-                    />
+                    <TextView
+                        android:id="@+id/greekShortTextTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:justificationMode="inter_word"
+                        android:textSize="32sp"
+                        android:text="@string/DefaultGreekText"
+                        />
 
-                <TextView
-                    android:id="@+id/phoneticsTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:textSize="20sp"
-                    android:text="[phonetic transcription not available]"
-                    />
+                    <TextView
+                        android:id="@+id/greekLongTextTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:justificationMode="inter_word"
+                        android:textSize="20sp"
+                        android:text="@string/DefaultGreekText"
+                        />
 
-                <TextView
-                    android:id="@+id/translationTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:justificationMode="inter_word"
-                    android:textSize="20sp"
-                    android:text="(this word is untranslatable)"
-                    />
+                    <TextView
+                        android:id="@+id/citationRefTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="2dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        />
 
-                <TextView
-                    android:id="@+id/linguisticNoteTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:justificationMode="inter_word"
-                    android:textSize="20sp"
-                    android:text="*doric, epic, ionic or attic"
-                    />
+                    <TextView
+                        android:id="@+id/phoneticsTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:textSize="20sp"
+                        android:text="[phonetic transcription not available]"
+                        />
 
-                <TextView
-                    android:id="@+id/eeCommentTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:justificationMode="inter_word"
-                    android:textSize="20sp"
-                    android:text="** you don't find such phrases among the Romans"
-                    />
+                    <TextView
+                        android:id="@+id/translationTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:justificationMode="inter_word"
+                        android:textSize="20sp"
+                        android:text="(this word is untranslatable)"
+                        />
 
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-</ScrollView>
+                    <TextView
+                        android:id="@+id/linguisticNoteTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:justificationMode="inter_word"
+                        android:textSize="20sp"
+                        android:text="*doric, epic, ionic or attic"
+                        />
+
+                    <TextView
+                        android:id="@+id/eeCommentTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:justificationMode="inter_word"
+                        android:textSize="20sp"
+                        android:text="** you don't find such phrases among the Romans"
+                        />
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
