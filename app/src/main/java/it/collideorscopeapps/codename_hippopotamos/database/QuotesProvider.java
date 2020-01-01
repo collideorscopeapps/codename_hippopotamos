@@ -12,7 +12,6 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
@@ -46,7 +45,7 @@ public class QuotesProvider {
     //FIXME sorting of screens in a playlist; sorting field seems to have no effect
     //TODO add test for this
 
-    public static final int DATABASE_VERSION = 10;
+    public static final int DATABASE_VERSION = 13;
     public static final String DB_NAME = "greekquotes";
     public static final String TAG = "QuotesProvider";
 

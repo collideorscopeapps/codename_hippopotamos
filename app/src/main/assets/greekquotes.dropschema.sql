@@ -6,7 +6,12 @@ DROP VIEW IF EXISTS v_schermate_grouped;
 DROP VIEW IF EXISTS v_reading_list;
 DROP VIEW IF EXISTS v_playlists;
 DROP VIEW IF EXISTS v_schermate_default_language;
+DROP VIEW IF EXISTS v_schermate_with_notes_eec_and_translations_default_language;
+DROP VIEW IF EXISTS v_schermate_with_notes_and_eec_default_language;
+DROP VIEW IF EXISTS v_schermate_with_notes_default_language;
+DROP VIEW IF EXISTS v_schermate_default_language2;
 
+DROP TABLE IF EXISTS "noun_declensions_screens";
 DROP TABLE IF EXISTS "playlists_schermate";
 DROP TABLE IF EXISTS "playlists";
 DROP TABLE IF EXISTS "schermate_descriptions_translations";

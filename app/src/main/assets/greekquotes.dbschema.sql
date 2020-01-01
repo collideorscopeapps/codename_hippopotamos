@@ -143,12 +143,50 @@ CREATE VIEW v_quotes_and_translations AS
 CREATE VIEW v_schermate_default_language AS
     SELECT *
     FROM schermate s
-    LEFT JOIN linguistic_notes n ON n.schermata_id = s._id
-    LEFT JOIN easter_egg_comments e ON e.schermata_id = s._id
-    LEFT JOIN schermate_greek_translations gt ON gt.schermata_id = s._id
-    WHERE (n.language_id = 1 OR n.language_id IS NULL)
-    AND (e.language_id = 1 OR e.language_id IS NULL)
-    AND (gt.language_id = 1 OR gt.language_id IS NULL);--/
+    LEFT JOIN linguistic_notes n ON n.schermata_id = s._id AND n.language_id = 1
+    LEFT JOIN easter_egg_comments e ON e.schermata_id = s._id AND e.language_id = 1
+    LEFT JOIN schermate_greek_translations gt ON gt.schermata_id = s._id AND gt.language_id = 1
+;--/
+
+CREATE VIEW v_schermate_with_notes_default_language AS
+    SELECT *
+    FROM schermate s, linguistic_notes n
+    WHERE n.schermata_id = s._id AND n.language_id = 1
+    UNION ALL
+    SELECT *, NULL, NULL, NULL
+    FROM schermate s
+    WHERE NOT EXISTS (
+        SELECT * FROM linguistic_notes AS n
+        WHERE n.schermata_id = s._id AND n.language_id = 1)
+    ;--/
+
+CREATE VIEW v_schermate_with_notes_and_eec_default_language AS
+    SELECT *
+    FROM v_schermate_with_notes_default_language s, easter_egg_comments e
+    WHERE e.schermata_id = s._id AND e.language_id = 1
+    UNION ALL
+    SELECT *, NULL, NULL, NULL
+    FROM v_schermate_with_notes_default_language s
+    WHERE NOT EXISTS (
+        SELECT * FROM easter_egg_comments AS e
+        WHERE e.schermata_id = s._id AND e.language_id = 1)
+    ;--/
+
+CREATE VIEW v_schermate_with_notes_eec_and_translations_default_language AS
+    SELECT *
+    FROM v_schermate_with_notes_and_eec_default_language s, schermate_greek_translations gt
+    WHERE gt.schermata_id = s._id AND gt.language_id = 1
+    UNION ALL
+    SELECT *, NULL, NULL, NULL
+    FROM v_schermate_with_notes_and_eec_default_language s
+    WHERE NOT EXISTS (
+        SELECT * FROM schermate_greek_translations AS gt
+        WHERE gt.schermata_id = s._id AND gt.language_id = 1)
+    ;--/
+
+CREATE VIEW v_schermate_default_language2 AS
+    SELECT *
+    FROM v_schermate_with_notes_eec_and_translations_default_language;--/
 
 CREATE VIEW v_schermate_and_quotes AS
     SELECT s._id AS s_id,
@@ -169,6 +207,9 @@ CREATE VIEW v_schermate_and_quotes AS
     quotes_in_schermate qs,
     v_schermate_default_language s
     WHERE  qs.greek_quote_id = gq._id AND qs.schermata_id = s._id
+    --FROM v_schermate_default_language s
+    --LEFT JOIN quotes_in_schermate qs ON qs.schermata_id = s._id
+    --LEFT JOIN greek_quotes gq ON gq._id = qs.greek_quote_id
     --ORDER BY s_id
     ;--/
 
