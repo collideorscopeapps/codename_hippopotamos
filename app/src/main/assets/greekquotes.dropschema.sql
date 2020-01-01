@@ -1,6 +1,7 @@
 DROP TRIGGER IF EXISTS update_p_sorting;
 
 DROP VIEW IF EXISTS v_quotes_and_translations;
+DROP VIEW IF EXISTS v_schermate_and_quotes2;
 DROP VIEW IF EXISTS v_schermate_and_quotes;
 DROP VIEW IF EXISTS v_schermate_grouped;
 DROP VIEW IF EXISTS v_reading_list;

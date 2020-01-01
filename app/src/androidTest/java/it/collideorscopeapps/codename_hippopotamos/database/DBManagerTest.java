@@ -190,8 +190,16 @@ public class DBManagerTest {
 
         assertEquals("Wrong screen count in QuoteProvider",
                 expectedScreenCount,actualScreenCount);
-    }
 
+        String countView2RowsQuery
+                = "SELECT COUNT(*) FROM (" +
+                "SELECT DISTINCT s_id FROM v_schermate_and_quotes);";
+        int actualScreenCount2
+                = DBUtils.longForQuery(appContext,countView2RowsQuery);
+
+        assertEquals("Wrong screen count from view",
+                expectedScreenCount,actualScreenCount2);
+    }
 
     @Test
     public void getEasterEggComments() {

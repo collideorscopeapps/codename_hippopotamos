@@ -256,4 +256,19 @@ public class DBUtils {
 
         return rowsCount;
     }
+
+    public static int longForQuery(Context context,
+                                    String query) {
+        int rowsCount = -1;
+        SQLiteOpenHelper mOpenHelper = QuotesProvider.createDBOpenHelper(context);
+        try(SQLiteDatabase db = mOpenHelper.getReadableDatabase()) {
+
+            rowsCount = (int) DatabaseUtils.longForQuery(
+                    db, query, null);
+        } catch (Exception e) {
+            Log.e(TAG,"Unable to count table rows " + e.toString());
+        }
+
+        return rowsCount;
+    }
 }
