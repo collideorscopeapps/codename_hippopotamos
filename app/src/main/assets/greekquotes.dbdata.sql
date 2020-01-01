@@ -276,7 +276,7 @@ INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (68,'ὑπ
 INSERT INTO "schermate" ("_id","short_quote_id","full_quote_id","description","author_ref") VALUES (57,67,68,'Arrogant men','Hom. Od. 6.5');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (57,67);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (57,1,'of arrogant men');
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (57,1,'ἀνδρῶν ὑπερηνορεόντων: GEN pl.');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (57,1,'-ῶν: GEN pl.');
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (41,'ἀνδρ<CASE>ῶν</CASE> ὑπερηνορεόντ<CASE>ων</CASE>, οἵ σφεας σινέσκοντο');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (65,'ἀνδρ<CASE>ῶν</CASE> ὑπερηνορεόντ<CASE>ων</CASE>');
