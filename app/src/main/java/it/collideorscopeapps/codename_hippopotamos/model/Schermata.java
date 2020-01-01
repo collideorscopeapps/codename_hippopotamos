@@ -57,11 +57,14 @@ public class Schermata implements Serializable {
     private String linguisticNotes;
     private String easterEggComment;
 
+    //TODO FIXME change all occurences of previous "quotes" field as wordList
+    //TODO FIXME also in QuoteFragment, display wordList if there is no
+    // short quote or full quote
     public ArrayList<Quote> getQuotes() {
         return quotes;
     }
 
-    public String getQuotesAsString() {
+    public String getWordListAsString() {
 
         if(!Utils.isNullOrEmpty(quotesAsString)) {
             return quotesAsString;
@@ -84,12 +87,19 @@ public class Schermata implements Serializable {
             boolean isLastQuote = currentQuoteNum == this.quotes.size();
             if(isLastQuote) {
                 final String comma = ".";
-                if(!quoteText.endsWith(comma)) {
+                if(Utils.isNullOrEmpty(quoteText)) {
                     closingComma = comma;
+                    quotesAsString += closingComma;
+                } else if(!quoteText.endsWith(comma)) {
+                    closingComma = comma;
+                    quotesAsString += prevSeparator + quoteText + closingComma;
+                } else {
+                    quotesAsString += prevSeparator + quoteText;
                 }
             }
-
-            quotesAsString += prevSeparator + quoteText + closingComma;
+            else {
+                quotesAsString += prevSeparator + quoteText;
+            }
 
             currentQuoteNum++;
         }
@@ -121,12 +131,29 @@ public class Schermata implements Serializable {
         return shortQuote;
     }
 
+    public String getShortQuoteAsString() {
+        return getQuoteAsString(getShortQuote());
+    }
+
+    public static String getQuoteAsString(Quote quote) {
+        String string = "";
+        if(!Utils.isNullOrEmpty(quote)) {
+            string = quote.getQuoteText();
+        }
+
+        return string;
+    }
+
     public void setShortQuote(Quote shortQuote) {
         this.shortQuote = shortQuote;
     }
 
     public Quote getFullQuote() {
         return fulltQuote;
+    }
+
+    public String getFullQuoteAsString() {
+        return getQuoteAsString(getFullQuote());
     }
 
     public void setFulltQuote(Quote fulltQuote) {

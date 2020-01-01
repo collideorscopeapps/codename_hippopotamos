@@ -203,38 +203,11 @@ CREATE VIEW v_schermate_and_quotes AS
     s.linguisticNote AS linguisticNote,
     s.eeComment AS eeComment,
     gq.audioFileName as audioFileName
-    FROM greek_quotes gq,
-    quotes_in_schermate qs,
-    v_schermate_default_language s
-    WHERE  qs.greek_quote_id = gq._id AND qs.schermata_id = s._id
-    --FROM v_schermate_default_language s
-    --LEFT JOIN quotes_in_schermate qs ON qs.schermata_id = s._id
-    --LEFT JOIN greek_quotes gq ON gq._id = qs.greek_quote_id
-    --ORDER BY s_id
-    ;--/
-
-DROP VIEW IF EXISTS v_schermate_and_quotes2;
-CREATE VIEW v_schermate_and_quotes2 AS
-    SELECT s._id AS s_id,
-    gq._id AS gq_id,
-    gq.quoteText AS quote,
-    gq.phoneticTranscription AS phoneticTranscription,
-    qs.position AS position,
-    s.title AS title,
-    s.description AS description,
-    s.short_quote_id AS short_quote_id,
-    s.full_quote_id AS full_quote_id,
-    s.translation AS default_translation,
-    s.author_ref AS cit,
-    s.linguisticNote AS linguisticNote,
-    s.eeComment AS eeComment,
-    gq.audioFileName as audioFileName
     FROM v_schermate_default_language s
     LEFT JOIN quotes_in_schermate qs ON qs.schermata_id = s._id
     LEFT JOIN greek_quotes gq ON gq._id = qs.greek_quote_id
     --ORDER BY s_id
     ;--/
-
 
 CREATE VIEW v_schermate_grouped AS
      SELECT s._id AS s_id,

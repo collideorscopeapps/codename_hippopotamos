@@ -268,7 +268,6 @@ INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","transl
 
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (66,'δῖ<CASE>ος</CASE> Ὀδυσσεὺς','Od.6.1-diosodisseus.ogg');
 INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (56,66,'The divine Odysseus','Hom. Od. 6.1');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (56,66);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (56,1,'divine Odysseus');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (56,1,'-ος: NOM sg');
 

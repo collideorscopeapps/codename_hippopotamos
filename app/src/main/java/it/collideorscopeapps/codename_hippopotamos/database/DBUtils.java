@@ -17,7 +17,7 @@ import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
-
+import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class DBUtils {
 
@@ -94,8 +94,16 @@ public class DBUtils {
             appendLineToStringBuilder(sb, currentSchermata.getTitle());
             //appendLineToStringBuilder(sb, currentSchermata.getDescription());
 
+            String fullQuoteText = currentSchermata.getFullQuoteAsString();
+            String shortQuoteText = currentSchermata.getShortQuoteAsString();
+            String quoteToUse = fullQuoteText;
+            if(Utils.isNullOrEmpty(fullQuoteText)) {
+                quoteToUse = shortQuoteText;
+            } else if(Utils.isNullOrEmpty(shortQuoteText)) {
+                quoteToUse = currentSchermata.getWordListAsString();
+            }
             appendLineToStringBuilder(sb, quoteStart
-                    + currentSchermata.getQuotesAsString()
+                    + quoteToUse
                     + boldEnd);
 
             // TODO (in DB manager and queries) translation by selected user language
