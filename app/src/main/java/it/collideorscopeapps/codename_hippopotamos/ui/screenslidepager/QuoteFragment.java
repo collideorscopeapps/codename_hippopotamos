@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -161,7 +162,16 @@ public class QuoteFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        playShortAndLongQuote();
+        final int PLAYBACK_DELAY_MILLIS = 500;
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                playShortAndLongQuote();
+            }
+        }, PLAYBACK_DELAY_MILLIS);
+
+
 
         //TODO FIXME
         // should the media player be shared between fragmants?
@@ -184,6 +194,7 @@ public class QuoteFragment extends Fragment {
         // This is usually where you should commit any changes
         // that should be persisted beyond the current user
         // session (because the user might not come back).
+        this.audioPlayer.pause();
     }
 
     @Override

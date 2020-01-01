@@ -49,9 +49,8 @@ public class AudioPlayerHelperTest {
     @Test
     public void resetAndPlay() throws IOException {
 
-        String file1 = "Od.6.1-diosodisseus.ogg";
         String file2 = "Od.6.13-glaukopis.ogg";
-        String filePath1 = Globals.getFilePath(file1,Globals.AUDIO_FILES_SUBFOLDER);
+        String filePath1 = getSingleAudioFilePath();
         String filePath2 = Globals.getFilePath(file2,Globals.AUDIO_FILES_SUBFOLDER);
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
@@ -73,15 +72,32 @@ public class AudioPlayerHelperTest {
                 assetManager, filePaths);
         audioPlayerHelper.play();
 
-        String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
-        String singleAudioFilePath = Globals.AUDIO_FILES_SUBFOLDER
-                + "/" + singleAudioFileName;
+        String singleAudioFilePath = getSingleAudioFilePath();
 
         audioPlayerHelper.changeAudioFiles(singleAudioFilePath);
         audioPlayerHelper.play();
 
         audioPlayerHelper.changeAudioFiles(filePaths);
         audioPlayerHelper.play();
+    }
+
+    @Test
+    public void changeAudioFilesCheckState() throws IOException {
+        String[] filePaths = getSomeAudioFilesPaths();
+        String singeFilePath = getSingleAudioFilePath();
+
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
+                assetManager, filePaths);
+        audioPlayerHelper.play();
+
+        audioPlayerHelper.changeAudioFiles(singeFilePath);
+
+        AudioPlayerHelper.PlayerState expectedPlayerState
+                = AudioPlayerHelper.PlayerState.INITIALIZED;
+        AudioPlayerHelper.PlayerState actualPlayerState
+                = audioPlayerHelper.getCurrentPlayerState();
+
+        assertEquals("Wrong player state",expectedPlayerState,actualPlayerState);
     }
 
     @Test
@@ -98,9 +114,7 @@ public class AudioPlayerHelperTest {
     @Test
     public void playSingleFile() throws IOException {
 
-        String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
-        String audioFilesSubFolder = "audio/";
-        String singleAudioFilePath = audioFilesSubFolder + singleAudioFileName;
+        String singleAudioFilePath = getSingleAudioFilePath();
         String[]audioFilePathsNames = new String[]{singleAudioFilePath};
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
@@ -118,14 +132,22 @@ public class AudioPlayerHelperTest {
 
     @Test
     public void playAfterStopped() throws IOException {
-        String file1 = "Od.6.1-diosodisseus.ogg";
-        String filePath1 = Globals.getFilePath(file1,Globals.AUDIO_FILES_SUBFOLDER);
+
+        String filePath1 = getSingleAudioFilePath();
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
                 assetManager, filePath1);
         audioPlayerHelper.play();
         audioPlayerHelper.stop();
         audioPlayerHelper.play();
+    }
+
+    private static String getSingleAudioFilePath() {
+        String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
+        String singleAudioFilePath = Globals.AUDIO_FILES_SUBFOLDER
+                + "/" + singleAudioFileName;
+
+        return singleAudioFilePath;
     }
 
     private static String[] getSomeAudioFilesPaths() {
@@ -174,9 +196,8 @@ public class AudioPlayerHelperTest {
     @Test
     public void playMoreFiles() throws IOException {
 
-        String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
-        String singleAudioFilePath = Globals.AUDIO_FILES_SUBFOLDER
-                + "/" + singleAudioFileName;
+        String singleAudioFilePath = getSingleAudioFilePath();
+
         String[] audioFilePathsNames = getSomeAudioFilesPaths();
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(

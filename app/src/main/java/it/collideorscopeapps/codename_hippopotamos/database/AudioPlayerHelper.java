@@ -16,8 +16,8 @@ import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 public class AudioPlayerHelper implements Closeable {
 
     enum PlayerState { UNKNOWN, IDLE, INITIALIZED,
-        PREPARING, PREPARED, PLAYING, COMPLETED, STOPPED, ERROR,
-        END_RELEASED_UNAVAILABLE
+        PREPARING, PREPARED, PLAYING, PAUSED, COMPLETED,
+        STOPPED, ERROR, END_RELEASED_UNAVAILABLE
     }
 
     private class MediaPlayerWrapper extends MediaPlayer {
@@ -83,6 +83,12 @@ public class AudioPlayerHelper implements Closeable {
         }
 
         @Override
+        public void start() throws IllegalStateException {
+            super.start();
+            setCurrentPlayerState(PlayerState.PLAYING);
+        }
+
+        @Override
         public void stop() throws IllegalStateException {
             super.stop();
             setCurrentPlayerState(PlayerState.STOPPED);
@@ -98,6 +104,12 @@ public class AudioPlayerHelper implements Closeable {
         public void reset() {
             super.reset();
             setCurrentPlayerState(PlayerState.IDLE);
+        }
+
+        @Override
+        public void pause() throws IllegalStateException {
+            super.pause();
+            setCurrentPlayerState(PlayerState.PAUSED);
         }
 
         @Override
@@ -176,6 +188,10 @@ public class AudioPlayerHelper implements Closeable {
     private boolean _lastFileHasPlayed;
 
     MediaPlayerWrapper _mediaPlayer;
+
+    public PlayerState getCurrentPlayerState() {
+        return _mediaPlayer.getCurrentPlayerState();
+    }
 
     static MediaPlayer.OnErrorListener onErrorListener = new MediaPlayer.OnErrorListener() {
         @Override
@@ -291,10 +307,21 @@ public class AudioPlayerHelper implements Closeable {
         this.firstFilePlayedAtLeastOnce = false;
         this.setLastFileHasPlayed(false);
 
-        if(newAudioFilePaths != null) {
+        if(!Utils.isNullOrEmpty(newAudioFilePaths)) {
             this.assetFileDescriptors = getAssetFileDescriptors(newAudioFilePaths,
                     this.assetManager);
+            final int FIRST_ELEMENT_INDEX = 0;
+
+            //NB this calls reset() and setDataSource(), then state should be INITIALIZED
+            tryInsertFileIntoMediaplayer(assetFileDescriptors[FIRST_ELEMENT_INDEX]);
         }
+
+        //TODO FIXME ADDTEST
+        // after changing files, should be called reset()
+        //Test: check state after changing files
+
+        //_mediaPlayer.reset(); and set data source with the new files
+
     }
 
     private static AssetFileDescriptor[] getAssetFileDescriptors(
@@ -371,8 +398,9 @@ public class AudioPlayerHelper implements Closeable {
             initCurrentTrackIdx();
             Log.d(TAG,"Play request accepted, first play or idle");
             playNext(getCurrentTrackIdx());
-        } else
-        if(_mediaPlayer.getCurrentPlayerState() == PlayerState.STOPPED
+        } else if(_mediaPlayer.getCurrentPlayerState() == PlayerState.PAUSED) {
+            _mediaPlayer.start();
+        } else if(_mediaPlayer.getCurrentPlayerState() == PlayerState.STOPPED
                 ) { //removed: && hasLastFilePlayed() which was causing a bug
             //TODO FIXME distinguish between playing the initial series of files
             // or calling changeAudioFiles/reset because we need to change files
@@ -382,10 +410,23 @@ public class AudioPlayerHelper implements Closeable {
             initCurrentTrackIdx();
             Log.d(TAG,"Play request accepted from stopped");
             playNext(getCurrentTrackIdx());
+        } else if(_mediaPlayer.getCurrentPlayerState() == PlayerState.COMPLETED) {
+
+            //we should start back from the first file
+            Log.d(TAG,"Play request after completed state, replaying from first track");
+            this.initCurrentTrackIdx();
+            playNext(getCurrentTrackIdx());
+
+        } else if(_mediaPlayer.getCurrentPlayerState() == PlayerState.PLAYING) {
+            //ignoring, keep playing
+        }
+        else if(_mediaPlayer.getCurrentPlayerState() == PlayerState.INITIALIZED) {
+            tryPrepareAsynch();
         } else {
-            String msg = "Play request non accepted state, ignoring. State: "
-                    + _mediaPlayer.getCurrentPlayerState();
-            Log.v(TAG,msg);
+                String msg = "Play request non accepted state, ignoring. State: "
+                        + _mediaPlayer.getCurrentPlayerState();
+                Log.v(TAG,msg);
+
         }
 
         // gets a series of audio files (asset file descriptors)
@@ -407,6 +448,20 @@ public class AudioPlayerHelper implements Closeable {
         //add externally callable method close (closeable), from which we release the media player
     }
 
+    public void pause() {
+        if (_mediaPlayer.getCurrentPlayerState() == PlayerState.PAUSED
+                || _mediaPlayer.getCurrentPlayerState() == PlayerState.COMPLETED) {
+            return;
+        }
+
+        if(_mediaPlayer.getCurrentPlayerState() == PlayerState.PLAYING) {
+            _mediaPlayer.pause();
+        } else {
+            Log.e(TAG,"Trying to pause in an unaccepted state: "
+                    + _mediaPlayer.getCurrentPlayerState());
+        }
+    }
+
     public void stop() {
 
         //accepted states {Prepared, Started, Stopped, Paused, PlaybackCompleted}
@@ -416,6 +471,10 @@ public class AudioPlayerHelper implements Closeable {
             String msg = "Stop request from non accepted state, ignoring. State: "
                     + _mediaPlayer.getCurrentPlayerState();
             Log.e(TAG,msg);
+
+        } else if(_mediaPlayer.getCurrentPlayerState()
+                == PlayerState.PREPARING) {
+            Log.d(TAG,"Ignoring stop() while in PREPARING state to avoid error");
         } else {
             this._mediaPlayer.stop();
             //setLastFileHasPlayed(false);
