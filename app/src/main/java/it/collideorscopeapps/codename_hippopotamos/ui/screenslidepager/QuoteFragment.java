@@ -162,7 +162,7 @@ public class QuoteFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        final int PLAYBACK_DELAY_MILLIS = 500;
+        final int PLAYBACK_DELAY_MILLIS = 300;
 
         new Handler().postDelayed(new Runnable() {
             @Override
