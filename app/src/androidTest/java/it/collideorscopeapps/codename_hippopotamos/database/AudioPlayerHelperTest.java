@@ -46,6 +46,26 @@ public class AudioPlayerHelperTest {
     }
 
     @Test
+    public void resetWithFewerFilesOutOfBoundsException() throws IOException {
+
+        //TODO FIXME this test still does not reproduce the error that was happening
+        // error was in playNext(int trackIdx) with trackIdx out of bounds
+
+        String[] filePaths = getSomeAudioFilesPaths();
+
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
+                assetManager, filePaths);
+        audioPlayerHelper.play();
+
+        String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
+        String singleAudioFilePath = Globals.AUDIO_FILES_SUBFOLDER
+                + "/" + singleAudioFileName;
+
+        audioPlayerHelper.reset(singleAudioFilePath);
+        audioPlayerHelper.play();
+    }
+
+    @Test
     public void playWithNoFiles() throws IOException {
 
         //TODO add test for calling playnext(int trackIdx) when idx out of bounds exception
@@ -89,10 +109,9 @@ public class AudioPlayerHelperTest {
         audioPlayerHelper.play();
     }
 
-    @Test
-    public void playMoreFiles() throws IOException {
+    private static String[] getSomeAudioFilesPaths() {
 
-        String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
+        String[] audioFilePathsNames;
 
         //FIXME TODO add more files
         //"xwraf.ogg", "logosf.ogg", "nomosf.ogg"};
@@ -102,15 +121,25 @@ public class AudioPlayerHelperTest {
                 "Od.6.9-anphideteikos.ogg",
                 "Od.6.9-kaiedeimato.ogg",
                 "Od.6.10-kaineus.ogg"};
-        String[] audioFilePathsNames = new String[audioFileNames.length];
-        String audioFilesSubFolder = "audio/";
-        String singleAudioFilePath = audioFilesSubFolder + singleAudioFileName;
+        audioFilePathsNames = new String[audioFileNames.length];
+        String audioFilesSubFolder = Globals.AUDIO_FILES_SUBFOLDER;
 
         int idx = 0;
         for(String fileName:audioFileNames) {
-            audioFilePathsNames[idx] = audioFilesSubFolder + fileName;
+            audioFilePathsNames[idx] = audioFilesSubFolder + "/" + fileName;
             idx++;
         }
+
+        return audioFilePathsNames;
+    }
+
+    @Test
+    public void playMoreFiles() throws IOException {
+
+        String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
+        String singleAudioFilePath = Globals.AUDIO_FILES_SUBFOLDER
+                + "/" + singleAudioFileName;
+        String[] audioFilePathsNames = getSomeAudioFilesPaths();
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
                 assetManager, audioFilePathsNames);

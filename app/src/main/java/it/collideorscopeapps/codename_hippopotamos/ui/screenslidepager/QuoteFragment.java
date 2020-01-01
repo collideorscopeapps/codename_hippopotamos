@@ -75,6 +75,16 @@ public class QuoteFragment extends Fragment {
                 assetManager);
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //The system calls this when creating the fragment.
+        // Within your implementation, you should initialize
+        // essential components of the fragment that you want
+        // to retain when the fragment is paused or stopped, then resumed.
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -147,16 +157,6 @@ public class QuoteFragment extends Fragment {
         // review/study mode
     }
 
-    private void ensureTypeface(Context context) {
-        Typeface prefTypeface = Globals.getPreferredTypeface(
-                context);
-        this.greekShortTV.setTypeface(prefTypeface);
-        this.greekLongTV.setTypeface(prefTypeface);
-        this.lingNotesTV.setTypeface(prefTypeface);
-        this.titleTV.setTypeface(prefTypeface);
-        this.translationTV.setTypeface(prefTypeface);
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -167,6 +167,54 @@ public class QuoteFragment extends Fragment {
         // should the media player be shared between fragmants?
         // or should we create and destroy one on each fragment?
         // then we should handle it on fragment lifecycle (close of mp)
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        //The system calls this method as the first indication
+        // that the user is leaving the fragment (though it
+        // doesn't always mean the fragment is being destroyed).
+        // This is usually where you should commit any changes
+        // that should be persisted beyond the current user
+        // session (because the user might not come back).
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        //this.audioPlayer.stop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
+    private void ensureTypeface(Context context) {
+        Typeface prefTypeface = Globals.getPreferredTypeface(
+                context);
+        this.greekShortTV.setTypeface(prefTypeface);
+        this.greekLongTV.setTypeface(prefTypeface);
+        this.lingNotesTV.setTypeface(prefTypeface);
+        this.titleTV.setTypeface(prefTypeface);
+        this.translationTV.setTypeface(prefTypeface);
     }
 
     //TODO this is to be called after swipe of new fragment

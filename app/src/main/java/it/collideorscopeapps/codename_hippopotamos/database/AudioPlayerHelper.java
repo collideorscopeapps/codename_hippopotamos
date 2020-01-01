@@ -15,6 +15,10 @@ import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class AudioPlayerHelper implements Closeable {
 
+    private class MediaPlayerWrapper extends MediaPlayer {
+        //TODO this might be used to track and log all calls and state changes
+    }
+
     //TODO maybe there is a method to check mediaplayer actual internal state
     //it geve this errors:
     //E/MediaPlayerNative: stop called in state 4, mPlayer(0xebf809a0)
@@ -40,7 +44,7 @@ public class AudioPlayerHelper implements Closeable {
 
     private boolean _lastFileHasPlayed;
 
-    MediaPlayer mediaPlayer;
+    MediaPlayerWrapper mediaPlayer;
     enum PlayerState { UNKNOWN, IDLE, INITIALIZED,
         PREPARING, PREPARED, PLAYING, COMPLETED, STOPPED, ERROR,
         END_RELEASED_UNAVAILABLE
@@ -82,8 +86,11 @@ public class AudioPlayerHelper implements Closeable {
         public void onCompletion(MediaPlayer mp) {
 
             currentPlayerState = PlayerState.COMPLETED;
-            mp.stop();
-            currentPlayerState = PlayerState.STOPPED;
+            //FIXME this stop() might be causing the error:
+            //E/MediaPlayer: stop called in state 0
+            //E/MediaPlayer: error (-38, 0)
+            //mp.stop();
+            //currentPlayerState = PlayerState.STOPPED;
 
             //FIXME: not playing file after first play
             // seems to be assigned incorrectly)
@@ -177,7 +184,7 @@ public class AudioPlayerHelper implements Closeable {
 
     private void setUpMediaPlayer() {
 
-        this.mediaPlayer = new MediaPlayer();
+        this.mediaPlayer = new MediaPlayerWrapper();
         this.currentPlayerState = PlayerState.IDLE;
 
         mediaPlayer.setOnPreparedListener(onPreparedListener);
@@ -200,8 +207,10 @@ public class AudioPlayerHelper implements Closeable {
     private void playNext(int trackIdx) {
 
         if(assetFileDescriptors.length <= trackIdx) {
+            //TODO FIXME this sometimes happen, should handle propertly and add tests
+            // possibly because inconsistent state after changing audio files (fewer)
             Log.e(TAG,"Track index out of bounds " + assetFileDescriptors);
-            //return;
+            return;
         }
 
         //TODO-FIXME handle if assetFileDescriptors is empty
