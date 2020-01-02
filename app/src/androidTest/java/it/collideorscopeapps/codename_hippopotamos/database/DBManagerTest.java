@@ -14,6 +14,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import it.collideorscopeapps.codename_hippopotamos.SharedTestUtils;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 
@@ -184,7 +185,8 @@ public class DBManagerTest {
     public void allScreensArePresentNoErrorsInViewQueries() {
 
         int expectedScreenCount
-                = DBUtils.getTableRowsCount(appContext,"schermate");
+                = SharedTestUtils.getTableRowsCount(appContext,
+                "schermate");
 
         int actualScreenCount = quotesProvider.getSchermateById().size();
 
@@ -195,7 +197,7 @@ public class DBManagerTest {
                 = "SELECT COUNT(*) FROM (" +
                 "SELECT DISTINCT s_id FROM v_schermate_and_quotes);";
         int actualScreenCount2
-                = DBUtils.longForQuery(appContext,countView2RowsQuery);
+                = SharedTestUtils.longForQuery(appContext,countView2RowsQuery);
 
         assertEquals("Wrong screen count from view",
                 expectedScreenCount,actualScreenCount2);

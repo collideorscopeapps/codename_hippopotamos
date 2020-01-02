@@ -1,6 +1,11 @@
 package it.collideorscopeapps.codename_hippopotamos;
 
 import android.content.Context;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
@@ -20,6 +25,8 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class SharedTestUtils {
+
+    public static final String TAG = "SharedTestUtils";
 
     public static void checkSchermate(TreeMap<Integer, Schermata> schermate,
                                 int extectedMinNumSchermate, int expectedMax) {
@@ -198,5 +205,34 @@ public class SharedTestUtils {
         }
 
         return quotesAsString;
+    }
+
+    public static int getTableRowsCount(Context context, String tableName) {
+        int rowsCount = -1;
+        SQLiteOpenHelper mOpenHelper = QuotesProvider.createDBOpenHelper(context);
+        try(SQLiteDatabase db = mOpenHelper.getReadableDatabase()) {
+
+            rowsCount = (int) DatabaseUtils.queryNumEntries(
+                    db, tableName, null);
+        } catch (Exception e) {
+            Log.e(TAG,"Unable to count table rows " + e.toString());
+        }
+
+        return rowsCount;
+    }
+
+    public static int longForQuery(Context context,
+                                   String query) {
+        int rowsCount = -1;
+        SQLiteOpenHelper mOpenHelper = QuotesProvider.createDBOpenHelper(context);
+        try(SQLiteDatabase db = mOpenHelper.getReadableDatabase()) {
+
+            rowsCount = (int) DatabaseUtils.longForQuery(
+                    db, query, null);
+        } catch (Exception e) {
+            Log.e(TAG,"Unable to count table rows " + e.toString());
+        }
+
+        return rowsCount;
     }
 }
