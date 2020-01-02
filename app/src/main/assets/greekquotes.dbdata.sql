@@ -300,10 +300,10 @@ INSERT INTO "schermate" ("_id","full_quote_id","description","author_ref") VALUE
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (38,1,'and he surrounded the city with a wall');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (38,1,'ἔλασσε: "he layed out", 3rd sg aor ind act epic; τεῖχος: "a wall", ACC sg neut; ἀμφὶ: "around" πόλει: "the city", DAT sg fem epic doric ionic;');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (39,'οἴκους','Hom. Od. 6.9');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (45,'καὶ ἐδείματο οἴκους,','Od.6.9-kaiedeimato.ogg');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (39,45);
+INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (39,45,'οἴκους','Hom. Od. 6.9');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (39,1,'and he built houses');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (39,1,'ἐδείματο: "he built", 3rd sg aor ind mid; οἴκους: "houses", ACC m pl, from οἶκος');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (40,'Temples (νηοὺς)','Hom. Od. 6.10');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (46,'καὶ νηοὺς ποίησε θεῶν','Od.6.10-kaineus.ogg');
