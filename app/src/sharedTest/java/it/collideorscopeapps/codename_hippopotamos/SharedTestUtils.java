@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
@@ -49,7 +51,7 @@ public class SharedTestUtils {
                              int extectedMinNumQuotes, int expectedMax) {
         int quotesCount = 0;
         for(Schermata schermata:schermate.values()) {
-            quotesCount += schermata.getQuotes().size();
+            quotesCount += getQuotes(schermata).size();
         }
 
         // a quote can be reused in more screens
@@ -173,7 +175,7 @@ public class SharedTestUtils {
         String quotesAsString = "";
 
         int currentQuoteNum = 1;
-        for(Quote quote : screen.getQuotes()) {
+        for(Quote quote : getQuotes(screen)) {
 
             String prevSeparator = "";
             String quoteText = quote.getQuoteText();
@@ -184,7 +186,8 @@ public class SharedTestUtils {
                 prevSeparator = ", ";
             }
 
-            boolean isLastQuote = currentQuoteNum == screen.getQuotes().size();
+            boolean isLastQuote = currentQuoteNum
+                    == getQuotes(screen).size();
             if(isLastQuote) {
                 final String comma = ".";
                 if(Utils.isNullOrEmpty(quoteText)) {
@@ -205,6 +208,26 @@ public class SharedTestUtils {
         }
 
         return quotesAsString;
+    }
+
+    public static ArrayList<Quote> getQuotes(Schermata screen) {
+
+        final String QUOTES_FIELD_NAME = "quotes";
+        Class<Schermata> schermataClass = Schermata.class;
+
+        ArrayList<Quote> quotes = null;
+
+        try {
+            Field quotesField =
+                    schermataClass.getDeclaredField(QUOTES_FIELD_NAME);
+            quotesField.setAccessible(true);
+            quotes = (ArrayList<Quote>) quotesField.get(screen);
+        }
+        catch (Exception e) {
+            Log.e(TAG,e.toString());
+        }
+
+        return quotes;
     }
 
     public static int getTableRowsCount(Context context, String tableName) {

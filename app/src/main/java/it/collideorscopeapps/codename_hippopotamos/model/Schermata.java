@@ -59,20 +59,14 @@ public class Schermata implements Serializable {
     private String linguisticNotes;
     private String easterEggComment;
 
-    //TODO FIXME change all occurences of previous "quotes" field as wordList
-    //TODO FIXME also in QuoteFragment, display wordList if there is no
-    // short quote or full quote
-    @Keep
-    public ArrayList<Quote> getQuotes() {
-        return quotes;
-    }
-
-
     public void addQuote(Quote quote) {
 
         this.quotes.add(quote);
     }
 
+    //TODO FIXME change all occurences of previous "quotes" field as wordList
+    //TODO FIXME also in QuoteFragment, display wordList if there is no
+    // short quote or full quote
     private ArrayList<Quote> quotes;
     private String quotesAsString;
 
