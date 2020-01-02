@@ -290,15 +290,15 @@ INSERT INTO "schermate" ("_id","full_quote_id","short_quote_id","description","a
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (36,1,'that plundered them');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (36,1,'-ας: ACC pl.');
 
-INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (43,'ἑκὰς ἀνδρῶν ἀλφηστάων,','Od.6.8-ekasandron.ogg');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (43,'ἑκὰς ἀνδρῶν ἀλφηστάων','Od.6.8-ekasandron.ogg');
 INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (37,43,'far from men that live by toil','Hom. Od. 6.8');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (37,1,'far from men that live by toil');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (37,1,'ἑκὰς + GEN: "far from"; ἀλφηστάων "working for one''s daily bread", from verb ἀλφάνω');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (38,'The wall','Hom. Od. 6.9');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (44,'ἀμφὶ δὲ τεῖχος ἔλασσε πόλει','Od.6.9-anphideteikos.ogg');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (38,44);
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (38,1,'He surrounded the city with a wall');
+INSERT INTO "schermate" ("_id","full_quote_id","description","author_ref") VALUES (38,44,'The wall','Hom. Od. 6.9');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (38,1,'and he surrounded the city with a wall');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (38,1,'ἔλασσε: "he layed out", 3rd sg aor ind act epic; τεῖχος: "a wall", ACC sg neut; ἀμφὶ: "around" πόλει: "the city", DAT sg fem epic doric ionic;');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (39,'οἴκους','Hom. Od. 6.9');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (45,'καὶ ἐδείματο οἴκους,','Od.6.9-kaiedeimato.ogg');
