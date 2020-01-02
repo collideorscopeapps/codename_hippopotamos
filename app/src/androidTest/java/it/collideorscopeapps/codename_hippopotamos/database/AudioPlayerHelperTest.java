@@ -14,6 +14,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import it.collideorscopeapps.codename_hippopotamos.Globals;
+import it.collideorscopeapps.codename_hippopotamos.SharedTestUtils;
 
 import static org.junit.Assert.assertEquals;
 
@@ -95,7 +96,7 @@ public class AudioPlayerHelperTest {
         AudioPlayerHelper.PlayerState expectedPlayerState
                 = AudioPlayerHelper.PlayerState.INITIALIZED;
         AudioPlayerHelper.PlayerState actualPlayerState
-                = audioPlayerHelper.getCurrentPlayerState();
+                = SharedTestUtils.getCurrentPlayerState(audioPlayerHelper);
 
         assertEquals("Wrong player state",expectedPlayerState,actualPlayerState);
     }

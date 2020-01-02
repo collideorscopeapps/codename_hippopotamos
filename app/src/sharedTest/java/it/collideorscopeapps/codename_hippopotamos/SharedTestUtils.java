@@ -10,12 +10,13 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
+import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper;
+import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper.PlayerState;
 import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
-
 //import static com.google.common.truth.Truth.assertThat;
 //import com.google.common.truth.Truth.assertThat;
 
@@ -210,22 +211,31 @@ public class SharedTestUtils {
         return quotesAsString;
     }
 
+    public static <C, F> F getFieldValue(Class<C> someClass,
+                                         C someObject,
+                                         String fieldName) {
+        F value = null;
+
+        try {
+            Field field =
+                    someClass.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            value = (F) field.get(someObject);
+        }
+        catch (Exception e) {
+            Log.e(TAG,e.toString());
+        }
+
+        return value;
+    }
+
     public static ArrayList<Quote> getQuotes(Schermata screen) {
 
         final String QUOTES_FIELD_NAME = "quotes";
         Class<Schermata> schermataClass = Schermata.class;
 
-        ArrayList<Quote> quotes = null;
-
-        try {
-            Field quotesField =
-                    schermataClass.getDeclaredField(QUOTES_FIELD_NAME);
-            quotesField.setAccessible(true);
-            quotes = (ArrayList<Quote>) quotesField.get(screen);
-        }
-        catch (Exception e) {
-            Log.e(TAG,e.toString());
-        }
+        ArrayList<Quote> quotes = getFieldValue(
+                schermataClass,screen,QUOTES_FIELD_NAME);
 
         return quotes;
     }
@@ -270,5 +280,23 @@ public class SharedTestUtils {
     public static void init(QuotesProvider quotesProvider,
                      QuotesProvider.Languages language) {
         quotesProvider.init(language,null);
+    }
+
+    public static PlayerState getCurrentPlayerState(
+            AudioPlayerHelper audioPlayerHelper) {
+
+        final String MPLAYER_FIELD_NAME = "_mediaPlayer";
+        Class<AudioPlayerHelper> audioPlayerHelperClass
+                = AudioPlayerHelper.class;
+
+        AudioPlayerHelper.SafeLoggableMediaPlayer player
+                = getFieldValue(
+                audioPlayerHelperClass,audioPlayerHelper,MPLAYER_FIELD_NAME);
+
+        if(player != null) {
+            return player.getCurrentPlayerState();
+        }
+
+        return null;
     }
 }

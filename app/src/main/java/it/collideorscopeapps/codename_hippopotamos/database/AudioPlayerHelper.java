@@ -19,12 +19,12 @@ import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class AudioPlayerHelper implements Closeable {
 
-    enum PlayerState { UNKNOWN, IDLE, INITIALIZED,
+    public enum PlayerState { UNKNOWN, IDLE, INITIALIZED,
         PREPARING, PREPARED, PLAYING, PAUSED, COMPLETED,
         STOPPED, ERROR, END_RELEASED_UNAVAILABLE
     }
 
-    private class SafeLoggableMediaPlayer extends MediaPlayer {
+    public class SafeLoggableMediaPlayer extends MediaPlayer {
 
         private static final String TAG = "SafeLoggableMediaPlayer" ;
 
@@ -207,11 +207,6 @@ public class AudioPlayerHelper implements Closeable {
     private boolean _lastFileHasPlayed;
 
     SafeLoggableMediaPlayer _mediaPlayer;
-
-    @Keep
-    public PlayerState getCurrentPlayerState() {
-        return _mediaPlayer.getCurrentPlayerState();
-    }
 
     static MediaPlayer.OnErrorListener onErrorListener = new MediaPlayer.OnErrorListener() {
         @Override
