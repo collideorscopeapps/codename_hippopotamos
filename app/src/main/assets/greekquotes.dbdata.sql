@@ -310,7 +310,7 @@ INSERT INTO "schermate" ("_id","full_quote_id","description","author_ref") VALUE
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (40,1,'and he made temples for the gods');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (40,1,'νηούς (attic: νᾱούς): "temples", ACC pl masc epic ionic from ναός; ποίησε: "he made", 3rd sg aor ind act homeric ionic, from ποιέω');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (41,'Gleaming eyes','Hom. Od. 6.13, 6.24');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (41,'Spell','Hom. Od. 6.13, 6.24, 6.41');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (47,'γλαυκῶπις Ἀθήνη','Od.6.13-glaukopis.ogg');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (48,'γλαυκῶπις Ἀθήνη','Od.6.24-glaukopis.ogg');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (49,'γλαυκῶπις Ἀθήνη','Od.6.41-glaukopis.ogg');
@@ -318,6 +318,10 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (41,4
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (41,48);
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (41,49);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (41,1,'gleaming-eyed Athena');
+
+INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (58,47,'Gleaming eyes','Hom. Od. 6.13');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (58,1,'gleaming-eyed Athena');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (58,1,'γλαυκῶπις: "with gleaming eyes", NOM sg fem, from γλαυκός "gleaming" and ὤψ "eye"');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (42,'Olympus','Hom. Od. 6.41-46');
 INSERT INTO "greek_quotes" ("_id","audioFileName","quoteText") VALUES (50,'Od.6.42-olimpo.ogg','ἀπέβη γλαυκῶπις Ἀθήνη Οὔλυμπόνδ᾽, ὅθι φασὶ θεῶν ἕδος ἀσφαλὲς αἰεὶ ἔμμεναι. οὔτ᾽ ἀνέμοισι τινάσσεται οὔτε ποτ᾽ ὄμβρῳ δεύεται οὔτε χιὼν ἐπιπίλναται, ἀλλὰ μάλ᾽ αἴθρη πέπταται ἀνέφελος, λευκὴ δ᾽ ἐπιδέδρομεν αἴγλη: τῷ ἔνι τέρπονται μάκαρες θεοὶ ἤματα πάντα.');
@@ -461,6 +465,7 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,37);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,38);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,39);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,40);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,58);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,41);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,42);
 
