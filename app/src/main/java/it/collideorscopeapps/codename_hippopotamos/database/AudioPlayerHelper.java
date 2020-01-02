@@ -20,13 +20,13 @@ public class AudioPlayerHelper implements Closeable {
         STOPPED, ERROR, END_RELEASED_UNAVAILABLE
     }
 
-    private class MediaPlayerWrapper extends MediaPlayer {
+    private class LoggableMediaPlayer extends MediaPlayer {
 
-        private static final String TAG = "MediaPlayerWrapper" ;
+        private static final String TAG = "LoggableMediaPlayer" ;
 
         private PlayerState currentPlayerState;
 
-        public MediaPlayerWrapper() {
+        public LoggableMediaPlayer() {
             super();
 
             setCurrentPlayerState(PlayerState.UNKNOWN);
@@ -145,7 +145,7 @@ public class AudioPlayerHelper implements Closeable {
         }
     }
 
-    private class MediaPlayerWrapperOneFileAtATime extends MediaPlayerWrapper {
+    private class MediaPlayerWrapperOneFileAtATime extends LoggableMediaPlayer {
 
     }
 
@@ -202,7 +202,7 @@ public class AudioPlayerHelper implements Closeable {
 
     private boolean _lastFileHasPlayed;
 
-    MediaPlayerWrapper _mediaPlayer;
+    LoggableMediaPlayer _mediaPlayer;
 
     public PlayerState getCurrentPlayerState() {
         return _mediaPlayer.getCurrentPlayerState();
@@ -359,7 +359,7 @@ public class AudioPlayerHelper implements Closeable {
 
     private void setUpMediaPlayer() {
 
-        this._mediaPlayer = new MediaPlayerWrapper();
+        this._mediaPlayer = new LoggableMediaPlayer();
         _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
 
         this._mediaPlayer.setListeners(onPreparedListener,
