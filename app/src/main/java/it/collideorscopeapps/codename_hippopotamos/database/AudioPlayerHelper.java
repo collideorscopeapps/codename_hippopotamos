@@ -125,6 +125,17 @@ public class AudioPlayerHelper implements Closeable {
         }
 
         @Override
+        public void prepare() throws IOException, IllegalStateException {
+            super.prepare();
+            setCurrentPlayerState(PlayerState.PREPARED);
+        }
+
+        @Override
+        public void seekTo(int msec) throws IllegalStateException {
+            super.seekTo(msec);
+        }
+
+        @Override
         public void setDataSource(String path) throws IOException,
                 IllegalArgumentException, IllegalStateException, SecurityException {
             super.setDataSource(path);
