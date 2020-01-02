@@ -72,7 +72,7 @@ public class SharedTestUtils {
 
         QuotesProvider quotesProvider = new QuotesProvider();
         quotesProvider.create(appContext);
-        quotesProvider.init();
+        init(quotesProvider);
 
         TreeMap<Integer, Schermata> schermate
                 = quotesProvider.getSchermateById();
@@ -209,7 +209,7 @@ public class SharedTestUtils {
 
     public static int getTableRowsCount(Context context, String tableName) {
         int rowsCount = -1;
-        SQLiteOpenHelper mOpenHelper = QuotesProvider.createDBOpenHelper(context);
+        SQLiteOpenHelper mOpenHelper = SharedTestUtils.createDBOpenHelper(context);
         try(SQLiteDatabase db = mOpenHelper.getReadableDatabase()) {
 
             rowsCount = (int) DatabaseUtils.queryNumEntries(
@@ -224,7 +224,7 @@ public class SharedTestUtils {
     public static int longForQuery(Context context,
                                    String query) {
         int rowsCount = -1;
-        SQLiteOpenHelper mOpenHelper = QuotesProvider.createDBOpenHelper(context);
+        SQLiteOpenHelper mOpenHelper = SharedTestUtils.createDBOpenHelper(context);
         try(SQLiteDatabase db = mOpenHelper.getReadableDatabase()) {
 
             rowsCount = (int) DatabaseUtils.longForQuery(
@@ -234,5 +234,18 @@ public class SharedTestUtils {
         }
 
         return rowsCount;
+    }
+
+    public static SQLiteOpenHelper createDBOpenHelper(Context context) {
+        return new QuotesProvider.DBHelper(context);
+    }
+
+    public static void init(QuotesProvider quotesProvider) {
+        init(quotesProvider, QuotesProvider.DEFAULT_LANGUAGE);
+    }
+
+    public static void init(QuotesProvider quotesProvider,
+                     QuotesProvider.Languages language) {
+        quotesProvider.init(language,null);
     }
 }

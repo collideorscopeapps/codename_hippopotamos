@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import androidx.annotation.Keep;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeMap;
@@ -60,12 +58,12 @@ public class QuotesProvider {
         IT // = 2
     }
 
-    private static class DBHelper extends SQLiteOpenHelper {
+    public static class DBHelper extends SQLiteOpenHelper {
 
         private static final String TAG = "DBHelper";
         private final Context myContext; //TODO check if final is necessary
 
-        DBHelper(Context context) {//todo, should constructor by public?
+        public DBHelper(Context context) {//todo, should constructor by public?
             super(context, DB_NAME, null, DATABASE_VERSION);
 
             Log.v(TAG,"Creating SQLiteOpenHelper for " + DB_NAME + " version " + DATABASE_VERSION);
@@ -166,10 +164,6 @@ public class QuotesProvider {
         }
     }
 
-    public static SQLiteOpenHelper createDBOpenHelper(Context context) {
-        return new DBHelper(context);
-    }
-
     Languages languageSetting;
     private DBHelper mOpenHelper;
     private TreeMap<Integer, Schermata> schermate;
@@ -184,15 +178,6 @@ public class QuotesProvider {
         // and must avoid performing lengthy operations.
         // See the method descriptions for their expected thread behavior.
         mOpenHelper = new DBHelper(context);
-    }
-
-    @Keep
-    public void init() {
-        init(DEFAULT_LANGUAGE);
-    }
-
-    public void init(Languages language) {
-        init(language,null);
     }
 
     public void init(Languages language, String playlistDescriptor) {

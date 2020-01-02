@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.util.TreeMap;
 
+import it.collideorscopeapps.codename_hippopotamos.SharedTestUtils;
 import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 
 import static org.junit.Assert.*;
@@ -33,7 +34,7 @@ public class PlaylistIteratorTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         QuotesProvider quotesProvider = new QuotesProvider();
         quotesProvider.create(appContext);
-        quotesProvider.init();
+        SharedTestUtils.init(quotesProvider);
 
         TreeMap<Integer, Schermata> schermateById;
         TreeMap<Integer,Playlist> playlists;

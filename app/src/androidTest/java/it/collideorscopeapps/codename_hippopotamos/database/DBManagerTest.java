@@ -43,7 +43,7 @@ public class DBManagerTest {
         this.appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         this.quotesProvider = new QuotesProvider();
         this.quotesProvider.create(appContext);
-        this.quotesProvider.init();
+        SharedTestUtils.init(this.quotesProvider);
 
         quotesProvider.getSchermateById();
 
@@ -98,7 +98,7 @@ public class DBManagerTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         this.quotesProvider = new QuotesProvider();
         this.quotesProvider.create(appContext);
-        this.quotesProvider.init();
+        SharedTestUtils.init(this.quotesProvider);
 
         return quotesProvider.getSchermateById();
     }

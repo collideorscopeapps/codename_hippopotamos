@@ -58,7 +58,7 @@ public class CopyFileTask extends AsyncTask<CopyFileTask.Task, Integer, Boolean>
 
         QuotesProvider quotesProvider = new QuotesProvider();
         quotesProvider.create(this.context);
-        quotesProvider.init();
+        quotesProvider.init(QuotesProvider.Languages.EN, null);
         quotesProvider.getSchermateById();
         return true;
     }
