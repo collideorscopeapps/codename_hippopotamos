@@ -285,14 +285,15 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (35,4
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (35,1,'of arrogant men, that plundered them');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (35,1,'-ῶν: GEN pl.');
 
-INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (42,'οἵ σφεας σινέσκοντο','Od.6.6-oispheas.ogg');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (42,'οἵ σφε<CASE>ας</CASE> σινέσκοντο','Od.6.6-oispheas.ogg');
 INSERT INTO "schermate" ("_id","full_quote_id","short_quote_id","description","author_ref") VALUES (36,41,42,'Plunderers','Hom. Od. 6.6');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (36,42);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (36,1,'that plundered them');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (36,1,'-ας: ACC pl.');
 
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (43,'ἑκὰς ἀνδρῶν ἀλφηστάων,','Od.6.8-ekasandron.ogg');
 INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (37,43,'far from men that live by toil','Hom. Od. 6.8');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (37,1,'far from men that live by toil');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (37,1,'ἑκὰς + GEN: "far from"; ἀλφηστάων "working for one''s daily bread", from verb ἀλφάνω');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (38,'The wall','Hom. Od. 6.9');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (44,'ἀμφὶ δὲ τεῖχος ἔλασσε πόλει','Od.6.9-anphideteikos.ogg');
