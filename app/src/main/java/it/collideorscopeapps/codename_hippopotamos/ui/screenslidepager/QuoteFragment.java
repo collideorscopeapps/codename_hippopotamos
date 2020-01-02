@@ -330,10 +330,18 @@ public class QuoteFragment extends Fragment {
         // with doric, epic, ionic and attic
         // some preview/tutorial screen? ..
 
-        if(Utils.isNullOrEmpty(screen.getTitle())) {
+        final boolean useDescriptionAsTitle = false;
+
+        String title = screen.getTitle();
+
+        if(useDescriptionAsTitle && Utils.isNullOrEmpty(title)) {
+            title = screen.getDescription();
+        }
+
+        if(Utils.isNullOrEmpty(title)) {
             this.titleTV.setVisibility(View.INVISIBLE);
         } else {
-            this.titleTV.setText(screen.getTitle());
+            this.titleTV.setText(title);
         }
 
         String pageCount = (this.position + 1)
