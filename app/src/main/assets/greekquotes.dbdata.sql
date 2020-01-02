@@ -308,6 +308,7 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (46,'καὶ νηοὺς ποίησε θεῶν','Od.6.10-kaineus.ogg');
 INSERT INTO "schermate" ("_id","full_quote_id","description","author_ref") VALUES (40,46,'Temples (νηοὺς)','Hom. Od. 6.10');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (40,1,'and he made temples for the gods');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (40,1,'ποίησε: "he made", 3rd sg aor ind act homeric ionic, from ποιέω; νηοὺς: "temples", ACC pl masc epic ionic from ναός');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (41,'Gleaming eyes','Hom. Od. 6.13, 6.24');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (47,'γλαυκῶπις Ἀθήνη','Od.6.13-glaukopis.ogg');
