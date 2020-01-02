@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import androidx.annotation.Keep;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,94 +29,11 @@ public class DBUtils {
     final static String DROP_SCHEMA_SQL_FILE = "greekquotes.dropschema.sql";
     public final static String SCHEMA_SQL_FILE = "greekquotes.dbschema.sql";
 
-    public static void appendLineToStringBuilder(StringBuilder sb,
-                                                 String preamble,
-                                                 String lineCore) {
-        final String doubleNewLine = "\n\n";
-
-        if(lineCore != null) {
-            sb.append(preamble + lineCore);
-            sb.append(doubleNewLine);
-        }
-    }
-
-    public static void appendLineToStringBuilder(StringBuilder sb, String str) {
-
-        appendLineToStringBuilder(sb, "", str);
-    }
-
-    public static void appendEmptyLineToStringBuilder(StringBuilder sb) {
-
-        appendLineToStringBuilder(sb, "<br />");
-    }
-
-
     public static boolean castSqliteBoolean(int value) {
 
         boolean isTrue = value != 0;
 
         return isTrue;
-    }
-
-    public static String getPrettifiedReadingList(Context appContext) {
-
-        QuotesProvider quotesProvider = new QuotesProvider();
-        quotesProvider.create(appContext);
-        quotesProvider.init();
-
-        TreeMap<Integer, Schermata> schermate
-                = quotesProvider.getSchermateById();
-        TreeMap<Integer,Playlist> playlists = quotesProvider.getPlaylistsByRank();
-
-        StringBuilder sb = new StringBuilder();
-        for(Playlist pl : playlists.values()) {
-
-            if(!pl.isDisabled()) {
-                appendPlaylistToStringBuilder(sb, pl);
-            }
-        }
-
-        return sb.toString();
-    }
-
-    private static void appendPlaylistToStringBuilder(StringBuilder sb,
-                                                      Playlist pl) {
-        final String gitHubHeadings = "### ";
-        final String quoteStart = "> **";
-        final String boldEnd = "**";
-        appendLineToStringBuilder(sb, gitHubHeadings + pl.getDescription());
-
-        TreeMap<Integer, Schermata> rankedSchermate = pl.getRankedSchermate();
-
-        for(Integer schermataRank: rankedSchermate.keySet()) {
-            Schermata currentSchermata = rankedSchermate.get(schermataRank);
-
-            appendEmptyLineToStringBuilder(sb);
-
-            appendLineToStringBuilder(sb, currentSchermata.getTitle());
-            //appendLineToStringBuilder(sb, currentSchermata.getDescription());
-
-            String fullQuoteText = currentSchermata.getFullQuoteAsString();
-            String shortQuoteText = currentSchermata.getShortQuoteAsString();
-            String quoteToUse = fullQuoteText;
-            if(Utils.isNullOrEmpty(fullQuoteText)) {
-                quoteToUse = shortQuoteText;
-            } else if(Utils.isNullOrEmpty(shortQuoteText)) {
-                quoteToUse = currentSchermata.getWordListAsString();
-            }
-            appendLineToStringBuilder(sb, quoteStart
-                    + quoteToUse
-                    + boldEnd);
-
-            // TODO (in DB manager and queries) translation by selected user language
-            appendLineToStringBuilder(sb, currentSchermata.getTranslation());
-            appendLineToStringBuilder(sb, currentSchermata.getCitation());
-            appendLineToStringBuilder(sb,
-                    "Linguistic/grammar notes: ",
-                    currentSchermata.getLinguisticNotes());
-            appendLineToStringBuilder(sb, currentSchermata.getEasterEggComment());
-            //TODO? add some other note apt for the reading list reader
-        }
     }
 
     //TODO add test
@@ -251,6 +170,7 @@ public class DBUtils {
         return isDBEmpty;
     }
 
+    @Keep
     public static int getTableRowsCount(Context context, String tableName) {
         int rowsCount = -1;
         SQLiteOpenHelper mOpenHelper = QuotesProvider.createDBOpenHelper(context);
@@ -265,6 +185,7 @@ public class DBUtils {
         return rowsCount;
     }
 
+    @Keep
     public static int longForQuery(Context context,
                                     String query) {
         int rowsCount = -1;

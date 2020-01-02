@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.Keep;
 import androidx.annotation.RequiresApi;
 
 import java.io.Closeable;
@@ -207,6 +208,7 @@ public class AudioPlayerHelper implements Closeable {
 
     SafeLoggableMediaPlayer _mediaPlayer;
 
+    @Keep
     public PlayerState getCurrentPlayerState() {
         return _mediaPlayer.getCurrentPlayerState();
     }
@@ -288,6 +290,7 @@ public class AudioPlayerHelper implements Closeable {
         this(assetManager,(String[])null);
     }
 
+    @Keep
     public AudioPlayerHelper(AssetManager assetManager,
                              String audioFilePath)  throws IOException {
         this(assetManager, new String[]{audioFilePath});
@@ -310,6 +313,7 @@ public class AudioPlayerHelper implements Closeable {
         }
     }
 
+    @Keep
     public void changeAudioFiles(String newAudioFilePath) throws IOException {
         changeAudioFiles(new String[]{newAudioFilePath});
     }
@@ -480,6 +484,7 @@ public class AudioPlayerHelper implements Closeable {
         }
     }
 
+    @Keep
     public void stop() {
 
         //accepted states {Prepared, Started, Stopped, Paused, PlaybackCompleted}

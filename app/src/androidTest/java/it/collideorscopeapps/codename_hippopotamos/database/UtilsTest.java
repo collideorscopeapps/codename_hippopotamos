@@ -17,6 +17,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import it.collideorscopeapps.codename_hippopotamos.SharedTestUtils;
+
 import static org.junit.Assert.*;
 
 public class UtilsTest {
@@ -26,7 +28,7 @@ public class UtilsTest {
     @Test
     public void getPrettifiedReadingList() {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        String readingList = DBUtils.getPrettifiedReadingList(appContext);
+        String readingList = SharedTestUtils.getPrettifiedReadingList(appContext);
 
         File txtFile;
         try {

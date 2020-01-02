@@ -2,8 +2,6 @@ package it.collideorscopeapps.codename_hippopotamos;
 
 import android.content.Context;
 
-import androidx.test.core.app.ApplicationProvider;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,15 +11,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
-
-import static com.google.common.truth.Truth.assertThat;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DBManagerTest {
@@ -60,8 +54,8 @@ public class DBManagerTest {
         int extectedMinNumQuotes = 32;
         int maxSchermate = 100;
         int maxQuotes = 100;
-        TestUtils.checkSchermate(schermate,extectedMinNumSchermate, maxSchermate);
-        TestUtils.checkQuotes(schermate,extectedMinNumQuotes,maxQuotes);
+        SharedTestUtils.checkSchermate(schermate,extectedMinNumSchermate, maxSchermate);
+        SharedTestUtils.checkQuotes(schermate,extectedMinNumQuotes,maxQuotes);
     }
 
 }

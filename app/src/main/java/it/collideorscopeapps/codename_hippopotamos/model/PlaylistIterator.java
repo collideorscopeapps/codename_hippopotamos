@@ -3,6 +3,8 @@ package it.collideorscopeapps.codename_hippopotamos.model;
 
 import android.util.Log;
 
+import androidx.annotation.Keep;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -115,6 +117,7 @@ public class PlaylistIterator {
         return this.currentScreen;
     }
 
+    @Keep
     public boolean hasNextScreen() {
         if(this.notMovedYet) {
             // todo limit case: there are no screens,
@@ -131,6 +134,7 @@ public class PlaylistIterator {
         //other limit (unlikely) scenario: the last playlist has no screen
     }
 
+    @Keep
     public Schermata getNextScreen() {
 
         if(this.notMovedYet) {
@@ -182,6 +186,7 @@ public class PlaylistIterator {
         return this.currentScreen;
     }
 
+    @Keep
     public boolean hasPrevScreen() {
         if(this.notMovedYet) {
             // currently cannot go back as a first move
@@ -202,6 +207,7 @@ public class PlaylistIterator {
         return currentRankedSchermate.firstKey() == this.currentScreenRank;
     }
 
+    @Keep
     public Schermata getPrevScreen() {
 
         if(this.notMovedYet) {

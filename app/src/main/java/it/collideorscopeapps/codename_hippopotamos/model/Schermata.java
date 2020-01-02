@@ -1,5 +1,7 @@
 package it.collideorscopeapps.codename_hippopotamos.model;
 
+import androidx.annotation.Keep;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -60,52 +62,11 @@ public class Schermata implements Serializable {
     //TODO FIXME change all occurences of previous "quotes" field as wordList
     //TODO FIXME also in QuoteFragment, display wordList if there is no
     // short quote or full quote
+    @Keep
     public ArrayList<Quote> getQuotes() {
         return quotes;
     }
 
-    public String getWordListAsString() {
-
-        if(!Utils.isNullOrEmpty(quotesAsString)) {
-            return quotesAsString;
-        }
-
-        quotesAsString = "";
-
-        int currentQuoteNum = 1;
-        for(Quote quote : this.getQuotes()) {
-
-            String prevSeparator = "";
-            String quoteText = quote.getQuoteText();
-            String closingComma = "";
-
-            boolean isFirstQuote = currentQuoteNum == 1;
-            if(!isFirstQuote) {
-                prevSeparator = ", ";
-            }
-
-            boolean isLastQuote = currentQuoteNum == this.quotes.size();
-            if(isLastQuote) {
-                final String comma = ".";
-                if(Utils.isNullOrEmpty(quoteText)) {
-                    closingComma = comma;
-                    quotesAsString += closingComma;
-                } else if(!quoteText.endsWith(comma)) {
-                    closingComma = comma;
-                    quotesAsString += prevSeparator + quoteText + closingComma;
-                } else {
-                    quotesAsString += prevSeparator + quoteText;
-                }
-            }
-            else {
-                quotesAsString += prevSeparator + quoteText;
-            }
-
-            currentQuoteNum++;
-        }
-
-        return quotesAsString;
-    }
 
     public void addQuote(Quote quote) {
 
@@ -131,29 +92,12 @@ public class Schermata implements Serializable {
         return shortQuote;
     }
 
-    public String getShortQuoteAsString() {
-        return getQuoteAsString(getShortQuote());
-    }
-
-    public static String getQuoteAsString(Quote quote) {
-        String string = "";
-        if(!Utils.isNullOrEmpty(quote)) {
-            string = quote.getQuoteText();
-        }
-
-        return string;
-    }
-
     public void setShortQuote(Quote shortQuote) {
         this.shortQuote = shortQuote;
     }
 
     public Quote getFullQuote() {
         return fulltQuote;
-    }
-
-    public String getFullQuoteAsString() {
-        return getQuoteAsString(getFullQuote());
     }
 
     public void setFulltQuote(Quote fulltQuote) {

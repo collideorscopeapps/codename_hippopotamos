@@ -1,12 +1,6 @@
 package it.collideorscopeapps.codename_hippopotamos;
 
-import android.content.Context;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.platform.app.InstrumentationRegistry;
-
 import org.junit.Test;
-
-import it.collideorscopeapps.codename_hippopotamos.TestUtils;
 
 import static com.google.common.truth.Truth.assertThat;
 //import com.google.common.truth.Truth.assertThat;

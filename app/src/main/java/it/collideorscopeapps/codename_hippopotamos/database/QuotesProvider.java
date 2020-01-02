@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import androidx.annotation.Keep;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeMap;
@@ -184,6 +186,7 @@ public class QuotesProvider {
         mOpenHelper = new DBHelper(context);
     }
 
+    @Keep
     public void init() {
         init(DEFAULT_LANGUAGE);
     }
