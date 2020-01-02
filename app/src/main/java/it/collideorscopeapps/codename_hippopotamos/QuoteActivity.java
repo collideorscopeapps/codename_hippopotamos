@@ -153,7 +153,7 @@ public class QuoteActivity extends AppCompatActivity {
         final int ID_SCHEMATA_AUDIO_TEST = 14;
         final int ID_SOME_QUOTE = 1;
         Schermata audio_test = (Schermata) schermateById.get(ID_SCHEMATA_AUDIO_TEST);
-        Quote some_quote = audio_test.getQuotes().get(ID_SOME_QUOTE);
+        Quote some_quote = audio_test.getWordList().get(ID_SOME_QUOTE);
         String audioFileName = some_quote.getAudioFileName();
 
         this.currentAudioFilePath = audioFilesSubFolder + audioFileName;

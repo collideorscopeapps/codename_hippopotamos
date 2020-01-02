@@ -1,7 +1,5 @@
 package it.collideorscopeapps.codename_hippopotamos.model;
 
-import androidx.annotation.Keep;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -59,16 +57,65 @@ public class Schermata implements Serializable {
     private String linguisticNotes;
     private String easterEggComment;
 
-    public void addQuote(Quote quote) {
+    public void addWordToList(Quote word) {
 
-        this.quotes.add(quote);
+        this.wordList.add(word);
     }
 
-    //TODO FIXME change all occurences of previous "quotes" field as wordList
-    //TODO FIXME also in QuoteFragment, display wordList if there is no
-    // short quote or full quote
-    private ArrayList<Quote> quotes;
-    private String quotesAsString;
+    public ArrayList<Quote> getWordList() {
+        return this.wordList;
+    }
+
+    private ArrayList<Quote> wordList;
+    private String wordListAsHtmlString;
+
+    public String getMultilineHtmlWordList() {
+
+        if(this.wordListAsHtmlString != null) {
+            return this.wordListAsHtmlString;
+        }
+
+        final String newLineWordSeparator = "\n";
+        final String noClosing = "";
+        this.wordListAsHtmlString = getWordListAsString(this.getWordList(),
+                newLineWordSeparator,noClosing);
+
+        return this.wordListAsHtmlString;
+    }
+
+    public static String getWordListAsString(ArrayList<Quote> words,
+                                             String wordSeparator,
+                                             String closing) {
+
+        StringBuilder sb = new StringBuilder();
+
+        if(!Utils.isNullOrEmpty(words)) {
+            int currentWordNum = 1;
+            for(Quote word : words) {
+
+                String wordText = word.getQuoteText();
+
+                boolean isLastQuote = (currentWordNum == words.size());
+                if(isLastQuote) {
+                    final String COMMA = ".";
+                    if(Utils.isNullOrEmpty(wordText)) {
+                        sb.append(closing);
+                    } else if(wordText.endsWith(closing)) {
+                        sb.append(wordText);
+                    } else {
+                        sb.append(wordText + closing);
+                    }
+                }
+                else {
+                    sb.append(wordText + wordSeparator);
+                }
+
+                currentWordNum++;
+            }
+        }
+
+        return sb.toString();
+    }
 
     private Quote shortQuote;
 
@@ -120,7 +167,7 @@ public class Schermata implements Serializable {
         this.citation = citation;
         this.easterEggComment = easterEggComment;
 
-        this.quotes = new ArrayList<Quote>();
+        this.wordList = new ArrayList<Quote>();
     }
 
     @Override

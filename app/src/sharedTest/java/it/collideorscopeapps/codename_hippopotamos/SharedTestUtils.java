@@ -52,7 +52,7 @@ public class SharedTestUtils {
                              int extectedMinNumQuotes, int expectedMax) {
         int quotesCount = 0;
         for(Schermata schermata:schermate.values()) {
-            quotesCount += getQuotes(schermata).size();
+            quotesCount += schermata.getWordList().size();
         }
 
         // a quote can be reused in more screens
@@ -114,9 +114,13 @@ public class SharedTestUtils {
             String shortQuoteText = getShortQuoteAsString(currentSchermata);
             String quoteToUse = fullQuoteText;
             if (Utils.isNullOrEmpty(fullQuoteText)) {
-                quoteToUse = shortQuoteText;
-            } else if (Utils.isNullOrEmpty(shortQuoteText)) {
-                quoteToUse = getWordListAsString(currentSchermata);
+
+                if (!Utils.isNullOrEmpty(shortQuoteText)) {
+                    quoteToUse = shortQuoteText;
+                } else {
+                    quoteToUse = getSinglelineHtmlWordList(currentSchermata);
+                }
+
             }
             appendLineToStringBuilder(sb, quoteStart
                     + quoteToUse
@@ -171,44 +175,9 @@ public class SharedTestUtils {
         return string;
     }
 
-    public static String getWordListAsString(Schermata screen) {
-
-        String quotesAsString = "";
-
-        int currentQuoteNum = 1;
-        for(Quote quote : getQuotes(screen)) {
-
-            String prevSeparator = "";
-            String quoteText = quote.getQuoteText();
-            String closingComma = "";
-
-            boolean isFirstQuote = currentQuoteNum == 1;
-            if(!isFirstQuote) {
-                prevSeparator = ", ";
-            }
-
-            boolean isLastQuote = currentQuoteNum
-                    == getQuotes(screen).size();
-            if(isLastQuote) {
-                final String comma = ".";
-                if(Utils.isNullOrEmpty(quoteText)) {
-                    closingComma = comma;
-                    quotesAsString += closingComma;
-                } else if(!quoteText.endsWith(comma)) {
-                    closingComma = comma;
-                    quotesAsString += prevSeparator + quoteText + closingComma;
-                } else {
-                    quotesAsString += prevSeparator + quoteText;
-                }
-            }
-            else {
-                quotesAsString += prevSeparator + quoteText;
-            }
-
-            currentQuoteNum++;
-        }
-
-        return quotesAsString;
+    public static String getSinglelineHtmlWordList(Schermata screen) {
+        return Schermata.getWordListAsString(screen.getWordList(),
+                ", ", ".");
     }
 
     public static <C, F> F getFieldValue(Class<C> someClass,
@@ -227,17 +196,6 @@ public class SharedTestUtils {
         }
 
         return value;
-    }
-
-    public static ArrayList<Quote> getQuotes(Schermata screen) {
-
-        final String QUOTES_FIELD_NAME = "quotes";
-        Class<Schermata> schermataClass = Schermata.class;
-
-        ArrayList<Quote> quotes = getFieldValue(
-                schermataClass,screen,QUOTES_FIELD_NAME);
-
-        return quotes;
     }
 
     public static int getTableRowsCount(Context context, String tableName) {

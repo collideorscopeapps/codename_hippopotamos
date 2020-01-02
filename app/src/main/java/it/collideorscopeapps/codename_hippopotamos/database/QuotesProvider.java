@@ -397,7 +397,7 @@ public class QuotesProvider {
                     eeComment);
             schermate.put(idSchermata, currentSchermata);
         }
-        currentSchermata.addQuote(currentQuote);
+        currentSchermata.addWordToList(currentQuote);
     }
 
     private static Integer getNullableInteger(Cursor cursor, int colIdx) {

@@ -35,6 +35,7 @@ public class QuoteFragment extends Fragment {
 
     AssetManager assetManager;
     AudioPlayerHelper audioPlayer;
+    MyHtmlTagHandler htmlTagHandler;
 
     int position;
     int screensCount;
@@ -42,10 +43,12 @@ public class QuoteFragment extends Fragment {
 
     String shortQuoteAudioAssetPath;
     String longQuoteAudioAssetPath;
+    String[] audioAssetsPaths;
 
     TextView titleTV,
             greekShortTV,
             greekLongTV,
+            greekWordListTV,
             citationTV,
             phoneticsTV,
             translationTV,
@@ -56,16 +59,15 @@ public class QuoteFragment extends Fragment {
     public QuoteFragment(int position, Schermata screen, int screensCount,
                          AudioPlayerHelper audioPlayer,
                          AssetManager assetManager) {
+        this.htmlTagHandler = new MyHtmlTagHandler();
+
         this.screensCount = screensCount;
         this.position = position;
         this.screen = screen;
         this.audioPlayer = audioPlayer;
         this.assetManager = assetManager;
 
-        this.shortQuoteAudioAssetPath
-                = Globals.getAudioAssetPath(assetManager,screen.getShortQuote());
-        this.longQuoteAudioAssetPath
-                = Globals.getAudioAssetPath(assetManager,screen.getFullQuote());
+        initAudioAssetsPaths();
     }
 
     public static QuoteFragment newInstance(int position, Schermata screen,
@@ -101,6 +103,7 @@ public class QuoteFragment extends Fragment {
 
         this.greekShortTV = view.findViewById(R.id.greekShortTextTV);
         this.greekLongTV = view.findViewById(R.id.greekLongTextTV);
+        this.greekWordListTV = view.findViewById(R.id.greekWordListTV);
         this.titleTV = view.findViewById(R.id.titleTV);
         this.pageCounterTV = view.findViewById(R.id.pageCounterTV);
         this.citationTV = view.findViewById(R.id.citationRefTV);
@@ -133,6 +136,13 @@ public class QuoteFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 playLongQuote();
+            }
+        });
+
+        this.greekWordListTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playWordList();
             }
         });
 
@@ -225,6 +235,7 @@ public class QuoteFragment extends Fragment {
                 context);
         this.greekShortTV.setTypeface(prefTypeface);
         this.greekLongTV.setTypeface(prefTypeface);
+        this.greekWordListTV.setTypeface(prefTypeface);
         this.lingNotesTV.setTypeface(prefTypeface);
         this.titleTV.setTypeface(prefTypeface);
         this.pageCounterTV.setTypeface(prefTypeface);
@@ -235,11 +246,34 @@ public class QuoteFragment extends Fragment {
     // the other individual play methods when user clicks on quote
     void playShortAndLongQuote() {
 
-        String[] paths = new String[] {
-                this.shortQuoteAudioAssetPath,
-                this.longQuoteAudioAssetPath};
+        playQuotes(this.audioAssetsPaths,this.audioPlayer);
+    }
 
-        playQuotes(paths,this.audioPlayer);
+    void playWordList() {
+
+        playQuotes(this.audioAssetsPaths,this.audioPlayer);
+    }
+
+    private void initAudioAssetsPaths(){
+        this.shortQuoteAudioAssetPath
+                = Globals.getAudioAssetPath(assetManager,screen.getShortQuote());
+        this.longQuoteAudioAssetPath
+                = Globals.getAudioAssetPath(assetManager,screen.getFullQuote());
+
+        if(Utils.isNullOrEmpty(screen.getShortQuote())
+                && Utils.isNullOrEmpty(screen.getFullQuote())) {
+
+            this.audioAssetsPaths = new String[this.screen.getWordList().size()];
+            int elementIdx = 0;
+            for(Quote quote:this.screen.getWordList()) {
+                this.audioAssetsPaths[elementIdx] = Globals.getAudioAssetPath(assetManager,quote);
+                elementIdx++;
+            }
+        } else {
+            this.audioAssetsPaths = new String[] {
+                    this.shortQuoteAudioAssetPath,
+                    this.longQuoteAudioAssetPath};
+        }
     }
 
     static void playQuotes(String[] quotesAssetsPaths, AudioPlayerHelper player) {
@@ -355,8 +389,9 @@ public class QuoteFragment extends Fragment {
         // log error message when audio file not found
         setGreekTV(this.greekShortTV, screen.getShortQuote());
         setGreekTV(this.greekLongTV, screen.getFullQuote());
-
-        adjustForEmptyLongQuote();
+        setWordListTV(this.greekWordListTV, screen);
+        // TODO set a default text message if all three are emtpty?
+        setVisibilityOfGreekTextViews();
 
         //FIXME db gets not refreshed after changes and new run
 
@@ -369,25 +404,39 @@ public class QuoteFragment extends Fragment {
         this.lingNotesTV.setText(screen.getLinguisticNotes());
     }
 
-    private void adjustForEmptyLongQuote() {
+    private void setVisibilityOfGreekTextViews() {
+
+        this.greekWordListTV.setVisibility(View.GONE);
 
         if(Utils.isNullOrEmpty(screen.getFullQuote())) {
 
             this.greekLongTV.setVisibility(View.GONE);
 
-            int newPaddingTop = 32 + this.greekShortTV.getPaddingTop();
-            int paddingBottom = this.greekShortTV.getPaddingBottom();
-            int paddingLeft = this.greekShortTV.getPaddingLeft();
-            int paddingRight = this.greekShortTV.getPaddingRight();
-            this.greekShortTV.setPadding(paddingLeft,newPaddingTop,
-                    paddingRight,paddingBottom);
+            setSingleGreekTVPadding(this.greekShortTV);
+
+            if(Utils.isNullOrEmpty(screen.getShortQuote())) {
+
+                this.greekShortTV.setVisibility(View.GONE);
+                this.greekWordListTV.setVisibility(View.VISIBLE);
+                setSingleGreekTVPadding(this.greekWordListTV);
+
+                //TODO if no quotes or word list, show some default message
+            }
         }
     }
 
-    private static void setGreekTV(TextView tv, Quote quote) {
-        final MyHtmlTagHandler htmlTagHandler
-                = new MyHtmlTagHandler();
+    private static void setSingleGreekTVPadding(TextView tv) {
+        int newPaddingTop = 32 + tv.getPaddingTop();
 
+        int paddingBottom = tv.getPaddingBottom();
+        int paddingLeft = tv.getPaddingLeft();
+        int paddingRight = tv.getPaddingRight();
+
+        tv.setPadding(paddingLeft,newPaddingTop,
+                paddingRight,paddingBottom);
+    }
+
+    private void setGreekTV(TextView tv, Quote quote) {
         //TODO (not in this method)
         // update previous quotes to show in new short/long quote format
 
@@ -397,10 +446,21 @@ public class QuoteFragment extends Fragment {
         }
         else {
             String quoteTxt = quote.getQuoteText();
-            tv.setText(Html.fromHtml(quoteTxt,
-                    null,
-                    htmlTagHandler));
+            setHtmlText(tv, quoteTxt);
         }
+    }
+
+    private void setHtmlText(TextView tv, String htmlText) {
+        tv.setText(Html.fromHtml(htmlText,
+                null,
+                htmlTagHandler));
+    }
+
+    private void setWordListTV(TextView tv, Schermata screen) {
+
+        setHtmlText(tv, screen.getMultilineHtmlWordList());
+
+        //TODO in other part of code, set playback to list of words
     }
 
     @Override

@@ -163,7 +163,7 @@ public class DBManagerTest {
                              int extectedMinNumQuotes, int expectedMax) {
         int quotesCount = 0;
         for(Schermata schermata:schermate.values()) {
-            quotesCount += SharedTestUtils.getQuotes(schermata).size();
+            quotesCount += schermata.getWordList().size();
         }
 
         // a quote can be reused in more screens

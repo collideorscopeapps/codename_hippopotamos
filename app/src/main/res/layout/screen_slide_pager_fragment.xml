@@ -56,6 +56,18 @@
                         />
 
                     <TextView
+                        android:id="@+id/greekWordListTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:justificationMode="inter_word"
+                        android:textSize="32sp"
+                        android:text="@string/DefaultGreekText"
+                        />
+
+                    <TextView
                         android:id="@+id/greekShortTextTV"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

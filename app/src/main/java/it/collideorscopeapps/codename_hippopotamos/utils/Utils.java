@@ -160,6 +160,10 @@ public class Utils {
         }
     }
 
+    public static<E>  boolean isNullOrEmpty(ArrayList<E> arrayList) {
+        return arrayList == null || arrayList.size() == 0;
+    }
+
     public static<E>  boolean isNullOrEmpty(E[] array) {
         return array == null || array.length == 0;
     }

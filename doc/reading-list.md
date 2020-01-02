@@ -12,6 +12,16 @@ Linguistic/grammar notes: τοῦ κόσμου GEN sg (m, II decl.); ἐδυν�
 
 <br />
 
+> **ἐκ δὲ Μνημοσύνης μούσας.**
+
+(by Memory he had the Muses)
+
+(Apollod. 1.3.1)
+
+Linguistic/grammar notes: ἐκ Μνημοσύνης: GEN sg, μούσας: ACC pl
+
+<br />
+
 > **τούτους [..] εἰς Τάρταρον ἔρριψε （τόπος δὲ οὗτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.).**
 
 (he threw them into Tartarus (this is a dark place in the Ade, as far from Earth as Earth is from heaven)(lit.: having as much distance from Earth as Earth from heaven))
@@ -29,16 +39,6 @@ Linguistic/grammar notes: εἰς Τάρταρον, εἰς + Acc (sg, II decl.
 (Apollod. I.3.1)
 
 Linguistic/grammar notes: Εἰρήνην Εὐνομίαν Δίκην: ACC sg; μοίρας: ACC pl (f)
-
-<br />
-
-> **τις ἀθανάτων.**
-
-(one of the immortals)
-
-(Om. Iliad 6.128)
-
-Linguistic/grammar notes: τὶς ἀθανάτων: GEN pl
 
 <br />
 
@@ -102,16 +102,6 @@ Linguistic/grammar notes: πολλαῖς γυναιξίν: DAT pl
 
 <br />
 
-> **ἐκ δὲ Μνημοσύνης μούσας.**
-
-(by Memory he had the Muses)
-
-(Apollod. 1.3.1)
-
-Linguistic/grammar notes: ἐκ Μνημοσύνης: GEN sg, μούσας: ACC pl
-
-<br />
-
 > **Ὀρφεὺς ὁ ἀσκήσας κιθαρῳδίαν, ὃς ᾁδων ἐκίνει λίθους τε καὶ δένδρα.**
 
 (Orpheus, who practised minstrelsy and by his songs moved stones and trees.)
@@ -119,6 +109,16 @@ Linguistic/grammar notes: ἐκ Μνημοσύνης: GEN sg, μούσας: ACC 
 (Apollod. 1.3.2)
 
 Linguistic/grammar notes: λίθους τε καὶ δένδρα: ACC pl (f, nt II decl.)
+
+<br />
+
+> **τις ἀθανάτων.**
+
+(one of the immortals)
+
+(Om. Iliad 6.128)
+
+Linguistic/grammar notes: τὶς ἀθανάτων: GEN pl
 
 ### Reading list - quotes for prepositions
 
@@ -150,11 +150,19 @@ Plutarch reports that Phillip II of Macedon sent word to the Spartans, saying th
 
 <br />
 
-> **ἡμέρα, χώρα, μοῖρα.**
+> **χώρα, μοῖρα, ἡμέρα.**
 
 (Region, fate, day.)
 
 ### Reading list - quotes to learn verb forms
+
+<br />
+
+> **εὕρηκα.**
+
+(I've found (it))
+
+(Archimedes (Plutarch 73.1094c))
 
 <br />
 
@@ -298,51 +306,103 @@ Linguistic/grammar notes:
 
 <br />
 
-> **οἵ σφεας σινέσκοντο.**
+> **δῖ<CASE>ος</CASE> Ὀδυσσεὺς**
 
-(near arrogant men, that plundered them)
+(divine Odysseus)
 
-(Hom. Od. 6.6)
+(Hom. Od. 6.1)
+
+Linguistic/grammar notes: -ος: NOM sg
 
 <br />
 
-> **ἑκὰς ἀνδρῶν ἀλφηστάων,.**
+> **ὑπερηνορεόντ<CASE>ων</CASE>**
+
+(of arrogant men)
+
+(Hom. Od. 6.5)
+
+Linguistic/grammar notes: -ῶν: GEN pl.
+
+<br />
+
+> **ἀνδρ<CASE>ῶν</CASE> ὑπερηνορεόντ<CASE>ων</CASE>, οἵ σφεας σινέσκοντο**
+
+(of arrogant men, that plundered them)
+
+(Hom. Od. 6.5-6)
+
+Linguistic/grammar notes: -ῶν: GEN pl.
+
+<br />
+
+> **ἀνδρ<CASE>ῶν</CASE> ὑπερηνορεόντ<CASE>ων</CASE>, οἵ σφεας σινέσκοντο**
+
+(that plundered them)
+
+(Hom. Od. 6.6)
+
+Linguistic/grammar notes: -ας: ACC pl.
+
+<br />
+
+> **ἑκὰς ἀνδρῶν ἀλφηστάων**
 
 (far from men that live by toil)
 
 (Hom. Od. 6.8)
 
+Linguistic/grammar notes: ἑκὰς + GEN: "far from"; ἀλφηστάων "working for one's daily bread", from verb ἀλφάνω
+
 <br />
 
-> **ἀμφὶ δὲ τεῖχος ἔλασσε πόλει.**
+> **ἀμφὶ δὲ τεῖχος ἔλασσε πόλει**
 
-(He surrounded the city with a wall)
+(and he surrounded the city with a wall)
 
 (Hom. Od. 6.9)
 
+Linguistic/grammar notes: ἔλασσε: "he layed out", 3rd sg aor ind act epic; τεῖχος: "a wall", ACC sg neut; ἀμφὶ: "around" πόλει: "the city", DAT sg fem epic doric ionic;
+
 <br />
 
-> **καὶ ἐδείματο οἴκους,.**
+> **καὶ ἐδείματο οἴκους**
 
 (and he built houses)
 
 (Hom. Od. 6.9)
 
+Linguistic/grammar notes: ἐδείματο: "he built", 3rd sg aor ind mid, from δέμω; οἴκους: "houses", ACC m pl, from οἶκος
+
 <br />
 
-> **καὶ νηοὺς ποίησε θεῶν.**
+> **καὶ νηοὺς ποίησε θεῶν**
 
 (and he made temples for the gods)
 
 (Hom. Od. 6.10)
 
+Linguistic/grammar notes: νηούς (attic: νᾱούς): "temples", ACC pl masc epic ionic from ναός; ποίησε: "he made", 3rd sg aor ind act homeric ionic, from ποιέω
+
 <br />
+
+> **γλαυκῶπις Ἀθήνη**
+
+(gleaming-eyed Athena)
+
+(Hom. Od. 6.13)
+
+Linguistic/grammar notes: γλαυκῶπις: "with gleaming eyes", NOM sg fem, from γλαυκός "gleaming" and ὤψ "eye"
+
+<br />
+
+Spell
 
 > **γλαυκῶπις Ἀθήνη, γλαυκῶπις Ἀθήνη, γλαυκῶπις Ἀθήνη.**
 
 (gleaming-eyed Athena)
 
-(Hom. Od. 6.13, 6.24)
+(Hom. Od. 6.13, 6.24, 6.41)
 
 <br />
 
