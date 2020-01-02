@@ -180,7 +180,7 @@ public class Utils {
         }
 
         String quoteTxt = quote.getQuoteText();
-        return quoteTxt == null || quoteTxt.isEmpty();
+        return isNullOrEmpty(quoteTxt);
     }
 
     public static String[] toArray(ArrayList<String> arrayList){
