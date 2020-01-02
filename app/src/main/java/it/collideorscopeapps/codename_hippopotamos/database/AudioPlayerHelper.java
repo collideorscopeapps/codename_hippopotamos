@@ -479,7 +479,6 @@ public class AudioPlayerHelper implements Closeable {
         }
     }
 
-    @Keep
     public void stop() {
 
         //accepted states {Prepared, Started, Stopped, Paused, PlaybackCompleted}

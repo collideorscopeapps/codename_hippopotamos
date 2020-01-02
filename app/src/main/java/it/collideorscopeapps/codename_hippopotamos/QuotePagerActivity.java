@@ -82,14 +82,21 @@ public class QuotePagerActivity extends FragmentActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
 
-        //TODO implement close/reopen audio player when activity destroyed
+        //TODO implement close/reopen audio player when activity destroyed,
+        // closed and reStarted
         //audio player should be created by activity and passed in fragment
         // constructor
         //onStart, resume, pause, stop, destroy (close?)
         // implement player pause/stop when swiping fragments?
+        this.audioPlayer.stop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
         try {
             this.audioPlayer.close();
