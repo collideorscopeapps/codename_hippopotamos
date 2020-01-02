@@ -1,4 +1,4 @@
-package it.collideorscopeapps.codename_hippopotamos;
+package it.collideorscopeapps.codename_hippopotamos.utils;
 
 import android.graphics.Color;
 import android.graphics.Paint;

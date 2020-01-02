@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import it.collideorscopeapps.codename_hippopotamos.Globals;
-import it.collideorscopeapps.codename_hippopotamos.MyHtmlTagHandler;
+import it.collideorscopeapps.codename_hippopotamos.utils.MyHtmlTagHandler;
 import it.collideorscopeapps.codename_hippopotamos.R;
 import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
