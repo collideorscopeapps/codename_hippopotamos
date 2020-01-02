@@ -4,7 +4,10 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import java.io.Closeable;
 import java.io.FileDescriptor;
@@ -534,17 +537,11 @@ public class AudioPlayerHelper implements Closeable {
         }
 
         try {
-            if(android.os.Build.VERSION.SDK_INT >= 24) {
-                _mediaPlayer.setDataSource(assetFileDescriptor);
+            if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                setDataSource(_mediaPlayer,assetFileDescriptor);
             }
             else {
-                FileDescriptor fileDescriptor = assetFileDescriptor.getFileDescriptor();
-                long offset = assetFileDescriptor.getStartOffset();
-                long length = assetFileDescriptor.getLength();
-                _mediaPlayer.setDataSource(
-                        fileDescriptor,
-                        offset,
-                        length);
+                compatibleSetDataSource(_mediaPlayer,assetFileDescriptor);
             }
         } catch (IllegalArgumentException e) {
             Log.e(TAG,e.toString());
@@ -556,4 +553,25 @@ public class AudioPlayerHelper implements Closeable {
             Log.e(TAG,e.toString());
         }
     }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private static void setDataSource(MediaPlayer mp,
+                                      AssetFileDescriptor assetFileDescriptor)
+            throws  IOException{
+        mp.setDataSource(assetFileDescriptor);
+    }
+
+    @RequiresApi(Build.VERSION_CODES.BASE)
+    private static void compatibleSetDataSource(MediaPlayer mp,
+                                         AssetFileDescriptor assetFileDescriptor)
+            throws  IOException{
+        FileDescriptor fileDescriptor = assetFileDescriptor.getFileDescriptor();
+        long offset = assetFileDescriptor.getStartOffset();
+        long length = assetFileDescriptor.getLength();
+        mp.setDataSource(
+                fileDescriptor,
+                offset,
+                length);
+    }
+
 }
