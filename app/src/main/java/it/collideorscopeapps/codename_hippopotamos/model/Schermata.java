@@ -1,11 +1,8 @@
 package it.collideorscopeapps.codename_hippopotamos.model;
 
-import android.content.res.AssetManager;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import it.collideorscopeapps.codename_hippopotamos.Globals;
 import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class Schermata implements Serializable {
@@ -151,46 +148,8 @@ public class Schermata implements Serializable {
     private Quote fulltQuote;
     private Integer fullQuoteId;
 
-    public boolean hasPlayed() {
-        return hasPlayed;
-    }
 
-    public void setHasPlayed(boolean hasPlayed) {
-        this.hasPlayed = hasPlayed;
-    }
 
-    private boolean hasPlayed = false;
-
-    private String[] audioAssetsPaths;
-
-    public String[] getAudioAssetsPaths(AssetManager assetManager) {
-
-        if(this.audioAssetsPaths != null) {
-            return this.audioAssetsPaths;
-        }
-
-        if(Utils.isNullOrEmpty(getShortQuote())
-                && Utils.isNullOrEmpty(getFullQuote())) {
-
-            this.audioAssetsPaths = new String[getWordList().size()];
-            int elementIdx = 0;
-            for(Quote word:getWordList()) {
-                this.audioAssetsPaths[elementIdx] = Globals.getAudioAssetPath(assetManager,
-                        word);
-                elementIdx++;
-            }
-        } else {
-            String shortQuoteAudioAssetPath
-                    = Globals.getAudioAssetPath(assetManager,getShortQuote());
-            String longQuoteAudioAssetPath
-                    = Globals.getAudioAssetPath(assetManager,getFullQuote());
-            this.audioAssetsPaths = new String[] {
-                    shortQuoteAudioAssetPath,
-                    longQuoteAudioAssetPath};
-        }
-
-        return this.audioAssetsPaths;
-    }
 
     public Schermata(int id,
                      String title,

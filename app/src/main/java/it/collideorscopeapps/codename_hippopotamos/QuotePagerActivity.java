@@ -8,10 +8,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper;
 import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
@@ -30,6 +30,8 @@ public class QuotePagerActivity extends FragmentActivity {
     public static final String DEMO_PLAYLIST_NAME = "Recorded quotes";
 
     private QuoteViewModel mViewModel;
+    private TreeMap<Integer, QuoteFragment> quoteFragmentByPosition;
+    private TreeMap<Integer, Boolean> positionWasSelectedAtLeastOnce;
 
     public AudioPlayerHelper getAudioPlayer() {
         return audioPlayer;
@@ -56,6 +58,8 @@ public class QuotePagerActivity extends FragmentActivity {
 
         // Instantiate a ViewPager2 and a PagerAdapter.
         viewPager = findViewById(R.id.pager);
+        this.quoteFragmentByPosition = new TreeMap<>();
+        this.positionWasSelectedAtLeastOnce = new TreeMap<>();
 
         //TODO here in choosing the adapter, make it according to the intent action
         // i.e. demo or startplaying
@@ -87,41 +91,27 @@ public class QuotePagerActivity extends FragmentActivity {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
 
-                Schermata screen = mViewModel.getScreenAt(position);
+                boolean pageWasSelectedAtLeastOnceBefore = false;
 
-                stopAndPlayAudioForScreenChange(screen);
+                if(!positionWasSelectedAtLeastOnce.containsKey(position)) {
+                    positionWasSelectedAtLeastOnce.put(position, true);
+                } else {
+                    pageWasSelectedAtLeastOnceBefore = true;
+                }
+
+                quoteFragmentByPosition.get(position).onSelected(
+                        pageWasSelectedAtLeastOnceBefore);
+
+
             }
         };
         viewPager.registerOnPageChangeCallback(viewPager2PageChangeCallback);
     }
 
-    public void stopAndPlayAudioForScreenChange(Schermata screen) {
-
-        final int PLAYBACK_DELAY_MILLIS = 300;
-
-        if(this.audioPlayer.isPlayingOrPaused()) {
-            this.audioPlayer.stop();
-        }
-
-        final boolean CAN_AUTO_PLAYBACK_MORE_THAN_ONCE = false;
-
-        if(CAN_AUTO_PLAYBACK_MORE_THAN_ONCE ||
-                !screen.hasPlayed() ) {
-            screen.setHasPlayed(true);
-
-            final Schermata screenToPass = screen;
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    AudioPlayerHelper.playQuotes(
-                            screenToPass.getAudioAssetsPaths(getAssets()),
-                            audioPlayer);
-                }
-            }, PLAYBACK_DELAY_MILLIS);
-        }
+    public void putQuoteFragment(int position,
+                                 QuoteFragment quoteFragment) {
+        this.quoteFragmentByPosition.put(position, quoteFragment);
     }
-
 
     @Override
     protected void onStop() {
@@ -200,7 +190,7 @@ public class QuotePagerActivity extends FragmentActivity {
             Schermata screen = this.fragActivity.mViewModel.getScreenAt(position);
 
             Log.d(TAG,"Fragment with screen: " + screen.toString());
-            Fragment fragment = QuoteFragment.newInstance(
+            QuoteFragment fragment = QuoteFragment.newInstance(
                     position, screen,
                     this.fragActivity.mViewModel.getScreenCount(),
                     fragActivity.getAudioPlayer(),
@@ -208,6 +198,9 @@ public class QuotePagerActivity extends FragmentActivity {
             Bundle args = new Bundle();
             args.putInt(QuoteFragment.SCREEN_ID_BUNDLE_FIELD, position + 1);
             fragment.setArguments(args);
+
+            this.fragActivity.putQuoteFragment(position, fragment);
+
             return fragment;
         }
 

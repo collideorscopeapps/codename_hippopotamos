@@ -7,11 +7,17 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -261,7 +267,7 @@ public class QuoteFragment extends Fragment {
         this.longQuoteAudioAssetPath
                 = Globals.getAudioAssetPath(assetManager,screen.getFullQuote());
 
-        this.audioAssetsPaths = screen.getAudioAssetsPaths(assetManager);
+        this.audioAssetsPaths = getAudioAssetsPaths(assetManager);
     }
 
     static void playQuote(String quoteAssetPath, AudioPlayerHelper player) {
@@ -429,5 +435,63 @@ public class QuoteFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //outState.putInt(SCREEN_ID_BUNDLE_FIELD, this.screenId);
+    }
+
+    public void onSelected(boolean wasSelectedAtLeasOnceBefore) {
+        stopAndPlayAudioForScreenChange(wasSelectedAtLeasOnceBefore);
+    }
+
+
+    public void stopAndPlayAudioForScreenChange(boolean wasSelectedAtLeasOnceBefore) {
+
+        final int PLAYBACK_DELAY_MILLIS = 300;
+
+        if(this.audioPlayer.isPlayingOrPaused()) {
+            this.audioPlayer.stop();
+        }
+
+        final boolean CAN_AUTO_PLAYBACK_MORE_THAN_ONCE = false;
+
+        if(CAN_AUTO_PLAYBACK_MORE_THAN_ONCE
+                || !wasSelectedAtLeasOnceBefore) {
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AudioPlayerHelper.playQuotes(
+                            audioAssetsPaths,
+                            audioPlayer);
+                }
+            }, PLAYBACK_DELAY_MILLIS);
+        }
+    }
+
+    public String[] getAudioAssetsPaths(AssetManager assetManager) {
+
+        if(this.audioAssetsPaths != null) {
+            return this.audioAssetsPaths;
+        }
+
+        if(Utils.isNullOrEmpty(screen.getShortQuote())
+                && Utils.isNullOrEmpty(screen.getFullQuote())) {
+
+            this.audioAssetsPaths = new String[screen.getWordList().size()];
+            int elementIdx = 0;
+            for(Quote word:screen.getWordList()) {
+                this.audioAssetsPaths[elementIdx] = Globals.getAudioAssetPath(assetManager,
+                        word);
+                elementIdx++;
+            }
+        } else {
+            String shortQuoteAudioAssetPath
+                    = Globals.getAudioAssetPath(assetManager,screen.getShortQuote());
+            String longQuoteAudioAssetPath
+                    = Globals.getAudioAssetPath(assetManager,screen.getFullQuote());
+            this.audioAssetsPaths = new String[] {
+                    shortQuoteAudioAssetPath,
+                    longQuoteAudioAssetPath};
+        }
+
+        return this.audioAssetsPaths;
     }
 }
