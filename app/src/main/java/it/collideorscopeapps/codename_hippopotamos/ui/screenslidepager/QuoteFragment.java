@@ -33,7 +33,7 @@ public class QuoteFragment extends Fragment {
     public static final String SCREEN_ID_BUNDLE_FIELD = "screenId";
 
     static final String DEFAULT_TITLE_TEXT
-            = "";
+            = "~";
 
     AssetManager assetManager;
     AudioPlayerHelper audioPlayer;
