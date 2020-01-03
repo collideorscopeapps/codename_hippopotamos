@@ -2,7 +2,6 @@ package it.collideorscopeapps.codename_hippopotamos.database;
 
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
-import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.util.Log;
@@ -59,17 +58,17 @@ public class AudioPlayerHelper implements Closeable {
             this.setOnErrorListener(onErrorListener);
         }
 
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         public void setDefaultAudioAttributes() {
-            if(android.os.Build.VERSION.SDK_INT >= 21) {
-                AudioAttributes DEFAULT_AUDIO_ATTRIBUTES = new AudioAttributes.Builder()
-                        .setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
-                        .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+            if(android.os.Build.VERSION.SDK_INT
+                    >= Build.VERSION_CODES.LOLLIPOP) {
+                final android.media.AudioAttributes DEFAULT_AUDIO_ATTRIBUTES
+                        = new android.media.AudioAttributes.Builder()
+                        .setUsage(android.media.AudioAttributes.USAGE_VOICE_COMMUNICATION)
+                        .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SPEECH)
                         .build();
 
                 this.setAudioAttributes(DEFAULT_AUDIO_ATTRIBUTES);
-            }
-            else {
-                //mediaPlayer.setAudioStreamType(..);
             }
         }
 
@@ -383,7 +382,21 @@ public class AudioPlayerHelper implements Closeable {
         this._mediaPlayer.setListeners(onPreparedListener,
                 onCompletionListener,onErrorListener);
 
-        this._mediaPlayer.setDefaultAudioAttributes();
+        if(android.os.Build.VERSION.SDK_INT
+                >= Build.VERSION_CODES.LOLLIPOP) {
+            setMPDefaultAudioAttributes(this._mediaPlayer);
+        } else {
+            //mediaPlayer.setAudioStreamType(..);
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private static void setMPDefaultAudioAttributes(
+            SafeLoggableMediaPlayer mp) {
+        if(android.os.Build.VERSION.SDK_INT
+                >= Build.VERSION_CODES.LOLLIPOP) {
+            mp.setDefaultAudioAttributes();
+        }
     }
 
     private void playNext(int trackIdx) {
