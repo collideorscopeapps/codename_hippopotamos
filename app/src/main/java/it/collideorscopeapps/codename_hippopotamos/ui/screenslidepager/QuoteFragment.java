@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -128,21 +127,33 @@ public class QuoteFragment extends Fragment {
         this.greekShortTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                playShortQuote();
+                if(audioPlayer.isPlayingOrPaused()) {
+                    audioPlayer.pauseOrResume();
+                } else {
+                    playShortQuote();
+                }
             }
         });
 
         this.greekLongTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                playLongQuote();
+                if(audioPlayer.isPlayingOrPaused()) {
+                    audioPlayer.pauseOrResume();
+                } else {
+                    playLongQuote();
+                }
             }
         });
 
         this.greekWordListTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playWordList();
+                if(audioPlayer.isPlayingOrPaused()) {
+                    audioPlayer.pauseOrResume();
+                } else {
+                    playWordList();
+                }
             }
         });
 
@@ -174,21 +185,16 @@ public class QuoteFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        final int PLAYBACK_DELAY_MILLIS = 300;
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                playShortAndLongQuote();
-            }
-        }, PLAYBACK_DELAY_MILLIS);
-
-
-
-        //TODO FIXME
-        // should the media player be shared between fragmants?
-        // or should we create and destroy one on each fragment?
-        // then we should handle it on fragment lifecycle (close of mp)
+        //NB moved code to play file here (stop previous play,
+        // autoplay this fragment files
+        // this was because onStart() is called when the user begins
+        // to scroll the page and this fragments begins to partially apper
+        // but the transition is still not complete and the current fragment
+        // is still the previous one (and the transition could be canceled)
+        // the playback of new files should start when the transition is
+        // completed.
+        // however, with viewpager2, there seems to be no straight forward
+        // way to notify the fragment when it has become the current one.
     }
 
     @Override
@@ -242,16 +248,8 @@ public class QuoteFragment extends Fragment {
         this.translationTV.setTypeface(prefTypeface);
     }
 
-    //TODO this is to be called after swipe of new fragment
-    // the other individual play methods when user clicks on quote
-    void playShortAndLongQuote() {
-
-        playQuotes(this.audioAssetsPaths,this.audioPlayer);
-    }
-
     void playWordList() {
-
-        playQuotes(this.audioAssetsPaths,this.audioPlayer);
+        AudioPlayerHelper.playQuotes(this.audioAssetsPaths,this.audioPlayer);
     }
 
     private void initAudioAssetsPaths(){
@@ -260,58 +258,7 @@ public class QuoteFragment extends Fragment {
         this.longQuoteAudioAssetPath
                 = Globals.getAudioAssetPath(assetManager,screen.getFullQuote());
 
-        if(Utils.isNullOrEmpty(screen.getShortQuote())
-                && Utils.isNullOrEmpty(screen.getFullQuote())) {
-
-            this.audioAssetsPaths = new String[this.screen.getWordList().size()];
-            int elementIdx = 0;
-            for(Quote quote:this.screen.getWordList()) {
-                this.audioAssetsPaths[elementIdx] = Globals.getAudioAssetPath(assetManager,quote);
-                elementIdx++;
-            }
-        } else {
-            this.audioAssetsPaths = new String[] {
-                    this.shortQuoteAudioAssetPath,
-                    this.longQuoteAudioAssetPath};
-        }
-    }
-
-    static void playQuotes(String[] quotesAssetsPaths, AudioPlayerHelper player) {
-
-        String[] validAssetPaths = filterNonNullElements(quotesAssetsPaths);
-
-        //TODO FIXME check that we are playing both quotes
-        // since this code was used in previous quote activity
-
-        //FIXME audio don't seem to play in API 19 while running tests, plays on 29
-
-        //TODO check that audioplayer is not null
-
-        //TODO show toast for non existing audio files
-        // possibility: keep arraylists: one for existing audio files
-        // one for quotes that have none
-        // one for quotes that should have one but is missing
-
-        //FIXME: Play request non accepted state, ignoring. State: STOPPED
-        // after first playback
-
-        try {
-            player.changeAudioFiles(validAssetPaths);
-            player.play();
-        } catch (IOException e) {
-            Log.e(TAG,e.toString());
-        }
-    }
-
-    static String[] filterNonNullElements(String[] arrayList) {
-        ArrayList<String> nonNullElementsArrayList = new ArrayList<>();
-        for(String element:arrayList) {
-            if(element != null) {
-                nonNullElementsArrayList.add(element);
-            }
-        }
-
-        return nonNullElementsArrayList.toArray(new String[]{});
+        this.audioAssetsPaths = screen.getAudioAssetsPaths(assetManager);
     }
 
     static void playQuote(String quoteAssetPath, AudioPlayerHelper player) {
@@ -321,7 +268,7 @@ public class QuoteFragment extends Fragment {
             return;
         }
 
-        playQuotes(new String[]{quoteAssetPath}, player);
+        AudioPlayerHelper.playQuotes(new String[]{quoteAssetPath}, player);
     }
 
     void playShortQuote() {

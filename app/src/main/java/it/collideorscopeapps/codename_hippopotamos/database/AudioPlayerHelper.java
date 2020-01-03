@@ -40,6 +40,10 @@ public class AudioPlayerHelper implements Closeable {
             return currentPlayerState;
         }
 
+        public boolean isPaused() {
+            return  currentPlayerState == PlayerState.PAUSED;
+        }
+
         private void setCurrentPlayerState(PlayerState state) {
             Log.v(TAG,"Going from " + getCurrentPlayerState()
                     + " to " + state);
@@ -202,6 +206,18 @@ public class AudioPlayerHelper implements Closeable {
 
     public void setLastFileHasPlayed(boolean hasPlayed) {
          this._lastFileHasPlayed = hasPlayed;
+    }
+
+    public boolean isPlaying() {
+        return this._mediaPlayer.isPlaying();
+    }
+
+    public boolean isPaused() {
+        return this._mediaPlayer.isPaused();
+    }
+
+    public boolean isPlayingOrPaused() {
+        return isPlaying() || isPaused();
     }
 
     private boolean _lastFileHasPlayed;
@@ -415,7 +431,7 @@ public class AudioPlayerHelper implements Closeable {
             initCurrentTrackIdx();
             Log.d(TAG,"Play request accepted, first play or idle");
             playNext(getCurrentTrackIdx());
-        } else if(_mediaPlayer.getCurrentPlayerState() == PlayerState.PAUSED) {
+        } else if(isPaused()) {
             _mediaPlayer.start();
         } else if(_mediaPlayer.getCurrentPlayerState() == PlayerState.STOPPED
                 ) { //removed: && hasLastFilePlayed() which was causing a bug
@@ -434,7 +450,7 @@ public class AudioPlayerHelper implements Closeable {
             this.initCurrentTrackIdx();
             playNext(getCurrentTrackIdx());
 
-        } else if(_mediaPlayer.getCurrentPlayerState() == PlayerState.PLAYING) {
+        } else if(isPlaying()) {
             //ignoring, keep playing
         }
         else if(_mediaPlayer.getCurrentPlayerState() == PlayerState.INITIALIZED) {
@@ -465,16 +481,36 @@ public class AudioPlayerHelper implements Closeable {
         //add externally callable method close (closeable), from which we release the media player
     }
 
+    public void pauseOrResume() {
+        if(isPlaying()) {
+            pause();
+        } else if(isPaused()) {
+            resume();
+        } else {
+            Log.e(TAG,"Trying to pauseOrResume in an unaccepted state: "
+                    + _mediaPlayer.getCurrentPlayerState());
+        }
+    }
+
     public void pause() {
-        if (_mediaPlayer.getCurrentPlayerState() == PlayerState.PAUSED
+        if (isPaused()
                 || _mediaPlayer.getCurrentPlayerState() == PlayerState.COMPLETED) {
             return;
         }
 
-        if(_mediaPlayer.getCurrentPlayerState() == PlayerState.PLAYING) {
+        if(isPlaying()) {
             _mediaPlayer.pause();
         } else {
             Log.e(TAG,"Trying to pause in an unaccepted state: "
+                    + _mediaPlayer.getCurrentPlayerState());
+        }
+    }
+
+    public void resume() {
+        if(isPaused()) {
+            _mediaPlayer.start();
+        } else  {
+            Log.e(TAG,"Trying to resume when not paused: "
                     + _mediaPlayer.getCurrentPlayerState());
         }
     }
@@ -573,4 +609,35 @@ public class AudioPlayerHelper implements Closeable {
                 length);
     }
 
+    public static void playQuotes(String[] quotesAssetsPaths, AudioPlayerHelper player) {
+
+        String[] validAssetPaths = filterNonNullElements(quotesAssetsPaths);
+
+        //TODO check that audioplayer is not null
+
+        //TODO show toast for non existing audio files
+        // possibility: keep arraylists: one for existing audio files
+        // one for quotes that have none
+        // one for quotes that should have one but is missing
+
+        //TODO more tests for valid state transitions
+
+        try {
+            player.changeAudioFiles(validAssetPaths);
+            player.play();
+        } catch (IOException e) {
+            Log.e(TAG,e.toString());
+        }
+    }
+
+    static String[] filterNonNullElements(String[] arrayList) {
+        ArrayList<String> nonNullElementsArrayList = new ArrayList<>();
+        for(String element:arrayList) {
+            if(element != null) {
+                nonNullElementsArrayList.add(element);
+            }
+        }
+
+        return nonNullElementsArrayList.toArray(new String[]{});
+    }
 }

@@ -8,6 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import java.io.IOException;
@@ -41,6 +42,7 @@ public class QuotePagerActivity extends FragmentActivity {
      * and next wizard steps.
      */
     private ViewPager2 viewPager;
+    private ViewPager2.OnPageChangeCallback viewPager2PageChangeCallback;
 
     /**
      * The pager adapter, which provides the pages to the view pager widget.
@@ -70,16 +72,56 @@ public class QuotePagerActivity extends FragmentActivity {
             Log.e(TAG,"No action specified");
         }
 
-        pagerAdapter = new QuotePagerAdapter(this);
-        viewPager.setAdapter(pagerAdapter);
-
         try {
             this.audioPlayer = new AudioPlayerHelper(
                     this.getAssets());
         } catch (IOException e) {
             Log.e(TAG,e.toString());
         }
+
+        pagerAdapter = new QuotePagerAdapter(this);
+        viewPager.setAdapter(pagerAdapter);
+
+        viewPager2PageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+
+                Schermata screen = mViewModel.getScreenAt(position);
+
+                stopAndPlayAudioForScreenChange(screen);
+            }
+        };
+        viewPager.registerOnPageChangeCallback(viewPager2PageChangeCallback);
     }
+
+    public void stopAndPlayAudioForScreenChange(Schermata screen) {
+
+        final int PLAYBACK_DELAY_MILLIS = 300;
+
+        if(this.audioPlayer.isPlayingOrPaused()) {
+            this.audioPlayer.stop();
+        }
+
+        final boolean CAN_AUTO_PLAYBACK_MORE_THAN_ONCE = false;
+
+        if(CAN_AUTO_PLAYBACK_MORE_THAN_ONCE ||
+                !screen.hasPlayed() ) {
+            screen.setHasPlayed(true);
+
+            final Schermata screenToPass = screen;
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AudioPlayerHelper.playQuotes(
+                            screenToPass.getAudioAssetsPaths(getAssets()),
+                            audioPlayer);
+                }
+            }, PLAYBACK_DELAY_MILLIS);
+        }
+    }
+
 
     @Override
     protected void onStop() {
@@ -103,6 +145,9 @@ public class QuotePagerActivity extends FragmentActivity {
         } catch (IOException e) {
             Log.e(TAG,e.toString());
         }
+
+        viewPager.unregisterOnPageChangeCallback(
+                viewPager2PageChangeCallback);
     }
 
     @Override
@@ -134,10 +179,6 @@ public class QuotePagerActivity extends FragmentActivity {
         this.mViewModel.init(language, playlistDescriptor);
     }
 
-    /**
-     * A simple pager adapter that represents 5 QuoteFragment objects, in
-     * sequence.
-     */
     private class QuotePagerAdapter extends FragmentStateAdapter {
 
         QuotePagerActivity fragActivity;

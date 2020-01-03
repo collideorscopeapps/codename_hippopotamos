@@ -323,9 +323,8 @@ INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALU
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (58,1,'gleaming-eyed Athena');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (58,1,'γλαυκῶπις: "with gleaming eyes", NOM sg fem, from γλαυκός "gleaming" and ὤψ "eye"');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (42,'Olympus','Hom. Od. 6.41-46');
 INSERT INTO "greek_quotes" ("_id","audioFileName","quoteText") VALUES (50,'Od.6.42-olimpo.ogg','ἀπέβη γλαυκῶπις Ἀθήνη Οὔλυμπόνδ᾽, ὅθι φασὶ θεῶν ἕδος ἀσφαλὲς αἰεὶ ἔμμεναι. οὔτ᾽ ἀνέμοισι τινάσσεται οὔτε ποτ᾽ ὄμβρῳ δεύεται οὔτε χιὼν ἐπιπίλναται, ἀλλὰ μάλ᾽ αἴθρη πέπταται ἀνέφελος, λευκὴ δ᾽ ἐπιδέδρομεν αἴγλη: τῷ ἔνι τέρπονται μάκαρες θεοὶ ἤματα πάντα.');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (42,50);
+INSERT INTO "schermate" ("_id","full_quote_id","description","author_ref") VALUES (42,50,'Olympus','Hom. Od. 6.41-46');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (42,1,'Athena went away to Olympus, which they say is the everlasting home of the gods. Here no wind beats roughly, and neither rain nor snow can fall; but it abides in everlasting sunshine and in a great peacefulness of light, wherein the blessed gods are illumined for ever and ever.');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (43,'Vultures eat his heart in Hades','Apollod. 1.4.1');
