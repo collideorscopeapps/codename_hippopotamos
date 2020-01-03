@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,9 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 import it.collideorscopeapps.codename_hippopotamos.Globals;
 import it.collideorscopeapps.codename_hippopotamos.utils.MyHtmlTagHandler;
@@ -163,6 +159,14 @@ public class QuoteFragment extends Fragment {
                 } else {
                     playWordList();
                 }
+            }
+        });
+
+        this.pageCounterTV.bringToFront();
+        this.pageCounterTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupOptionsMenu(v);
             }
         });
 
@@ -493,5 +497,59 @@ public class QuoteFragment extends Fragment {
         }
 
         return this.audioAssetsPaths;
+    }
+
+    public void showPopupOptionsMenu() {
+        this.showPopupOptionsMenu(this.pageCounterTV);
+    }
+
+    public void showPopupOptionsMenu(View v) {
+
+        Log.d(TAG,"showPopupOptionsMenu on " + v.toString());
+
+        PopupMenu.OnMenuItemClickListener onMenuItemClickListener
+                = new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Log.d(TAG,"onMenuItemClick: " + item.toString());
+                return handleMenuItemClick(item);
+            }
+        };
+
+        PopupMenu popup = new PopupMenu(this.getContext(), v);
+        popup.setOnMenuItemClickListener(onMenuItemClickListener);
+
+        popup.inflate(R.menu.quote_menu);
+        popup.show();
+    }
+
+    private boolean handleMenuItemClick(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.backToPrevSection: {
+                returnToPreviousSection();
+                return true;
+            }
+            case R.id.options: {
+                //TODO open options activity
+                return true;
+            }
+            case R.id.credits: {
+                //TODO open credits activity
+                return true;
+            }
+            case R.id.about: {
+                //TODO showAboutActivity()
+                return true;
+            }
+            default: {
+                Log.e(TAG, "Wong unexpected menu item");
+                return super.onOptionsItemSelected(item);
+            }
+        }
+    }
+
+    private void returnToPreviousSection() {
+        this.getActivity().finish();
     }
 }
