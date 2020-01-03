@@ -236,7 +236,7 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (21,'μούσας','Apollod. 1.3.1');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (27,'ἐκ δὲ Μνημοσύνης μούσας');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (27,1,'by Memory he had the Muses');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (21,1,'by Memory he had the Muses');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (21,1,'and by Memory he got the Muses');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (27,2,'da Mnemosine gli nascono le Muse');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (21,27);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (21,1,'ἐκ Μνημοσύνης: GEN sg, μούσας: ACC pl');
