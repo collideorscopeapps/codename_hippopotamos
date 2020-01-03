@@ -353,7 +353,14 @@ public class QuoteFragment extends Fragment {
         }
 
         if(Utils.isNullOrEmpty(title)) {
-            title = DEFAULT_TITLE_TEXT;
+
+            if(!Utils.isNullOrEmpty(screen.getFullQuote())
+                    && Utils.isNullOrEmpty(screen.getShortQuote())) {
+                title = DEFAULT_TITLE_TEXT;
+            }
+            else {
+                this.titleTV.setVisibility(View.INVISIBLE);
+            }
         }
 
         this.titleTV.setText(title);
