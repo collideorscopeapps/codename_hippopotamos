@@ -32,6 +32,9 @@ public class QuoteFragment extends Fragment {
     public static final String TAG = "QuoteFragment";
     public static final String SCREEN_ID_BUNDLE_FIELD = "screenId";
 
+    static final String DEFAULT_TITLE_TEXT
+            = "";
+
     AssetManager assetManager;
     AudioPlayerHelper audioPlayer;
     MyHtmlTagHandler htmlTagHandler;
@@ -311,19 +314,7 @@ public class QuoteFragment extends Fragment {
         // with doric, epic, ionic and attic
         // some preview/tutorial screen? ..
 
-        final boolean useDescriptionAsTitle = false;
-
-        String title = screen.getTitle();
-
-        if(useDescriptionAsTitle && Utils.isNullOrEmpty(title)) {
-            title = screen.getDescription();
-        }
-
-        if(Utils.isNullOrEmpty(title)) {
-            this.titleTV.setVisibility(View.INVISIBLE);
-        } else {
-            this.titleTV.setText(title);
-        }
+        setTextToTitleTV();
 
         String pageCount = (this.position + 1)
                 + " of " + this.screensCount;
@@ -349,6 +340,23 @@ public class QuoteFragment extends Fragment {
         this.translationTV.setText(screen.getTranslation());
         this.eeCTV.setText(screen.getEasterEggComment());
         this.lingNotesTV.setText(screen.getLinguisticNotes());
+    }
+
+    private void setTextToTitleTV() {
+
+        final boolean useDescriptionAsTitle = false;
+
+        String title = screen.getTitle();
+
+        if(useDescriptionAsTitle && Utils.isNullOrEmpty(title)) {
+            title = screen.getDescription();
+        }
+
+        if(Utils.isNullOrEmpty(title)) {
+            title = DEFAULT_TITLE_TEXT;
+        }
+
+        this.titleTV.setText(title);
     }
 
     private void setVisibilityOfGreekTextViews() {
