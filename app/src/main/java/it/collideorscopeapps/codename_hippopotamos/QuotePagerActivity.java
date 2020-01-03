@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import java.io.IOException;
 import java.util.TreeMap;
@@ -150,6 +151,23 @@ public class QuotePagerActivity extends FragmentActivity {
             // Otherwise, select the previous step.
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
         }
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event)  {
+
+        if(keyCode == KeyEvent.KEYCODE_MENU) {
+
+            showOptionsMenuInCurrentFragment();
+            return true;
+        }
+
+        return super.onKeyUp(keyCode, event);
+    }
+
+    private void showOptionsMenuInCurrentFragment() {
+        int currentPage = viewPager.getCurrentItem();
+        this.quoteFragmentByPosition.get(currentPage).showPopupOptionsMenu();
     }
 
     public int getScreenCount() {
