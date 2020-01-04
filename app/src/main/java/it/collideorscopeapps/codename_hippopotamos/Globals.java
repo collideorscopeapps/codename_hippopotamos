@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
@@ -24,6 +25,11 @@ public class Globals {
         return ResourcesCompat.getFont(
                 context,
                 PREFERRED_FONT_RESOURCE);
+    }
+
+    public static void ensurePreferredTypeface(Context context, TextView tv) {
+        Typeface prefTypeface = getPreferredTypeface(context);
+        tv.setTypeface(prefTypeface);
     }
 
     public static String getAudioAssetPath(AssetManager assetManager,

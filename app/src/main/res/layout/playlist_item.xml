@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/playlistEntryLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    >
 
     <TextView android:id="@+id/playlistNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:textSize="16sp"
+        android:fontFamily="@font/literata"
         />
 
     <TextView android:id="@+id/playlistName"
@@ -16,5 +19,6 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:textSize="16sp"
+        android:fontFamily="@font/literata"
         />
 </LinearLayout>

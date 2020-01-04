@@ -247,15 +247,13 @@ public class QuoteFragment extends Fragment {
     }
 
     private void ensureTypeface(Context context) {
-        Typeface prefTypeface = Globals.getPreferredTypeface(
-                context);
-        this.greekShortTV.setTypeface(prefTypeface);
-        this.greekLongTV.setTypeface(prefTypeface);
-        this.greekWordListTV.setTypeface(prefTypeface);
-        this.lingNotesTV.setTypeface(prefTypeface);
-        this.titleTV.setTypeface(prefTypeface);
-        this.pageCounterTV.setTypeface(prefTypeface);
-        this.translationTV.setTypeface(prefTypeface);
+        Globals.ensurePreferredTypeface(context,this.greekShortTV);
+        Globals.ensurePreferredTypeface(context,this.greekLongTV);
+        Globals.ensurePreferredTypeface(context,this.greekWordListTV);
+        Globals.ensurePreferredTypeface(context,this.lingNotesTV);
+        Globals.ensurePreferredTypeface(context,this.titleTV);
+        Globals.ensurePreferredTypeface(context,this.pageCounterTV);
+        Globals.ensurePreferredTypeface(context,this.translationTV);
     }
 
     void playWordList() {

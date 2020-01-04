@@ -1,7 +1,9 @@
 package it.collideorscopeapps.codename_hippopotamos;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -40,9 +42,9 @@ public class PlaylistsActivity extends ListActivity {
         this.setListAdapter(adapter);
 
         TextView titleTV = findViewById(R.id.playlistsTitle);
+        Globals.ensurePreferredTypeface(this,titleTV);
         titleTV.setText(Globals.DEFAULT_TITLE_TEXT);
     }
-
 
     List<Map<String, String>> playlistsNamesData() {
 
