@@ -7,11 +7,7 @@ import android.util.Log;
 
 import androidx.core.content.res.ResourcesCompat;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
-import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
 import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class Globals {
@@ -20,6 +16,9 @@ public class Globals {
     public static final int PREFERRED_FONT_RESOURCE = R.font.literata;
     public static final String AUDIO_FILES_SUBFOLDER = "audio";
     public static final String FOLDER_SEPARATOR = "/";
+
+    public static final String DEFAULT_TITLE_TEXT
+            = "~";
 
     public static Typeface getPreferredTypeface(Context context) {
         return ResourcesCompat.getFont(

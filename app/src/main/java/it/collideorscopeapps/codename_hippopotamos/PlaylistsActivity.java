@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +18,9 @@ import it.collideorscopeapps.codename_hippopotamos.model.Playlist;
 
 public class PlaylistsActivity extends ListActivity {
 
-    /* TODO
-    * fleuron at the top
-    * top margin/padding
-    * list of playlists
-    * letters as playlist numberals on the left
-    *
-    * underline the last clicked playlist
-     * */
+    static final String PLAYLIST_NUMBER_COL_NAME = "playlistNumber";
+
+    // TODO underline the last clicked playlist
 
     List<Map<String, String>> playlistsNamesData;
 
@@ -33,19 +29,46 @@ public class PlaylistsActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlists);
 
-        //startManagingCursor();
-
-        final String[] columns = {QuotePagerActivity.PLAYLIST_NUMBER_EXTRA_KEY,
+        final String[] columns = {PLAYLIST_NUMBER_COL_NAME,
                 QuotePagerActivity.PLAYLIST_NAME_EXTRA_KEY};
         final int[] textViews = {R.id.playlistNumber, R.id.playlistName};
-        this.playlistsNamesData = getData();
-        //Each entry should be.. a playlsit name, title or description
-        //Map entry example: playlistNumber -> alpha, playlistName -> prepositions
+        this.playlistsNamesData = playlistsNamesData();
 
         SimpleAdapter adapter = new SimpleAdapter(this,playlistsNamesData,
                 R.layout.playlist_item,columns,textViews);
 
         this.setListAdapter(adapter);
+
+        TextView titleTV = findViewById(R.id.playlistsTitle);
+        titleTV.setText(Globals.DEFAULT_TITLE_TEXT);
+    }
+
+
+    List<Map<String, String>> playlistsNamesData() {
+
+        QuotesProvider quotesProvider = new QuotesProvider();
+        quotesProvider.create(this);
+        quotesProvider.init(QuotesProvider.DEFAULT_LANGUAGE, null);
+        TreeMap<Integer,Playlist> playlistByRank = quotesProvider.getPlaylistsByRank();
+
+        List<Map<String, String>> playlistsNamesData = new ArrayList<>();
+
+        int currentPlaylistNumber = 1;
+        for(Playlist currentPlaylist:playlistByRank.values()) {
+
+            String playListGreekNumber = parseGreekNumeral(currentPlaylistNumber);
+            String playlistName = currentPlaylist.getDescription();
+
+            Map<String, String> currentPlaylistEntry = new TreeMap<>();
+            currentPlaylistEntry.put(PLAYLIST_NUMBER_COL_NAME,playListGreekNumber);
+            currentPlaylistEntry.put(QuotePagerActivity.PLAYLIST_NAME_EXTRA_KEY,playlistName);
+
+            playlistsNamesData.add(currentPlaylistEntry);
+
+            currentPlaylistNumber++;
+        }
+
+        return playlistsNamesData;
     }
 
     @Override
@@ -67,39 +90,9 @@ public class PlaylistsActivity extends ListActivity {
         startActivity(intent);
     }
 
-    List<Map<String, String>> getData() {
+    static String parseGreekNumeral(int number) {
 
-        //TODO getPlaylists from model
-        QuotesProvider quotesProvider = new QuotesProvider();
-        quotesProvider.create(this);
-        quotesProvider.init(QuotesProvider.DEFAULT_LANGUAGE, null);
-        //this.schermateById = quotesProvider.getSchermateById();
-        TreeMap<Integer,Playlist> playlistByRank = quotesProvider.getPlaylistsByRank();
-        //this.plItr = new PlaylistIterator(this.schermateById, this.playlists);
-
-        List<Map<String, String>> data = new ArrayList<>();
-
-        int currentPlaylistNumber = 1;
-        //loop on all playlist, as code in class ..
-        //for each playlist:
-        for(Playlist currentPlaylist:playlistByRank.values()) {
-
-            String playListGreekNumber = parseGreekNumeral(currentPlaylistNumber);
-            String playlistName = currentPlaylist.getDescription();
-
-            Map<String, String> currentPlaylistEntry = new TreeMap<>();
-            currentPlaylistEntry.put("playlistNumber",playListGreekNumber);
-            currentPlaylistEntry.put("playlistName",playlistName);
-
-            data.add(currentPlaylistEntry);
-        }
-
-        return data;
-    }
-
-    String parseGreekNumeral(int number) {
-
-        String greekNumeralsString = "αβγδ..";
+        final String greekNumeralsString = "αβγδεζηθικλμνξοπρστυφχψω";
         char[] greekNumerals = greekNumeralsString.toCharArray();
 
         if(number > greekNumerals.length) {

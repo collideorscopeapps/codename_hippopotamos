@@ -34,9 +34,6 @@ public class QuoteFragment extends Fragment {
     public static final String TAG = "QuoteFragment";
     public static final String SCREEN_ID_BUNDLE_FIELD = "screenId";
 
-    static final String DEFAULT_TITLE_TEXT
-            = "~";
-
     AssetManager assetManager;
     AudioPlayerHelper audioPlayer;
     MyHtmlTagHandler htmlTagHandler;
@@ -366,7 +363,7 @@ public class QuoteFragment extends Fragment {
 
             if(!Utils.isNullOrEmpty(screen.getFullQuote())
                     && Utils.isNullOrEmpty(screen.getShortQuote())) {
-                title = DEFAULT_TITLE_TEXT;
+                title = Globals.DEFAULT_TITLE_TEXT;
             }
             else {
                 this.titleTV.setVisibility(View.INVISIBLE);

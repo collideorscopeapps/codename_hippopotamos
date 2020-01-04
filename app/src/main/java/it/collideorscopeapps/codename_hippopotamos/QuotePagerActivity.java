@@ -30,7 +30,6 @@ public class QuotePagerActivity extends FragmentActivity {
 
     public static final String DEMO_PLAYLIST_NAME = "Recorded quotes";
     public static final String PLAYLIST_NAME_EXTRA_KEY = "playlistName";
-    public static final String PLAYLIST_NUMBER_EXTRA_KEY = "playlistNumber";
 
     private QuoteViewModel mViewModel;
     private TreeMap<Integer, QuoteFragment> quoteFragmentByPosition;
