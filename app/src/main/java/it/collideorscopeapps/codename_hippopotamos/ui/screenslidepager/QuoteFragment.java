@@ -349,7 +349,7 @@ public class QuoteFragment extends Fragment {
         this.citationTV.setText(screen.getCitation());
         this.translationTV.setText(screen.getTranslation());
         this.eeCTV.setText(screen.getEasterEggComment());
-        this.lingNotesTV.setText(screen.getLinguisticNotes());
+        setHtmlText(this.lingNotesTV, screen.getLinguisticNotes());
     }
 
     private void setTextToTitleTV() {

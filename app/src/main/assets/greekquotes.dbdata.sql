@@ -67,18 +67,21 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id","position") V
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (13,'Οὐραν<CASE>ὸς</CASE> πρῶτ<CASE>ος</CASE> τοῦ παντὸς ἐδυνάστευσε κόσμου.');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (62,'Οὐραν<CASE>ὸς</CASE> πρῶτ<CASE>ος</CASE>');
 INSERT INTO "schermate" ("_id","full_quote_id","short_quote_id","description","author_ref") VALUES (5,13,62,'Incipits','Apollod. 1.1.1');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (5,1,'Uranus (Sky) was the first lord of the whole universe.');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (5,1,'Uranus, Sky, was the first lord of the whole universe.');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (13,2,'Urano fù il primo signore di tutto l''universo.');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (13,1,'Uranus (Sky) was the first lord of the whole universe.');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (5,13);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (5,1,'τοῦ κόσμου GEN sg (m, II decl.); ἐδυνάστευσε + GEN: was lord over');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (5,1,'-ὸς: NOM sg masc; πρῶτος: "per primo", NOM sg');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (6,'εἰς Τάρταρον','Apollod. 1.1.2');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (6,1,'he threw them into Tartarus (this is a dark place in the Ade, as far from Earth as Earth is from heaven)(lit.: having as much distance from Earth as Earth from heaven)');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (14,'τούτους [..] εἰς Τάρταρον ἔρριψε （τόπος δὲ οὗτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.)');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (14,2,'he threw them into Tartarus (this is a dark place in the Ade, as far from Earth as Earth is from heaven)(lit.: having as much distance from Earth as Earth from heaven)');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (6,14);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (6,1,'εἰς Τάρταρον, εἰς + Acc (sg, II decl.)');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (71,'τ<CASE>οῦ</CASE> παντ<CASE>ὸς</CASE> κόσμ<CASE>ου</CASE>');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (72,'Οὐρανὸς πρῶτος τ<CASE>οῦ</CASE> παντ<CASE>ὸς</CASE> ἐδυνάστευσε κόσμ<CASE>ου</CASE>.');
+INSERT INTO "schermate" ("_id","short_quote_id","full_quote_id","description","author_ref") VALUES (61,71,72,'παντὸς κόσμου','Apollod. 1.1.1');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (61,1,'Uranus, Sky, was the first lord of the whole universe.');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (61,1,'-οῦ, ὸς: GEN sg (m, II decl.); ἐδυνάστευσε + GEN: was lord over');
+
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (73,'εἰς Τάρταρ<CASE>ον</CASE>');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (14,'τούτους .. εἰς Τάρταρον ἔρριψε （τόπος δὲ οὗτος ἐρεβώδης ἐστὶν ἐν Ἅιδου, τοσοῦτον ἀπὸ γῆς ἔχων διάστημα ὅσον ἀπ᾿ οὐρανοῦ γῆ.)');
+INSERT INTO "schermate" ("_id","short_quote_id","full_quote_id","description","author_ref") VALUES (6,73,14,'εἰς Τάρταρον','Apollod. 1.1.2');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (6,1,'he threw them into Tartarus - this is a dark place in the Ade, as far from Earth as Earth is from heaven (lit.: having as much distance from Earth as Earth from heaven)');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (6,1,'εἰς Τάρταρον, εἰς + ACC(sg, II decl.)');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (7,'The start of Time','Apollod. 1.1.3');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (7,1,'And again he (Uranus, the sky) begat children by Earth, the Titans as they are named: Ocean, Coeus, Hyperion, Crius, Iapetus, and, youngest of all, Cronus (Time)');
@@ -166,12 +169,11 @@ INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation")
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (11,19);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (11,2,'perfetto.. da εὑρίσκω, pf.');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (12,'GEN pl','Om. Iliad 6.128');
+INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (12,'τις ἀθανάτ<CASE>ων</CASE>','tis atʰanátɔɔn');
+INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (12,12,'GEN pl','Om. Iliad 6.128');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (12,1,'one of the immortals');
-INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (12,'τις ἀθανάτων','tìs atʰanátɔɔn');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (12,2,'uno degli immortali');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (12,12);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (12,1,'τὶς ἀθανάτων: GEN pl');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (12,1,'-ων: GEN pl; τις: "some one", NOM sg; ἀθανάτων: "of the immortals"');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (13,'Thyrants','Diogenes Laertius, Lives of Eminent Philosophers 1.1.36');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (13,1,'To the question what was the strangest thing he had ever seen, his answer was, "An aged tyrant."');
@@ -194,28 +196,25 @@ INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","transl
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (15,21);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (15,1,'ἐν τῷ Ταρτάρῳ: DAT sg (m)..');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (16,'Heavens, sea and Hades','Apollod. 1.2.1');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (22,'καὶ λαγχάνει Ζεὺς μὲν τὴν ἐν οὐρανῷ δυναστείαν, Ποσειδῶν δὲ τὴν ἐν θαλάσσῃ, Πλούτων δὲ τὴν ἐν Ἅιδου.');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (22,1,'and to Zeus was allotted the dominion in the sky, to Poseidon the dominion in the sea, and to Pluto the dominion in Hades');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (75,'ἐν οὐραν<CASE>ῷ</CASE> .. ἐν θαλάσσ<CASE>ῃ</CASE>');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (22,'καὶ λαγχάνει Ζεὺς μὲν τὴν ἐν οὐραν<CASE>ῷ</CASE> δυναστείαν, Ποσειδῶν δὲ τὴν ἐν θαλάσσ<CASE>ῃ</CASE>, Πλούτων δὲ τὴν ἐν Ἅιδου.');
+INSERT INTO "schermate" ("_id","short_quote_id","full_quote_id","description","author_ref") VALUES (16,75,22,'Heavens, sea and Hades','Apollod. 1.2.1');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (16,1,'and to Zeus was allotted the dominion in the sky, to Poseidon the dominion in the sea, and to Pluto the dominion in Hades');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (16,22);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (16,1,'ἐν οὐρανῷ, ἐν θαλάσσῃ: DAT sg ..');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (16,1,'-ῃ: DAT sg fem; ἐν οὐρανῷ, ἐν θαλάσσῃ: "in the sky, in the sea", DAT sg; ἐν Ἅιδου: shorthand for ἐν οἴκ<CASE>ῳ</CASE> Ἅιδου, "in Hades'' house"');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (17,'Atlas','Apollod. 1.2.3');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (23,'Ἄτλας, ὃς ἔχει τοῖς ὤμοις τὸν οὐρανόν');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (23,1,'Atlas, who carries on his shoulders the sky');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (23,'Ἄτλας, ὃς ἔχει τοῖς ὤμοις τ<CASE>ὸν</CASE> οὐραν<CASE>όν</CASE>');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (23,2,'Atlante, che porta il cielo sulle spalle');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (17,1,'Atlas, who carries on his shoulders the sky');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (17,1,'Atlas, who carries the sky on his shoulders');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (17,23);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (17,1,'τοῖς ὤμοις: DAT pl (m)');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (17,1,'-όν: ACC sg masc; τὸν οὐρανόν: "the sky"; -οις: DAT pl masc; τοῖς ὤμοις: "on the shoulders"');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (18,'ἄνεμοι καὶ ἄστρα','Apollod. 1.2.4');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (24,'Ἠοῦς δὲ καὶ Ἀστραίου ἄνεμοι καὶ ἄστρα');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (24,1,'and to Dawn and Astraeus were born winds and stars');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (24,'Ἠοῦς δὲ καὶ Ἀστραίου ἄνεμ<CASE>οι</CASE> καὶ ἄστρ<CASE>α</CASE>');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (24,2,'e dall''Aurora e da Astreo nacquero i venti e le stelle');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (18,1,'and to Dawn and Astraeus were born winds and stars');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (18,24);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (18,1,'ἄνεμοι καὶ ἄστρα: NOM pl (m, nt)');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (18,1,'ἄνεμοι καὶ ἄστρα: "winds and stars," NOM pl (m, nt)');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (19,'Νίκη Κράτος Ζῆλος Βία.','Apollod. 1.2.4');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (25,'Πάλλαντος δὲ καὶ Στυγὸς Νίκη Κράτος Ζῆλος Βία.');
@@ -225,19 +224,23 @@ INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","transl
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (19,25);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (19,1,'Νίκη Κράτος Ζῆλος Βία.: NOM sg (f, nt, m, f)');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (20,'Ζεὺς','Apollod. 1.3.1');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (26,'Ζεὺς δὲ γαμεῖ μὲν Ἥραν [..] μίγνυται δὲ πολλαῖς θνηταῖς τε καὶ ἀθανάτοις γυναιξίν.');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (26,1,'Zeus wedded Hera .. but he had intercourse with many women, both mortals and immortals.');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (76,'πολλ<CASE>αῖς</CASE> γυναιξ<CASE>ίν</CASE>');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (26,'Ζεὺς δὲ γαμεῖ μὲν Ἥραν .. μίγνυται δὲ πολλ<CASE>αῖς</CASE> θνητ<CASE>αῖς</CASE> τε καὶ ἀθανάτ<CASE>οις</CASE> γυναιξ<CASE>ίν</CASE>.');
+INSERT INTO "schermate" ("_id","short_quote_id","full_quote_id","description","author_ref") VALUES (20,76,26,'Ζεὺς','Apollod. 1.3.1');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (26,2,'Zeus sposa Era .. ma si unisce a molte donne, mortali e immortali');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (20,1,'Zeus wedded Hera .. but he had intercourse with many women, both mortals and immortals.');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (20,26);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (20,1,'πολλαῖς γυναιξίν: DAT pl');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (20,1,'-αῖς: DAT pl fem; πολλαῖς: "with many"; γυναιξίν: "with women", DAT pl; θνηταῖς τε καὶ ἀθανάτοις: "with both mortals and immortals", DAT pl.');
 
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (27,'ἐκ δὲ Μνημοσύνης μούσας');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (27,'ἐκ δὲ Μνημοσύν<CASE>ης</CASE> μούσας');
 INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (21,27,'μούσας','Apollod. 1.3.1');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (21,1,'and by Memory he got the Muses');
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (21,1,'ἐκ Μνημοσύνης: GEN sg, μούσας: ACC pl');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (21,1,'-ης: GEN sg fem; ἐκ Μνημοσύνης: GEN sg, μούσας: ACC pl');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (27,2,'da Mnemosine gli nascono le Muse');
+
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (74,'ἐκ δὲ Μνημοσύνης μούσ<CASE>ας</CASE>');
+INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (62,74,'μούσας','Apollod. 1.3.1');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (62,1,'and by Memory he got the Muses');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (62,1,'-ας: ACC pl fem');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (28,'The Spartans','Plutarch, De garrulitate, 17');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (34,'γράψαντος αὐτοῖς τοῦ Φιλίππου ‘ἂν ἐμβάλω εἰς τὴν Λακωνικήν, ἀναστάτους ὑμᾶς ποιήσω, ’ ἀντέγραψαν ‘αἴκα.’');
@@ -246,12 +249,11 @@ INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","transl
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (28,34);
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (28,1,'');
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (29,'Ὀρφεὺς','Apollod. 1.3.2');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (35,'Ὀρφεὺς ὁ ἀσκήσας κιθαρῳδίαν, ὃς ᾁδων ἐκίνει λίθους τε καὶ δένδρα.');
-INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (35,1,'Orpheus, who practised minstrelsy and by his songs moved stones and trees.');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (29,1,'Orpheus, who practised minstrelsy and by his songs moved stones and trees.');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (29,35);
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (29,1,'λίθους τε καὶ δένδρα: ACC pl (f, nt II decl.)');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (77,'ᾁδων ἐκίνει λίθ<CASE>ους</CASE> τε καὶ δένδρ<CASE>α</CASE>.');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (35,'Ὀρφεὺς ὁ ἀσκήσας κιθαρῳδίαν, ὃς ᾁδων ἐκίνει λίθ<CASE>ους</CASE> τε καὶ δένδρ<CASE>α</CASE>.');
+INSERT INTO "schermate" ("_id","short_quote_id","full_quote_id","description","author_ref") VALUES (29,77,35,'Ὀρφεὺς','Apollod. 1.3.2');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (29,1,'Orpheus, who practised minstrelsy and by singing moved stones and trees.');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (29,1,'λίθους τε καὶ δένδρα: "stones and trees" ACC pl (f, nt II decl.); ᾁδων: "by singing", NOM sg masc part pres act contr; ἐκίνει: "moved", 3rd sg imperf ind act attic epic contr');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (33,'Another one bites the dust','Homer, Iliad, XI.749, XIX.61, XXII.17, XXIV.738');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (39,'ὀδὰξ ἕλον οὖδας.');
@@ -277,7 +279,7 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (70,'ὕπν<CASE>ῳ</CASE> καὶ καμάτ<CASE>ῳ</CASE> ἀρημένος','Od.6.2-upnw.ogg');
 INSERT INTO "schermate" ("_id","short_quote_id","author_ref") VALUES (60,70,'Hom. Od. 6.2');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (60,1,'overcome by sleep and toil');
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (60,1,'ὕπνῳ: "by sleep", DAT sg; καὶ: "and"; καμάτῳ: "by toil", DAT sg; ἀρημένος: "afflicted", NOM sg masc part perf mp epic ionic, from ἀράω');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (60,1,'-ῳ: DAT sg; ὕπνῳ: "by sleep"; καὶ: "and"; καμάτῳ: "by toil"; ἀρημένος: "afflicted", NOM sg masc part perf mp epic ionic, from ἀράω');
 
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (67,'ἀνδρ<CASE>ῶν</CASE>','Od.6.5-andrwn.ogg');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (68,'ὑπερηνορεόντ<CASE>ων</CASE>','Od.6.5-uper-enore-ontwn.ogg');
@@ -292,10 +294,10 @@ INSERT INTO "schermate" ("_id","short_quote_id","full_quote_id","description","a
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (36,1,'of arrogant men, that plundered them');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (36,1,'-ας: ACC pl; σφεας: them.');
 
-INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (43,'ἑκὰς ἀνδρῶν ἀλφηστάων','Od.6.8-ekasandron.ogg');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (43,'ἑκὰς ἀνδρ<CASE>ῶν</CASE> ἀλφηστά<CASE>ων</CASE>','Od.6.8-ekasandron.ogg');
 INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (37,43,'far from men that live by toil','Hom. Od. 6.8');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (37,1,'far from men that live by toil');
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (37,1,'ἑκὰς + GEN: "far from"; ἀλφηστάων "working for one''s daily bread", from verb ἀλφάνω');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (37,1,'-ων: GEN pl; ἑκὰς + GEN: "far from"; ἀλφηστάων "working for one''s daily bread", from verb ἀλφάνω');
 
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (44,'ἀμφὶ δὲ τεῖχος ἔλασσε πόλει','Od.6.9-anphideteikos.ogg');
 INSERT INTO "schermate" ("_id","full_quote_id","description","author_ref") VALUES (38,44,'The wall','Hom. Od. 6.9');
@@ -350,7 +352,7 @@ INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (46,5
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (46,1,'and so was the will of Zeus fulfilled');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (47,'','Iliad 1.18');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (55,'θεοὶ [..] Ὀλύμπια δώματ᾽ ἔχοντες');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (55,'θεοὶ .. Ὀλύμπια δώματ᾽ ἔχοντες');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (47,55);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (47,1,'the gods who have houses in mount Olympus');
 
@@ -376,16 +378,16 @@ INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","transl
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (51,1,'γένετ᾽: (γίγνομαι) 3rd sg aor ind mid homeric ionic unaugmented');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (52,'','Iliad 1.30');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (60,'ἡμετέρῳ ἐνὶ οἴκῳ');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (60,'ἡμετέρ<CASE>ῳ</CASE> ἐνὶ οἴκ<CASE>ῳ</CASE>');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (52,60);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (52,1,'in our house.');
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (52,1,'ἐνὶ οἴκῳ: ἐν + DAT. ἐνὶ is just a poetic version of ἐν');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (52,1,'ἐνὶ οἴκῳ: ἐν + DAT; ἐνὶ: just a poetic version of ἐν');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (53,'','Iliad 6.500');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (61,'αἳ μὲν ἔτι ζωὸν γόον Ἕκτορα ᾧ ἐνὶ οἴκῳ');
+INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (61,'αἳ μὲν ἔτι ζωὸν γόον Ἕκτορα <CASE>ᾧ</CASE> ἐνὶ οἴκ<CASE>ῳ</CASE>');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (53,61);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (53,1,'although still alive, they mourned Hector in his house');
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (53,1,'αἳ: they (female); ᾧ: his, DAT; ζωὸν: adj sg masc ACC');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (53,1,'αἳ: "they" (female); ᾧ: "in his", DAT; ζωὸν: adj sg masc ACC');
 
 INSERT INTO "schermate" ("_id","description","author_ref") VALUES (54,'the greatest of all gain, the acquisition of a good friend','Xenophon, Memorabilia 1.2.7');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (63,'ἐθαύμαζε δ᾽ εἴ τις ἀρετὴν ἐπαγγελλόμενος ἀργύριον πράττοιτο καὶ μὴ νομίζοι τὸ μέγιστον κέρδος ἕξειν φίλον ἀγαθὸν κτησάμενος');
@@ -397,8 +399,6 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (64,'ἥδομαι φίλ�
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (55,64);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (55,1,'my delight is to be with good friends');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (55,1,'φίλοις ἀγαθοῖς: DAT pl; ἥδομαι: verb 1st sg pres ind mp');
-
-
 
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
@@ -424,23 +424,28 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,4);
 INSERT INTO "playlists" ("_id","play_order","description") VALUES (4,1,'Micro quotes to learn noun declensions');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,5);--/Uranus
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,56);--/Dios Odysseus
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,21);--/From Memory the Muses GEN sg
---/new screen: Uranus, GEN sg (different short quote, and also long quote for case highlight)
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,6);--/ἐν Ἅιδου GEN sg
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,60);--/DAT sg overcome by sleep and toil
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,21);--/GEN sg From Memory the Muses
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,61);--/GEN sg, di tutto l'universo
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,6); --/GEN sg ἐν Ἅιδου
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,60);--/DAT sg overcome by sleep and toil
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,53);--/DAT sg in his house
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,52);--/DAT sg in our house
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,16);--/DAT sg, the dominion in the sky, the dominion in the sea
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,17);--/ACC sg carries the sky (on his shoulders)
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,18);--/NOM pl ἄνεμοι καὶ ἄστρα, winds and stars 1.2.4
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,12);--/GEN pl one of the immortals
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,57);--/GEN pl of arrogant men (from demo)
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,37);--/GEN pl far from men that live by toil
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,20);--/DAT pl with many women
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,29);--/ACC pl Orfeus, stones and trees
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,62);--/ACC pl Musas
 
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,9);--/Peace, Order, Justice, and the Fates
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,15);--/αὐτοὺς ἐν τῷ Ταρτάρῳ - shut them into Tartarus
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,16);
+INSERT INTO "playlists" ("_id","description") VALUES (11,'Noun declensions (2)');
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (11,9);--/Peace, Order, Justice, and the Fates
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (11,15);--/αὐτοὺς ἐν τῷ Ταρτάρῳ - shut them into Tartarus
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (11,19);--/NOM pl Victory, Dominion, Emulation, and Violence
 
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,18);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,19);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,20);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,29);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,12);
+
 --..more..
 
 INSERT INTO "playlists" ("_id","description") VALUES (5,'Reading list - quotes to learn verb forms');
