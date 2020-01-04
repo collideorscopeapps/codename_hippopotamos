@@ -24,7 +24,7 @@ public class UtilsTest {
 
     @Test
     public void audioAssetCount() {
-        int expectedAudioFilesCount = 16;
+        int expectedAudioFilesCount = 18;
         String[] actualAudioFiles
                 = Utils.getAssetsInFolder(assetManager,Globals.AUDIO_FILES_SUBFOLDER);
         assertEquals("Wrong number of assets",expectedAudioFilesCount,

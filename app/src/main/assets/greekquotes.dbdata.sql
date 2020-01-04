@@ -269,24 +269,28 @@ INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALU
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (56,1,'divine Odysseus');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (56,1,'-ος: NOM sg');
 
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (69,'ὣς ὁ μὲν ἔνθα καθεῦδε','Od.6.1-os-o-men-enta-kataude.ogg');
+INSERT INTO "schermate" ("_id","short_quote_id","author_ref") VALUES (59,69,'Hom. Od. 6.1');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (59,1,'So there he slept');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (59,1,'-ὣς: "so"; ἔνθα: "there"; ὁ: "he", NOM sg; καθεῦδε: "slept", 3rd sg imperf ind act.');
+
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (70,'ὕπν<CASE>ῳ</CASE> καὶ καμάτ<CASE>ῳ</CASE> ἀρημένος','Od.6.2-upnw.ogg');
+INSERT INTO "schermate" ("_id","short_quote_id","author_ref") VALUES (60,70,'Hom. Od. 6.2');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (60,1,'overcome by sleep and toil');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (60,1,'ὕπνῳ: "by sleep", DAT sg; καὶ: "and"; καμάτῳ: "by toil", DAT sg; ἀρημένος: "afflicted", NOM sg masc part perf mp epic ionic, from ἀράω');
+
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (67,'ἀνδρ<CASE>ῶν</CASE>','Od.6.5-andrwn.ogg');
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (68,'ὑπερηνορεόντ<CASE>ων</CASE>','Od.6.5-uper-enore-ontwn.ogg');
 INSERT INTO "schermate" ("_id","short_quote_id","full_quote_id","description","author_ref") VALUES (57,67,68,'Arrogant men','Hom. Od. 6.5');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (57,67);
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (57,1,'of arrogant men');
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (57,1,'-ῶν: GEN pl.');
-
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (41,'ἀνδρ<CASE>ῶν</CASE> ὑπερηνορεόντ<CASE>ων</CASE>, οἵ σφεας σινέσκοντο');
-INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (65,'ἀνδρ<CASE>ῶν</CASE> ὑπερηνορεόντ<CASE>ων</CASE>');
-INSERT INTO "schermate" ("_id","full_quote_id","short_quote_id","description","author_ref") VALUES (35,41,65,'Arrogant men','Hom. Od. 6.5-6');
-INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (35,41);
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (35,1,'of arrogant men, that plundered them');
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (35,1,'-ῶν: GEN pl.');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (57,1,'-ῶν: GEN pl; ἀνδρῶν: "men", from ἀνήρ; ὑπερηνορεόντων: exceedingly manly:—but always in bad sense, overbearing, overweening, from ὑπερηνορέων (NOM sg), part. as adjective from noun ὑπερήνωρ, ὑπερ + ηνορ, "overbearing, overweening".');
 
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (42,'οἵ σφε<CASE>ας</CASE> σινέσκοντο','Od.6.6-oispheas.ogg');
-INSERT INTO "schermate" ("_id","full_quote_id","short_quote_id","description","author_ref") VALUES (36,41,42,'Plunderers','Hom. Od. 6.6');
-INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (36,1,'that plundered them');
-INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (36,1,'-ας: ACC pl.');
+INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (41,'ἀνδρῶν ὑπερηνορεόντων, οἵ σφε<CASE>ας</CASE> σινέσκοντο','');
+INSERT INTO "schermate" ("_id","short_quote_id","full_quote_id","description","author_ref") VALUES (36,42,41,'Plunderers','Hom. Od. 6.6');
+INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (36,1,'of arrogant men, that plundered them');
+INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (36,1,'-ας: ACC pl; σφεας: them.');
 
 INSERT INTO "greek_quotes" ("_id","quoteText","audioFileName") VALUES (43,'ἑκὰς ἀνδρῶν ἀλφηστάων','Od.6.8-ekasandron.ogg');
 INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (37,43,'far from men that live by toil','Hom. Od. 6.8');
@@ -455,8 +459,9 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (7,28);
 
 INSERT INTO "playlists" ("_id","description") VALUES (9,'Recorded quotes');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id","sorting") VALUES (9,56,1);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id","sorting") VALUES (9,59,1);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id","sorting") VALUES (9,60,1);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id","sorting") VALUES (9,57,2);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,35);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,36);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,37);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,38);
