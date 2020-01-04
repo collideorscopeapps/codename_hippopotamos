@@ -12,9 +12,9 @@ Linguistic/grammar notes: τοῦ κόσμου GEN sg (m, II decl.); ἐδυν�
 
 <br />
 
-> **ἐκ δὲ Μνημοσύνης μούσας.**
+> **ἐκ δὲ Μνημοσύνης μούσας**
 
-(by Memory he had the Muses)
+(and by Memory he got the Muses)
 
 (Apollod. 1.3.1)
 
@@ -316,33 +316,43 @@ Linguistic/grammar notes: -ος: NOM sg
 
 <br />
 
+> **ὣς ὁ μὲν ἔνθα καθεῦδε**
+
+(So there he slept)
+
+(Hom. Od. 6.1)
+
+Linguistic/grammar notes: -ὣς: "so"; ἔνθα: "there"; ὁ: "he", NOM sg; καθεῦδε: "slept", 3rd sg imperf ind act.
+
+<br />
+
+> **ὕπν<CASE>ῳ</CASE> καὶ καμάτ<CASE>ῳ</CASE> ἀρημένος**
+
+(overcome by sleep and toil)
+
+(Hom. Od. 6.2)
+
+Linguistic/grammar notes: ὕπνῳ: "by sleep", DAT sg; καὶ: "and"; καμάτῳ: "by toil", DAT sg; ἀρημένος: "afflicted", NOM sg masc part perf mp epic ionic, from ἀράω
+
+<br />
+
 > **ὑπερηνορεόντ<CASE>ων</CASE>**
 
 (of arrogant men)
 
 (Hom. Od. 6.5)
 
-Linguistic/grammar notes: -ῶν: GEN pl.
+Linguistic/grammar notes: -ῶν: GEN pl; ἀνδρῶν: "men", from ἀνήρ; ὑπερηνορεόντων: exceedingly manly:—but always in bad sense, overbearing, overweening, from ὑπερηνορέων (NOM sg), part. as adjective from noun ὑπερήνωρ, ὑπερ + ηνορ, "overbearing, overweening".
 
 <br />
 
-> **ἀνδρ<CASE>ῶν</CASE> ὑπερηνορεόντ<CASE>ων</CASE>, οἵ σφεας σινέσκοντο**
+> **ἀνδρῶν ὑπερηνορεόντων, οἵ σφε<CASE>ας</CASE> σινέσκοντο**
 
 (of arrogant men, that plundered them)
 
-(Hom. Od. 6.5-6)
-
-Linguistic/grammar notes: -ῶν: GEN pl.
-
-<br />
-
-> **ἀνδρ<CASE>ῶν</CASE> ὑπερηνορεόντ<CASE>ων</CASE>, οἵ σφεας σινέσκοντο**
-
-(that plundered them)
-
 (Hom. Od. 6.6)
 
-Linguistic/grammar notes: -ας: ACC pl.
+Linguistic/grammar notes: -ας: ACC pl; σφεας: them.
 
 <br />
 
@@ -406,7 +416,7 @@ Spell
 
 <br />
 
-> **ἀπέβη γλαυκῶπις Ἀθήνη Οὔλυμπόνδ᾽, ὅθι φασὶ θεῶν ἕδος ἀσφαλὲς αἰεὶ ἔμμεναι. οὔτ᾽ ἀνέμοισι τινάσσεται οὔτε ποτ᾽ ὄμβρῳ δεύεται οὔτε χιὼν ἐπιπίλναται, ἀλλὰ μάλ᾽ αἴθρη πέπταται ἀνέφελος, λευκὴ δ᾽ ἐπιδέδρομεν αἴγλη: τῷ ἔνι τέρπονται μάκαρες θεοὶ ἤματα πάντα.**
+> **ἡ μὲν ἄρ᾽ ὣς εἰποῦσ᾽ ἀπέβη γλαυκῶπις Ἀθήνη </BR> Οὔλυμπόνδ᾽, ὅθι φασὶ θεῶν ἕδος ἀσφαλὲς αἰεὶ </BR> ἔμμεναι. οὔτ᾽ ἀνέμοισι τινάσσεται οὔτε ποτ᾽ ὄμβρῳ </BR> δεύεται οὔτε χιὼν ἐπιπίλναται, ἀλλὰ μάλ᾽ αἴθρη </BR> πέπταται ἀνέφελος, λευκὴ δ᾽ ἐπιδέδρομεν αἴγλη: </BR> τῷ ἔνι τέρπονται μάκαρες θεοὶ ἤματα πάντα.**
 
 (Athena went away to Olympus, which they say is the everlasting home of the gods. Here no wind beats roughly, and neither rain nor snow can fall; but it abides in everlasting sunshine and in a great peacefulness of light, wherein the blessed gods are illumined for ever and ever.)
 
