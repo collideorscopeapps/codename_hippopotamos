@@ -404,8 +404,9 @@ INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (2,'ἀγαθός');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,2,'Buono, nobile');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (2,1,'Good, noble');
 
-INSERT INTO "playlists" ("_id","description") VALUES (0,'Reading list - quotes for prepositions');
+INSERT INTO "playlists" ("_id","description") VALUES (0,'Prepositions');
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (0,3);
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (0,59);
 
 INSERT INTO "playlists" ("_id","description","disabled") VALUES (1,'Parole, vocabolario, declinazioni',1);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (1,1);
@@ -420,14 +421,21 @@ INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,1);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,2);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (3,4);
 
-INSERT INTO "playlists" ("_id","play_order","description") VALUES (4,1,'Reading list - micro quotes to learn nouns declensions');
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,5);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,21);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,6);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,9);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,15);
+INSERT INTO "playlists" ("_id","play_order","description") VALUES (4,1,'Micro quotes to learn noun declensions');
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,5);--/Uranus
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,56);--/Dios Odysseus
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,21);--/From Memory the Muses GEN sg
+--/new screen: Uranus, GEN sg (different short quote, and also long quote for case highlight)
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,6);--/ἐν Ἅιδου GEN sg
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (9,60);--/DAT sg overcome by sleep and toil
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,53);--/DAT sg in his house
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,52);--/DAT sg in our house
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,17);--/ACC sg carries the sky (on his shoulders)
+
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,9);--/Peace, Order, Justice, and the Fates
+INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,15);--/αὐτοὺς ἐν τῷ Ταρτάρῳ - shut them into Tartarus
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,16);
-INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,17);
+
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,18);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,19);
 INSERT INTO "playlists_schermate" ("playlist_id","schermata_id") VALUES (4,20);
