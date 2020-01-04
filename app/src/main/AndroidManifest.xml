@@ -5,23 +5,25 @@
     android:installLocation="preferExternal">
 
     <application
-        tools:ignore="GoogleAppIndexingWarning"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".PlaylistsActivity"></activity>
         <activity android:name=".QuotePagerActivity">
             <intent-filter>
                 <action android:name="it.collideorscopeapps.codename_hippopotamos.DEMO" />
                 <action android:name="it.collideorscopeapps.codename_hippopotamos.PLAY" />
             </intent-filter>
         </activity>
-        <activity android:name=".QuoteActivity"></activity>
+        <activity android:name=".QuoteActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

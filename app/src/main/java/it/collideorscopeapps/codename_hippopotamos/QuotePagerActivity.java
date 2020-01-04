@@ -29,6 +29,8 @@ public class QuotePagerActivity extends FragmentActivity {
     public static final String PLAY_ACTION = "it.collideorscopeapps.codename_hippopotamos.PLAY";
 
     public static final String DEMO_PLAYLIST_NAME = "Recorded quotes";
+    public static final String PLAYLIST_NAME_EXTRA_KEY = "playlistName";
+    public static final String PLAYLIST_NUMBER_EXTRA_KEY = "playlistNumber";
 
     private QuoteViewModel mViewModel;
     private TreeMap<Integer, QuoteFragment> quoteFragmentByPosition;
@@ -72,7 +74,11 @@ public class QuotePagerActivity extends FragmentActivity {
         if(action == DEMO_ACTION) {
             getData(languageSetting, DEMO_PLAYLIST_NAME);
         } else if(action == PLAY_ACTION) {
-            getData(languageSetting);
+
+            String playlistName
+                    = this.getIntent().getExtras().getString(PLAYLIST_NAME_EXTRA_KEY);
+
+            getData(languageSetting, playlistName);
         } else {
             Log.e(TAG,"No action specified");
         }

@@ -39,7 +39,7 @@ public class DBManagerTest {
         //        .thenReturn(FAKE_STRING);
         QuotesProvider quotesProvider = new QuotesProvider();
         quotesProvider.create(mockContext);
-        quotesProvider.init();
+        quotesProvider.init(QuotesProvider.DEFAULT_LANGUAGE, null);
 
         // ...when the string is returned from the object under test...
         //String result = dbManager.getHelloWorldString();

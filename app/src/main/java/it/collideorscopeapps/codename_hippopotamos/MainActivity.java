@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         this.startPlayingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSlideActivity();
+                openPlaylistsActivity();
             }
         });
 
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         // probably is the returning into main activity, which is empty
     }
 
+    @Deprecated
     void openSlideActivity() {
 
         //TODO we should tell the activity which playlists to run
@@ -129,6 +130,12 @@ public class MainActivity extends AppCompatActivity implements AsyncResponse {
         Intent intent = new Intent(MainActivity.this,
                 QuotePagerActivity.class);
         intent.setAction(QuotePagerActivity.PLAY_ACTION);
+        startActivity(intent);
+    }
+
+    void openPlaylistsActivity() {
+        Intent intent = new Intent(MainActivity.this,
+                PlaylistsActivity.class);
         startActivity(intent);
     }
 }
