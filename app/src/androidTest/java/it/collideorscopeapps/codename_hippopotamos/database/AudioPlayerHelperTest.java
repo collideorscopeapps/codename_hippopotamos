@@ -122,7 +122,7 @@ public class AudioPlayerHelperTest {
                 assetManager, audioFilePathsNames);
         audioPlayerHelper.play();
 
-        int playAttempts = 150000;
+        int playAttempts = 15;//150000;
         while(playAttempts>0) {
             playAttempts--;
             audioPlayerHelper.play();
@@ -205,7 +205,7 @@ public class AudioPlayerHelperTest {
                 assetManager, audioFilePathsNames);
         audioPlayerHelper.play();
 
-        int playAttempts = 150000;
+        int playAttempts = 15;//150000;
         while(playAttempts>0) {
             playAttempts--;
             audioPlayerHelper.play();
@@ -215,7 +215,7 @@ public class AudioPlayerHelperTest {
         audioPlayerHelper.changeAudioFiles(audioFilePathsNames);
         audioPlayerHelper.play();
 
-        playAttempts = 150000;
+        playAttempts = 15;//150000;
         while(playAttempts>0) {
             playAttempts--;
             audioPlayerHelper.play();
