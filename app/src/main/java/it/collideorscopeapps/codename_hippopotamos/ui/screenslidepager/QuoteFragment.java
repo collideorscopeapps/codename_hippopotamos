@@ -418,9 +418,13 @@ public class QuoteFragment extends Fragment {
     }
 
     private void setHtmlText(TextView tv, String htmlText) {
-        tv.setText(Html.fromHtml(htmlText,
-                null,
-                htmlTagHandler));
+        if(Utils.isNullOrEmpty(htmlText)) {
+            Log.d(TAG,"Null html text string passed for text view " + tv.toString());
+        } else {
+            tv.setText(Html.fromHtml(htmlText,
+                    null,
+                    htmlTagHandler));
+        }
     }
 
     private void setWordListTV(TextView tv, Schermata screen) {
