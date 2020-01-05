@@ -132,7 +132,7 @@
                         android:layout_marginHorizontal="10dp"
                         android:justificationMode="inter_word"
                         android:textSize="20sp"
-                        android:text="*doric, epic, ionic or attic"
+                        android:text=""
                         />
 
                     <TextView
