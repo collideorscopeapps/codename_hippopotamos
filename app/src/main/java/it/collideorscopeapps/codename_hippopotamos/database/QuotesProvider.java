@@ -58,6 +58,8 @@ public class QuotesProvider {
         IT // = 2
     }
 
+    public static final String CREDIT_FIELD_NAME = "credit";
+
     public static class DBHelper extends SQLiteOpenHelper {
 
         private static final String TAG = "DBHelper";
@@ -172,6 +174,11 @@ public class QuotesProvider {
     }
     private TreeMap<Integer,Playlist> playlistsByRank;
 
+    public ArrayList<String> getCredits() {
+        return credits;
+    }
+    private ArrayList<String> credits;
+
     public void create(Context context) {
         //TODO: ensure schema creation is not lenghty operation or make it asynch
         //only called from the application main thread,
@@ -235,6 +242,8 @@ public class QuotesProvider {
 
         //myCreateDBFromSqlFile();
         //openDatabaseReadonly();
+
+        this.credits = getCreditsFromDB(this.mOpenHelper);
 
         TreeMap<Integer, Schermata> newSchermate = new TreeMap<Integer, Schermata>();
         TreeMap<Integer, Quote> newAllQuotes = new TreeMap<Integer, Quote>();
@@ -414,6 +423,28 @@ public class QuotesProvider {
     private static Integer getNullableInteger(Cursor cursor, String colName) {
 
         return getNullableInteger(cursor, cursor.getColumnIndex(colName));
+    }
+
+    private static ArrayList<String> getCreditsFromDB(SQLiteOpenHelper dbOpenHelper) {
+        ArrayList<String> creditsTmp = new ArrayList<>();
+
+        final String CREDITS_TABLE = "credits";
+
+        try(SQLiteDatabase db = dbOpenHelper.getReadableDatabase()) {
+
+            String creditsQuery = "SELECT * FROM " + CREDITS_TABLE;
+            Cursor cursor = db.rawQuery(creditsQuery, null);
+            cursor.moveToFirst();
+
+            while(!cursor.isAfterLast()) {
+
+                String credit = cursor.getString(cursor.getColumnIndex(CREDIT_FIELD_NAME));
+                creditsTmp.add(credit);
+                cursor.moveToNext();
+            }
+        }
+
+        return creditsTmp;
     }
 
     private TreeMap<Integer, Playlist> getPlaylistsFromDB() {

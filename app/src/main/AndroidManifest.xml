@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".PlaylistsActivity"></activity>
+        <activity android:name=".CreditsActivity" />
+        <activity android:name=".PlaylistsActivity" />
         <activity android:name=".QuotePagerActivity">
             <intent-filter>
                 <action android:name="it.collideorscopeapps.codename_hippopotamos.DEMO" />

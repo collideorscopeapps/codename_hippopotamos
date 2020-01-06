@@ -1,8 +1,8 @@
 package it.collideorscopeapps.codename_hippopotamos.ui.screenslidepager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
-import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,13 +14,12 @@ import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import it.collideorscopeapps.codename_hippopotamos.CreditsActivity;
 import it.collideorscopeapps.codename_hippopotamos.Globals;
 import it.collideorscopeapps.codename_hippopotamos.utils.MyHtmlTagHandler;
 import it.collideorscopeapps.codename_hippopotamos.R;
@@ -534,7 +533,7 @@ public class QuoteFragment extends Fragment {
                 return true;
             }
             case R.id.credits: {
-                //TODO open credits activity
+                openCreditsActivity();
                 return true;
             }
             case R.id.about: {
@@ -550,5 +549,11 @@ public class QuoteFragment extends Fragment {
 
     private void returnToPreviousSection() {
         this.getActivity().finish();
+    }
+
+    private void openCreditsActivity() {
+        Intent intent = new Intent(this.getContext(),
+                CreditsActivity.class);
+        startActivity(intent);
     }
 }
