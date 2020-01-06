@@ -4,17 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.TreeMap;
-
 import it.collideorscopeapps.codename_hippopotamos.database.AsyncResponse;
-import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
-import it.collideorscopeapps.codename_hippopotamos.model.Schermata;
-import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements AsyncResponse {
 
