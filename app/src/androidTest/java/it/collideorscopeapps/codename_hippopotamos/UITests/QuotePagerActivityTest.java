@@ -19,6 +19,13 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 public class QuotePagerActivityTest {
 
+    //TODO test a screen with all values, check that are displayed
+    //TODO test a screen with empty/null values: quotes, notes, counter,
+    // check that it doesn't crash
+    // Display Main Activity, About, Credits, Playlists activities, check
+    // that text is displayed and don't crash
+    // checks for fonts?
+
     @Rule
     public ActivityScenarioRule<QuotePagerActivity> quotePagerActivityActivityTestRule =
             new ActivityScenarioRule<>(QuotePagerActivity.class);
