@@ -1,7 +1,5 @@
 package it.collideorscopeapps.codename_hippopotamos;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.widget.SimpleAdapter;
