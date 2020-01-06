@@ -9,10 +9,12 @@ import androidx.test.espresso.ViewAssertion;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.Suppress;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,7 +48,7 @@ public class MainActivityTest {
         onView(withId(R.id.pagerFragmanetConstraintLayout)).perform(swipeLeft());
     }
 
-    @Test
+    @Suppress@Ignore//@Test
     public void playDemo() {
         onView(withId(R.id.demoBtn)).perform(click());
 
