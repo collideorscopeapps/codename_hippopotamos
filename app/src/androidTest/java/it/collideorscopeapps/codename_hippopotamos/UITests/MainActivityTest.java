@@ -10,6 +10,9 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.Suppress;
+import static androidx.test.runner.lifecycle.Stage.RESUMED;
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitor;
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -18,6 +21,8 @@ import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.Collection;
 
 import it.collideorscopeapps.codename_hippopotamos.MainActivity;
 import it.collideorscopeapps.codename_hippopotamos.R;
@@ -31,11 +36,15 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import static androidx.test.runner.lifecycle.Stage.RESUMED;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
+
+    Activity currentActivity = null;
 
     @Rule
     public ActivityScenarioRule<MainActivity> mainActivityTestRule =
@@ -115,5 +124,21 @@ public class MainActivityTest {
                 return matcher.matches(view) && currentPageNumber++ == pageNumber;
             }
         };
+    }
+
+    public Activity getCurrentActivityInstance(){
+        getInstrumentation().runOnMainSync(new Runnable() {
+            public void run() {
+                ActivityLifecycleMonitor activityLifecycleMonitor
+                        = ActivityLifecycleMonitorRegistry.getInstance();
+                Collection<Activity> resumedActivities =
+                        activityLifecycleMonitor.getActivitiesInStage(RESUMED);
+                if (resumedActivities.iterator().hasNext()){
+                    currentActivity = resumedActivities.iterator().next();
+                }
+            }
+        });
+
+        return currentActivity;
     }
 }
