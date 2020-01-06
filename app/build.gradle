@@ -24,7 +24,7 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile(
                     'proguard-android-optimize.txt'),
-                    'proguard-rules.pro'
+                    'proguard-test-rules.pro'
             //testCoverageEnabled = true
         }
     }
@@ -41,6 +41,42 @@ android {
             java.srcDirs += SHARED_TEST_DIR
         }
     }
+
+    /*packagingOptions {
+        pickFirst 'licenses/javolution.license.TXT'
+        exclude 'META-INF/project.properties'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        pickFirst '.readme'
+        pickFirst 'META-INF/plexus/components.xml'
+        pickFirst 'META-INF/MANIFEST.MF'
+        pickFirst 'licenses/thoughtworks.TXT'
+        pickFirst 'licenses/javolution.license.TXT'
+        pickFirst 'licenses/extreme.indiana.edu.license.TXT'
+        pickFirst 'org/apache/maven/project/pom-4.0.0.xml'
+        pickFirst 'org/codehaus/plexus/plexus-bootstrap.xml'
+        pickFirst 'org/cyberneko/html/res/HTMLlat1.properties'
+        pickFirst 'org/cyberneko/html/res/HTMLsymbol.properties'
+        pickFirst 'org/cyberneko/html/res/XMLbuiltin.properties'
+        pickFirst 'org/cyberneko/html/res/HTMLspecial.properties'
+        pickFirst 'org/cyberneko/html/res/ErrorMessages_ja.properties'
+        pickFirst 'org/cyberneko/html/res/ErrorMessages.properties'
+        pickFirst 'org/cyberneko/html/res/ErrorMessages_ja.txt'
+        pickFirst 'org/cyberneko/html/res/ErrorMessages.txt'
+        pickFirst 'META-INF/LICENSE'
+        pickFirst 'META-INF/DEPENDENCIES'
+    }*/
+
+    /*compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }*/
 }
 
 dependencies {
@@ -53,6 +89,29 @@ dependencies {
     testImplementation 'androidx.test:core:1.0.0'
     testImplementation 'org.mockito:mockito-core:1.10.19'
     testImplementation "com.google.truth:truth:1.0"
+    //testImplementation  'org.robolectric:robolectric:4.3'
+
+    /*testImplementation ("org.robolectric:robolectric:4.3"){
+    exclude group: 'org.apache.maven'
+}*/
+    //testImplementation 'org.robolectric:robolectric:4.3'
+
+    /*compile (group: 'org.deeplearning4j', name: 'deeplearning4j-core', version: '1.0.0-SNAPSHOT') {
+        exclude group: 'org.bytedeco.javacpp-presets', module: 'opencv-platform'
+        exclude group: 'org.bytedeco.javacpp-presets', module: 'leptonica-platform'
+        exclude group: 'org.bytedeco.javacpp-presets', module: 'hdf5-platform'
+    }
+
+    annotationProcessor 'org.projectlombok:lombok:1.16.16'
+    compile (group: 'org.deeplearning4j', name: 'deeplearning4j-core', version: '1.0.0-SNAPSHOT') {
+        exclude group: 'org.bytedeco.javacpp-presets', module: 'opencv-platform'
+        exclude group: 'org.bytedeco.javacpp-presets', module: 'leptonica-platform'
+        exclude group: 'org.bytedeco.javacpp-presets', module: 'hdf5-platform'
+    }*/
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+
 }
