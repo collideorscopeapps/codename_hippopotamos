@@ -45,7 +45,7 @@ public class QuotesProvider {
     //FIXME sorting of screens in a playlist; sorting field seems to have no effect
     //TODO add test for this
 
-    public static final int DATABASE_VERSION = 61;
+    public static final int DATABASE_VERSION = 73;
     public static final String DB_NAME = "greekquotes";
     public static final String TAG = "QuotesProvider";
 
@@ -199,6 +199,16 @@ public class QuotesProvider {
 
           this.setPlaylistsByRank(pl);
         }
+    }
+
+    public String getAboutText() {
+
+        final String getAboutTextQuery = "SELECT note FROM app_notes WHERE title='about';";
+
+        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+        String aboutText = DatabaseUtils.stringForQuery(
+                db,getAboutTextQuery, null);
+        return aboutText;
     }
 
     private void setLanguageSetting(Languages language) {

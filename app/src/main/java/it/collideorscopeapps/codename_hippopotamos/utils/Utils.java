@@ -3,6 +3,7 @@ package it.collideorscopeapps.codename_hippopotamos.utils;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,12 @@ import java.util.TreeMap;
 import it.collideorscopeapps.codename_hippopotamos.model.Quote;
 
 public class Utils {
+
+    static MyHtmlTagHandler htmlTagHandler;
+
+    static {
+        htmlTagHandler = new MyHtmlTagHandler();
+    }
 
     public static final String DEFAULT_STRING_SEPARATOR = ",";
     public static final String TAG = "Utils";
@@ -194,5 +201,15 @@ public class Utils {
         valuesArray = nonEmptyValues.toArray(valuesArray);
 
         return valuesArray;
+    }
+
+    public static void setHtmlText(TextView tv, String htmlText) {
+        if(Utils.isNullOrEmpty(htmlText)) {
+            Log.d(TAG,"Null html text string passed for text view " + tv.toString());
+        } else {
+            tv.setText(Html.fromHtml(htmlText,
+                    null,
+                    htmlTagHandler));
+        }
     }
 }

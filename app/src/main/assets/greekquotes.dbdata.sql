@@ -14,9 +14,10 @@ INSERT INTO "credits" ("credit") VALUES ('https://soundcloud.com/archaeologymag/
 INSERT INTO "credits" ("credit") VALUES ('https://sites.google.com/site/materialesathenaze/ho-dikaiopolis');
 INSERT INTO "credits" ("credit") VALUES ('http://aliso.pntic.mec.es/agalle17/trabajo_final/cap4.html');
 INSERT INTO "credits" ("credit") VALUES ('https://librivox.org/the-odyssey-book-6-by-homer/');
+INSERT INTO "credits" ("credit") VALUES ('https://www.theanimalspot.com/hippopotamus/');
 INSERT INTO "credits" ("credit") VALUES ('Major, Wilfred E. (2008). It’s Not the Size, It’s the Frequency: The Value of Using a Core Vocabulary in Beginning and Intermediate Greek. CPL Online, 4.1, 1-24.  https://camws.org/cpl/cplonline/files/Majorcplonline.pdf');
 
-INSERT INTO "app_notes" ("title","note") VALUES ('about','Hippopotamuses are located in central and southern Africa, south of the Sahara desert and near the Nile River.</br></br><b>Diet</b></br>They are vegetarians and mostly eat grass. They may travel long distances during the night from their water source to reach the areas where they graze. They also sometimes eat fruit that has fallen off of trees or crops grown by local people.');
+INSERT INTO "app_notes" ("title","note") VALUES ('about','Hippopotamuses are located in central and southern Africa, south of the Sahara desert and near the Nile River.<br/><br/><b>Diet</b><br/>They are vegetarians and mostly eat grass. They may travel long distances during the night from their water source to reach the areas where they graze. They also sometimes eat fruit that has fallen off of trees or crops grown by local people.');
 
 INSERT INTO "news" ("title","link") VALUES ('Pablo Escobar''s hippos keep multiplying and Colombia doesn''t know how to stop it','https://www.cbsnews.com/news/pablo-escobars-hippos-keep-multiplying-and-colombia-doesnt-know-how-to-stop-it/');
 

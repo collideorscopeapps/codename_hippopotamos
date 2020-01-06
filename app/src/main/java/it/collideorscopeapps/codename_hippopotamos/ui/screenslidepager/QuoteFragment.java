@@ -11,7 +11,6 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import it.collideorscopeapps.codename_hippopotamos.AboutActivity;
 import it.collideorscopeapps.codename_hippopotamos.CreditsActivity;
 import it.collideorscopeapps.codename_hippopotamos.Globals;
 import it.collideorscopeapps.codename_hippopotamos.utils.MyHtmlTagHandler;
@@ -343,7 +343,7 @@ public class QuoteFragment extends Fragment {
         this.citationTV.setText(screen.getCitation());
         this.translationTV.setText(screen.getTranslation());
         this.eeCTV.setText(screen.getEasterEggComment());
-        setHtmlText(this.lingNotesTV, screen.getLinguisticNotes());
+        Utils.setHtmlText(this.lingNotesTV, screen.getLinguisticNotes());
     }
 
     private void setTextToTitleTV() {
@@ -412,23 +412,13 @@ public class QuoteFragment extends Fragment {
         }
         else {
             String quoteTxt = quote.getQuoteText();
-            setHtmlText(tv, quoteTxt);
-        }
-    }
-
-    private void setHtmlText(TextView tv, String htmlText) {
-        if(Utils.isNullOrEmpty(htmlText)) {
-            Log.d(TAG,"Null html text string passed for text view " + tv.toString());
-        } else {
-            tv.setText(Html.fromHtml(htmlText,
-                    null,
-                    htmlTagHandler));
+            Utils.setHtmlText(tv, quoteTxt);
         }
     }
 
     private void setWordListTV(TextView tv, Schermata screen) {
 
-        setHtmlText(tv, screen.getMultilineHtmlWordList());
+        Utils.setHtmlText(tv, screen.getMultilineHtmlWordList());
 
         //TODO in other part of code, set playback to list of words
     }
@@ -537,7 +527,7 @@ public class QuoteFragment extends Fragment {
                 return true;
             }
             case R.id.about: {
-                //TODO showAboutActivity()
+                openAboutActivity();
                 return true;
             }
             default: {
@@ -549,6 +539,12 @@ public class QuoteFragment extends Fragment {
 
     private void returnToPreviousSection() {
         this.getActivity().finish();
+    }
+
+    private void openAboutActivity() {
+        Intent intent = new Intent(this.getContext(),
+                AboutActivity.class);
+        startActivity(intent);
     }
 
     private void openCreditsActivity() {
