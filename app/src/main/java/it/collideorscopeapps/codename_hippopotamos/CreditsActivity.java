@@ -21,7 +21,6 @@ public class CreditsActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credits);
 
-
         final String[] columns = {QuotesProvider.CREDIT_FIELD_NAME};
         final int[] textViews = {R.id.creditTV};
         this.creditsData = getCreditsData();
@@ -49,7 +48,6 @@ public class CreditsActivity extends ListActivity {
             Map<String, String> currentCreditEntry = new TreeMap<>();
             currentCreditEntry.put(QuotesProvider.CREDIT_FIELD_NAME,currentCredit);
             creditsData.add(currentCreditEntry);
-
         }
 
         return creditsData;
