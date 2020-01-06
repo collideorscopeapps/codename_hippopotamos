@@ -32,7 +32,7 @@ public class PlaylistsActivity extends ListActivity {
         final String[] columns = {PLAYLIST_NUMBER_COL_NAME,
                 QuotePagerActivity.PLAYLIST_NAME_EXTRA_KEY};
         final int[] textViews = {R.id.playlistNumber, R.id.playlistName};
-        this.playlistsNamesData = playlistsNamesData();
+        this.playlistsNamesData = getPlaylistsNamesData();
 
         SimpleAdapter adapter = new SimpleAdapter(this,playlistsNamesData,
                 R.layout.playlist_item,columns,textViews);
@@ -44,7 +44,7 @@ public class PlaylistsActivity extends ListActivity {
         titleTV.setText(Globals.DEFAULT_TITLE_TEXT);
     }
 
-    List<Map<String, String>> playlistsNamesData() {
+    List<Map<String, String>> getPlaylistsNamesData() {
 
         QuotesProvider quotesProvider = new QuotesProvider();
         quotesProvider.create(this);
