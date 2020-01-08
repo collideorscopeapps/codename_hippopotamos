@@ -13,3 +13,4 @@
 /captures
 .externalNativeBuild
 .cxx
+/app/tmp/full-r8-*config.txt
