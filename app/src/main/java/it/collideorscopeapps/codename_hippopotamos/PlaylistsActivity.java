@@ -51,21 +51,30 @@ public class PlaylistsActivity extends ListActivity {
         quotesProvider.init(QuotesProvider.DEFAULT_LANGUAGE, null);
         TreeMap<Integer,Playlist> playlistByRank = quotesProvider.getPlaylistsByRank();
 
+        return getPlaylistsNamesDataHelper(playlistByRank);
+    }
+
+    public static List<Map<String, String>> getPlaylistsNamesDataHelper(
+            TreeMap<Integer,Playlist> playlistByRank) {
+
         List<Map<String, String>> playlistsNamesData = new ArrayList<>();
 
         int currentPlaylistNumber = 1;
         for(Playlist currentPlaylist:playlistByRank.values()) {
 
-            String playListGreekNumber = parseGreekNumeral(currentPlaylistNumber);
-            String playlistName = currentPlaylist.getDescription();
+            if(!currentPlaylist.isDisabled()) {
+                String playListGreekNumber = parseGreekNumeral(currentPlaylistNumber);
+                String playlistName = currentPlaylist.getDescription();
 
-            Map<String, String> currentPlaylistEntry = new TreeMap<>();
-            currentPlaylistEntry.put(PLAYLIST_NUMBER_COL_NAME,playListGreekNumber);
-            currentPlaylistEntry.put(QuotePagerActivity.PLAYLIST_NAME_EXTRA_KEY,playlistName);
+                Map<String, String> currentPlaylistEntry = new TreeMap<>();
+                currentPlaylistEntry.put(PLAYLIST_NUMBER_COL_NAME,playListGreekNumber);
+                currentPlaylistEntry.put(QuotePagerActivity.PLAYLIST_NAME_EXTRA_KEY,
+                        playlistName);
 
-            playlistsNamesData.add(currentPlaylistEntry);
+                playlistsNamesData.add(currentPlaylistEntry);
 
-            currentPlaylistNumber++;
+                currentPlaylistNumber++;
+            }
         }
 
         return playlistsNamesData;
