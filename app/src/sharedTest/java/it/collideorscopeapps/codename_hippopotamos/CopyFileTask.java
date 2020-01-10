@@ -1,4 +1,4 @@
-package it.collideorscopeapps.codename_hippopotamos.database;
+package it.collideorscopeapps.codename_hippopotamos;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -8,6 +8,9 @@ import android.util.Log;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import it.collideorscopeapps.codename_hippopotamos.database.AsyncResponse;
+import it.collideorscopeapps.codename_hippopotamos.database.QuotesProvider;
 
 
 public class CopyFileTask extends AsyncTask<CopyFileTask.Task, Integer, Boolean> {
