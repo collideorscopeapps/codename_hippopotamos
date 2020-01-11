@@ -15,8 +15,10 @@ import java.io.IOException;
 
 import it.collideorscopeapps.codename_hippopotamos.Globals;
 import it.collideorscopeapps.codename_hippopotamos.SharedTestUtils;
+import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper.PlayerState;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class AudioPlayerHelperTest {
 
@@ -31,6 +33,120 @@ public class AudioPlayerHelperTest {
     @After@Suppress
     public void tearDown() throws Exception {
     }
+
+
+    @Test
+    public void stop() throws IOException{
+        //TODO
+        // get a media player
+        // set it to all valid states for stop, stop it at each one,
+        // check that no errors occur, and state is stopped
+        // set it to all invalid states for stop, check that error/warning is reported
+        // but no crash, and the resulting state is appropriate
+
+        AudioPlayerHelper player = getIdleMP();
+        assertEquals(PlayerState.IDLE,player._mediaPlayer.getCurrentPlayerState());
+
+        try {
+            player.stop();
+        } catch (Exception e) {
+            fail("Media player exception when stopping from idle: " + e.toString());
+        }
+
+        assertEquals(PlayerState.IDLE,player._mediaPlayer.getCurrentPlayerState());
+
+        player = getInitializedMP();
+        assertEquals(PlayerState.INITIALIZED,player._mediaPlayer.getCurrentPlayerState());
+
+        try {
+            player.stop();
+        } catch (Exception e) {
+            fail("Media player exception when stopping from idle: " + e.toString());
+        }
+        assertEquals(PlayerState.INITIALIZED,player._mediaPlayer.getCurrentPlayerState());
+
+        //NOTE: call to player.play() would result in prepareAcynh
+        // which switches to the PREPARING transient state, any
+        // call during this state is undefined
+
+        player = getPreparedMP();
+        assertEquals(PlayerState.PREPARED,player._mediaPlayer.getCurrentPlayerState());
+        try {
+            player.stop();
+        } catch (Exception e) {
+            fail("Media player exception when stopping from idle: " + e.toString());
+        }
+        assertEquals(PlayerState.STOPPED,player._mediaPlayer.getCurrentPlayerState());
+
+        player = getStartedMP();
+        assertEquals(PlayerState.PLAYING,player._mediaPlayer.getCurrentPlayerState());
+        try {
+            player.stop();
+        } catch (Exception e) {
+            fail("Media player exception when stopping from idle: " + e.toString());
+        }
+        assertEquals(PlayerState.STOPPED,player._mediaPlayer.getCurrentPlayerState());
+
+        player = getPausedMP();
+        assertEquals(PlayerState.PAUSED,player._mediaPlayer.getCurrentPlayerState());
+        try {
+            player.stop();
+        } catch (Exception e) {
+            fail("Media player exception when stopping from idle: " + e.toString());
+        }
+        assertEquals(PlayerState.STOPPED,player._mediaPlayer.getCurrentPlayerState());
+
+        //TODO test asynch for playback complete (or very short track and loop)
+    }
+
+    @Test
+    public void stopFromInitialized() throws IOException{
+        AudioPlayerHelper player = getInitializedMP();
+        assertEquals(PlayerState.INITIALIZED,player._mediaPlayer.getCurrentPlayerState());
+        try {
+            player.stop();
+        } catch (Exception e) {
+            fail("Media player exception when stopping from idle: " + e.toString());
+        }
+        assertEquals(PlayerState.INITIALIZED,player._mediaPlayer.getCurrentPlayerState());
+    }
+
+    private AudioPlayerHelper getIdleMP() throws IOException {
+
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
+                assetManager);
+        return audioPlayerHelper;
+    }
+
+    private AudioPlayerHelper getInitializedMP() throws IOException {
+
+        AudioPlayerHelper audioPlayerHelper = getIdleMP();
+        audioPlayerHelper.changeAudioFiles(getSingleAudioFilePath());
+
+        return audioPlayerHelper;
+    }
+
+    private AudioPlayerHelper getPreparedMP() throws IOException {
+        AudioPlayerHelper player = getInitializedMP();
+        player._mediaPlayer.prepare();
+
+        return player;
+    }
+
+    private AudioPlayerHelper getStartedMP() throws IOException {
+        AudioPlayerHelper player = getPreparedMP();
+        player._mediaPlayer.start();
+
+        return player;
+    }
+
+    private AudioPlayerHelper getPausedMP() throws IOException {
+        AudioPlayerHelper player = getStartedMP();
+        player.pause();
+
+        return player;
+    }
+
 
     @Test@Ignore
     public void playerIllegalStates() {

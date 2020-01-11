@@ -13,6 +13,10 @@ import java.io.Closeable;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
@@ -23,13 +27,26 @@ public class AudioPlayerHelper implements Closeable {
         STOPPED, ERROR, END_RELEASED_UNAVAILABLE
     }
 
-    public class SafeLoggableMediaPlayer extends MediaPlayer {
+    public final static List<PlayerState> validStatesForStop;
+    public final static Map<PlayerState, List<PlayerState>> validTransitions;
+    static {
+        validTransitions = new TreeMap<>();
+
+        PlayerState[] validStatesForStopTmp
+                = {PlayerState.PREPARED,PlayerState.PREPARING, PlayerState.PLAYING,
+                PlayerState.STOPPED, PlayerState.PAUSED, PlayerState.COMPLETED};
+        validStatesForStop = Arrays.asList(validStatesForStopTmp);
+
+        validTransitions.put(PlayerState.STOPPED, validStatesForStop);
+    }
+
+    public class LoggableMediaPlayer extends MediaPlayer {
 
         private static final String TAG = "SafeLoggableMediaPlayer" ;
 
-        private PlayerState currentPlayerState;
+        protected PlayerState currentPlayerState;
 
-        public SafeLoggableMediaPlayer() {
+        public LoggableMediaPlayer() {
             super();
 
             setCurrentPlayerState(PlayerState.UNKNOWN);
@@ -43,7 +60,7 @@ public class AudioPlayerHelper implements Closeable {
             return  currentPlayerState == PlayerState.PAUSED;
         }
 
-        private void setCurrentPlayerState(PlayerState state) {
+        protected void setCurrentPlayerState(PlayerState state) {
             Log.v(TAG,"Going from " + getCurrentPlayerState()
                     + " to " + state);
             this.currentPlayerState = state;
@@ -70,17 +87,6 @@ public class AudioPlayerHelper implements Closeable {
 
                 this.setAudioAttributes(DEFAULT_AUDIO_ATTRIBUTES);
             }
-        }
-
-        public boolean isStateValidForPrepareAsynch() {
-            return (_mediaPlayer.getCurrentPlayerState() == PlayerState.INITIALIZED)
-                    || (_mediaPlayer.getCurrentPlayerState() == PlayerState.STOPPED);
-        }
-
-        public boolean isStateInValidForStop() {
-            return currentPlayerState == PlayerState.IDLE
-                    || currentPlayerState == PlayerState.INITIALIZED
-                    || currentPlayerState == PlayerState.ERROR;
         }
 
         @Override
@@ -149,6 +155,29 @@ public class AudioPlayerHelper implements Closeable {
 
             //this method works only on SDK API >= 24
             setCurrentPlayerState(PlayerState.INITIALIZED);
+        }
+    }
+
+    public class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
+
+        public boolean isStateValidForPrepareAsynch() {
+            return (_mediaPlayer.getCurrentPlayerState() == PlayerState.INITIALIZED)
+                    || (_mediaPlayer.getCurrentPlayerState() == PlayerState.STOPPED);
+        }
+
+        public boolean isStateInValidForStop() {
+            return !isValidStateForStop(currentPlayerState);
+                    /*
+        *     public final static PlayerState[] invalidStatesForStop
+            = {PlayerState.IDLE, PlayerState.INITIALIZED, PlayerState.ERROR,
+            PlayerState.UNKNOWN, PlayerState.END_RELEASED_UNAVAILABLE};
+
+        * */
+        }
+
+        public boolean isValidStateForStop(PlayerState state) {
+
+            return validStatesForStop.contains(state);
         }
     }
 
@@ -472,7 +501,6 @@ public class AudioPlayerHelper implements Closeable {
                 String msg = "Play request non accepted state, ignoring. State: "
                         + _mediaPlayer.getCurrentPlayerState();
                 Log.v(TAG,msg);
-
         }
 
         // gets a series of audio files (asset file descriptors)
