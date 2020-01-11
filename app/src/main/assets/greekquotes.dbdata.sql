@@ -16,6 +16,7 @@ INSERT INTO "credits" ("credit") VALUES ('http://aliso.pntic.mec.es/agalle17/tra
 INSERT INTO "credits" ("credit") VALUES ('https://librivox.org/the-odyssey-book-6-by-homer/');
 INSERT INTO "credits" ("credit") VALUES ('https://www.theanimalspot.com/hippopotamus/');
 INSERT INTO "credits" ("credit") VALUES ('Major, Wilfred E. (2008). It’s Not the Size, It’s the Frequency: The Value of Using a Core Vocabulary in Beginning and Intermediate Greek. CPL Online, 4.1, 1-24.  https://camws.org/cpl/cplonline/files/Majorcplonline.pdf');
+INSERT INTO "credits" ("credit") VALUES ('The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License. https://creativecommons.org/licenses/by/3.0/');
 
 INSERT INTO "app_notes" ("title","note") VALUES ('about','Hippopotamuses are located in central and southern Africa, south of the Sahara desert and near the Nile River.<br/><br/><b>Diet</b><br/>They are vegetarians and mostly eat grass. They may travel long distances during the night from their water source to reach the areas where they graze. They also sometimes eat fruit that has fallen off of trees or crops grown by local people.');
 
