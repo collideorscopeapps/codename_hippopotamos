@@ -27,18 +27,27 @@ public class AudioPlayerHelper implements Closeable {
         STOPPED, ERROR, END_RELEASED_UNAVAILABLE
     }
 
-    public final static List<PlayerState> validStatesForStop;
+    public final static List<PlayerState> validStatesTowardsStop;
+    public final static List<PlayerState> validStatesTowardsPrepareAsynch;
     public final static Map<PlayerState, List<PlayerState>> validTransitions;
     static {
+        {   PlayerState[] validStatesTowardsStopTmp
+                    = {PlayerState.PREPARED, PlayerState.PREPARING, PlayerState.PLAYING,
+                    PlayerState.STOPPED, PlayerState.PAUSED, PlayerState.COMPLETED};
+            validStatesTowardsStop = Arrays.asList(validStatesTowardsStopTmp);
+        }
+
+        {
+            PlayerState[] validStatesTowardsPrepareAsynchTmp
+                    = {PlayerState.INITIALIZED,PlayerState.STOPPED};
+            validStatesTowardsPrepareAsynch = Arrays.asList(validStatesTowardsPrepareAsynchTmp);
+        }
+
         validTransitions = new TreeMap<>();
-
-        PlayerState[] validStatesForStopTmp
-                = {PlayerState.PREPARED,PlayerState.PREPARING, PlayerState.PLAYING,
-                PlayerState.STOPPED, PlayerState.PAUSED, PlayerState.COMPLETED};
-        validStatesForStop = Arrays.asList(validStatesForStopTmp);
-
-        validTransitions.put(PlayerState.STOPPED, validStatesForStop);
+        validTransitions.put(PlayerState.STOPPED, validStatesTowardsStop);
+        validTransitions.put(PlayerState.PREPARING, validStatesTowardsPrepareAsynch);
     }
+
 
     public class LoggableMediaPlayer extends MediaPlayer {
 
@@ -161,8 +170,8 @@ public class AudioPlayerHelper implements Closeable {
     public class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
 
         public boolean isStateValidForPrepareAsynch() {
-            return (_mediaPlayer.getCurrentPlayerState() == PlayerState.INITIALIZED)
-                    || (_mediaPlayer.getCurrentPlayerState() == PlayerState.STOPPED);
+
+            return validStatesTowardsPrepareAsynch.contains(getCurrentPlayerState());
         }
 
         public boolean isStateInValidForStop() {
@@ -177,7 +186,7 @@ public class AudioPlayerHelper implements Closeable {
 
         public boolean isValidStateForStop(PlayerState state) {
 
-            return validStatesForStop.contains(state);
+            return validStatesTowardsStop.contains(state);
         }
     }
 
