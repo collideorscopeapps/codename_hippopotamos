@@ -25,7 +25,7 @@ android {
             proguardFiles getDefaultProguardFile(
                     'proguard-android-optimize.txt'),
                     'proguard-test-rules.pro'
-            testCoverageEnabled = true
+            testCoverageEnabled = false
         }
     }
     testOptions {
