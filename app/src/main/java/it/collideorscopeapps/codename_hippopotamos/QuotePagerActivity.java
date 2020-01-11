@@ -83,8 +83,7 @@ public class QuotePagerActivity extends FragmentActivity {
         }
 
         try {
-            this.audioPlayer = new AudioPlayerHelper(
-                    this.getAssets());
+            this.audioPlayer = new AudioPlayerHelper();
         } catch (IOException e) {
             Log.e(TAG,e.toString());
         }

@@ -1,6 +1,7 @@
 package it.collideorscopeapps.codename_hippopotamos.utils;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.text.Html;
@@ -211,5 +212,38 @@ public class Utils {
                     null,
                     htmlTagHandler));
         }
+    }
+
+    public static AssetFileDescriptor getAssetFileDescriptor (
+            String audioFilePath,
+            AssetManager assetManager) {
+
+        AssetFileDescriptor tmpAssetFileDescriptor = null;
+
+        try {
+            tmpAssetFileDescriptor
+                    = assetManager.openFd(audioFilePath);
+        } catch (IOException e) {
+            Log.e(TAG,e.toString());
+        }
+
+        return tmpAssetFileDescriptor;
+    }
+
+    public static AssetFileDescriptor[] getAssetFileDescriptors(
+            String[] audioFilePaths,
+            AssetManager assetManager) {
+
+        //TODO fixme: handle/filter null/empty filePaths or having no asset
+        //TODO test callers for when this returns some null descriptors
+        AssetFileDescriptor[] tmpAssetFileDescriptors;
+        tmpAssetFileDescriptors = new AssetFileDescriptor[audioFilePaths.length];
+        for(int idx = 0; idx<audioFilePaths.length; idx++) {
+            String audioFilePath = audioFilePaths[idx];
+            tmpAssetFileDescriptors[idx]
+                    = getAssetFileDescriptor(audioFilePath,assetManager);
+        }
+
+        return tmpAssetFileDescriptors;
     }
 }

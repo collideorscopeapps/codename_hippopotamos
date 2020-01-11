@@ -1,6 +1,7 @@
 package it.collideorscopeapps.codename_hippopotamos.database;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 
 import androidx.test.filters.Suppress;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import it.collideorscopeapps.codename_hippopotamos.Globals;
 import it.collideorscopeapps.codename_hippopotamos.SharedTestUtils;
 import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper.PlayerState;
+import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -33,7 +35,6 @@ public class AudioPlayerHelperTest {
     @After@Suppress
     public void tearDown() throws Exception {
     }
-
 
     @Test
     public void stop() throws IOException{
@@ -113,15 +114,14 @@ public class AudioPlayerHelperTest {
 
     private AudioPlayerHelper getIdleMP() throws IOException {
 
-        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                assetManager);
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper();
         return audioPlayerHelper;
     }
 
     private AudioPlayerHelper getInitializedMP() throws IOException {
 
         AudioPlayerHelper audioPlayerHelper = getIdleMP();
-        audioPlayerHelper.changeAudioFiles(getSingleAudioFilePath());
+        audioPlayerHelper.changeAudioFiles(getSingleAudioFileDescriptor(assetManager));
 
         return audioPlayerHelper;
     }
@@ -166,14 +166,17 @@ public class AudioPlayerHelperTest {
     @Test
     public void resetAndPlay() throws IOException {
 
-        String file2 = "Od.6.13-glaukopis.ogg";
-        String filePath1 = getSingleAudioFilePath();
-        String filePath2 = Globals.getFilePath(file2,Globals.AUDIO_FILES_SUBFOLDER);
+        AssetFileDescriptor file1 = getSingleAudioFileDescriptor(assetManager);
+        AssetFileDescriptor file2;
+        {
+            String fileName2 = "Od.6.13-glaukopis.ogg";
+            String filePath2 = Globals.getFilePath(fileName2,Globals.AUDIO_FILES_SUBFOLDER);
+            file2 = getFileDescriptor(filePath2, assetManager);
+        }
 
-        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                assetManager, filePath1);
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(file1);
         audioPlayerHelper.play();
-        audioPlayerHelper.changeAudioFiles(filePath2);
+        audioPlayerHelper.changeAudioFiles(file2);
         audioPlayerHelper.play();
     }
 
@@ -183,31 +186,35 @@ public class AudioPlayerHelperTest {
         //TODO FIXME this test still does not reproduce the error that was happening
         // error was in playNext(int trackIdx) with trackIdx out of bounds
 
-        String[] filePaths = getSomeAudioFilesPaths();
+        AssetFileDescriptor[] audioFiles
+                = getSomeAudioAssetFileDescriptors(assetManager);
 
-        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                assetManager, filePaths);
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(audioFiles);
         audioPlayerHelper.play();
 
-        String singleAudioFilePath = getSingleAudioFilePath();
+        AssetFileDescriptor singleFile = getSingleAudioFileDescriptor(assetManager);
 
-        audioPlayerHelper.changeAudioFiles(singleAudioFilePath);
+        audioPlayerHelper.changeAudioFiles(singleFile);
         audioPlayerHelper.play();
 
-        audioPlayerHelper.changeAudioFiles(filePaths);
+
+        audioPlayerHelper.changeAudioFiles(audioFiles);
         audioPlayerHelper.play();
     }
 
     @Test
     public void changeAudioFilesCheckState() throws IOException {
-        String[] filePaths = getSomeAudioFilesPaths();
-        String singeFilePath = getSingleAudioFilePath();
+        AssetFileDescriptor[] audioFiles
+                = getSomeAudioAssetFileDescriptors(assetManager);
+        AssetFileDescriptor singleFile
+                = getSingleAudioFileDescriptor(assetManager);
+
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                assetManager, filePaths);
+                audioFiles);
         audioPlayerHelper.play();
 
-        audioPlayerHelper.changeAudioFiles(singeFilePath);
+        audioPlayerHelper.changeAudioFiles(singleFile);
 
         AudioPlayerHelper.PlayerState expectedPlayerState
                 = AudioPlayerHelper.PlayerState.INITIALIZED;
@@ -223,19 +230,20 @@ public class AudioPlayerHelperTest {
         //TODO add test for calling playnext(int trackIdx) when idx out of bounds exception
         // (error setting variable currentTrackIdx
 
-        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                assetManager);
+        AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper();
         audioPlayerHelper.play();
     }
 
     @Test
     public void playSingleFile() throws IOException {
 
-        String singleAudioFilePath = getSingleAudioFilePath();
-        String[]audioFilePathsNames = new String[]{singleAudioFilePath};
+        //TODO test name is misleading
+
+        AssetFileDescriptor[] audioFiles
+                = getSomeAudioAssetFileDescriptors(assetManager);
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                assetManager, audioFilePathsNames);
+                audioFiles);
         audioPlayerHelper.play();
 
         int playAttempts = 15;//150000;
@@ -250,15 +258,17 @@ public class AudioPlayerHelperTest {
     @Test
     public void playAfterStopped() throws IOException {
 
-        String filePath1 = getSingleAudioFilePath();
+        AssetFileDescriptor singleFile
+                = getSingleAudioFileDescriptor(assetManager);
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                assetManager, filePath1);
+                singleFile);
         audioPlayerHelper.play();
         audioPlayerHelper.stop();
         audioPlayerHelper.play();
     }
 
+    @Deprecated
     private static String getSingleAudioFilePath() {
         String singleAudioFileName = "Od.6.1-diosodisseus.ogg";
         String singleAudioFilePath = Globals.AUDIO_FILES_SUBFOLDER
@@ -267,6 +277,27 @@ public class AudioPlayerHelperTest {
         return singleAudioFilePath;
     }
 
+    private static AssetFileDescriptor getSingleAudioFileDescriptor(
+            AssetManager assetManager) {
+
+        return getFileDescriptor(getSingleAudioFilePath(), assetManager);
+    }
+
+    private static AssetFileDescriptor getFileDescriptor(String path,
+            AssetManager assetManager) {
+
+        return Utils.getAssetFileDescriptor(path,
+                assetManager);
+    }
+
+    private static AssetFileDescriptor[] getSomeAudioAssetFileDescriptors(
+            AssetManager assetManager) {
+        String[] paths = getSomeAudioFilesPaths();
+
+        return Utils.getAssetFileDescriptors(paths,assetManager);
+    }
+
+    @Deprecated
     private static String[] getSomeAudioFilesPaths() {
 
         String[] audioFilePathsNames;
@@ -294,13 +325,14 @@ public class AudioPlayerHelperTest {
     //TODO test for trackIdx
     @Test
     public void audioFileTrackIdx() throws IOException {
-        String[] audioFilePathsNames = getSomeAudioFilesPaths();
+        AssetFileDescriptor[] audioFiles
+                = getSomeAudioAssetFileDescriptors(assetManager);
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                assetManager, audioFilePathsNames);
+                audioFiles);
         audioPlayerHelper.play();
 
-        assertEquals("files count",audioFilePathsNames.length,
+        assertEquals("files count",audioFiles.length,
                 audioPlayerHelper.filesCount());
 
         audioPlayerHelper.close();
@@ -313,12 +345,13 @@ public class AudioPlayerHelperTest {
     @Test
     public void playMoreFiles() throws IOException {
 
-        String singleAudioFilePath = getSingleAudioFilePath();
-
-        String[] audioFilePathsNames = getSomeAudioFilesPaths();
+        AssetFileDescriptor singleAudioFile
+                = getSingleAudioFileDescriptor(assetManager);
+        AssetFileDescriptor[] audioFiles
+                = getSomeAudioAssetFileDescriptors(assetManager);
 
         AudioPlayerHelper audioPlayerHelper = new AudioPlayerHelper(
-                assetManager, audioFilePathsNames);
+                audioFiles);
         audioPlayerHelper.play();
 
         int playAttempts = 15;//150000;
@@ -327,8 +360,8 @@ public class AudioPlayerHelperTest {
             audioPlayerHelper.play();
         }
 
-        audioFilePathsNames = new String[]{singleAudioFilePath};
-        audioPlayerHelper.changeAudioFiles(audioFilePathsNames);
+        audioFiles = new AssetFileDescriptor[]{singleAudioFile};
+        audioPlayerHelper.changeAudioFiles(audioFiles);
         audioPlayerHelper.play();
 
         playAttempts = 15;//150000;

@@ -256,7 +256,11 @@ public class QuoteFragment extends Fragment {
     }
 
     void playWordList() {
-        AudioPlayerHelper.playQuotes(this.audioAssetsPaths,this.audioPlayer);
+        //TODO refactor this, should not use static method
+
+        AudioPlayerHelper.playQuotes(this.audioAssetsPaths,
+                this.audioPlayer,
+                this.assetManager);
     }
 
     private void initAudioAssetsPaths(){
@@ -268,22 +272,24 @@ public class QuoteFragment extends Fragment {
         this.audioAssetsPaths = getAudioAssetsPaths(assetManager);
     }
 
-    static void playQuote(String quoteAssetPath, AudioPlayerHelper player) {
+    static void playQuote(String quoteAssetPath, AudioPlayerHelper player,
+                          AssetManager assetManager) {
 
         if(Utils.isNullOrEmpty(quoteAssetPath)) {
             Log.e(TAG,"No quote, can't play");
             return;
         }
 
-        AudioPlayerHelper.playQuotes(new String[]{quoteAssetPath}, player);
+        AudioPlayerHelper.playQuotes(new String[]{quoteAssetPath},
+                player, assetManager);
     }
 
     void playShortQuote() {
-        playQuote(this.shortQuoteAudioAssetPath, this.audioPlayer);
+        playQuote(this.shortQuoteAudioAssetPath, this.audioPlayer,this.assetManager);
     }
 
     void playLongQuote() {
-        playQuote(this.longQuoteAudioAssetPath, this.audioPlayer);
+        playQuote(this.longQuoteAudioAssetPath, this.audioPlayer,this.assetManager);
     }
 
     @Override
@@ -452,7 +458,8 @@ public class QuoteFragment extends Fragment {
                 public void run() {
                     AudioPlayerHelper.playQuotes(
                             audioAssetsPaths,
-                            audioPlayer);
+                            audioPlayer,
+                            assetManager);
                 }
             }, PLAYBACK_DELAY_MILLIS);
         }
