@@ -32,9 +32,9 @@ public class QuotePagerActivity extends FragmentActivity {
     public static final String PLAYLIST_NAME_EXTRA_KEY = "playlistName";
 
     private QuoteViewModel mViewModel;
-    private TreeMap<Integer, QuoteFragment> quoteFragmentByPosition;
-    private TreeMap<Integer, Boolean> positionWasSelectedAtLeastOnce;
-    private int previouslySelectedPosition;
+    private TreeMap<Integer, QuoteFragment> quoteFragmentByPage;
+    private TreeMap<Integer, Boolean> pageWasSelectedAtLeastOnce;
+    private int previouslySelectedPage;
 
     public AudioPlayerHelper getAudioPlayer() {
         return audioPlayer;
@@ -61,9 +61,9 @@ public class QuotePagerActivity extends FragmentActivity {
 
         // Instantiate a ViewPager2 and a PagerAdapter.
         viewPager = findViewById(R.id.pager);
-        this.quoteFragmentByPosition = new TreeMap<>();
-        this.positionWasSelectedAtLeastOnce = new TreeMap<>();
-        this.previouslySelectedPosition = -1;
+        this.quoteFragmentByPage = new TreeMap<>();
+        this.pageWasSelectedAtLeastOnce = new TreeMap<>();
+        this.previouslySelectedPage = -1;
 
         //TODO here in choosing the adapter, make it according to the intent action
         // i.e. demo or startplaying
@@ -100,18 +100,18 @@ public class QuotePagerActivity extends FragmentActivity {
 
                 boolean pageWasSelectedAtLeastOnceBefore = false;
 
-                if(!positionWasSelectedAtLeastOnce.containsKey(position)) {
-                    positionWasSelectedAtLeastOnce.put(position, true);
+                if(!pageWasSelectedAtLeastOnce.containsKey(position)) {
+                    pageWasSelectedAtLeastOnce.put(position, true);
                 } else {
                     pageWasSelectedAtLeastOnceBefore = true;
                 }
 
-                if(previouslySelectedPosition != -1) {
-                    quoteFragmentByPosition.get(previouslySelectedPosition).onNoLongerSelected();
+                if(previouslySelectedPage != -1) {
+                    quoteFragmentByPage.get(previouslySelectedPage).onNoLongerSelected();
                 }
-                quoteFragmentByPosition.get(position).onSelected(
+                quoteFragmentByPage.get(position).onSelected(
                         pageWasSelectedAtLeastOnceBefore);
-                previouslySelectedPosition = position;
+                previouslySelectedPage = position;
             }
         };
         viewPager.registerOnPageChangeCallback(viewPager2PageChangeCallback);
@@ -119,7 +119,7 @@ public class QuotePagerActivity extends FragmentActivity {
 
     public void putQuoteFragment(int position,
                                  QuoteFragment quoteFragment) {
-        this.quoteFragmentByPosition.put(position, quoteFragment);
+        this.quoteFragmentByPage.put(position, quoteFragment);
     }
 
     @Override
@@ -180,7 +180,7 @@ public class QuotePagerActivity extends FragmentActivity {
 
     private void showOptionsMenuInCurrentFragment() {
         int currentPage = viewPager.getCurrentItem();
-        this.quoteFragmentByPosition.get(currentPage).showPopupOptionsMenu();
+        this.quoteFragmentByPage.get(currentPage).showPopupOptionsMenu();
     }
 
     public int getScreenCount() {
