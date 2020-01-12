@@ -161,4 +161,15 @@ public class DBUtils {
         isDBEmpty = !tableNamesConcat.contains("v_schermate_and_quotes,");
         return isDBEmpty;
     }
+
+    static String[] filterNonNullElements(String[] arrayList) {
+        ArrayList<String> nonNullElementsArrayList = new ArrayList<>();
+        for(String element:arrayList) {
+            if(element != null) {
+                nonNullElementsArrayList.add(element);
+            }
+        }
+
+        return nonNullElementsArrayList.toArray(new String[]{});
+    }
 }

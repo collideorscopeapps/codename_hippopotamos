@@ -173,7 +173,18 @@ public class Utils {
     }
 
     public static<E>  boolean isNullOrEmpty(E[] array) {
-        return array == null || array.length == 0;
+
+        if(array == null || array.length == 0) {
+            return true;
+        }
+
+        for(E element:array) {
+            if(element != null) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public static boolean isNullOrEmpty(String string) {

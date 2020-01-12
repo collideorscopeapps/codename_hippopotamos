@@ -22,7 +22,7 @@ import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 public class AudioPlayerHelper implements Closeable {
 
-    public enum PlayerState { UNKNOWN, IDLE, INITIALIZED,
+    public enum PlayerState { /*UNKNOWN,*/ IDLE, INITIALIZED,
         PREPARING, PREPARED, PLAYING, PAUSED, COMPLETED,
         STOPPED, ERROR, END_RELEASED_UNAVAILABLE
     }
@@ -48,7 +48,7 @@ public class AudioPlayerHelper implements Closeable {
         validTransitions.put(PlayerState.PREPARING, validStatesTowardsPrepareAsynch);
     }
 
-    public class LoggableMediaPlayer extends MediaPlayer {
+    public abstract class LoggableMediaPlayer extends MediaPlayer {
 
         private static final String TAG = "SafeLoggableMediaPlayer" ;
 
@@ -57,7 +57,8 @@ public class AudioPlayerHelper implements Closeable {
         public LoggableMediaPlayer() {
             super();
 
-            setCurrentPlayerState(PlayerState.UNKNOWN);
+            //setCurrentPlayerState(PlayerState.UNKNOWN);
+            setCurrentPlayerState(PlayerState.IDLE);
         }
 
         public PlayerState getCurrentPlayerState() {
@@ -66,6 +67,26 @@ public class AudioPlayerHelper implements Closeable {
 
         public boolean isPaused() {
             return  currentPlayerState == PlayerState.PAUSED;
+        }
+
+        public boolean hasCompletedPlaying() {
+            return currentPlayerState == PlayerState.COMPLETED;
+        }
+
+        public boolean isPreparing() {
+            return currentPlayerState == PlayerState.PREPARING;
+        }
+
+        public boolean isIdle() {
+            return currentPlayerState == PlayerState.IDLE;
+        }
+
+        public boolean isStopped() {
+            return currentPlayerState == PlayerState.STOPPED;
+        }
+
+        public boolean isInitialized() {
+            return currentPlayerState == PlayerState.INITIALIZED;
         }
 
         protected void setCurrentPlayerState(PlayerState state) {
@@ -166,7 +187,52 @@ public class AudioPlayerHelper implements Closeable {
         }
     }
 
-    public class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
+    public abstract class SafeLoggableMediaPlayer extends LoggableMediaPlayer {
+
+        protected boolean receivedCallsWhilePreparing;
+
+        protected ArrayList<PlayerState> callsWhilePreparing;
+
+        public SafeLoggableMediaPlayer() {
+            super();
+
+            this.receivedCallsWhilePreparing = false;
+            this.callsWhilePreparing = new ArrayList<>();
+        }
+
+        abstract public void play() ;
+
+        protected void enqueueCall(PlayerState nextCall) {
+            if(this.isPreparing()) {
+                this.callsWhilePreparing.add(nextCall);
+                this.receivedCallsWhilePreparing = true;
+            } else {
+                Log.e(TAG,"Trying to enqueue call while not in preparing state");
+            }
+        }
+
+        protected void processQueuedCallsWhilePreparing() {
+            for(PlayerState stateCall:this.callsWhilePreparing) {
+                if(stateCall == PlayerState.STOPPED) {
+                    this.stop();
+                } else if(stateCall == PlayerState.PAUSED) {
+                    this.pause();
+                } else if(stateCall == PlayerState.PLAYING) {
+                    this.play();
+                } else {
+                    Log.d(TAG,"Ignoring call queued while preparing: "
+                            + stateCall);
+                    //TODO handle more states
+                }
+            }
+
+            clearQueuedCallsWhilePreparing();
+        }
+
+        protected void clearQueuedCallsWhilePreparing() {
+            this.callsWhilePreparing.clear();
+            receivedCallsWhilePreparing = false;
+        }
 
         public boolean isStateValidForPrepareAsynch() {
 
@@ -195,6 +261,7 @@ public class AudioPlayerHelper implements Closeable {
                     this.prepareAsync();
                 } catch (IllegalStateException e) {
                     Log.e(TAG,e.toString());
+                    processQueuedCallsWhilePreparing();
                 }
             }
         }
@@ -210,18 +277,32 @@ public class AudioPlayerHelper implements Closeable {
             }
         }
 
-        public void pause() {
+        @Override
+        public void pause() throws IllegalStateException {
+
             if (this.isPaused()
-                    || this.getCurrentPlayerState() == PlayerState.COMPLETED) {
+                    || this.hasCompletedPlaying()) {
+                return;
+            }
+
+            if(this.isPreparing()) {
+                Log.d(TAG,"Queuing pause() call received while in PREPARING state, to avoid error");
+                this.enqueueCall(PlayerState.PAUSED);
                 return;
             }
 
             if(this.isPlaying()) {
                 super.pause();
-            } else {
-                Log.e(TAG,"Trying to pause in an unaccepted state: "
-                        + this.getCurrentPlayerState());
+                return;
             }
+
+            if(this.isStopped()) {
+                Log.d(TAG,"Trying to pause while stopped, staying stopped");
+            }
+
+            Log.e(TAG,"Trying to pause in an unaccepted state: "
+                    + this.getCurrentPlayerState());
+
         }
 
         public void resume() {
@@ -245,23 +326,26 @@ public class AudioPlayerHelper implements Closeable {
         };
     }
 
-    private class MediaPlayerWrapperOneFileAtATime extends SafeLoggableMediaPlayer {
+    public abstract class MediaPlayerWrapperOneFileAtATime extends SafeLoggableMediaPlayer {
 
         protected void tryInsertFileIntoMediaplayer(
                 AssetFileDescriptor assetFileDescriptor) {
 
             // this call to make sure we're not calling setDataSource in an invalid state
             // call to mp.reset() should be valid in any state
-            this.reset();
-            if(getCurrentPlayerState() != PlayerState.IDLE)
-            {
-                Log.e(TAG,"Invalid attempt for setDataSource from state"
-                        + getCurrentPlayerState());
+            if(!this.isIdle()) {
+                this.reset();
+            }
+
+            //This might not be necessary
+            if(!this.isIdle()) {
+                Log.e(TAG,"Previous call to reset was not successful, currently in state"
+                        + getCurrentPlayerState() + " , can't call setDataSource");
                 return;
             }
 
             if(assetFileDescriptor == null) {
-                Log.d(TAG,"Null File Descriptor, skiping setDataSource, staying in IDLE");
+                Log.d(TAG,"Null File Descriptor, skipping setDataSource, staying in IDLE");
                 return;
             }
 
@@ -319,7 +403,6 @@ public class AudioPlayerHelper implements Closeable {
             return assetFileDescriptors.length;
         }
 
-
         private int getCurrentTrackIdx() {
             return _currentTrackIdx;
         }
@@ -350,6 +433,17 @@ public class AudioPlayerHelper implements Closeable {
 
         public void setLastFileHasPlayed(boolean hasPlayed) {
             this._lastFileHasPlayed = hasPlayed;
+        }
+
+        @Override
+        public void reset() {
+            if(!this.isIdle()) {
+                super.reset();
+            }
+
+            if(!Utils.isNullOrEmpty(this.assetFileDescriptors)) {
+                this.assetFileDescriptors = null;
+            }
         }
 
         //TODO test when passing null argument, was raising exception
@@ -383,25 +477,24 @@ public class AudioPlayerHelper implements Closeable {
 
         private void playNext(int trackIdx) {
 
-            if(assetFileDescriptors.length <= trackIdx) {
-                //TODO FIXME this sometimes happen, should handle propertly and add tests
-                // possibly because inconsistent state after changing audio files (fewer)
-                Log.e(TAG,"Track index out of bounds " + assetFileDescriptors);
+            if(Utils.isNullOrEmpty(assetFileDescriptors)
+                    || this.filesCount() <= trackIdx) {
+                //TODO FIXME this sometimes happen, should handle properly and add tests
+                // possibly because inconsistent state after changing audio files
+                // (fewer in number)
+                Log.e(TAG,"Play next: track index " + trackIdx
+                        + " out of bounds " + assetFileDescriptors);
                 return;
             }
-
-            //TODO-FIXME handle if assetFileDescriptors is empty
-            // and get ArrayIndexOutOfBoundsException
 
             //setDataSource, if ok state goes from idle to initialized
             //TODO FIXME this method call is misleading
             tryInsertFileIntoMediaplayer(assetFileDescriptors[trackIdx]);
 
-            //if ok state goes to PREPARING
             tryPrepareAsynch();
         }
 
-
+        @Override
         public void play() {
 
             if(Utils.isNullOrEmpty(this.assetFileDescriptors)) {
@@ -410,16 +503,16 @@ public class AudioPlayerHelper implements Closeable {
             }
 
             if(!this.firstFilePlayedAtLeastOnce
-                    && _mediaPlayer.getCurrentPlayerState() == PlayerState.IDLE) {
+                    && this.isIdle()) {
                 // first playback
                 this.firstFilePlayedAtLeastOnce = true;
                 initCurrentTrackIdx();
                 Log.d(TAG,"Play request accepted, first play or idle");
                 playNext(getCurrentTrackIdx());
             } else if(isPaused()) {
-                _mediaPlayer.start();
-            } else if(_mediaPlayer.getCurrentPlayerState() == PlayerState.STOPPED
-            ) { //removed: && hasLastFilePlayed() which was causing a bug
+                this.start();
+            } else if(this.isStopped()) {
+                //removed: && hasLastFilePlayed() which was causing a bug
                 //TODO FIXME distinguish between playing the initial series of files
                 // or calling changeAudioFiles/reset because we need to change files
                 // but changeAudioFiles/reset is usually already called by setting the new files
@@ -428,7 +521,7 @@ public class AudioPlayerHelper implements Closeable {
                 initCurrentTrackIdx();
                 Log.d(TAG,"Play request accepted from stopped");
                 playNext(getCurrentTrackIdx());
-            } else if(_mediaPlayer.getCurrentPlayerState() == PlayerState.COMPLETED) {
+            } else if(this.hasCompletedPlaying()) {
 
                 //we should start back from the first file
                 Log.d(TAG,"Play request after completed state, replaying from first track");
@@ -438,11 +531,14 @@ public class AudioPlayerHelper implements Closeable {
             } else if(isPlaying()) {
                 //ignoring, keep playing
             }
-            else if(_mediaPlayer.getCurrentPlayerState() == PlayerState.INITIALIZED) {
+            else if(this.isInitialized()) {
                 tryPrepareAsynch();
-            } else {
+            } else if(this.isPreparing()) {
+                this.enqueueCall(PlayerState.PLAYING);
+            }
+            else {
                 String msg = "Play request non accepted state, ignoring. State: "
-                        + _mediaPlayer.getCurrentPlayerState();
+                        + this.getCurrentPlayerState();
                 Log.v(TAG,msg);
             }
 
@@ -471,14 +567,14 @@ public class AudioPlayerHelper implements Closeable {
             //accepted states {Prepared, Started, Stopped, Paused, PlaybackCompleted}
             //non accepted states {Idle, Initialized, Error}
 
-            if(_mediaPlayer.isStateInValidForStop()) {
+            if(this.isStateInValidForStop()) {
                 String msg = "Stop request from non accepted state, ignoring. State: "
-                        + _mediaPlayer.getCurrentPlayerState();
+                        + this.getCurrentPlayerState();
                 Log.e(TAG,msg);
 
-            } else if(_mediaPlayer.getCurrentPlayerState()
-                    == PlayerState.PREPARING) {
-                Log.d(TAG,"Ignoring stop() while in PREPARING state to avoid error");
+            } else if(this.isPreparing()) {
+                Log.d(TAG,"Queuing stop() call received while in PREPARING state, to avoid error");
+                this.enqueueCall(PlayerState.STOPPED);
             } else {
                 super.stop();
                 //setLastFileHasPlayed(false);
@@ -488,7 +584,7 @@ public class AudioPlayerHelper implements Closeable {
 
         private void CloseAssetFileDescriptors() throws IOException {
 
-            if(this.assetFileDescriptors == null) {
+            if(Utils.isNullOrEmpty(this.assetFileDescriptors)) {
                 return;
             }
 
@@ -508,7 +604,6 @@ public class AudioPlayerHelper implements Closeable {
             this.release();
             CloseAssetFileDescriptors();
         }
-
 
         MediaPlayer.OnCompletionListener onCompletionListener = new MediaPlayer.OnCompletionListener() {
             @Override
@@ -532,7 +627,7 @@ public class AudioPlayerHelper implements Closeable {
                 if(!hasLastFilePlayed()) {
                     //play next
                     mp.reset();
-                    _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
+                    //redundant: _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
                     incrementCurrentTrackIdx();
                     playNext(getCurrentTrackIdx());
                 }
@@ -582,10 +677,12 @@ public class AudioPlayerHelper implements Closeable {
 //            player.selectTrack
 
             _mediaPlayer.setCurrentPlayerState(PlayerState.PREPARED);
-            Log.v(TAG,"Starting media player..");
+            Log.v(TAG,"Player completed preparing. Starting to play..");
             player.start();
-            _mediaPlayer.setCurrentPlayerState(PlayerState.PLAYING);
+            // redundant: _mediaPlayer.setCurrentPlayerState(PlayerState.PLAYING);
             // handle events during playback?
+
+            _mediaPlayer.processQueuedCallsWhilePreparing();
         }
     };
 
@@ -631,7 +728,7 @@ public class AudioPlayerHelper implements Closeable {
     private void setUpMediaPlayer() {
 
         this._mediaPlayer = new MediaPlayerWrapperMultipleFiles();
-        _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
+        //redundant: _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
 
         this._mediaPlayer.setListeners(onPreparedListener,
                 _mediaPlayer.onCompletionListener,_mediaPlayer.onErrorListener);
@@ -662,7 +759,8 @@ public class AudioPlayerHelper implements Closeable {
                                   AudioPlayerHelper player,
                                   AssetManager assetManager) {
 
-        String[] validAssetPaths = filterNonNullElements(quotesAssetsPaths);
+        String[] validAssetPaths
+                = DBUtils.filterNonNullElements(quotesAssetsPaths);
 
         //TODO check that audioplayer is not null
 
@@ -684,15 +782,8 @@ public class AudioPlayerHelper implements Closeable {
         }
     }
 
-    static String[] filterNonNullElements(String[] arrayList) {
-        ArrayList<String> nonNullElementsArrayList = new ArrayList<>();
-        for(String element:arrayList) {
-            if(element != null) {
-                nonNullElementsArrayList.add(element);
-            }
-        }
-
-        return nonNullElementsArrayList.toArray(new String[]{});
+    public void resetAndRemoveFilesFromPlayer() {
+        this._mediaPlayer.reset();
     }
 
     public void stop() {

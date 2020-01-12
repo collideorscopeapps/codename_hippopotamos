@@ -38,6 +38,7 @@ public class QuoteFragment extends Fragment {
     MyHtmlTagHandler htmlTagHandler;
 
     int position;
+    boolean currentlySelected;
     int screensCount;
     Schermata screen;
 
@@ -63,6 +64,7 @@ public class QuoteFragment extends Fragment {
 
         this.screensCount = screensCount;
         this.position = position;
+        this.currentlySelected = false;
         this.screen = screen;
         this.audioPlayer = audioPlayer;
         this.assetManager = assetManager;
@@ -221,7 +223,14 @@ public class QuoteFragment extends Fragment {
         // This is usually where you should commit any changes
         // that should be persisted beyond the current user
         // session (because the user might not come back).
-        this.audioPlayer.pause();
+        Log.d(TAG,"Fragment at " + this.position + " paused");
+        if(this.currentlySelected) {
+            Log.d(TAG,"Fragment at " + this.position
+                    + " still selected, pausing player too if playing");
+            if(audioPlayer.isPlaying()) {
+                this.audioPlayer.pause();
+            }
+        }
     }
 
     @Override
@@ -436,32 +445,48 @@ public class QuoteFragment extends Fragment {
     }
 
     public void onSelected(boolean wasSelectedAtLeasOnceBefore) {
+        Log.d(TAG,"Fragment at " + this.position + " selected");
+        this.currentlySelected = true;
         stopAndPlayAudioForScreenChange(wasSelectedAtLeasOnceBefore);
     }
 
+    public void onNoLongerSelected() {
+        Log.d(TAG, "Fragment at " + this.position + " no longer selected");
+        this.currentlySelected = false;
+    }
 
     public void stopAndPlayAudioForScreenChange(boolean wasSelectedAtLeasOnceBefore) {
 
         final int PLAYBACK_DELAY_MILLIS = 300;
 
         if(this.audioPlayer.isPlayingOrPaused()) {
+            Log.d(TAG,"player was still playing or paused, stopping from Fragment at "
+                    + this.position);
             this.audioPlayer.stop();
         }
+
+        this.audioPlayer.resetAndRemoveFilesFromPlayer();
 
         final boolean CAN_AUTO_PLAYBACK_MORE_THAN_ONCE = false;
 
         if(CAN_AUTO_PLAYBACK_MORE_THAN_ONCE
                 || !wasSelectedAtLeasOnceBefore) {
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    AudioPlayerHelper.playQuotes(
-                            audioAssetsPaths,
-                            audioPlayer,
-                            assetManager);
-                }
-            }, PLAYBACK_DELAY_MILLIS);
+            if(Utils.isNullOrEmpty(audioAssetsPaths)) {
+                Log.d(TAG,"No files to play for fragment at " + this.position);
+            } else {
+                Log.d(TAG,"Playing audio for fragment at " + this.position);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        AudioPlayerHelper.playQuotes(
+                                audioAssetsPaths,
+                                audioPlayer,
+                                assetManager);
+                    }
+                }, PLAYBACK_DELAY_MILLIS);
+            }
         }
     }
 

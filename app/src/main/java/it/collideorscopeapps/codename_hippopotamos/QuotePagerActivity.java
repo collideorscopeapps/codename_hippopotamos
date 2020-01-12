@@ -34,6 +34,7 @@ public class QuotePagerActivity extends FragmentActivity {
     private QuoteViewModel mViewModel;
     private TreeMap<Integer, QuoteFragment> quoteFragmentByPosition;
     private TreeMap<Integer, Boolean> positionWasSelectedAtLeastOnce;
+    private int previouslySelectedPosition;
 
     public AudioPlayerHelper getAudioPlayer() {
         return audioPlayer;
@@ -62,6 +63,7 @@ public class QuotePagerActivity extends FragmentActivity {
         viewPager = findViewById(R.id.pager);
         this.quoteFragmentByPosition = new TreeMap<>();
         this.positionWasSelectedAtLeastOnce = new TreeMap<>();
+        this.previouslySelectedPosition = -1;
 
         //TODO here in choosing the adapter, make it according to the intent action
         // i.e. demo or startplaying
@@ -104,10 +106,12 @@ public class QuotePagerActivity extends FragmentActivity {
                     pageWasSelectedAtLeastOnceBefore = true;
                 }
 
+                if(previouslySelectedPosition != -1) {
+                    quoteFragmentByPosition.get(previouslySelectedPosition).onNoLongerSelected();
+                }
                 quoteFragmentByPosition.get(position).onSelected(
                         pageWasSelectedAtLeastOnceBefore);
-
-
+                previouslySelectedPosition = position;
             }
         };
         viewPager.registerOnPageChangeCallback(viewPager2PageChangeCallback);
@@ -128,7 +132,12 @@ public class QuotePagerActivity extends FragmentActivity {
         // constructor
         //onStart, resume, pause, stop, destroy (close?)
         // implement player pause/stop when swiping fragments?
-        this.audioPlayer.stop();
+        Log.d(TAG,"Activity stopped, stopping media player if it's playing or paused");
+        if(this.audioPlayer.isPlayingOrPaused()) {
+            //TODO check if there are other states in which
+            // we should stop the player, like preparing, prepared
+            this.audioPlayer.stop();
+        }
     }
 
     @Override

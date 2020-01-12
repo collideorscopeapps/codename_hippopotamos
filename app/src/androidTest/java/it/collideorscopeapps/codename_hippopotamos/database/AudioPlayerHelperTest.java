@@ -3,6 +3,7 @@ package it.collideorscopeapps.codename_hippopotamos.database;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 import androidx.test.filters.Suppress;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -34,6 +35,53 @@ public class AudioPlayerHelperTest {
 
     @After@Suppress
     public void tearDown() throws Exception {
+    }
+
+    @Test
+    public void stopWhilePreparing() throws IOException{
+        AudioPlayerHelper player = getPreparingMP();
+        assertEquals(PlayerState.PREPARING,player._mediaPlayer.getCurrentPlayerState());
+
+        player.stop();
+        waitForStateWhilePreparing(player, PlayerState.STOPPED);
+    }
+
+    @Test
+    public void pauseWhilePreparing() throws IOException{
+
+        AudioPlayerHelper player = getPreparingMP();
+        assertEquals(PlayerState.PREPARING,player._mediaPlayer.getCurrentPlayerState());
+
+        player.pause();
+        waitForStateWhilePreparing(player, PlayerState.PAUSED);
+    }
+
+    private void waitForStateWhilePreparing(AudioPlayerHelper player,
+                                            PlayerState expectedState) {
+
+        final String TAG = "waitFor " + expectedState + " StateWhilePreparing";
+
+        int maxAttempts = 20;
+        int waitDurationMillis = 100;
+        for(int attempts=0; attempts<maxAttempts; attempts++) {
+            if(player._mediaPlayer.isPreparing()) {
+                try {
+                    Thread.sleep(waitDurationMillis);
+                } catch (InterruptedException e) {
+                    Log.e(TAG,e.toString());
+                }
+            } else {
+                Log.d(TAG,"Player prepared after wait attempts: " + attempts);
+                break;
+            }
+        }
+
+        if(player._mediaPlayer.isPreparing()) {
+            Log.e(TAG,"Unable to wait for player to complete");
+            fail("Unable to wait for player to complete");
+        } else {
+            assertEquals(expectedState,player._mediaPlayer.getCurrentPlayerState());
+        }
     }
 
     @Test
@@ -125,6 +173,14 @@ public class AudioPlayerHelperTest {
 
         return audioPlayerHelper;
     }
+
+    private AudioPlayerHelper getPreparingMP() throws IOException {
+        AudioPlayerHelper player = getInitializedMP();
+        player._mediaPlayer.tryPrepareAsynch();
+
+        return player;
+    }
+
 
     private AudioPlayerHelper getPreparedMP() throws IOException {
         AudioPlayerHelper player = getInitializedMP();
