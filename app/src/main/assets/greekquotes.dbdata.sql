@@ -164,7 +164,7 @@ INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","transl
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (38,'ὁ λόγος δηλοῖ, ὅτι πολλάκις τὸ πείθειν τοῦ βιάζεσθαι ἀνυστικώτερόν ἐστι.');
 INSERT INTO "quotes_in_schermate" ("schermata_id","greek_quote_id") VALUES (32,38);
 
-INSERT INTO "schermate" ("_id","description","author_ref") VALUES (11,'Eureka','Archimedes in Plutarch''s Moralia XIV.75.Epicurus.1094c');
+INSERT INTO "schermate" ("_id","description","author_ref") VALUES (11,'Eureka','Archimedes in Plutarch''s Moralia 1094c');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (11,1,'I''ve found it');
 INSERT INTO "greek_quotes" ("_id","quoteText") VALUES (19,'εὕρηκα');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (19,2,'ho trovato.');
