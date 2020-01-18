@@ -395,6 +395,11 @@ public class AudioPlayerHelper implements Closeable {
         }
 
         public void setLastFileHasPlayed(boolean hasPlayed) {
+            Log.d(TAG,"setting _lastFileHasPlayed to " + hasPlayed
+                    + " was " + this._lastFileHasPlayed);
+            Log.d(TAG,"there are " + this.filesCount()
+                    + " audioFiles, last idx is " + this.getLastTrackIdx());
+
             this._lastFileHasPlayed = hasPlayed;
         }
 
@@ -404,7 +409,8 @@ public class AudioPlayerHelper implements Closeable {
             // this call to make sure we're not calling setDataSource in an invalid state
             // call to mp.reset() should be valid in any state
             if(!this.isIdle()) {
-                this.reset(assetFileDescriptor);
+                final boolean KEEP_AUDIO_FILES = true;
+                this.reset(KEEP_AUDIO_FILES);
             }
 
             //This might not be necessary
@@ -446,17 +452,15 @@ public class AudioPlayerHelper implements Closeable {
             this.assetFileDescriptors = null;
         }
 
-        public void reset(AssetFileDescriptor assetFileDescriptor) {
-            AssetFileDescriptor[] assetFileDescriptors
-                    = new AssetFileDescriptor[]{assetFileDescriptor};
+        public void reset(boolean keepAudioFiles) {
+            AssetFileDescriptor[] tmpAssetFileDescriptors
+                    = this.assetFileDescriptors;
 
-            this.reset(assetFileDescriptors);
-        }
-
-        public void reset(AssetFileDescriptor[] assetFileDescriptors) {
             this.reset();
 
-            this.assetFileDescriptors = assetFileDescriptors;
+            if(keepAudioFiles) {
+                this.assetFileDescriptors = tmpAssetFileDescriptors;
+            }
         }
 
         //TODO test when passing null argument, was raising exception
@@ -638,8 +642,10 @@ public class AudioPlayerHelper implements Closeable {
                 // seems to be assigned incorrectly)
                 setLastFileHasPlayed(getCurrentTrackIdx() == getLastTrackIdx());
                 if(!hasLastFilePlayed()) {
+                    Log.d(TAG,"first track has played but there are more");
                     //play next
-                    mp.reset();
+                    final boolean KEEP_AUDIO_FILES = true;
+                    _mediaPlayer.reset(KEEP_AUDIO_FILES);
                     //redundant: _mediaPlayer.setCurrentPlayerState(PlayerState.IDLE);
                     incrementCurrentTrackIdx();
                     playNext(getCurrentTrackIdx());
@@ -651,6 +657,7 @@ public class AudioPlayerHelper implements Closeable {
                     // ..
                     // only now we can accept another call to play()
                     // otherwise we ignore them
+                    Log.d(TAG,"last track has played.");
                 }
                 // we should check if we should play next track
                 // or if we have already played the last one

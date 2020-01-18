@@ -22,6 +22,7 @@ import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class AudioPlayerHelperTest {
@@ -55,6 +56,110 @@ public class AudioPlayerHelperTest {
 
         player.pause();
         waitForStateWhilePreparing(player, PlayerState.PAUSED);
+    }
+
+    private void waitForFirstTrackFinishPreparingAndPlaying(AudioPlayerHelper player) {
+
+        final String TAG = "waitForFirstTrackComplete";
+
+        if(!isPreparingOrPlaying(player)) {
+            fail("(first) track is not preparing or playing: "
+                    + player._mediaPlayer.getCurrentPlayerState());
+        }
+
+        int maxAttempts = 20;
+        int waitDurationMillis = 100;
+        for(int attempts=0; attempts<maxAttempts; attempts++) {
+            if(isPreparingOrPlaying(player)) {
+                try {
+                    Thread.sleep(waitDurationMillis);
+                } catch (InterruptedException e) {
+                    Log.e(TAG,e.toString());
+                }
+            } else {
+                // finished playing
+                break;
+            }
+        }
+    }
+
+    private void waitForTrackSwitch(AudioPlayerHelper player) {
+        final String TAG = "waitForTrackSwitch";
+
+        if(!(player.isPlaying() || player._mediaPlayer.hasCompletedPlaying())) {
+            fail("Player is not playing or completed: "
+                    + player._mediaPlayer.getCurrentPlayerState());
+        }
+
+        int maxAttempts = 20;
+        int waitDurationMillis = 100;
+        for(int attempts=0; attempts<maxAttempts; attempts++) {
+            if(player.isPlaying()) {
+                try {
+                    Thread.sleep(waitDurationMillis);
+                } catch (InterruptedException e) {
+                    Log.e(TAG,e.toString());
+                }
+            } else {
+                if(player._mediaPlayer.hasCompletedPlaying()
+                        || player._mediaPlayer.isIdle()
+                        || player._mediaPlayer.isInitialized()) {
+                    Log.d(TAG,"Player has started switching tracks.");
+                }
+                else {
+                    fail("Unexpected player state: "
+                            + player._mediaPlayer.getCurrentPlayerState());
+                }
+                break;
+            }
+        }
+    }
+
+    private boolean isInTrackSwitchingStates(AudioPlayerHelper player) {
+        return player._mediaPlayer.hasCompletedPlaying()
+                || player._mediaPlayer.isIdle()
+                || player._mediaPlayer.isInitialized();
+    }
+
+    private boolean isPreparingOrPlaying(AudioPlayerHelper player) {
+
+        return player._mediaPlayer.isPreparing()
+                || player._mediaPlayer.isPlaying();
+    }
+
+    private void waitForNextTrackPreparing(AudioPlayerHelper player) {
+
+        final String TAG = "waitForNextTrackPreparing";
+
+        if(!isInTrackSwitchingStates(player)) {
+            if(isPreparingOrPlaying(player)) {
+               return;
+            }
+            else {
+                fail("Player is not switching track, nor playing the next one");
+            }
+        }
+
+        int maxAttempts = 20;
+        int waitDurationMillis = 100;
+        for(int attempts=0; attempts<maxAttempts; attempts++) {
+            if(isInTrackSwitchingStates(player)) {
+                try {
+                    Thread.sleep(waitDurationMillis);
+                } catch (InterruptedException e) {
+                    Log.e(TAG,e.toString());
+                }
+            } else {
+                if(isPreparingOrPlaying(player)) {
+                    Log.d(TAG,"Player has started preparing or playing next track");
+                }
+                else {
+                    fail("Unexpected player state: "
+                            + player._mediaPlayer.getCurrentPlayerState());
+                }
+                break;
+            }
+        }
     }
 
     private void waitForStateWhilePreparing(AudioPlayerHelper player,
@@ -294,6 +399,54 @@ public class AudioPlayerHelperTest {
                 = SharedTestUtils.getCurrentPlayerState(audioPlayerHelper);
 
         assertEquals("Wrong player state",expectedPlayerState,actualPlayerState);
+    }
+
+    @Test
+    public void changeAudioFiles_checkFilesCount() throws IOException {
+        AudioPlayerHelper player = getInitializedMP();
+        assertEquals("files in media player",
+                1,player._mediaPlayer.filesCount());
+
+        AssetFileDescriptor[] assetFileDescriptors = getSomeAudioAssetFileDescriptors(assetManager);
+        assertTrue(assetFileDescriptors.length > 1);
+
+        player.changeAudioFiles(assetFileDescriptors);
+        assertEquals("files in media player",
+                assetFileDescriptors.length,player._mediaPlayer.filesCount());
+    }
+
+    @Test
+    public void playNext() throws IOException {
+
+        final String TAG = "playNext";
+
+        //TODO
+        // play, wait for player to complete, check that it plays other file
+        AudioPlayerHelper player = getInitializedMP();
+        // TODO choose two short audio files because we have to wait for end of play
+        AssetFileDescriptor[] assetFileDescriptors = getSomeAudioAssetFileDescriptors(assetManager);
+        player.changeAudioFiles(assetFileDescriptors);
+        //player is initialized
+
+        assertEquals("files in media player",
+                assetFileDescriptors.length,player._mediaPlayer.filesCount());
+
+        player._mediaPlayer.prepareAsync();//.prepare();
+        assertEquals(PlayerState.PREPARING,player._mediaPlayer.getCurrentPlayerState());
+        //NB: onPrepared listener starts playing automatically
+        //TODO fix/reconsider all tests that use prepare/prepareAsynch in light of this
+
+        assertEquals("files in media player",
+                assetFileDescriptors.length,player._mediaPlayer.filesCount());
+
+        Log.d(TAG,"waiting for first track to complete");
+        waitForFirstTrackFinishPreparingAndPlaying(player);
+        Log.d(TAG,"first track should have completed, waiting for track switch");
+        waitForTrackSwitch(player);
+        Log.d(TAG,"track switched, waiting for preparing");
+        waitForNextTrackPreparing(player);
+        Log.d(TAG,"second track prepared, waiting for playing..");
+        waitForStateWhilePreparing(player,PlayerState.PLAYING);
     }
 
     @Test
