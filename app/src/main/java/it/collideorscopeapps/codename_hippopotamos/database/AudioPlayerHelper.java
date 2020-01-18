@@ -58,6 +58,7 @@ public class AudioPlayerHelper implements Closeable {
             super();
 
             //setCurrentPlayerState(PlayerState.UNKNOWN);
+            Log.d(TAG,"New LoggableMediaPlayer");
             setCurrentPlayerState(PlayerState.IDLE);
         }
 
@@ -148,6 +149,7 @@ public class AudioPlayerHelper implements Closeable {
 
         @Override
         public void reset() {
+            Log.d(TAG,"resetting player");
             super.reset();
             setCurrentPlayerState(PlayerState.IDLE);
         }
@@ -328,54 +330,15 @@ public class AudioPlayerHelper implements Closeable {
 
     public abstract class MediaPlayerWrapperOneFileAtATime extends SafeLoggableMediaPlayer {
 
-        protected void tryInsertFileIntoMediaplayer(
-                AssetFileDescriptor assetFileDescriptor) {
-
-            // this call to make sure we're not calling setDataSource in an invalid state
-            // call to mp.reset() should be valid in any state
-            if(!this.isIdle()) {
-                this.reset();
-            }
-
-            //This might not be necessary
-            if(!this.isIdle()) {
-                Log.e(TAG,"Previous call to reset was not successful, currently in state"
-                        + getCurrentPlayerState() + " , can't call setDataSource");
-                return;
-            }
-
-            if(assetFileDescriptor == null) {
-                Log.d(TAG,"Null File Descriptor, skipping setDataSource, staying in IDLE");
-                return;
-            }
-
-            try {
-                if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    setDataSource(this,assetFileDescriptor);
-                }
-                else {
-                    compatibleSetDataSource(this,assetFileDescriptor);
-                }
-            } catch (IllegalArgumentException e) {
-                Log.e(TAG,e.toString());
-            } catch (IOException e) {
-                Log.e(TAG,e.toString());
-            } catch (IllegalStateException e) {
-                //TODO should we change to error state?
-                //_mediaPlayer.setCurrentPlayerState(PlayerState.ERROR)
-                Log.e(TAG,e.toString());
-            }
-        }
-
         @RequiresApi(Build.VERSION_CODES.N)
-        private void setDataSource(MediaPlayer mp,
+        protected void setDataSource(MediaPlayer mp,
                                    AssetFileDescriptor assetFileDescriptor)
                 throws  IOException{
             mp.setDataSource(assetFileDescriptor);
         }
 
         @RequiresApi(Build.VERSION_CODES.BASE)
-        private void compatibleSetDataSource(
+        protected void compatibleSetDataSource(
                 MediaPlayer mp,
                 AssetFileDescriptor assetFileDescriptor)
                 throws  IOException{
@@ -435,15 +398,65 @@ public class AudioPlayerHelper implements Closeable {
             this._lastFileHasPlayed = hasPlayed;
         }
 
+        protected void tryInsertFileIntoMediaplayer(
+                AssetFileDescriptor assetFileDescriptor) {
+
+            // this call to make sure we're not calling setDataSource in an invalid state
+            // call to mp.reset() should be valid in any state
+            if(!this.isIdle()) {
+                this.reset(assetFileDescriptor);
+            }
+
+            //This might not be necessary
+            if(!this.isIdle()) {
+                Log.e(TAG,"Previous call to reset was not successful, currently in state"
+                        + getCurrentPlayerState() + " , can't call setDataSource");
+                return;
+            }
+
+            if(assetFileDescriptor == null) {
+                Log.d(TAG,"Null File Descriptor, skipping setDataSource, staying in IDLE");
+                return;
+            }
+
+            try {
+                if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    setDataSource(this,assetFileDescriptor);
+                }
+                else {
+                    compatibleSetDataSource(this,assetFileDescriptor);
+                }
+            } catch (IllegalArgumentException e) {
+                Log.e(TAG,e.toString());
+            } catch (IOException e) {
+                Log.e(TAG,e.toString());
+            } catch (IllegalStateException e) {
+                //TODO should we change to error state?
+                //_mediaPlayer.setCurrentPlayerState(PlayerState.ERROR)
+                Log.e(TAG,e.toString());
+            }
+        }
+
         @Override
         public void reset() {
             if(!this.isIdle()) {
                 super.reset();
             }
 
-            if(!Utils.isNullOrEmpty(this.assetFileDescriptors)) {
-                this.assetFileDescriptors = null;
-            }
+            this.assetFileDescriptors = null;
+        }
+
+        public void reset(AssetFileDescriptor assetFileDescriptor) {
+            AssetFileDescriptor[] assetFileDescriptors
+                    = new AssetFileDescriptor[]{assetFileDescriptor};
+
+            this.reset(assetFileDescriptors);
+        }
+
+        public void reset(AssetFileDescriptor[] assetFileDescriptors) {
+            this.reset();
+
+            this.assetFileDescriptors = assetFileDescriptors;
         }
 
         //TODO test when passing null argument, was raising exception
@@ -498,7 +511,7 @@ public class AudioPlayerHelper implements Closeable {
         public void play() {
 
             if(Utils.isNullOrEmpty(this.assetFileDescriptors)) {
-                Log.e(TAG,"No files to play");
+                Log.e(TAG,"No files to play " + this.assetFileDescriptors);
                 return;
             }
 

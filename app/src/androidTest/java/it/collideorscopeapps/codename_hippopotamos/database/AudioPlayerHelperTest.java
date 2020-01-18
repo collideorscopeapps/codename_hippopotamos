@@ -21,6 +21,7 @@ import it.collideorscopeapps.codename_hippopotamos.database.AudioPlayerHelper.Pl
 import it.collideorscopeapps.codename_hippopotamos.utils.Utils;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 public class AudioPlayerHelperTest {
@@ -196,6 +197,14 @@ public class AudioPlayerHelperTest {
         return player;
     }
 
+    private AudioPlayerHelper getStoppedMP() throws IOException {
+
+        AudioPlayerHelper player = getStartedMP();
+        player.stop();
+
+        return player;
+    }
+
     private AudioPlayerHelper getPausedMP() throws IOException {
         AudioPlayerHelper player = getStartedMP();
         player.pause();
@@ -203,6 +212,13 @@ public class AudioPlayerHelperTest {
         return player;
     }
 
+    private AudioPlayerHelper getCompletedMP() {
+
+        //TODO this might be needed for other tests
+
+        //should mock state of underling MediaPlayer
+        throw new UnsupportedOperationException();
+    }
 
     @Test@Ignore
     public void playerIllegalStates() {
@@ -392,6 +408,25 @@ public class AudioPlayerHelperTest {
                 audioPlayerHelper.filesCount());
 
         audioPlayerHelper.close();
+    }
+
+    @Test
+    public void tryInsertFileIntoMediaplayer_IntegrityCheck() throws IOException{
+
+        //get completed or stopped MP (so not idle)
+        AudioPlayerHelper player = getStoppedMP();
+
+        AssetFileDescriptor singleAudioFile
+                = getSingleAudioFileDescriptor(assetManager);
+
+        player._mediaPlayer.tryInsertFileIntoMediaplayer(singleAudioFile);
+
+        assertFalse("Assets have been wrongly nullified, player can't play",
+                Utils.isNullOrEmpty(player._mediaPlayer.assetFileDescriptors));
+
+        player._mediaPlayer.changeAudioFiles(getSomeAudioAssetFileDescriptors(assetManager));
+        player.play();
+        waitForStateWhilePreparing(player,PlayerState.PLAYING);
     }
 
     //TODO FIXME lifecycle of when calling mp.reset()
