@@ -173,7 +173,7 @@ INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") V
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (11,1,'εὕρηκα: verb 1st sg perf ind act ionic no_redupl, from εὑρίσκω: "to find"');
 
 INSERT INTO "greek_quotes" ("_id","quoteText","phoneticTranscription") VALUES (12,'τις ἀθανάτ<CASE>ων</CASE>','tis atʰanátɔɔn');
-INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (12,12,'GEN pl','Om. Iliad 6.128');
+INSERT INTO "schermate" ("_id","short_quote_id","description","author_ref") VALUES (12,12,'GEN pl','Hom. Iliad 6.128');
 INSERT INTO "schermate_greek_translations" ("schermata_id","language_id","translation") VALUES (12,1,'one of the immortals');
 INSERT INTO "quotes_translations" ("greek_quote_id","language_id","translation") VALUES (12,2,'uno degli immortali');
 INSERT INTO "linguistic_notes" ("schermata_id","language_id","linguisticNote") VALUES (12,1,'-ων: GEN pl; τις: "some one", NOM sg; ἀθανάτων: "of the immortals"');
