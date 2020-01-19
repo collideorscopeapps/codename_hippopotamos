@@ -2,10 +2,12 @@
 
 *Ancient greek study tool*
 
-Read and listen to short phrases from classic greek authors.
-You don't find such phrases among the Romans.
+Read and listen to short phrases from classic Greek authors. You don't find such phrases among the Romans.
 
-This is a pre-alpha version.
+Video preview [here](https://youtu.be/E-xyT1h9bJU)
+
+Note to current release (v0.5.14-pre-alpha):
+* Only some of the quotes have audio recording. More __volunteers are needed__ to read and record more quotes. You could help by contributing to this librivox project: *[Ancient greek short passages collection for beginners](https://forum.librivox.org/viewtopic.php?f=1&t=77615)*
 
 Published on the F-Droid store: https://f-droid.org/it/packages/it.collideorscopeapps.codename_hippopotamos/
 
